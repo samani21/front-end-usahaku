@@ -7,6 +7,7 @@ import { AlertTriangle, KeyRound, X } from 'lucide-react';
 import Modal from '../component/Modal';
 import { OtpInput } from 'reactjs-otp-input';
 import { useRouter } from 'next/router';
+import ForgotPassword from './ForgotPassword';
 
 const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60).toString().padStart(2, '0');
@@ -22,6 +23,8 @@ const FormPanel = () => {
     const user = getUserInfo();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [counter, setCounter] = useState(20);
+    const [openForgotPassword, setOpenForgotPassword] = useState<boolean>(false);
+    const { auth } = router?.query;
     useEffect(() => {
         let timer: NodeJS.Timeout;
         if (counter > 0) {
@@ -44,6 +47,14 @@ const FormPanel = () => {
             handleVerifyOtp()
         }
     }, [otp])
+
+    useEffect(() => {
+        if (auth === 'forgot-password') {
+            setOpenForgotPassword(true)
+        } else {
+            setOpenForgotPassword(false)
+        }
+    }, [auth])
 
     const handleVerifyOtp = async () => {
         const data = {
@@ -187,9 +198,11 @@ const FormPanel = () => {
                                 </span>
                             )}
                             <br />
-                            {/* <span className='font-bold text-[14px]'>Gunakan metode verifikasi lain</span>. */}
                         </div>
                     </div>
+                </Modal>
+                <Modal open={openForgotPassword}>
+                    <ForgotPassword />
                 </Modal>
             </div>
         </div>

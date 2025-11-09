@@ -23,6 +23,9 @@ interface AuthState {
   register: (data: any) => Promise<boolean>;
   verifyOtp: (data: any) => Promise<boolean>;
   resendOtp: (data: any) => Promise<boolean>;
+  forgotPassword: (data: any) => Promise<boolean>;
+  checkForgotPassword: (data: any) => Promise<boolean>;
+  resetPassword: (data: any) => Promise<boolean>;
   login: (data: any) => Promise<boolean>;
   logout: () => void;
   fetchProfile: () => Promise<void>;
@@ -127,6 +130,41 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ user: res.data.user });
     } catch {
       set({ user: null });
+    }
+  },
+
+  forgotPassword: async (data) => {
+    try {
+      set({ loading: true, error: null });
+      const res = await axios.post(`${API_URL}/auth/forgot-password`, data);
+      set({ loading: false, error: null });
+      return true;
+    } catch (err: any) {
+      set({ loading: false, error: err.response?.data?.message || "Gagal verifikasi" });
+      return false;
+    }
+  },
+
+  checkForgotPassword: async (data) => {
+    try {
+      set({ loading: true, error: null });
+      const res = await axios.get(`${API_URL}/auth/forgot-password` + data);
+      set({ loading: false, error: null });
+      return true;
+    } catch (err: any) {
+      set({ loading: false, error: err.response?.data?.message || "Gagal verifikasi" });
+      return false;
+    }
+  },
+  resetPassword: async (data) => {
+    try {
+      set({ loading: true, error: null });
+      const res = await axios.post(`${API_URL}/auth/reset-password`, data);
+      set({ loading: false, error: null });
+      return true;
+    } catch (err: any) {
+      set({ loading: false, error: err.response?.data?.message || "Gagal verifikasi" });
+      return false;
     }
   },
 

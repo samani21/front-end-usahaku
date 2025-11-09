@@ -1,8 +1,8 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
-type Props = {}
-
-const FormLogin = (props: Props) => {
+const FormLogin = () => {
+    const route = useRouter();
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -28,7 +28,7 @@ const FormLogin = (props: Props) => {
                     <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-[var(--secondary-orange)] border-gray-300 rounded focus:ring-[var(--secondary-orange)]" />
                     <label className="ml-2 text-gray-600">Ingat Saya</label>
                 </div>
-                <a href="#" className="font-medium text-primary-cyan hover:text-sky-600 transition duration-150">Lupa Kata Sandi?</a>
+                <p onClick={() => route?.push('/auth/forgot-password')} className="cursor-pointer font-medium text-primary-cyan hover:text-sky-600 transition duration-150">Lupa Kata Sandi?</p>
             </div>
 
             <button type="submit" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-lg font-bold text-white bg-[var(--secondary-orange)] hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--secondary-orange)] transition duration-300 transform hover:scale-[1.01]">
