@@ -107,6 +107,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const { token, user } = res.data;
       set({ token, user, loading: false });
       localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       return true;
     } catch (err: any) {
@@ -172,21 +173,28 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 }));
 
 
-export const getUserInfo = () => {
-  try {
-    const jsonValue = localStorage.getItem("user");
-    return jsonValue ? JSON.parse(jsonValue) : null;
-  } catch (e) {
-    console.error("Error parsing user:", e);
-    return null; // gunakan null, bukan false
-  }
-};
 export const getToken = () => {
   try {
-    const jsonValue = localStorage.getItem("token");
-    return jsonValue ? jsonValue : null;
+    if (typeof window !== "undefined") {
+      const jsonValue = localStorage.getItem("token");
+      return jsonValue ? jsonValue : null;
+    }
+    return null;
   } catch (e) {
     console.error("Error parsing token:", e);
-    return null; // gunakan null, bukan false
+    return null;
+  }
+};
+
+export const getUserInfo = () => {
+  try {
+    if (typeof window !== "undefined") {
+      const jsonValue = localStorage.getItem("user");
+      return jsonValue ? JSON.parse(jsonValue) : null;
+    }
+    return null;
+  } catch (e) {
+    console.error("Error parsing user:", e);
+    return null;
   }
 };

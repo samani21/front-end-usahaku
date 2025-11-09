@@ -19,7 +19,7 @@ const FormPanel = () => {
     const router = useRouter();
     const [otp, setOtp] = useState('');
     const [handleAuth, setHandleAuth] = useState<string>('Masuk');
-    const { register, loading, error, clearError, resendOtp, verifyOtp } = useAuthStore();
+    const { register, loading, error, clearError, resendOtp, verifyOtp, login } = useAuthStore();
     const user = getUserInfo();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [counter, setCounter] = useState(20);
@@ -145,7 +145,7 @@ const FormPanel = () => {
                 )}
 
                 {
-                    handleAuth === 'Masuk' ? <FormLogin /> : <FormRegister register={register} />
+                    handleAuth === 'Masuk' ? <FormLogin login={login} /> : <FormRegister register={register} />
                 }
                 <div className="relative mt-8">
                     <div className="absolute inset-0 flex items-center">

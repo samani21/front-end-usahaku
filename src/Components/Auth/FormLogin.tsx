@@ -1,15 +1,25 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
-
-const FormLogin = () => {
+type Props = {
+    login: (data: any) => Promise<boolean>;
+}
+const FormLogin = ({ login }: Props) => {
     const route = useRouter();
     const [form, setForm] = useState({
         email: "",
         password: "",
     });
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const success = await login(form);
+        if (success) {
+            route?.push('/')
+        }
+    };
     return (
 
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Alamat Email</label>
                 <input type="email" id="login-email" name="email" required

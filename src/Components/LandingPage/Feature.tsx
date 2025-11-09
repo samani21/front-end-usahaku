@@ -50,7 +50,7 @@ const Feature = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {
                         listFitur?.map((lf, i) => (
-                            <div className={`bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-100 ${i % 2 === 0 ? 'hover:border-[var(--primary-cyan)]/50' : 'hover:border-[var(--secondary-orange)]/50'} transform hover:-translate-y-1 group`}>
+                            <div key={i} className={`bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-100 ${i % 2 === 0 ? 'hover:border-[var(--primary-cyan)]/50' : 'hover:border-[var(--secondary-orange)]/50'} transform hover:-translate-y-1 group`}>
                                 <div className={`p-3 inline-flex rounded-xl ${i % 2 === 0 ? ' bg-[var(--primary-cyan)]/10 text-[var(--primary-cyan)]' : ' bg-[var(--secondary-orange)]/10 text-[var(--secondary-orange)]'} mb-4`}>
                                     {lf?.icon}
                                 </div>

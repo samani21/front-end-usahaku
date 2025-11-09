@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react';
 import React from 'react'
 
 interface paket {
@@ -92,7 +93,7 @@ const PricingSection = () => {
                                             lp?.features?.map((fitur, index) => (
                                                 <li className="flex items-center" key={index}>
                                                     <div className='w-6'>
-                                                        <svg className="w-5 h-5 mr-2 text-[var(--primary-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                                        <Check className='w-5 h-5 mr-2 text-[var(--primary-cyan)]' />
                                                     </div>
                                                     {fitur}
                                                 </li>
@@ -114,7 +115,7 @@ const PricingSection = () => {
                                             lp?.features?.map((fitur, index) => (
                                                 <li className="flex items-center" key={index}>
                                                     <div className='w-6'>
-                                                        <svg className="w-5 h-5 mr-2 text-[var(--secondary-orange)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                                        <Check className='w-5 h-5 mr-2 text-[var(--secondary-orange)]' />
                                                     </div>
                                                     {fitur}
                                                 </li>
