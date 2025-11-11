@@ -1,0 +1,167 @@
+import { ActivitySquare, BarChart3, ChevronDown, FileText, HelpCircle, Inbox, LayoutDashboard, Settings, Wallet } from 'lucide-react'
+import React, { Activity, Dispatch, ReactElement, SetStateAction, useEffect, useState } from 'react'
+import SidebarItem from './SidebarItem';
+import { useRouter } from 'next/router';
+
+type Props = {
+    isActivityDropdownOpen: boolean;
+    setIsActivityDropdownOpen: Dispatch<SetStateAction<boolean>>;
+    isSidebarOpen: boolean;
+    setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+interface child {
+    label: string;
+    href: string
+}
+
+interface menuSide {
+    Icon: any;
+    label: string;
+    count?: number;
+    href: string;
+    child?: child[];
+    children?: ReactElement<Element>;
+}
+
+
+export const menuSidebar: menuSide[] = [
+    {
+        Icon: LayoutDashboard,
+        label: "Dashboard",
+        href: '/dashboard'
+    },
+
+    {
+        Icon: Wallet,
+        label: "Dompet Saya",
+        href: '/wallet'
+    },
+
+    {
+        Icon: Activity,
+        label: "Aktivitas",
+        href: '/activity',
+        child: [
+            {
+                label: 'Semua Transaksi',
+                href: '/transaksi'
+            },
+            {
+                label: 'Pembayaran Keluar',
+                href: '/expended'
+            },
+            {
+                label: 'Setoran Masuk',
+                href: '/income'
+            },
+        ]
+    },
+
+    {
+        Icon: FileText,
+        label: "Faktur",
+        href: '/faktur'
+    },
+
+    {
+        Icon: Inbox,
+        label: "Kotak Masuk",
+        href: '/inbox'
+    },
+
+    {
+        Icon: BarChart3,
+        label: "Analitik",
+        href: '/analis'
+    },
+
+    {
+        Icon: ActivitySquare,
+        label: "Menu",
+        href: '/menu',
+        child: [
+            {
+                label: 'Menu 1',
+                href: '/menu1'
+            },
+            {
+                label: 'Menu 2',
+                href: '/menu2'
+            },
+            {
+                label: 'Menu 3',
+                href: '/menu3'
+            },
+        ]
+    },
+]
+
+
+const SidebarComponent = ({ isActivityDropdownOpen, setIsActivityDropdownOpen, isSidebarOpen, setIsSidebarOpen }: Props) => {
+    const route = useRouter();
+    const [pathNameParent, setPathNameParent] = useState<string>('');
+    useEffect(() => {
+        if (route?.pathname) {
+            const parts = route.pathname.split("/");
+            const basePath = parts.slice(0, 3).join("/");
+            setPathNameParent(basePath)
+            setIsActivityDropdownOpen(true)
+        }
+    }, [route?.pathname]);
+    return (
+        <div>
+            {isSidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black opacity-50 z-20 md:hidden"
+                    onClick={() => setIsSidebarOpen(false)}
+                ></div>
+            )}
+
+            <div
+                className={`fixed md:relative flex-col w-64 bg-white border-r border-gray-100 p-6 z-30 transition-transform duration-300 ease-in-out h-full ${isSidebarOpen
+                    ? 'translate-x-0 flex'
+                    : '-translate-x-full hidden md:flex md:translate-x-0'
+                    }`}
+            >
+                <div className="text-xl font-bold text-gray-800 mb-10 flex items-center">
+                    <Wallet className="w-6 h-6 mr-2 text-blue-500" />
+                    BDPay
+                </div>
+                <nav className="flex-grow space-y-2 overflow-y-auto no-scrollbar">
+                    {
+                        menuSidebar?.map((ms, i) => {
+                            const isOpen = pathNameParent === `/panel${ms?.href}`
+                            return (
+                                ms?.child ? <>
+                                    <SidebarItem
+                                        onClick={() => {
+                                            setIsActivityDropdownOpen(!isOpen ? true : false)
+                                            setPathNameParent(`/panel${ms?.href}`)
+                                        }}
+                                        Icon={ms?.Icon} label={ms?.label} href={ms?.href} child={true} isActive={String(route?.pathname) === `/panel${ms?.href}` ? true : false} key={i}
+                                    >
+                                        <ChevronDown className={`w-4 h-4 ml-auto text-gray-400 transition transform ${isActivityDropdownOpen ? 'rotate-180' : ''}`} />
+                                    </SidebarItem>
+                                    <div className={`${isActivityDropdownOpen && isOpen ? 'block' : 'hidden'} pl-8 pt-1 pb-1 space-y-1`}>
+                                        {
+                                            ms?.child?.map((c, i) => (
+                                                <button key={i} onClick={() => route?.push(`/panel${ms?.href}${c?.href}`)} className={`block p-2 w-full text-left rounded-lg text-sm ${route?.pathname === `/panel${ms?.href}${c?.href}` ? 'text-blue-800 font-bold bg-blue-200' : 'text-gray-600'} hover:bg-gray-100 transition duration-150`}>{c?.label}</button>
+                                            ))
+                                        }
+                                    </div ></> :
+                                    <SidebarItem key={i} Icon={ms?.Icon} label={ms?.label} href={ms?.href} isActive={String(route?.pathname) === `/panel${ms?.href}` ? true : false} />
+                            )
+                        })
+                    }
+                </nav>
+                <div className="mt-8 space-y-1 border-t pt-4 border-gray-300">
+                    <SidebarItem Icon={HelpCircle} label="Bantuan" />
+                    <SidebarItem Icon={Settings} label="Pengaturan" />
+                </div>
+            </div>
+        </div >
+    )
+}
+
+export default SidebarComponent

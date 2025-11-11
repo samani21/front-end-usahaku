@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="description" content="Deskripsi singkat situs kamu" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon"></link>
       </Head>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   )
 }
