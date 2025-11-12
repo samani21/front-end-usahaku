@@ -41,10 +41,10 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
         </button>
         {notifOpen && (
           <div id="notif-menu" className="absolute top-16 right-24 bg-white border border-gray-200 rounded-xl shadow-lg w-64 sm:w-72 z-40">
-            <div className="p-3 border-b font-semibold text-gray-800">Notifikasi</div>
+            <div className="p-3 border-b border-gray-200 font-semibold text-gray-800">Notifikasi</div>
             <div className="max-h-60 overflow-y-auto">
               {notifications.map((n) => (
-                <div key={n.id} className="px-4 py-3 hover:bg-gray-50 border-b last:border-none">
+                <div key={n.id} className="px-4 py-3 hover:bg-gray-50 border-b border-gray-200 last:border-none">
                   <p className="text-sm text-gray-800">{n.message}</p>
                   <p className="text-xs text-gray-400 mt-1">{n.time}</p>
                 </div>
@@ -68,7 +68,7 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
       </div>
       {profileOpen && (
         <div id="profile-menu" className="absolute top-16 right-6 bg-white border border-gray-200 rounded-xl shadow-lg w-56 z-50">
-          <div className="px-4 py-3 border-b">
+          <div className="px-4 py-3 border-b border-gray-200">
             <p className="font-semibold text-gray-800">Leo DiCaprio</p>
             <p className="text-sm text-gray-500">leo@bdpay.com</p>
           </div>

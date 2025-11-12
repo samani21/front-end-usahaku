@@ -16,7 +16,7 @@ const Pages = () => {
   const route = useRouter();
   useEffect(() => {
     if (token) {
-      route?.push('/panel')
+      route?.push('/panel/dashboard')
     }
     setLoading(false)
   }, [])

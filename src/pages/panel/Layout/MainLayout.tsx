@@ -1,9 +1,13 @@
 
 import Header from '@/Components/Panel/Layout/Header';
 import SidebarComponent from '@/Components/Panel/Layout/SidebarComponent';
+import { getToken } from '@/store/authStore';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
+    const token = getToken();
+    const router = useRouter();
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
     const [isMobileActionMenuOpen, setIsMobileActionMenuOpen] = useState<boolean>(false);
     const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState<boolean>(false);
@@ -68,6 +72,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
     // Fungsi untuk menutup menu hamburger saat ukuran layar berubah (logika sebelumnya dipertahankan)
     useEffect(() => {
+        if (!token) {
+            router?.push('/auth/login')
+            return
+        }
         const handleResize = () => {
             if (window.innerWidth >= 768) { // md: breakpoint
                 setIsMobileActionMenuOpen(false);

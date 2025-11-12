@@ -64,7 +64,7 @@ const FormPanel = () => {
         const success = await verifyOtp(data);
         if (success) {
             setOpenModal(false)
-            router?.push('/')
+            router?.push('/panel/dashboard')
         }
     }
     const handleResendOtp = async () => {

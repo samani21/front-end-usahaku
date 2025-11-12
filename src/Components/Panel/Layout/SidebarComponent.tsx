@@ -1,5 +1,5 @@
-import { ActivitySquare, BarChart3, ChevronDown, FileText, HelpCircle, Inbox, LayoutDashboard, Settings, Wallet } from 'lucide-react'
-import React, { Activity, Dispatch, ReactElement, SetStateAction, useEffect, useState } from 'react'
+import { Activity, ActivitySquare, BarChart3, ChevronDown, FileText, HelpCircle, Inbox, LayoutDashboard, Settings, Wallet } from 'lucide-react'
+import React, { Dispatch, ReactElement, SetStateAction, useEffect, useState } from 'react'
 import SidebarItem from './SidebarItem';
 import { useRouter } from 'next/router';
 

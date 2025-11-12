@@ -111,7 +111,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       return true;
     } catch (err: any) {
-      set({ loading: false, error: err.response?.data?.message || "Gagal login" });
+      console.log('err', err)
+      set({ loading: false, error: err.response?.data?.message || err.response?.data?.error || "Gagal login" });
       return false;
     }
   },
