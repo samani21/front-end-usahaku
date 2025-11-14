@@ -106,3 +106,16 @@ body {
   -ms-overflow-style: none;  /* Internet Explorer dan Edge lama */
   scrollbar-width: none;     /* Firefox */
 }
+
+.calendar-scale .flatpickr-calendar {
+    transform: scale(0.8); /* kecilkan 80% */
+    transform-origin: top left;
+}
+
+.calendar-scale .flatpickr-days {
+    width: auto !important;
+}
+
+.calendar-scale {
+    width: 240px; /* sesuaikan sendiri */
+}

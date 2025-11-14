@@ -10,9 +10,10 @@ type Props = {
   handleNotificationClick: () => void;
   handleProfileClick: () => void;
   handleLogoutClick: () => void;
+  title: string[];
 }
 
-const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, handleNotificationClick, handleProfileClick, handleLogoutClick, isMobileActionMenuOpen, closeMobileActionMenu }: Props) => {
+const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, handleNotificationClick, handleProfileClick, handleLogoutClick, isMobileActionMenuOpen, closeMobileActionMenu, title }: Props) => {
   const [notifOpen, setNotifOpen] = useState<boolean>(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const notifications = [
@@ -22,7 +23,13 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
   ];
   return (
     <header className="flex items-center justify-between p-4 md:p-6 bg-[#f7f9fc] sticky top-0 z-10 border-b border-gray-100">
-      <h1 className="text-2xl font-bold text-gray-800 hidden md:block">Dasbor</h1>
+      <h1 className="text-2xl font-bold text-gray-800 hidden md:block">{
+        title?.map((item) => (
+          <span key={item}>
+            {item.charAt(0).toUpperCase() + item.slice(1)}
+          </span>
+        ))
+      }</h1>
 
       <button
         className="md:hidden text-gray-600 p-2 rounded-full hover:bg-gray-100"
