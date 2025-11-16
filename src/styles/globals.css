@@ -119,3 +119,11 @@ body {
 .calendar-scale {
     width: 240px; /* sesuaikan sendiri */
 }
+
+.modal-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.modal-no-scrollbar {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
+}

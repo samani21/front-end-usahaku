@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import MainLayout from '../../Layout/MainLayout'
 import FilterComponent from '@/Components/CRUD/FilterComponent'
 import DataTable from '@/Components/CRUD/DataTable'
+import ProductFormModalContent from '@/Components/Panel/product/ProductFormModalContent';
 interface RowData {
     id: string;
     client: string;
@@ -22,8 +23,8 @@ const ListProductPage: React.FC = () => {
     const [search, setSearch] = useState('')
     const [page, setPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(10)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-    // Dummy data
     const data = useMemo(
         () =>
             Array.from({ length: 120 }).map((_, i) => ({
@@ -51,6 +52,30 @@ const ListProductPage: React.FC = () => {
         page * itemsPerPage
     )
 
+    useEffect(() => {
+        window.document.documentElement.classList.remove('dark');
+        localStorage.removeItem('theme');
+    }, []);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleFormSubmit = (formData: FormData) => {
+        console.log("Data Produk Siap Dikirim ke API (Simulasi Pengiriman):");
+
+        for (let pair of formData.entries()) {
+            if (pair[1] instanceof File) {
+                console.log(`[FILE] ${pair[0]}: ${pair[1].name} (${pair[1].type})`);
+            } else {
+                console.log(`${pair[0]}: ${pair[1]}`);
+            }
+        }
+
+        console.log("--- SIMULASI SELESAI ---");
+        console.log("Formulir berhasil dikirim! Data FormData ada di konsol. Modal ditutup.");
+        setIsModalOpen(false);
+    };
     const handleReset = () => {
         setSearch('')
         setDateRangeText('')
@@ -104,6 +129,7 @@ const ListProductPage: React.FC = () => {
                 setPage={setPage}
                 handleReset={handleReset}
                 setDateRangeText={setDateRangeText}
+                setIsModalOpenForm={setIsModalOpen}
             />
 
             {/* TABLE */}
@@ -119,7 +145,12 @@ const ListProductPage: React.FC = () => {
                     onDelete={(row) => console.log("Delete:", row)}
                 />
             </div>
-            
+            <ProductFormModalContent
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSubmit={handleFormSubmit}
+            />
+
         </MainLayout>
     )
 }
