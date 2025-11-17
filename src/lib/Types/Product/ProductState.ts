@@ -6,6 +6,7 @@ export interface Variant {
     stock: string | number; // String untuk input yang kosong/diketik, Number untuk konversi akhir
     image: File | null;
     imagePreviewUrl: string | null;
+    id?: number
 }
 
 /** Tipe untuk State Formulir Produk */
@@ -55,3 +56,26 @@ export const initialErrors: Errors = {
     stock: '',
     variants: [],
 };
+
+export interface Variants {
+    image: string,
+    name: string,
+    id: number,
+    product_id: number,
+    stock: number,
+    price: number,
+}
+
+export interface ResProduct {
+    name: string,
+    description: string,
+    slug: string,
+    image: string,
+    qrcode: string,
+    has_variant: boolean;
+    is_active: boolean
+    price: number,
+    stock: number,
+    id: number,
+    variants: Variants[]
+}

@@ -43,7 +43,7 @@ const FilterComponent = ({ search, setSearch, dateRangeText, itemsPerPage, setIt
                     {/* Items Per Page Selector */}
                     <div className="col-span-1">
                         <label className="block text-sm font-medium text-gray-700 mb-1">Tampilkan</label>
-                        <select value={itemsPerPage} onChange={(e) => { setItemsPerPage(Number(e.target.value)); setPage(1) }} className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition shadow-sm h-[40px]">
+                        <select value={itemsPerPage} onChange={(e) => { setItemsPerPage(Number(e.target.value)); setPage(1) }} className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition shadow-sm h-[40px] cursor-pointer">
                             {[10, 25, 50, 100].map((num) => (
                                 <option key={num} value={num}>{num} Data</option>
                             ))}
@@ -52,12 +52,12 @@ const FilterComponent = ({ search, setSearch, dateRangeText, itemsPerPage, setIt
 
                     {/* Reset Button */}
                     <div className="flex items-end">
-                        <button onClick={handleReset} className="w-full py-2 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition shadow-sm flex items-center justify-center h-[40px]">
+                        <button onClick={handleReset} className="w-full py-2 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition shadow-sm flex items-center justify-center h-[40px] cursor-pointer">
                             <Undo2 className="w-5 h-5 mr-1" /> Reset Filter
                         </button>
                     </div>
                     <div className="flex items-end">
-                        <button className="flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.02] active:scale-[0.98] h-[40px]" onClick={() => setIsModalOpenForm(true)}>
+                        <button className="flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.02] active:scale-[0.98] h-[40px] cursor-pointer" onClick={() => setIsModalOpenForm(true)}>
                             <Plus className='w-5 h-5 mr-2' />
                             Tambah
                         </button>

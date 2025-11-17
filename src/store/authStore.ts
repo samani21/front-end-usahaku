@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 
 // Sesuaikan dengan URL backend Lumen kamu
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_AUTH_URL || "http://localhost:8000";
 
 interface User {
   id?: number;

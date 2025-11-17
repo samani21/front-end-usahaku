@@ -48,7 +48,7 @@ export default function Dashboard() {
             <h1 className="text-2xl font-semibold mb-6 text-gray-800">Dashboard Utama</h1>
 
             {/* Top Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
                 <StatCard icon={<DollarSign className="text-green-600" />} title="Pendapatan Hari Ini" value="Rp 5.200.000" />
                 <StatCard icon={<ShoppingBag className="text-blue-600" />} title="Pesanan Baru" value="42" />
                 <StatCard icon={<Users className="text-purple-600" />} title="Stok Hampir Habis" value="27" />

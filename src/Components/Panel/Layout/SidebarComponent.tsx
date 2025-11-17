@@ -47,13 +47,13 @@ const SidebarComponent = ({ isActivityDropdownOpen, setIsActivityDropdownOpen, i
                         menuSidebar?.map((ms, i) => {
                             const isOpen = pathNameParent === `/panel${ms?.href}`
                             return (
-                                ms?.child ? <>
+                                ms?.child ? <div key={i}>
                                     <SidebarItem
                                         onClick={() => {
                                             setIsActivityDropdownOpen(!isOpen ? true : false)
                                             setPathNameParent(`/panel${ms?.href}`)
                                         }}
-                                        Icon={ms?.Icon} label={ms?.label} href={ms?.href} child={true} isActive={String(route?.pathname) === `/panel${ms?.href}` ? true : false} key={i}
+                                        Icon={ms?.Icon} label={ms?.label} href={ms?.href} child={true} isActive={String(route?.pathname) === `/panel${ms?.href}` ? true : false}
                                     >
                                         <ChevronDown className={`w-4 h-4 ml-auto text-gray-400 transition transform ${isActivityDropdownOpen ? 'rotate-180' : ''}`} />
                                     </SidebarItem>
@@ -63,7 +63,8 @@ const SidebarComponent = ({ isActivityDropdownOpen, setIsActivityDropdownOpen, i
                                                 <button key={i} onClick={() => route?.push(`/panel${ms?.href}${c?.href}`)} className={`block p-2 w-full text-left rounded-lg text-sm ${route?.pathname === `/panel${ms?.href}${c?.href}` ? 'text-blue-800 font-bold bg-blue-200' : 'text-gray-600'} hover:bg-gray-100 transition duration-150`}>{c?.label}</button>
                                             ))
                                         }
-                                    </div ></> :
+                                    </div >
+                                </div> :
                                     <SidebarItem key={i} Icon={ms?.Icon} label={ms?.label} href={ms?.href} isActive={String(route?.pathname) === `/panel${ms?.href}` ? true : false} />
                             )
                         })

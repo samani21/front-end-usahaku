@@ -1,4 +1,4 @@
-import { Errors, initialErrors, ProductForm, VariantErrors } from "@/lib/Types/ProductState";
+import { Errors, initialErrors, ProductForm, VariantErrors } from "@/lib/Types/Product/ProductState";
 
 export const validateForm = (data: ProductForm): { isValid: boolean; errors: Errors } => {
     const errors: Errors = JSON.parse(JSON.stringify(initialErrors)); // Deep copy

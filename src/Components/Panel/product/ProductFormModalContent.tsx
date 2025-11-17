@@ -2,20 +2,21 @@ import FormInput from '@/Components/CRUD/FormInput/FormInput';
 import ImagePreview from '@/Components/CRUD/FormInput/ImagePreview';
 import { validateForm } from '@/Components/CRUD/FormInput/validateForm';
 import ToggleSwitch from '@/Components/ui/ToggleSwitch';
-import { Errors, initialErrors, initialProductState, ProductForm, Variant, VariantErrors } from '@/lib/Types/ProductState';
-import { ImageIcon, Package, PlusCircle, Save, Trash2, XCircle } from 'lucide-react';
+import { Errors, initialErrors, initialProductState, ProductForm, ResProduct, Variant, VariantErrors } from '@/lib/Types/Product/ProductState';
+import { ImageIcon, NotebookPen, Plus, PlusCircle, Save, Trash2, XCircle } from 'lucide-react';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
 type Props = {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (formData: FormData) => void;
+    dataUpdate?: ResProduct | null;
 }
 
-const ProductFormModalContent = ({ isOpen, onClose, onSubmit }: Props) => {
+const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Props) => {
     const [productData, setProductData] = useState<ProductForm>(initialProductState);
     const [errors, setErrors] = useState<Errors>(initialErrors);
-
+    // console.log('productData', productData)
     // Fungsi untuk membersihkan URL objek dan mereset state
     const resetForm = useCallback(() => {
         // Membersihkan URL pratinjau utama
@@ -36,6 +37,28 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit }: Props) => {
         }
     }, [isOpen, resetForm]);
 
+    useEffect(() => {
+        if (dataUpdate) {
+            const mappedVariants: Variant[] = dataUpdate?.variants?.map((v) => ({
+                name: v?.name || "",
+                price: v?.price ?? "",
+                stock: v?.stock ?? "",
+                id: v?.id ?? 0,
+                image: null, // saat edit, file belum di-upload ulang
+                imagePreviewUrl: v?.image || null,
+            })) || [];
+            setProductData({
+                name: dataUpdate?.name,
+                description: dataUpdate?.description,
+                price: dataUpdate?.price,
+                stock: dataUpdate?.stock,
+                image: null,
+                imagePreviewUrl: dataUpdate?.image,
+                has_variant: dataUpdate?.has_variant ? 1 : 0,
+                variants: mappedVariants,
+            })
+        }
+    }, [dataUpdate])
 
     if (!isOpen) return null;
 
@@ -143,6 +166,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit }: Props) => {
 
     // Penambahan/Penghapusan Varian
     const addVariant = () => {
+        console.log('add variant')
         setProductData(prev => ({
             ...prev,
             variants: [...prev.variants, { name: '', price: '', stock: '', image: null, imagePreviewUrl: null }],
@@ -226,19 +250,35 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit }: Props) => {
             >
 
                 {/* Header Modal - Menggunakan warna Zinc tua */}
-                <div className="sticky top-0 bg-zinc-700 p-5 rounded-t-xl shadow-lg flex justify-between items-center z-10">
-                    <div className="flex items-center space-x-3">
-                        <Package size={28} className="text-white" />
-                        <h2 className="text-2xl font-bold text-white">Formulir Produk Baru</h2>
-                    </div>
-                    <button
-                        onClick={onClose}
-                        className="text-zinc-200 hover:text-white transition duration-200 p-1 rounded-full hover:bg-zinc-800"
-                        aria-label="Tutup Modal"
-                    >
-                        <XCircle size={28} />
-                    </button>
-                </div>
+                {
+                    dataUpdate ?
+                        <div className="sticky top-0 bg-yellow-700 p-5 rounded-t-xl shadow-lg flex justify-between items-center z-10">
+                            <div className="flex items-center space-x-3">
+                                <NotebookPen size={28} className="text-white" />
+                                <h2 className="text-2xl font-bold text-white">Formulir Edit Produk</h2>
+                            </div>
+                            <button
+                                onClick={onClose}
+                                className="text-zinc-200 hover:text-white transition duration-200 p-1 rounded-full hover:bg-yellow-800 cursor-pointer"
+                                aria-label="Tutup Modal"
+                            >
+                                <XCircle size={28} />
+                            </button>
+                        </div> :
+                        <div className="sticky top-0 bg-zinc-700 p-5 rounded-t-xl shadow-lg flex justify-between items-center z-10">
+                            <div className="flex items-center space-x-3">
+                                <Plus size={28} className="text-white" />
+                                <h2 className="text-2xl font-bold text-white">Formulir Produk Baru</h2>
+                            </div>
+                            <button
+                                onClick={onClose}
+                                className="text-zinc-200 hover:text-white transition duration-200 p-1 rounded-full hover:bg-zinc-800 cursor-pointer"
+                                aria-label="Tutup Modal"
+                            >
+                                <XCircle size={28} />
+                            </button>
+                        </div>
+                }
 
                 {/* Form Body */}
                 <form onSubmit={handleSubmit} className="p-6 space-y-8">
@@ -419,14 +459,14 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit }: Props) => {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="flex items-center space-x-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition duration-200"
+                            className="flex items-center cursor-pointer space-x-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition duration-200"
                         >
                             <XCircle size={20} />
                             <span>Batal</span>
                         </button>
                         <button
                             type="submit"
-                            className="flex items-center space-x-2 px-8 py-3 bg-zinc-700 text-white font-extrabold rounded-lg shadow-xl shadow-zinc-500/50 hover:bg-zinc-800 transition duration-200 disabled:from-gray-400 disabled:to-gray-500 disabled:shadow-none"
+                            className="flex items-center cursor-pointer space-x-2 px-8 py-3 bg-zinc-700 text-white font-extrabold rounded-lg shadow-xl shadow-zinc-500/50 hover:bg-zinc-800 transition duration-200 disabled:from-gray-400 disabled:to-gray-500 disabled:shadow-none"
                             disabled={isSaveDisabled}
                         >
                             <Save size={20} />
