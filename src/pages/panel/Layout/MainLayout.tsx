@@ -1,4 +1,5 @@
 
+import Loading from '@/Components/component/Loading';
 import Header from '@/Components/Panel/Layout/Header';
 import SidebarComponent from '@/Components/Panel/Layout/SidebarComponent';
 import { getToken } from '@/store/authStore';
@@ -14,7 +15,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState<boolean>(false);
     const pathname = usePathname();
     // "/panel/product/list"
-
+    const [loading, setLoading] = useState<boolean>(false);
     const segments = pathname.split("/").filter(Boolean);
     // ["panel","product","list"]
     const lastOne = segments.slice(-1);
@@ -41,12 +42,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         // Logika sebenarnya di sini (misalnya: navigasi ke halaman Profil)
     };
 
-    // Fungsi placeholder untuk aksi Logout
-    const handleLogoutClick = () => {
-        console.log("Aksi Keluar: Melakukan proses logout...");
-        closeMobileActionMenu();
-        // Logika sebenarnya di sini (misalnya: memanggil API Logout)
-    };
+
     // --- AKHIR FUNGSI BARU ---
 
 
@@ -97,6 +93,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+    const handleLogout = () => {
+        setLoading(true)
+        localStorage?.removeItem('token');
+        localStorage?.removeItem('user');
+        router?.push('/auth/login')
+    }
     return (
         <div className="flex h-screen overflow-hidden bg-[#f7f9fc]">
             <SidebarComponent
@@ -113,8 +115,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     closeMobileActionMenu={closeMobileActionMenu}
                     handleNotificationClick={handleNotificationClick}
                     handleProfileClick={handleProfileClick}
-                    handleLogoutClick={handleLogoutClick}
                     title={lastOne}
+                    handleLogout={handleLogout}
                 />
 
                 <main className="flex-1 overflow-x-hidden overflow-y-auto p-4 md:p-6 md:pt-0">
@@ -135,6 +137,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     {children}
                 </main>
             </div>
+            {
+                loading && <Loading />
+            }
         </div>
     )
 }

@@ -19,6 +19,7 @@ interface DataTableProps<T> {
     onEdit?: (row: T) => void;
     onDelete?: (row: T) => void;
     loading?: boolean;
+    error?: string;
 }
 const SkeletonCell = () => (
     <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
@@ -32,7 +33,8 @@ export default function DataTable<T extends { id: any }>({
     onPageChange,
     onEdit,
     onDelete,
-    loading
+    loading,
+    error
 }: DataTableProps<T>) {
     const totalPages = Math.ceil(total / itemsPerPage);
 
@@ -101,60 +103,66 @@ export default function DataTable<T extends { id: any }>({
                         </tr>
                     </thead>
 
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        {loading
-                            ? [...Array(itemsPerPage)].map((_, idx) => (
-                                <tr key={idx} className="animate-pulse">
-                                    {columns.map((col, i) => (
-                                        <td key={i} className="px-6 py-4">
-                                            <SkeletonCell />
-                                        </td>
-                                    ))}
+                    {
+                        error ?
+                            <tbody className="bg-white divide-y divide-gray-200">
+                                <td className="text-center text-gray-500 p-6 font-bold" colSpan={columns?.length}>{error}</td>
+                            </tbody> :
+                            <tbody className="bg-white divide-y divide-gray-200">
+                                {loading
+                                    ? [...Array(itemsPerPage)].map((_, idx) => (
+                                        <tr key={idx} className="animate-pulse">
+                                            {columns.map((col, i) => (
+                                                <td key={i} className="px-6 py-4">
+                                                    <SkeletonCell />
+                                                </td>
+                                            ))}
 
-                                    {(onEdit || onDelete) && (
-                                        <td className="px-6 py-4 text-center">
-                                            <div className="w-12 mx-auto">
-                                                <SkeletonCell />
-                                            </div>
-                                        </td>
-                                    )}
-                                </tr>
-                            ))
-                            : data.map((row) => (
-                                <tr key={row.id} className="hover:bg-gray-50 transition">
-                                    {columns.map((col) => (
-                                        <td
-                                            key={String(col.key)}
-                                            className={`px-6 py-4 text-sm text-${col.align || "left"} text-gray-700`}
-                                            width={col?.width}
-                                        >
-                                            {col.render ? col.render(row) : String(row[col.key])}
-                                        </td>
-                                    ))}
+                                            {(onEdit || onDelete) && (
+                                                <td className="px-6 py-4 text-center">
+                                                    <div className="w-12 mx-auto">
+                                                        <SkeletonCell />
+                                                    </div>
+                                                </td>
+                                            )}
+                                        </tr>
+                                    ))
+                                    : data.map((row) => (
+                                        <tr key={row.id} className="hover:bg-gray-50 transition">
+                                            {columns.map((col) => (
+                                                <td
+                                                    key={String(col.key)}
+                                                    className={`px-6 py-4 text-sm text-${col.align || "left"} text-gray-700`}
+                                                    width={col?.width}
+                                                >
+                                                    {col.render ? col.render(row) : String(row[col.key])}
+                                                </td>
+                                            ))}
 
-                                    {(onEdit || onDelete) && (
-                                        <td className="px-6 py-4 text-center space-x-2">
-                                            {onEdit && (
-                                                <button
-                                                    onClick={() => onEdit(row)}
-                                                    className="text-blue-600 hover:text-blue-900 p-1 rounded-full hover:bg-blue-50 transition cursor-pointer"
-                                                >
-                                                    <Pencil className="w-4 h-4" />
-                                                </button>
+                                            {(onEdit || onDelete) && (
+                                                <td className="px-6 py-4 text-center space-x-2">
+                                                    {onEdit && (
+                                                        <button
+                                                            onClick={() => onEdit(row)}
+                                                            className="text-blue-600 hover:text-blue-900 p-1 rounded-full hover:bg-blue-50 transition cursor-pointer"
+                                                        >
+                                                            <Pencil className="w-4 h-4" />
+                                                        </button>
+                                                    )}
+                                                    {onDelete && (
+                                                        <button
+                                                            onClick={() => onDelete(row)}
+                                                            className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50 transition cursor-pointer"
+                                                        >
+                                                            <Trash2 className="w-4 h-4" />
+                                                        </button>
+                                                    )}
+                                                </td>
                                             )}
-                                            {onDelete && (
-                                                <button
-                                                    onClick={() => onDelete(row)}
-                                                    className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50 transition cursor-pointer"
-                                                >
-                                                    <Trash2 className="w-4 h-4" />
-                                                </button>
-                                            )}
-                                        </td>
-                                    )}
-                                </tr>
-                            ))}
-                    </tbody>
+                                        </tr>
+                                    ))}
+                            </tbody>
+                    }
 
                 </table>
             </div>

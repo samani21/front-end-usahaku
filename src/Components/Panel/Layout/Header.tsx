@@ -1,3 +1,4 @@
+import { getUserInfo } from '@/store/authStore';
 import { Bell, ChevronDown, LogOut, Menu, MoreVertical, Search, Settings, User } from 'lucide-react'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 
@@ -9,11 +10,11 @@ type Props = {
   closeMobileActionMenu: () => void;
   handleNotificationClick: () => void;
   handleProfileClick: () => void;
-  handleLogoutClick: () => void;
   title: string[];
+  handleLogout: () => void;
 }
 
-const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, handleNotificationClick, handleProfileClick, handleLogoutClick, isMobileActionMenuOpen, closeMobileActionMenu, title }: Props) => {
+const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, handleNotificationClick, handleProfileClick, isMobileActionMenuOpen, closeMobileActionMenu, title, handleLogout }: Props) => {
   const [notifOpen, setNotifOpen] = useState<boolean>(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const notifications = [
@@ -21,6 +22,7 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
     { id: 2, message: 'Tagihan listrik jatuh tempo hari ini.', time: '1 jam lalu' },
     { id: 3, message: 'Top-up dompet berhasil.', time: 'Kemarin' }
   ];
+  const user = getUserInfo();
   return (
     <header className="flex items-center justify-between p-4 md:p-6 bg-[#f7f9fc] sticky top-0 z-10 border-b border-gray-100">
       <h1 className="text-2xl font-bold text-gray-800 hidden md:block">{
@@ -63,7 +65,7 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
 
         <div className="flex items-center space-x-3" onClick={() => setProfileOpen(!profileOpen)}>
           <div className="text-right hidden sm:block">
-            <p className="text-sm font-semibold text-gray-800">Leo DiCaprio</p>
+            <p className="text-sm font-semibold text-gray-800">{user?.name}</p>
           </div>
 
           <img className="w-10 h-10 rounded-full object-cover border-2 border-gray-100"
@@ -76,8 +78,8 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
       {profileOpen && (
         <div id="profile-menu" className="absolute top-16 right-6 bg-white border border-gray-200 rounded-xl shadow-lg w-56 z-50">
           <div className="px-4 py-3 border-b border-gray-200">
-            <p className="font-semibold text-gray-800">Leo DiCaprio</p>
-            <p className="text-sm text-gray-500">leo@bdpay.com</p>
+            <p className="font-semibold text-gray-800">{user?.name}</p>
+            <p className="text-sm text-gray-500">{user?.email}</p>
           </div>
           <button className="flex items-center w-full p-3 text-gray-700 hover:bg-gray-50">
             <User className="w-4 h-4 mr-3" /> Profil Saya
@@ -85,7 +87,7 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
           <button className="flex items-center w-full p-3 text-gray-700 hover:bg-gray-50">
             <Settings className="w-4 h-4 mr-3" /> Pengaturan
           </button>
-          <button className="flex items-center w-full p-3 text-red-500 hover:bg-red-50">
+          <button className="flex items-center w-full p-3 text-red-500 hover:bg-red-50" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-3" /> Keluar
           </button>
         </div>
@@ -131,13 +133,12 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
 
           <button
             className="flex items-center w-full p-2 text-red-500 hover:text-red-700 rounded-lg hover:bg-red-50 transition font-medium"
-            onClick={handleLogoutClick}
+            onClick={handleLogout}
           >
             <LogOut className="w-5 h-5 mr-3" /> Keluar
           </button>
         </div>
       </div>
-
     </header>
   )
 }

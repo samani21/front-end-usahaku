@@ -7,6 +7,7 @@ import { Get } from "@/utils/Get";
 import { ResProduct } from "@/lib/Types/Product/ProductState";
 import { Meta } from "@/lib/Types/Public";
 import ModalDelete from "@/Components/CRUD/ModalDelete";
+import { Post } from "@/utils/Post";
 
 interface Column<T> {
     key: keyof T;
@@ -27,6 +28,7 @@ const ListProductPage: React.FC = () => {
     const [dataUpdate, setDataUpdate] = useState<ResProduct | null>(null)
     const [deleteData, setDeleteData] = useState<ResProduct | null>(null)
     const [products, setProducts] = useState<ResProduct[]>([]);
+    const [error, setError] = useState<string>('');
     const [meta, setMeta] = useState<Meta>({
         last_page: 1,
         limit: 10,
@@ -89,30 +91,27 @@ const ListProductPage: React.FC = () => {
                 setMeta(res.meta);
                 setLoading(false)
             }
-        } catch (err) {
-            console.error("ERROR GET PRODUCTS", err);
+        } catch (err: any) {
+            setError(err?.message)
             setLoading(false)
         }
+        setLoading(false)
     }, [queryString]);
 
     useEffect(() => {
         fetchProducts();
     }, [fetchProducts, page]);
 
-    const handleFormSubmit = (formData: FormData) => {
-        console.log("=== FormData Siap Dikirim ===");
+    // Komponen (handleFormSubmit) (Perbaikan: Kirim formData asli)
 
-        for (let entry of formData.entries()) {
-            const [key, value] = entry;
-            console.log(
-                value instanceof File
-                    ? `[FILE] ${key}: ${value.name} (${value.type})`
-                    : `${key}: ${value}`
-            );
+    const handleFormSubmit = async (formData: FormData) => {
+        const res = await Post('/products', formData); // 👈 Gunakan formData di sini
+        if (res) {
+            fetchProducts()
+            setIsModalOpen(false);
+        } else {
+            setIsModalOpen(false);
         }
-
-        console.log("=== Selesai ===");
-        setIsModalOpen(false);
     };
 
     const handleResetFilter = () => {
@@ -126,7 +125,7 @@ const ListProductPage: React.FC = () => {
                 key: "image",
                 label: "Image",
                 width: "200",
-                render: (row) => <img src={row.image} className="w-32 rounded-md" />,
+                render: (row) => <img src={process.env.NEXT_PUBLIC_MINIO + row.image} className="w-32 rounded-md" />,
             },
             { key: "name", label: "Nama Produk" },
 
@@ -155,7 +154,7 @@ const ListProductPage: React.FC = () => {
                 key: "price",
                 label: "Harga",
                 align: "right",
-                width:"150",
+                width: "150",
                 render: (row) => `Rp ${row.price.toLocaleString("id-ID")}`,
             },
 
@@ -222,6 +221,7 @@ const ListProductPage: React.FC = () => {
                     onEdit={(row) => handleEdit(row)}
                     onDelete={(row) => handleDelete(row)}
                     loading={loading}
+                    error={error}
                 />
             </div>
             {

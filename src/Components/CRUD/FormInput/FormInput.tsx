@@ -34,7 +34,7 @@ const FormInput = ({ label, type, name, value, onChange, error, min = 0, require
                     onChange={onChange}
                     rows={3}
                     className={`${baseInputClasses} ${errorClasses}`}
-                    // required={required}
+                // required={required}
                 />
             ) : (
                 <input
@@ -46,7 +46,7 @@ const FormInput = ({ label, type, name, value, onChange, error, min = 0, require
                     min={type === 'number' ? min : undefined}
                     className={`${baseInputClasses} ${isFile ? fileInputClasses : ''} ${errorClasses}`}
                     // required={required}
-                    step={type === 'number' && name === 'price' ? '100' : '1'}
+                    step="1"
                     placeholder={type === 'number' && value === '' && !error ? '0' : undefined}
                 />
             )}
