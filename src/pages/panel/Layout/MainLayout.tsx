@@ -1,4 +1,4 @@
-
+"use client";
 import Loading from '@/Components/component/Loading';
 import Header from '@/Components/Panel/Layout/Header';
 import SidebarComponent from '@/Components/Panel/Layout/SidebarComponent';

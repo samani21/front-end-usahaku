@@ -1,3 +1,4 @@
+"use client";
 import { getUserInfo } from '@/store/authStore';
 import { Bell, ChevronDown, LogOut, Menu, MoreVertical, Search, Settings, User } from 'lucide-react'
 import React, { Dispatch, SetStateAction, useState } from 'react'
@@ -65,7 +66,7 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
 
         <div className="flex items-center space-x-3" onClick={() => setProfileOpen(!profileOpen)}>
           <div className="text-right hidden sm:block">
-            <p className="text-sm font-semibold text-gray-800">{user?.name}</p>
+            <p className="text-sm font-semibold text-gray-800">Name</p>
           </div>
 
           <img className="w-10 h-10 rounded-full object-cover border-2 border-gray-100"
@@ -78,7 +79,7 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
       {profileOpen && (
         <div id="profile-menu" className="absolute top-16 right-6 bg-white border border-gray-200 rounded-xl shadow-lg w-56 z-50">
           <div className="px-4 py-3 border-b border-gray-200">
-            <p className="font-semibold text-gray-800">{user?.name}</p>
+            <p className="font-semibold text-gray-800">Name</p>
             <p className="text-sm text-gray-500">{user?.email}</p>
           </div>
           <button className="flex items-center w-full p-3 text-gray-700 hover:bg-gray-50">
