@@ -1,0 +1,26 @@
+
+import dynamic from 'next/dynamic';
+import React from 'react'
+const MultiPinMap = dynamic(() => import('@/Components/component/MultiPinMap'), {
+    ssr: false,
+});
+type LocationItem = {
+    id: number;
+    lat: number;
+    lng: number;
+    value: string;
+};
+
+type Props = {
+    addresses: LocationItem[];
+}
+
+const MapPreview = ({ addresses }: Props) => {
+    return (
+        <main className="p-6">
+            <MultiPinMap data={addresses} />
+        </main>
+    );
+}
+
+export default MapPreview

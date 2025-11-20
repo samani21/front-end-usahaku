@@ -13,10 +13,14 @@ import React, { useEffect, useState } from 'react'
 const Pages = () => {
   const token = getToken();
   const [loading, setLoading] = useState<boolean>(true);
+  const [isLandingPage, setIsLandingPage] = useState(false)
   const route = useRouter();
   useEffect(() => {
+    setLoading(true)
     if (token) {
       route?.push('/panel/dashboard')
+    } else {
+      setIsLandingPage(true)
     }
     setLoading(false)
   }, [])
@@ -28,6 +32,7 @@ const Pages = () => {
   }
 
   return (
+    isLandingPage &&
     <div className="font-sans text-gray-800 antialiased bg-white">
       <Header />
       <main>

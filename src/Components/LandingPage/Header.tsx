@@ -8,7 +8,7 @@ const Header = () => {
         <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-xs">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                 <div className='flex items-center'>
-                    <img src="/logo/logo.png" alt="" className='h-[28px]' />
+                    <img src="/logo/logo.png" alt="" className='h-[38px] mr-2' />
                     <a href="#" className="text-2xl font-bold flex items-center">
                         <span className="text-[var(--primary-cyan)]">Usaha</span><span className="text-[var(--secondary-orange)]">Ku</span>
                     </a>

@@ -14,7 +14,10 @@ const VisalPanel = () => {
                     Masuk ke Usahaku untuk kelola keuangan, katalog, dan operasional bisnis Anda di satu tempat.
                     Belum punya akun? Daftar gratis dan mulai kembangkan usaha Anda sekarang.
                 </p>
-                <LayoutGrid className="w-20 h-20 text-[var(--primary-cyan)] mx-auto opacity-90" />
+                {/* <LayoutGrid className="w-20 h-20 text-[var(--primary-cyan)] mx-auto opacity-90" /> */}
+                <div className='flex items-center justify-center '>
+                    <img src={"/logo/logo.png"} className='w-[120px]' />
+                </div>
             </div>
         </div>
     )
