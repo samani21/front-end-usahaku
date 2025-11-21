@@ -126,7 +126,7 @@ export default function BusinessProfile() {
       setLoadingButton(false);
       showFinalAlert(
         'error',
-        'Gagal Koneksi!',
+        'Gagal!',
         err.message
       );
       console.log(err.message || "Gagal mengambil data");
@@ -194,7 +194,11 @@ export default function BusinessProfile() {
             <CardContent className="space-y-6 p-0">
               <div className="flex items-center gap-6">
                 <Avatar className="w-24 h-24 border-2 border-white shadow-md">
-                  <AvatarImage src={logoPreview || "https://via.placeholder.com/200"} />
+                  {
+                    logoPreview ?
+                      <AvatarImage src={logoPreview} /> :
+                      <div className="w-full h-48 bg-zinc-300" />
+                  }
                 </Avatar>
                 <Button variant="outline" className="flex items-center gap-2">
                   <label htmlFor="logo" className="cursor-pointer flex items-center gap-2">

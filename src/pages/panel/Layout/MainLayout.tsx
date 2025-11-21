@@ -86,7 +86,7 @@ const LayoutContent = ({ children }: { children: React.ReactNode }) => {
     }
     return (
         <div className="flex h-screen overflow-hidden bg-[#f7f9fc]">
-            <div className="fixed bottom-0 right-0 p-4 sm:p-6 z-50 flex flex-col items-end pointer-events-none">
+            <div className="fixed bottom-0 right-0 p-4 sm:p-6 z-99999 flex flex-col items-end pointer-events-none">
                 {currentAlert && (
                     <div className="pointer-events-auto">
                         {currentAlert.type === 'loading' ? (

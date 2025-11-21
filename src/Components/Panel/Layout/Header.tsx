@@ -69,10 +69,12 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, setIsMobileActionMenuOpen, ha
             {/* <p className="text-sm font-semibold text-gray-800">{user?.name}</p> */}
           </div>
 
-          <img className="w-10 h-10 rounded-full object-cover border-2 border-gray-100"
+          {/* <img className="w-10 h-10 rounded-full object-cover border-2 border-gray-100"
             src={`https://placehold.co/40x40/cbd5e1/0f172a?text=${user?.name[0] + user?.name[1]}`}
             alt="Avatar"
-          />
+          /> */}
+          <div className='w-[40px] h-[40px] bg-[#cbd5e1] rounded-full'>
+          </div>
           <ChevronDown className="w-4 h-4 text-gray-400 hidden sm:block" />
         </div>
       </div>

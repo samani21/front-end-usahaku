@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from "react";
+import React, { useState, useMemo, useEffect, useCallback, ReactElement } from "react";
 import MainLayout from "../../Layout/MainLayout";
 import FilterComponent from "@/Components/CRUD/FilterComponent";
 import DataTable from "@/Components/CRUD/DataTable";
@@ -8,6 +8,9 @@ import { ResProduct } from "@/lib/Types/Product/ProductState";
 import { Meta } from "@/lib/Types/Public";
 import ModalDelete from "@/Components/CRUD/ModalDelete";
 import { Post } from "@/utils/Post";
+import { useAlert } from "@/Context/AlertContext";
+import { convertImage } from "@/Components/convertImage";
+import { Delete } from "@/utils/Delete";
 
 interface Column<T> {
     key: keyof T;
@@ -18,7 +21,8 @@ interface Column<T> {
 }
 
 
-const ListProductPage: React.FC = () => {
+export default function ListProductPage() {
+    const { showFinalAlert, simulateProcess } = useAlert();
     const [search, setSearch] = useState("");
     const [dateRangeText, setDateRangeText] = useState("");
     const [page, setPage] = useState(1);
@@ -104,13 +108,52 @@ const ListProductPage: React.FC = () => {
 
     // Komponen (handleFormSubmit) (Perbaikan: Kirim formData asli)
 
-    const handleFormSubmit = async (formData: FormData) => {
-        const res = await Post('/products', formData); // 👈 Gunakan formData di sini
-        if (res) {
-            fetchProducts()
-            setIsModalOpen(false);
-        } else {
-            setIsModalOpen(false);
+    const handleFormSubmit = async (formData: FormData, id: number | null) => {
+        try {
+            simulateProcess();
+
+            if (id) {
+                const res = await Post(`/products/${id}`, formData);
+                if (res) {
+                    fetchProducts()
+                    showFinalAlert('success', 'Berhasil', 'Tambah produk berhasil')
+                    setIsModalOpen(false);
+                }
+            } else {
+                const res = await Post('/products', formData);
+                if (res) {
+                    fetchProducts()
+                    showFinalAlert('success', 'Berhasil', 'Tambah produk berhasil')
+                    setIsModalOpen(false);
+                }
+            }
+        } catch (err: any) {
+            showFinalAlert(
+                'error',
+                'Gagal Koneksi!',
+                err.message
+            );
+            console.log(err.message || "Gagal mengambil data");
+        }
+    };
+    const onDelete = async (id: number | null) => {
+        try {
+            simulateProcess();
+
+            const res = await Delete(`/products/${id}`);
+            if (res) {
+                fetchProducts();
+                setDeleteData(null)
+                showFinalAlert('success', 'Berhasil', 'Hapus produk berhasil')
+                setIsModalOpen(false);
+            }
+        } catch (err: any) {
+            showFinalAlert(
+                'error',
+                'Gagal!',
+                err.message
+            );
+            console.log(err.message || "Gagal mengambil data");
         }
     };
 
@@ -125,7 +168,7 @@ const ListProductPage: React.FC = () => {
                 key: "image",
                 label: "Image",
                 width: "200",
-                render: (row) => <img src={process.env.NEXT_PUBLIC_MINIO + row.image} className="w-32 rounded-md" />,
+                render: (row) => <img src={convertImage(row.image)} className="w-32 rounded-md" />,
             },
             { key: "name", label: "Nama Produk" },
 
@@ -197,7 +240,7 @@ const ListProductPage: React.FC = () => {
     }
 
     return (
-        <MainLayout>
+        <div>
             <FilterComponent
                 search={search}
                 setSearch={setSearch}
@@ -232,7 +275,8 @@ const ListProductPage: React.FC = () => {
                             setIsModalOpen(false)
                             setDeleteData(null)
                         }}
-                        deleteData={deleteData} /> :
+                        deleteData={deleteData}
+                        handleDelete={onDelete} /> :
                     <ProductFormModalContent
                         isOpen={isModalOpen}
                         onClose={() => {
@@ -243,8 +287,11 @@ const ListProductPage: React.FC = () => {
                         dataUpdate={dataUpdate}
                     />
             }
-        </MainLayout>
+        </div>
     );
 };
 
-export default ListProductPage;
+ListProductPage.getLayout = function getLayout(page: ReactElement) {
+    // Di sinilah Halaman dibungkus oleh MainLayout (dan AlertProvider di dalamnya)
+    return <MainLayout>{page}</MainLayout>;
+};

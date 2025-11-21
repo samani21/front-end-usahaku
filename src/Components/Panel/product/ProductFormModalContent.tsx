@@ -1,3 +1,4 @@
+import { convertImage } from '@/Components/convertImage';
 import FormInput from '@/Components/CRUD/FormInput/FormInput';
 import ImagePreview from '@/Components/CRUD/FormInput/ImagePreview';
 import { validateForm } from '@/Components/CRUD/FormInput/validateForm';
@@ -5,19 +6,20 @@ import ToggleSwitch from '@/Components/ui/ToggleSwitch';
 import { Errors, initialErrors, initialProductState, ProductForm, ResProduct, Variant, VariantErrors } from '@/lib/Types/Product/ProductState';
 import { ImageIcon, NotebookPen, Plus, PlusCircle, Save, Trash2, XCircle } from 'lucide-react';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
+import { json } from 'stream/consumers';
 
 type Props = {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (formData: FormData) => void;
+    onSubmit: (formData: FormData, id: number | null) => void;
     dataUpdate?: ResProduct | null;
 }
 
 const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Props) => {
     const [productData, setProductData] = useState<ProductForm>(initialProductState);
     const [errors, setErrors] = useState<Errors>(initialErrors);
-    // console.log('productData', productData)
-    // Fungsi untuk membersihkan URL objek dan mereset state
+    const [deleteVariants, setDeleteVariants] = useState<number[]>([]);
+    // console.log('deleteVariants', deleteVariants)
     const resetForm = useCallback(() => {
         // Membersihkan URL pratinjau utama
         if (productData.imagePreviewUrl) URL.revokeObjectURL(productData.imagePreviewUrl);
@@ -45,7 +47,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
                 stock: v?.stock ?? "",
                 id: v?.id ?? 0,
                 image: null, // saat edit, file belum di-upload ulang
-                imagePreviewUrl: v?.image || null,
+                imagePreviewUrl: convertImage(v?.image) || null,
             })) || [];
             setProductData({
                 name: dataUpdate?.name,
@@ -53,7 +55,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
                 price: dataUpdate?.price,
                 stock: dataUpdate?.stock,
                 image: null,
-                imagePreviewUrl: dataUpdate?.image,
+                imagePreviewUrl: convertImage(dataUpdate?.image),
                 has_variant: dataUpdate?.has_variant ? 1 : 0,
                 variants: mappedVariants,
             })
@@ -220,22 +222,25 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
 
         // Tambahkan data varian
         if (productData.has_variant === 1) {
-            const variantsData = productData.variants.map(({ image, imagePreviewUrl, ...rest }) => ({
-                ...rest,
-                price: parseFloat(rest.price as string) || 0,
-                stock: parseFloat(rest.stock as string) || 0,
-            }));
-            formData.append('variants_data', JSON.stringify(variantsData));
-
-            // Tambahkan gambar varian secara terpisah
-            productData.variants.forEach((variant, index) => {
-                if (variant.image) {
-                    formData.append(`variant_image_${index}`, variant.image, variant.image.name);
+            for (let i = 0; i < productData?.variants?.length; i++) {
+                if (productData?.variants[i]?.id) {
+                    formData.append(`variants[${i}][id]`, String(productData?.variants[i]?.id));
                 }
-            });
+                formData.append(`variants[${i}][name]`, productData?.variants[i]?.name);
+                formData.append(`variants[${i}][price]`, String(productData?.variants[i]?.price));
+                formData.append(`variants[${i}][stock]`, String(productData?.variants[i]?.stock));
+                if (productData?.variants[i]?.image) {
+                    // formData.append(`image`, productData?.variants[i]?.image, productData?.variants[i]?.image.name);
+                    formData.append(`variants[${i}][image]`, productData?.variants[i]?.image as File);
+                }
+            }
+            for (let d = 0; d < deleteVariants?.length; d++) {
+                formData.append(`delete_variants[${d}]`, String(deleteVariants[d]));
+
+            }
         }
 
-        onSubmit(formData);
+        onSubmit(formData, dataUpdate?.id ?? null);
     };
 
     const hasVariants = productData.has_variant === 1;
@@ -390,7 +395,13 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
                                         {/* Tombol Hapus Varian */}
                                         <button
                                             type="button"
-                                            onClick={() => removeVariant(index)}
+                                            onClick={() => {
+                                                removeVariant(index)
+                                                const id = variant?.id;
+                                                if (!id) return;
+                                                setDeleteVariants((prev) => [...prev, id]);
+
+                                            }}
                                             className="p-2 text-red-500 bg-red-100 rounded-full hover:bg-red-200 hover:text-red-700 transition"
                                             aria-label={`Hapus Varian ${index + 1}`}
                                         >
@@ -481,7 +492,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
                     )}
                 </form>
             </div>
-        </div>
+        </div >
     );
 };
 

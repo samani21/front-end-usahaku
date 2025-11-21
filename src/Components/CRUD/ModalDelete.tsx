@@ -6,9 +6,10 @@ type Props = {
     isOpen: boolean;
     onClose: () => void;
     deleteData: ResProduct | null
+    handleDelete: (id: number | null) => void;
 }
 
-const ModalDelete = ({ isOpen, onClose, deleteData }: Props) => {
+const ModalDelete = ({ isOpen, onClose, deleteData, handleDelete }: Props) => {
     if (!isOpen) return null;
     return (
 
@@ -47,7 +48,8 @@ const ModalDelete = ({ isOpen, onClose, deleteData }: Props) => {
                         <button
                             type="submit"
                             className="flex items-center cursor-pointer space-x-2 px-8 py-3 bg-red-700 text-white font-extrabold rounded-lg shadow-xl shadow-red-300/50 hover:bg-red-800 transition duration-200 disabled:from-gray-400 disabled:to-gray-500 disabled:shadow-none"
-                        // disabled={isSaveDisabled}
+                            // disabled={isSaveDisabled}
+                            onClick={() => handleDelete(deleteData?.id ?? null)}
                         >
                             <Check size={20} />
                             <span>Ya</span>

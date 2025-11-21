@@ -106,7 +106,9 @@ export default function DataTable<T extends { id: any }>({
                     {
                         error ?
                             <tbody className="bg-white divide-y divide-gray-200">
-                                <td className="text-center text-gray-500 p-6 font-bold" colSpan={columns?.length}>{error}</td>
+                                <tr>
+                                    <td className="text-center text-gray-500 p-6 font-bold" colSpan={columns?.length}>{error}</td>
+                                </tr>
                             </tbody> :
                             <tbody className="bg-white divide-y divide-gray-200">
                                 {loading
