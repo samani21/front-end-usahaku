@@ -1,5 +1,5 @@
 // Refactored BusinessProfile with MapModal integration
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Avatar,
     AvatarImage,
@@ -17,31 +17,36 @@ import MainLayout from "../Layout/MainLayout";
 import Modal from "@/Components/component/Modal";
 import ModalMaps from "@/Components/Panel/Outlite/ModalMaps";
 import MapPreview from "@/Components/Panel/Outlite/MapPreview";
+import { Get } from "@/utils/Get";
+import { resOutlite } from "@/lib/Types/OutliteState";
+import { Post } from "@/utils/Post";
+import { toast, toastLoading } from "@/utils/toast";
+import Swal from "sweetalert2";
 type LocationItem = {
     id: number;
     lat: number;
     lng: number;
-    value: string;
-    outlite: string;
+    name: string;
+    address: string;
 };
 export default function BusinessProfile() {
+    const [loadingButton, setLoadingButton] = useState<boolean>(false);
     const [form, setForm] = useState({
         name: "",
         slug: "",
         description: "",
         category: "produk",
-        verified: false,
+        verified: '',
     });
 
     const handleChange = (key: any, value: string) => setForm((s) => ({ ...s, [key]: value }));
 
     const [addresses, setAddresses] = useState<LocationItem[]>([
-        { id: 1, outlite: '', value: "", lat: 0, lng: 0 },
+        { id: 1, name: '', address: "", lat: 0, lng: 0 },
     ]);
-
     console.log('addresses', addresses)
     const addAddress = () =>
-        setAddresses((a) => [...a, { id: addresses?.length + 1, outlite: "", value: "", lat: 0, lng: 0 }]);
+        setAddresses((a) => [...a, { id: addresses?.length + 1, name: "", address: "", lat: 0, lng: 0 }]);
 
     const updateAddress = (id: number | null, key: any, val: string | number) =>
         setAddresses((a) => a.map((it) => (it.id === id ? { ...it, [key]: val } : it)));
@@ -52,6 +57,10 @@ export default function BusinessProfile() {
     const [bannerFile, setBannerFile] = useState<File | null>(null);
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
     const [bannerPreview, setBannerPreview] = useState<string | null>(null);
+    const [dataAddress, setDataAddress] = useState<LocationItem | null>(null)
+    useEffect(() => {
+        getBusiness()
+    }, [])
 
     const handleFileToBase64 = (file: File): Promise<string> =>
         new Promise((resolve, reject) => {
@@ -86,39 +95,74 @@ export default function BusinessProfile() {
     };
     const [openMapId, setOpenMapId] = useState<number | null>(null);
 
-    const handleSave = () => {
-        const formData = new FormData();
+    const handleSave = async () => {
+        try {
+            toastLoading("Sedang memproses...")
+            setLoadingButton(true)
+            const formData = new FormData();
 
-        formData.append("name", form.name);
-        formData.append("slug", form.slug);
-        formData.append("description", form.description);
-        formData.append("category", form.category);
-        formData.append("verified", String(form.verified));
+            formData.append("name", form.name);
+            formData.append("slug", form.slug);
+            formData.append("description", form.description);
+            formData.append("category", form.category);
 
-        addresses.forEach((addr, i) => {
-            formData.append(`addresses[${i}][value]`, addr.value);
-            formData.append(`addresses[${i}][outlite]`, addr.outlite);
-            formData.append(`addresses[${i}][lat]`, String(addr.lat) ?? "");
-            formData.append(`addresses[${i}][lng]`, String(addr.lng) ?? "");
-        });
+            addresses.forEach((addr, i) => {
+                formData.append(`addresses[${i}][id]`, String(addr.id));
+                formData.append(`addresses[${i}][address]`, addr.address);
+                formData.append(`addresses[${i}][name]`, addr.name);
+                formData.append(`addresses[${i}][lat]`, String(addr.lat) ?? "");
+                formData.append(`addresses[${i}][lng]`, String(addr.lng) ?? "");
+            });
 
-        if (logoFile) formData.append("logo", logoFile);
-        if (bannerFile) formData.append("banner", bannerFile);
-
-        console.log("--- DATA YANG AKAN DIKIRIM KE BACKEND ---");
-        for (let pair of formData.entries()) console.log(pair[0], pair[1]);
-        console.log("-----------------------------------------");
-
-        alert("Data FormData berhasil di-log ke console (demo). w/ lat lng");
+            if (logoFile) formData.append("logo", logoFile);
+            if (bannerFile) formData.append("banner", bannerFile);
+            const res = await Post("/business", formData);
+            if (res) {
+                Swal.close();
+                toast("Berhasil disimpan!", "success")
+                setLoadingButton(false)
+            }
+        } catch (err: any) {
+            Swal.close();
+            toast(err.message, "error");
+            setLoadingButton(false)
+            console.log(err.message || "Gagal mengambil data");
+        }
     };
+
+    const getBusiness = async () => {
+        try {
+            const data = await Get<{ success: boolean; data: resOutlite }>("/business/show");
+            if (data?.success) {
+                const business = {
+                    name: data?.data?.name,
+                    slug: data?.data?.slug,
+                    description: data?.data?.description,
+                    category: data?.data?.category,
+                    verified: data?.data?.verified_status === 1 ? "Terverifikasi" : "Belum diverifikasi",
+                }
+                setAddresses(data?.data?.address)
+                setForm(business)
+                setLogoPreview(process.env.NEXT_PUBLIC_MINIO + data?.data?.logo_url)
+                setBannerPreview(process.env.NEXT_PUBLIC_MINIO + data?.data?.banner_url)
+            }
+        } catch (err: any) {
+            console.log(err.message || "Gagal mengambil data");
+        }
+    }
 
     return (
         <MainLayout>
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
                     <h1 className="text-2xl font-semibold text-zinc-800">Profil Bisnis</h1>
-                    <Button className="flex items-center gap-2" onClick={handleSave}>
-                        <Save size={16} /> Simpan
+                    <Button variant={loadingButton ? "disable" : "default"} className="flex items-center gap-2" disabled={loadingButton ? true : false} onClick={handleSave}>
+                        {
+                            loadingButton ? "......Proses" :
+                                <>
+                                    <Save size={16} /> Simpan
+                                </>
+                        }
                     </Button>
                 </div>
 
@@ -185,9 +229,10 @@ export default function BusinessProfile() {
                                         onChange={(e) => handleChange("category", e.target.value)}
                                         className="border border-zinc-300 rounded-md p-2 text-sm bg-white"
                                     >
-                                        <option value="produk">produk</option>
-                                        <option value="jasa">jasa</option>
-                                        <option value="campuran">campuran</option>
+                                        <option value="Produk">Produk</option>
+                                        <option value="Warung makan/kedai">Warung makan/kedai</option>
+                                        <option value="Jasa">Jasa</option>
+                                        <option value="Campuran">Campuran</option>
                                     </select>
                                 </div>
 
@@ -207,14 +252,17 @@ export default function BusinessProfile() {
                         </h2>
 
                         <div className="space-y-4">
-                            {addresses.map((addr) => (
+                            {addresses.map((addr, i) => (
                                 <div key={addr.id} className="flex flex-col gap-2 p-4 border border-zinc-200 rounded-xl bg-zinc-50">
                                     <Label>Nama Outlite</Label>
-                                    <Input value={addr.outlite} onChange={(e) => updateAddress(addr.id, "outlite", e.target.value)} />
+                                    <Input value={addr.name} onChange={(e) => updateAddress(addr.id, "name", e.target.value)} />
                                     <Label>Alamat</Label>
-                                    <Textarea value={addr.value} onChange={(e) => updateAddress(addr.id, "value", e.target.value)} />
+                                    <Textarea value={addr.address} onChange={(e) => updateAddress(addr.id, "address", e.target.value)} />
                                     <div className="flex justify-between gap-2">
-                                        <Button variant="outline" onClick={() => setOpenMapId(addr.id)} className="flex items-center gap-2">
+                                        <Button variant="outline" onClick={() => {
+                                            setOpenMapId(i + 1)
+                                            setDataAddress(addr)
+                                        }} className="flex items-center gap-2">
                                             <MapPin size={16} /> Pilih Lokasi
                                         </Button>
 
@@ -238,7 +286,7 @@ export default function BusinessProfile() {
                 </motion.div>
             </div>
 
-            <ModalMaps openMapId={openMapId} setOpenMapId={setOpenMapId} updateAddress={updateAddress} addresses={addresses} />
+            <ModalMaps openMapId={openMapId} setOpenMapId={setOpenMapId} updateAddress={updateAddress} addresses={addresses} dataAddress={dataAddress} />
         </MainLayout>
     );
 }

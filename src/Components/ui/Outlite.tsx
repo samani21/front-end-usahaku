@@ -18,6 +18,7 @@ export function Button({ className = "", variant = "default", ...props }: React.
 
   const variants: Record<string, string> = {
     default: "bg-zinc-600 text-white px-4 py-2 hover:bg-zinc-700 active:scale-[0.97]",
+    disable: "bg-zinc-300 text-gray-500 px-4 py-2 hover:bg-zinc-400 active:scale-[0.97]",
     outline: "border border-zinc-300 bg-white px-4 py-2 text-zinc-700 hover:bg-zinc-100",
     outlineRed: "border border-red-300 bg-white px-4 py-2 text-red-700 hover:bg-red-100",
   };

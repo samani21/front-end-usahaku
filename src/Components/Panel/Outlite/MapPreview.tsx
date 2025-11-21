@@ -8,7 +8,8 @@ type LocationItem = {
     id: number;
     lat: number;
     lng: number;
-    value: string;
+    name: string;
+    address: string;
 };
 
 type Props = {

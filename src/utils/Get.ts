@@ -2,22 +2,23 @@
 import { getToken } from "@/store/authStore";
 import { apiClient } from "./apiClient";
 
-
 export async function Get<T>(path: string): Promise<T> {
     const token = getToken();
     try {
         const response = await apiClient.get<T>(path);
-        // Asumsi data yang relevan berada langsung di response.data
         return response.data;
     } catch (error: any) {
+        // Jika token tidak ada, auto logout
         if (!token) {
             window.location.href = '/auth/login';
+            return Promise.reject(error);
         }
-        // Melempar error agar bisa di-catch oleh komponen/store pemanggil
-        throw new Error(
-            error.response?.data?.message ||
-            error.message ||
-            `Gagal mengambil data dari ${path}`
-        );
+
+        // Kembalikan langsung error Axios tanpa mengubah jadi Error runtime
+        return Promise.reject({
+            message: error.response?.data?.message || error.message,
+            status: error.response?.status,
+            raw: error
+        });
     }
 }

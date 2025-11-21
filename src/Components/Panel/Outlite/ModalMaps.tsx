@@ -8,16 +8,18 @@ type LocationItem = {
     id: number;
     lat: number;
     lng: number;
-    value: string;
+    name: string;
+    address: string;
 };
 type Props = {
     openMapId: number | null
     setOpenMapId: (val: number | null) => void;
     updateAddress: (id: number | null, key: any, val: string | number) => void
     addresses: LocationItem[];
+    dataAddress: LocationItem | null;
 }
 
-const ModalMaps = ({ openMapId, setOpenMapId, updateAddress, addresses }: Props) => {
+const ModalMaps = ({ openMapId, setOpenMapId, updateAddress, addresses, dataAddress }: Props) => {
     return (
         <Modal
             open={openMapId ? true : false}
@@ -26,8 +28,8 @@ const ModalMaps = ({ openMapId, setOpenMapId, updateAddress, addresses }: Props)
         >
             <div className='w-lg'>
                 <MapWithSearch onSelect={(lat, lng) => {
-                    updateAddress(openMapId, "lat", lat);
-                    updateAddress(openMapId, "lng", lng);
+                    updateAddress(dataAddress?.id || openMapId, "lat", lat);
+                    updateAddress(dataAddress?.id || openMapId, "lng", lng);
                     setOpenMapId(null);
                 }}
                     lat={addresses[Number(openMapId) - 1]?.lat}

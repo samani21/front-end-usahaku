@@ -6,10 +6,10 @@ export async function Put<T, D>(path: string, data: D): Promise<T> {
         const response = await apiClient.put<T>(path, data);
         return response.data;
     } catch (error: any) {
-        throw new Error(
-            error.response?.data?.message ||
-            error.message ||
-            `Gagal memperbarui data di ${path}`
-        );
+        return Promise.reject({
+            message: error.response?.data?.message || error.message,
+            status: error.response?.status,
+            raw: error
+        });
     }
 }

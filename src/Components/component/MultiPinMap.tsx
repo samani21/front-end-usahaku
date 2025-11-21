@@ -19,7 +19,8 @@ type LocationItem = {
     id: number;
     lat: number;
     lng: number;
-    value: string;
+    name: string;
+    address: string;
 };
 
 
@@ -56,7 +57,7 @@ export default function MultiPinMap({ data }: Props) {
                         <Popup>
                             <div>
                                 <strong>ID:</strong> {item.id} <br />
-                                <strong>Value:</strong> {item.value}
+                                <strong>Value:</strong> {item.address}
                             </div>
                         </Popup>
                     </Marker>
