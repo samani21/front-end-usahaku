@@ -19,6 +19,7 @@ export interface ProductForm {
     imagePreviewUrl: string | null;
     has_variant: 0 | 1; // 0 (Tidak) atau 1 (Ya)
     variants: Variant[];
+    category?: number
 }
 
 /** Tipe untuk Objek Error Validasi */

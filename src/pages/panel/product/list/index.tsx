@@ -116,6 +116,7 @@ export default function ListProductPage() {
                 const res = await Post(`/products/${id}`, formData);
                 if (res) {
                     fetchProducts()
+                    setDataUpdate(null)
                     showFinalAlert('success', 'Berhasil', 'Tambah produk berhasil')
                     setIsModalOpen(false);
                 }

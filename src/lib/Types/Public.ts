@@ -5,3 +5,7 @@ export interface Meta {
     total: number;
 }
 
+export type SelectOption = {
+    value: string | number;
+    label: string;
+};

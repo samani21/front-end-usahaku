@@ -65,7 +65,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
     if (!isOpen) return null;
 
     // Penanganan Input Dasar (text/number/textarea)
-    const handleProductChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleProductChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
 
         let newValue: string | number = value;
@@ -123,7 +123,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
     };
 
     // Penanganan Input Varian (termasuk file varian)
-    const handleVariantChange = (index: number, e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleVariantChange = (index: number, e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
 
         setProductData(prev => {
@@ -306,13 +306,25 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
                             />
                             <FormInput
                                 label="Harga Utama (Rp)"
-                                type="number"
+                                type="price"
                                 name="price"
                                 value={productData.price}
                                 onChange={handleProductChange}
                                 error={errors.price}
                                 min={0}
                                 required
+                            />
+                            <FormInput
+                                label="Kategori"
+                                type="select"
+                                name="category"
+                                value={productData.category}
+                                onChange={handleProductChange}
+                                options={[
+                                    { value: 1, label: 'Elektronik' },
+                                    { value: 2, label: 'Fashion' },
+                                    { value: 3, label: 'Kesehatan' },
+                                ]}
                             />
                             <FormInput
                                 label="Stok Utama"
@@ -423,7 +435,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
                                         {/* Input Harga Varian */}
                                         <FormInput
                                             label="Harga (Rp)"
-                                            type="number"
+                                            type="price"
                                             name="price"
                                             value={variant.price}
                                             onChange={(e) => handleVariantChange(index, e)}
