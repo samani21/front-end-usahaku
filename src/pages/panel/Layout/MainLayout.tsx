@@ -1,58 +1,46 @@
 "use client";
+import { ErrorAlert, LoadingAlert, SuccessAlert } from '@/Components/component/Alert';
 import Loading from '@/Components/component/Loading';
 import Header from '@/Components/Panel/Layout/Header';
 import SidebarComponent from '@/Components/Panel/Layout/SidebarComponent';
+import { AlertProvider, useAlert } from '@/Context/AlertContext';
 import { getToken } from '@/store/authStore';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const LayoutContent = ({ children }: { children: React.ReactNode }) => {
+    const { currentAlert, setCurrentAlert } = useAlert();
     const token = getToken();
     const router = useRouter();
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
     const [isMobileActionMenuOpen, setIsMobileActionMenuOpen] = useState<boolean>(false);
     const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState<boolean>(false);
     const pathname = usePathname();
-    // "/panel/product/list"
     const [loading, setLoading] = useState<boolean>(false);
     const segments = pathname.split("/").filter(Boolean);
-    // ["panel","product","list"]
     const lastOne = segments.slice(-1);
 
     const breadcrumb = segments.map((seg, index) => {
-        if (index === 0) return "Home"; // panel → Home
+        if (index === 0) return "Home";
         return seg.charAt(0).toUpperCase() + seg.slice(1);
     });
-
-    // --- FUNGSI BARU UNTUK APLIKASI ---
+    const closeAlert = () => setCurrentAlert(null);
     const closeMobileActionMenu = () => setIsMobileActionMenuOpen(false);
 
-    // Fungsi placeholder untuk aksi Notifikasi
     const handleNotificationClick = () => {
         console.log("Aksi Notifikasi: Memuat halaman notifikasi...");
         closeMobileActionMenu();
-        // Logika sebenarnya di sini (misalnya: navigasi ke halaman Notifikasi)
     };
 
-    // Fungsi placeholder untuk aksi Profile
     const handleProfileClick = () => {
         console.log("Aksi Profil: Memuat halaman profil pengguna...");
         closeMobileActionMenu();
-        // Logika sebenarnya di sini (misalnya: navigasi ke halaman Profil)
     };
 
-
-    // --- AKHIR FUNGSI BARU ---
-
-
-    // Menutup menu aksi mobile saat di luar area menu (untuk mobile)
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
             if (isMobileActionMenuOpen) {
-                // Menggunakan ref yang lebih sesuai untuk elemen React, 
-                // tetapi karena menggunakan id/DOM manipulation di useEffect ini (yang tidak disarankan di React),
-                // kita harus berhati-hati. Namun, pendekatan DOM ini dipertahankan karena adanya id pada elemen.
                 const mobileActionBtn = document.getElementById('mobile-action-btn');
                 const menu = document.getElementById('mobile-action-menu');
 
@@ -60,7 +48,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     const isClickInsideButton = mobileActionBtn.contains(event.target);
                     const isClickInsideMenu = menu.contains(event.target);
 
-                    // Menutup menu jika TIDAK diklik di tombol atau di dalam menu
                     if (!isClickInsideButton && !isClickInsideMenu) {
                         setIsMobileActionMenuOpen(false);
                     }
@@ -68,31 +55,29 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             }
         };
 
-        // Tambahkan listener saat menu terbuka
         if (isMobileActionMenuOpen) {
             document.addEventListener('mousedown', handleOutsideClick);
         }
 
-        // Cleanup listener
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
-    }, [isMobileActionMenuOpen]); // Hanya jalankan ulang saat isMobileActionMenuOpen berubah
+    }, [isMobileActionMenuOpen]);
 
-    // Fungsi untuk menutup menu hamburger saat ukuran layar berubah (logika sebelumnya dipertahankan)
     useEffect(() => {
         if (!token) {
             router?.push('/auth/login')
             return
         }
         const handleResize = () => {
-            if (window.innerWidth >= 768) { // md: breakpoint
+            if (window.innerWidth >= 768) {
                 setIsMobileActionMenuOpen(false);
             }
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
     const handleLogout = () => {
         setLoading(true)
         localStorage?.removeItem('token');
@@ -101,6 +86,30 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     }
     return (
         <div className="flex h-screen overflow-hidden bg-[#f7f9fc]">
+            <div className="fixed bottom-0 right-0 p-4 sm:p-6 z-50 flex flex-col items-end pointer-events-none">
+                {currentAlert && (
+                    <div className="pointer-events-auto">
+                        {currentAlert.type === 'loading' ? (
+                            <LoadingAlert
+                                title={currentAlert.title}
+                                message={currentAlert.message}
+                            />
+                        ) : currentAlert.type === 'success' ? (
+                            <SuccessAlert
+                                title={currentAlert.title}
+                                message={currentAlert.message}
+                                onClose={closeAlert}
+                            />
+                        ) : (
+                            <ErrorAlert
+                                title={currentAlert.title}
+                                message={currentAlert.message}
+                                onClose={closeAlert}
+                            />
+                        )}
+                    </div>
+                )}
+            </div>
             <SidebarComponent
                 isActivityDropdownOpen={isActivityDropdownOpen}
                 setIsActivityDropdownOpen={setIsActivityDropdownOpen}
@@ -142,6 +151,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             }
         </div>
     )
+}
+
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
+    return (
+        <AlertProvider>
+            <LayoutContent>{children}</LayoutContent>
+        </AlertProvider>
+    );
 }
 
 export default MainLayout

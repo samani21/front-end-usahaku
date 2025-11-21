@@ -39,8 +39,8 @@ const SidebarComponent = ({ isActivityDropdownOpen, setIsActivityDropdownOpen, i
                     }`}
             >
                 <div className="text-xl font-bold text-gray-800 mb-10 flex items-center">
-                    <Wallet className="w-6 h-6 mr-2 text-blue-500" />
-                    BDPay
+                    <img src={'/logo/logo.png'} className='w-[50px] mr-4' />
+                    Admin Panel
                 </div>
                 <nav className="flex-grow space-y-2 overflow-y-auto no-scrollbar">
                     {
