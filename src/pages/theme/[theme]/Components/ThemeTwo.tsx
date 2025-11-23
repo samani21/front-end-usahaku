@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { Heart, ShoppingBag, Clock, X, Info, ChevronRight, CheckCircle, Smartphone, Palette } from 'lucide-react';
+import { Heart, ShoppingBag, Clock, ChevronRight, CheckCircle, Smartphone, Palette } from 'lucide-react';
 import { ActiveModal, Color, COLOR_SCHEMES, DUMMY_CATEGORIES, DUMMY_PRODUCTS, getColorClasses, Product } from '@/lib/Types/Theme/Two';
 import SidebarModal from '@/Components/Theme/Two/SidebarModal';
 import FavoriteList from '@/Components/Theme/Two/FavoriteList';
