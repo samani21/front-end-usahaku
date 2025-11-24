@@ -120,7 +120,7 @@ export const DUMMY_PRODUCTS: Product[] = [
         name: 'Teh Botol Dingin',
         basePrice: 5000,
         description: 'Teh manis siap minum, sangat menyegarkan.',
-        imageUrl: 'https://lh3.googleusercontent.com/proxy/P3bgwecJTwoa0VGGv3XsP2iVNXkhAm4eQaFgEr79woa8_qOTOFqsRBpLgZ2ykjBn7rxAcOnTZ79xooKpPit2iKHt0hoNzY0jwyUqNHw4VO-YXasPXjt1SkuBAmxPNnwE8KbabYZkLzQXbdTymK1T9xWzOnMeBauZjJFkH1XPviyPYSzTw3-mTBB57uDcPfLMqXnCKlU74uFqOTMaYd12p8rPxRROlCWIgQ',
+        imageUrl: 'https://cdn.infobrand.id/assets/images/compressed/posts/2023/02/15/menelusuri-pemilik-teh-botol-sosro-minuman-legendaris-teman-di-saat-makan.webp',
         category: 'minuman',
         variants: [
             { id: 201, name: '330ml', priceAdjustment: 0 },

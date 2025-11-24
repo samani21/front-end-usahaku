@@ -6,6 +6,7 @@ import ThemeThree from './Components/ThemeThree';
 import ThemeFour from './Components/ThemeFour';
 import ThemeFive from './Components/ThemeFive';
 import ThemeSix from './Components/ThemeSix';
+import ThemeSeven from './Components/ThemeSevent';
 
 type Props = {}
 
@@ -24,7 +25,9 @@ const ThemePage = (props: Props) => {
                         theme === '5' ?
                             <ThemeFive /> :
                             theme === '6' ?
-                                <ThemeSix /> : ''
+                                <ThemeSix /> :
+                                theme === '7' ?
+                                    <ThemeSeven /> : ''
     )
 }
 
