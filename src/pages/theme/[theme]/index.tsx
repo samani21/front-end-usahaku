@@ -7,10 +7,9 @@ import ThemeFour from './Components/ThemeFour';
 import ThemeFive from './Components/ThemeFive';
 import ThemeSix from './Components/ThemeSix';
 import ThemeSeven from './Components/ThemeSevent';
+import ThemeEight from './Components/ThemeEight';
 
-type Props = {}
-
-const ThemePage = (props: Props) => {
+const ThemePage = () => {
     const router = useRouter();
     const { theme } = router.query;
     return (
@@ -27,7 +26,9 @@ const ThemePage = (props: Props) => {
                             theme === '6' ?
                                 <ThemeSix /> :
                                 theme === '7' ?
-                                    <ThemeSeven /> : ''
+                                    <ThemeSeven /> :
+                                    theme === '8' ?
+                                        <ThemeEight /> : ''
     )
 }
 
