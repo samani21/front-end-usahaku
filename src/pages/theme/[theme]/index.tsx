@@ -11,6 +11,7 @@ import ThemeEight from './Components/ThemeEight';
 import ThemeNine from './Components/ThemeNine';
 import ThemeTen from './Components/ThemeTen';
 import ThemeElevent from './Components/ThemeElevent';
+import ThemeTwelve from './Components/ThemeTwelve';
 
 const ThemePage = () => {
     const router = useRouter();
@@ -37,7 +38,9 @@ const ThemePage = () => {
                                             theme === '10' ?
                                                 <ThemeTen /> :
                                                 theme === '11' ?
-                                                    <ThemeElevent /> : ''
+                                                    <ThemeElevent /> :
+                                                    theme === '12' ?
+                                                        <ThemeTwelve /> : ''
     )
 }
 
