@@ -9,7 +9,6 @@ import { Meta } from "@/lib/Types/Public";
 import ModalDelete from "@/Components/CRUD/ModalDelete";
 import { Post } from "@/utils/Post";
 import { useAlert } from "@/Context/AlertContext";
-import { convertImage } from "@/Components/convertImage";
 import { Delete } from "@/utils/Delete";
 
 interface Column<T> {
@@ -169,7 +168,7 @@ export default function ListProductPage() {
                 key: "image",
                 label: "Image",
                 width: "200",
-                render: (row) => <img src={convertImage(row.image)} className="w-32 rounded-md" />,
+                render: (row) => <img src={row.image} className="w-32 rounded-md" />,
             },
             { key: "name", label: "Nama Produk" },
 
@@ -207,7 +206,12 @@ export default function ListProductPage() {
                 label: "Stok",
                 render: (row) => row.stock.toLocaleString("id-ID"),
             },
-
+            {
+                key: "qrcode",
+                label: "qrcode",
+                width: "200",
+                render: (row) => <img src={row.qrcode} className="w-32 rounded-md" />,
+            },
             {
                 key: "is_active",
                 label: "Status",

@@ -1,4 +1,3 @@
-import { convertImage } from '@/Components/convertImage';
 import FormInput from '@/Components/CRUD/FormInput/FormInput';
 import ImagePreview from '@/Components/CRUD/FormInput/ImagePreview';
 import { validateForm } from '@/Components/CRUD/FormInput/validateForm';
@@ -47,7 +46,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
                 stock: v?.stock ?? "",
                 id: v?.id ?? 0,
                 image: null, // saat edit, file belum di-upload ulang
-                imagePreviewUrl: convertImage(v?.image) || null,
+                imagePreviewUrl: v?.image || null,
             })) || [];
             setProductData({
                 name: dataUpdate?.name,
@@ -55,7 +54,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
                 price: dataUpdate?.price,
                 stock: dataUpdate?.stock,
                 image: null,
-                imagePreviewUrl: convertImage(dataUpdate?.image),
+                imagePreviewUrl: dataUpdate?.image,
                 has_variant: dataUpdate?.has_variant ? 1 : 0,
                 variants: mappedVariants,
             })
