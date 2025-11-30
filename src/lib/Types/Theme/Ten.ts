@@ -44,12 +44,12 @@ export const THEMES: Theme[] = [
 ];
 
 export const DUMMY_SERVICES: Service[] = [
-    { id: 'lnd1', category: 'Laundry', type: 'Layanan Satuan', name: 'Cuci Kering Lipat Express', price: 15000, desc: 'Pakaian selesai dalam 6 jam. Per KG.', imageUrl: 'https://placehold.co/100x100/4F46E5/FFFFFF?text=LNDRY' },
-    { id: 'lnd2', category: 'Laundry', type: 'Layanan Satuan', name: 'Setrika Uap Premium', price: 12000, desc: 'Setrika profesional, bebas kusut. Per KG.', imageUrl: 'https://placehold.co/100x100/4F46E5/FFFFFF?text=STRKA' },
-    { id: 'bar1', category: 'Barbershop', type: 'Layanan Satuan', name: 'Potong Rambut Pria', price: 35000, desc: 'Termasuk cuci dan styling.', imageUrl: 'https://placehold.co/100x100/10B981/FFFFFF?text=BARBER' },
-    { id: 'bar2', category: 'Barbershop', type: 'Layanan Satuan', name: 'Pewarnaan Rambut', price: 150000, desc: 'Konsultasi warna gratis.', imageUrl: 'https://placehold.co/100x100/10B981/FFFFFF?text=WARNA' },
-    { id: 'pkg1', category: 'Laundry', type: 'Paket Layanan', name: 'Paket Hemat Bulanan', price: 250000, desc: 'Gratis 5KG untuk total 50KG.', imageUrl: 'https://placehold.co/100x100/F59E0B/FFFFFF?text=PAKET' },
-    { id: 'pkg2', category: 'Barbershop', type: 'Paket Layanan', name: 'Paket Grooming Lengkap', price: 75000, desc: 'Potong, cukur janggut, dan masker.', imageUrl: 'https://placehold.co/100x100/F59E0B/FFFFFF?text=GRMNG' },
+    { id: 'lnd1', category: 'Laundry', type: 'Layanan Satuan', name: 'Cuci Kering Lipat Express', price: 15000, desc: 'Pakaian selesai dalam 6 jam. Per KG.', imageUrl: 'https://images.unsplash.com/photo-1574057675080-6cdfd3225424?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fEN1Y2klMjBLZXJpbmclMjBMaXBhdCUyMEV4cHJlc3N8ZW58MHx8MHx8fDA%3D' },
+    { id: 'lnd2', category: 'Laundry', type: 'Layanan Satuan', name: 'Setrika Uap Premium', price: 12000, desc: 'Setrika profesional, bebas kusut. Per KG.', imageUrl: 'https://media.istockphoto.com/id/2239558195/id/foto/setrika-uap-modern-bertumpu-pada-papan-setrika-di-ruangan-yang-terang-dengan-pencahayaan.webp?a=1&b=1&s=612x612&w=0&k=20&c=f0mFMIBA-ekEb3J5kUcBkZbz-N0-VH3K9HeEXb0Ktuw=' },
+    { id: 'bar1', category: 'Barbershop', type: 'Layanan Satuan', name: 'Potong Rambut Pria', price: 35000, desc: 'Termasuk cuci dan styling.', imageUrl: 'https://plus.unsplash.com/premium_photo-1661288502656-7265af3e6b23?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG90b25nJTIwUmFtYnV0JTIwUHJpYXxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 'bar2', category: 'Barbershop', type: 'Layanan Satuan', name: 'Pewarnaan Rambut', price: 150000, desc: 'Konsultasi warna gratis.', imageUrl: 'https://media.istockphoto.com/id/1182128730/id/foto/tangan-penata-rambut-dengan-sarung-tangan-hitam-melukis-rambut-wanita-itu-dengan-warna-merah.webp?a=1&b=1&s=612x612&w=0&k=20&c=W83K6VsWtGvtxNQ5vUbNvhjd9zVHDG9mscmrnnkzNwQ=' },
+    { id: 'pkg1', category: 'Laundry', type: 'Paket Layanan', name: 'Paket Hemat Bulanan', price: 250000, desc: 'Gratis 5KG untuk total 50KG.', imageUrl: 'https://plus.unsplash.com/premium_photo-1663036970563-99624abc950e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGF1bmRyeXxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 'pkg2', category: 'Barbershop', type: 'Paket Layanan', name: 'Paket Grooming Lengkap', price: 75000, desc: 'Potong, cukur janggut, dan masker.', imageUrl: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8QmFyYmVyfGVufDB8fDB8fHww' },
 ];
 
 export const NAV_LINKS: NavLink[] = [
