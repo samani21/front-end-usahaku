@@ -1,15 +1,14 @@
-import { NotificationState, ThemeConfig } from '@/lib/Types/Theme/One';
+import { NotificationState } from '@/lib/Types/Theme/Theme';
 import { CheckCircleIcon, XIcon } from 'lucide-react';
 import React from 'react'
 
 
 // --- Komponen Notification Toast ---
-interface NotificationToastProps {
+interface NotificationOneProps {
     notification: NotificationState;
-    theme: ThemeConfig;
 }
 
-const NotificationToast: React.FC<NotificationToastProps> = ({ notification, theme }) => {
+const NotificationOne: React.FC<NotificationOneProps> = ({ notification }) => {
     const { message, visible, type } = notification;
 
     // Menggunakan warna fixed (Green/Red) agar pesan fungsional tetap jelas.
@@ -30,4 +29,4 @@ const NotificationToast: React.FC<NotificationToastProps> = ({ notification, the
 };
 
 
-export default NotificationToast
+export default NotificationOne

@@ -1,18 +1,17 @@
-import { formatRupiah, Product, ProductVariant, ThemeConfig } from '@/lib/Types/Theme/One';
 import { XIcon } from 'lucide-react';
 import React, { useCallback, useMemo, useState } from 'react'
-import QuantityInput from './QuantityInput';
+import { formatRupiah, Product, ProductVariant } from '@/lib/Types/Theme/Theme';
+import Quantity from '../Quantity';
 
-interface ProductDetailModalProps {
+interface ModalDetailOneProps {
     product: Product;
     onClose: () => void;
     onOrderSuccess: (message: string, type?: 'success' | 'error') => void;
-    theme: ThemeConfig;
 }
 
 type VariantQuantities = Record<number | 'base', number>;
 
-const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClose, onOrderSuccess, theme }) => {
+const ModalDetailOne: React.FC<ModalDetailOneProps> = ({ product, onClose, onOrderSuccess }) => {
     const initialQuantities = product.variants.length > 0
         ? product.variants.reduce((acc, variant) => ({ ...acc, [variant.id]: 0 }), {} as VariantQuantities)
         : { 'base': 1 };
@@ -27,7 +26,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
     const cardBgColor = `bg-gray-800`;
     const mainTextColor = `text-gray-50`;
     const subtleTextColor = `text-gray-400`;
-    const shadowClass = theme.shadow;
+    const shadowClass = 'shadow-2xl shadow-black/50';
 
     // Handler untuk mengubah kuantitas varian
     const handleQuantityChange = useCallback((id: number | 'base', newQuantity: string) => {
@@ -112,8 +111,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
                         aria-labelledby="modal-title"
                     >
                         {/* Header Modal - Close Button */}
-                        <div className="flex justify-end p-4 md:p-6 border-b border-gray-700/20">
-                            <XIcon className={`${subtleTextColor} hover:${mainTextColor}`} onClick={onClose}/>
+                        <div className="flex justify-end p-4 md:p-6 border-b border-gray-700/20 cursor-pointer">
+                            <XIcon className={`${subtleTextColor} hover:${mainTextColor}`} onClick={onClose} />
                         </div>
 
                         {/* Body Modal - Grid 2 Kolom */}
@@ -151,13 +150,13 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
                                                             <p className={`font-semibold ${mainTextColor}`}>{variant.name}</p>
                                                             <p className={`text-sm ${subtleTextColor}`}>{formatRupiah(getVariantPrice(variant))}</p>
                                                         </div>
-                                                        <QuantityInput
+                                                        <Quantity
+                                                            theme={1}
                                                             id={variant.id}
                                                             quantity={variantQuantities[variant.id] || 0}
                                                             onChange={handleQuantityChange}
                                                             label={variant.name}
                                                             min={0}
-                                                            theme={theme}
                                                         />
                                                     </div>
                                                 ))}
@@ -166,13 +165,13 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
                                             // UI untuk Produk Tanpa Varian
                                             <div className={`flex items-center justify-between p-4 rounded-xl border border-gray-700/20 bg-gray-700 shadow-sm`}>
                                                 <p className={`font-semibold ${mainTextColor}`}>Kuantitas {product.name}</p>
-                                                <QuantityInput
+                                                <Quantity
+                                                    theme={1}
                                                     id={'base'}
                                                     quantity={variantQuantities['base'] || 1}
                                                     onChange={handleQuantityChange}
                                                     label={product.name}
                                                     min={1}
-                                                    theme={theme}
                                                 />
                                             </div>
                                         )}
@@ -216,4 +215,4 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
         </>
     );
 };
-export default ProductDetailModal
+export default ModalDetailOne

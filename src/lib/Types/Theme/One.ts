@@ -1,62 +1,11 @@
-// --- DEFINISI TEMA WARNA (Hanya Dark Mode) ---
-export const THEME_CONFIG = {
-    Dark: {
-        name: 'Dark',
-        primary: 'cyan',
-        secondary: 'teal',
-        bg: 'gray-900',
-        cardBg: 'gray-800',
-        text: 'gray-50',
-        subtleText: 'gray-400',
-        shadow: 'shadow-2xl shadow-black/50'
-    },
-};
-export type ThemeName = keyof typeof THEME_CONFIG; // Akan selalu 'Dark'
-export interface ThemeConfig {
-    name: string;
-    primary: string;
-    secondary: string;
-    bg: string;
-    cardBg: string;
-    text: string;
-    subtleText: string;
-    shadow: string;
-}
+import { Hero, Product } from "./Theme";
 
-// --- Tipe Data (Interfaces) ---
-
-export interface ProductVariant {
-    id: number;
-    name: string;
-    priceAdjustment: number;
-}
-
-export interface Product {
-    id: number;
-    name: string;
-    basePrice: number;
-    description: string;
-    imageUrl: string;
-    category: string;
-    isFavorite: boolean;
-    variants: ProductVariant[];
-}
-
-export interface UIState {
-    showFavoritesDrawer: boolean;
-    showOrdersDrawer: boolean;
-    showHistoryDrawer: boolean;
-    selectedProduct: Product | null;
-    activeThemeName: ThemeName;
-}
 
 export interface NotificationState {
     message: string;
     visible: boolean;
     type: 'success' | 'error';
 }
-
-// --- Dummy Data ---
 
 export const DUMMY_PRODUCTS: Product[] = [
     {
@@ -126,22 +75,9 @@ export const DUMMY_PRODUCTS: Product[] = [
 
 export const DUMMY_CATEGORIES: string[] = ["Semua", "Minuman", "Makanan", "Peralatan", "Baru"];
 
-// --- Utility Functions ---
-
-/**
- * Mengubah angka menjadi format mata uang Rupiah.
- */
-export const formatRupiah = (amount: number): string => {
-    return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0,
-    }).format(amount);
-};
-
-// --- Komponen Icon (SVG inline untuk performa) ---
-export interface IconProps {
-    className?: string;
-    onClick?: () => void;
-    title?: string;
+export const DUMMY_HERO: Hero = {
+    title: 'Penawaran Eksklusif',
+    sub_title: 'Diskon Hingga 30%',
+    description: 'Pilih produk favorit Anda dari semua kategori dan nikmati harga terbaik.',
+    cta: 'Belanja Sekarang'
 }

@@ -1,5 +1,4 @@
-import { Product } from '@/lib/Types/Theme/Five';
-import { formatRupiah } from '@/lib/Types/Theme/One';
+import { formatRupiah, Product } from '@/lib/Types/Theme/Five';
 import React from 'react'
 
 type Props = {

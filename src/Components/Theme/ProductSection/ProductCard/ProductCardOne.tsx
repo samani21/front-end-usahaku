@@ -1,13 +1,13 @@
-import { formatRupiah, Product, ThemeConfig } from '@/lib/Types/Theme/One';
+import { formatRupiah, Product } from '@/lib/Types/Theme/Theme';
 import { ArrowRightIcon, HeartIcon } from 'lucide-react';
 import React, { useMemo } from 'react'
+
 interface ProductCardProps {
     product: Product;
-    onClick: (product: Product) => void;
-    theme: ThemeConfig;
+    onClick: (p: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onClick, theme }) => {
+const ProductCardOne: React.FC<ProductCardProps> = ({ product, onClick }) => {
     // Fixed Dark Mode classes
     const primaryTextColor = `text-cyan-400`;
     const primaryBgColor = `bg-cyan-600`;
@@ -72,5 +72,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick, theme }) =>
         </div>
     );
 };
-
-export default ProductCard
+export default ProductCardOne

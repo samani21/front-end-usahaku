@@ -1,15 +1,13 @@
-import { ThemeConfig } from '@/lib/Types/Theme/One';
 import React from 'react'
 
 
-const QuantityInput: React.FC<{
+const QuantityOne: React.FC<{
     id: number | 'base';
     quantity: number;
     onChange: (id: number | 'base', newQuantity: string) => void;
     label: string;
     min: number;
-    theme: ThemeConfig;
-}> = ({ id, quantity, onChange, label, min, theme }) => {
+}> = ({ id, quantity, onChange, label, min }) => {
     // Fixed Dark Mode colors
     const primaryFocus = `focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400`;
     const textColor = `text-gray-50`;
@@ -55,4 +53,4 @@ const QuantityInput: React.FC<{
     );
 };
 
-export default QuantityInput
+export default QuantityOne
