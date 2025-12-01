@@ -6,9 +6,10 @@ type Props = {
     filteredProducts: Product[];
     activeCategory: string;
     onClick: (val: Product) => void
+    handleFav: (id: number) => void
 }
 
-const ProductSectionOne = ({ filteredProducts, activeCategory, onClick }: Props) => {
+const ProductSectionOne = ({ filteredProducts, activeCategory, onClick, handleFav }: Props) => {
 
     return (
         <section id="produk-pilihan">
@@ -16,7 +17,7 @@ const ProductSectionOne = ({ filteredProducts, activeCategory, onClick }: Props)
             {filteredProducts?.length > 0 ? (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8" role="list">
                     {filteredProducts?.map(product => (
-                        <ProductCardOne key={product.id} product={product} onClick={(p) => onClick(p)} />
+                        <ProductCardOne key={product.id} product={product} onClick={(p) => onClick(p)} handleFav={handleFav} />
                     ))}
                 </div>
             ) : (

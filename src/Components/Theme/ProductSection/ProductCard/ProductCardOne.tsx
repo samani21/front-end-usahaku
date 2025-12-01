@@ -5,9 +5,10 @@ import React, { useMemo } from 'react'
 interface ProductCardProps {
     product: Product;
     onClick: (p: Product) => void;
+    handleFav: (id: number) => void
 }
 
-const ProductCardOne: React.FC<ProductCardProps> = ({ product, onClick }) => {
+const ProductCardOne: React.FC<ProductCardProps> = ({ product, onClick, handleFav }) => {
     // Fixed Dark Mode classes
     const primaryTextColor = `text-cyan-400`;
     const primaryBgColor = `bg-cyan-600`;
@@ -32,11 +33,11 @@ const ProductCardOne: React.FC<ProductCardProps> = ({ product, onClick }) => {
         <div
             className={`flex flex-col sm:flex-row ${cardBgColor} rounded-3xl p-4 ${shadowStyle} 
                  transition duration-500 cursor-pointer overflow-hidden transform hover:scale-[1.02] border border-transparent hover:border-cyan-600`}
-            onClick={() => onClick(product)}
+
             role="listitem"
         >
             {/* Gambar Kiri */}
-            <div className="w-full sm:w-2/5 flex-shrink-0 mb-3 sm:mb-0 sm:mr-4">
+            <div className="w-full sm:w-2/5 flex-shrink-0 mb-3 sm:mb-0 sm:mr-4" onClick={() => onClick(product)}>
                 <img
                     src={product.imageUrl}
                     alt={product.name}
@@ -50,13 +51,13 @@ const ProductCardOne: React.FC<ProductCardProps> = ({ product, onClick }) => {
             <div className="flex-1 p-1 flex flex-col justify-between">
                 <div>
                     <div className="flex justify-between items-center">
-                        <h3 className={`font-extrabold text-xl ${mainTextColor} truncate pr-4`}>{product.name}</h3>
-                        {product.isFavorite && (
-                            <HeartIcon className="text-red-500 w-5 h-5 flex-shrink-0" />
-                        )}
+                        <h3 className={`font-extrabold text-xl ${mainTextColor} truncate pr-4`} onClick={() => onClick(product)}>{product.name}</h3>
+                        <div onClick={() => handleFav(product?.id)}>
+                            {product.isFavorite ? <HeartIcon className="text-red-500 w-5 h-5 flex-shrink-0" /> : <HeartIcon className="text-gray-500 w-5 h-5 flex-shrink-0" />}
+                        </div>
                     </div>
-                    <p className={`font-extrabold text-2xl mt-1 mb-2 ${primaryTextColor}`}>{priceDisplay}</p>
-                    <p className={`${subtleTextColor} text-sm line-clamp-3 min-h-[3rem]`}>{product.description}</p>
+                    <p className={`font-extrabold text-2xl mt-1 mb-2 ${primaryTextColor}`} onClick={() => onClick(product)}>{priceDisplay}</p>
+                    <p className={`${subtleTextColor} text-sm line-clamp-3 min-h-[3rem]`} onClick={() => onClick(product)}>{product.description}</p>
                 </div>
 
                 {/* Tombol Aksi */}

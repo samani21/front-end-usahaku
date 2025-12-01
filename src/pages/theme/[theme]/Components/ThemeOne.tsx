@@ -6,7 +6,7 @@ import ProductSection from '@/Components/Theme/ProductSection';
 import ModalDetailProduct from '@/Components/Theme/ProductSection/ModaDetail';
 import SideDrawerOne from '@/Components/Theme/SideDrawer/SideDrawerOne';
 import { DUMMY_CATEGORIES, DUMMY_HERO, DUMMY_PRODUCTS } from '@/lib/Types/Theme/One';
-import { formatRupiah, Hero, NotificationState, Product, UIState } from '@/lib/Types/Theme/Theme';
+import { Category, formatRupiah, Hero, NotificationState, Product, UIState } from '@/lib/Types/Theme/Theme';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 
@@ -22,7 +22,7 @@ const ThemeOne = () => {
     }, []);
     const [activeCategory, setActiveCategory] = useState<string>('');
     const [dataHero, setDataHero] = useState<Hero | null>(null);
-    const [categorie, setCategorie] = useState<string[]>();
+    const [categorie, setCategorie] = useState<Category[]>();
     const [product, setProduct] = useState<Product[]>([]);
     const [notification, setNotification] = useState<NotificationState>({
         message: '',
@@ -101,7 +101,7 @@ const ThemeOne = () => {
             return product;
         }
         return product?.filter(p => p.category === activeCategory);
-    }, [activeCategory]);
+    }, [activeCategory, product]);
 
     const openProductDetail = useCallback((product: Product) => {
         setUiState(prev => ({ ...prev, selectedProduct: product }));
@@ -118,6 +118,16 @@ const ThemeOne = () => {
             setNotification(prev => ({ ...prev, visible: false }));
         }, 4000); // Notifikasi hilang setelah 4 detik
     }, []);
+
+    const handleFav = (id?: number) => {
+        setProduct((prev) =>
+            prev.map((item) =>
+                item.id === id
+                    ? { ...item, isFavorite: !item.isFavorite }
+                    : item
+            )
+        );
+    };
 
     return (
         <div className={`min-h-screen bg-gray-900 text-gray-50 font-sans transition-colors duration-500`}>
@@ -142,6 +152,7 @@ const ThemeOne = () => {
                 }
                 <ProductSection
                     theme={1}
+                    handleFav={handleFav}
                     filteredProducts={filteredProducts}
                     activeCategory={activeCategory}
                     onClick={openProductDetail} />

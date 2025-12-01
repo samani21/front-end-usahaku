@@ -1,7 +1,8 @@
+import { Category } from '@/lib/Types/Theme/Theme';
 import React from 'react'
 
 type Props = {
-    categorie: string[] | undefined;
+    categorie: Category[] | undefined;
     setActiveCategory: (val: string) => void;
     activeCategory: string;
 }
@@ -16,14 +17,14 @@ const CategorieOne = ({ categorie, setActiveCategory, activeCategory }: Props) =
             <div className="flex overflow-x-auto pb-4 space-x-3 sm:space-x-5 whitespace-nowrap scrollbar-hide">
                 {categorie?.map(category => (
                     <button
-                        key={category}
-                        className={`flex-shrink-0 py-2.5 px-8 rounded-full text-lg font-semibold transition duration-200 ${activeCategory === category
+                        key={category?.id}
+                        className={`flex-shrink-0 py-2.5 px-8 rounded-full text-lg font-semibold transition duration-200 ${activeCategory === category?.name
                             ? `bg-cyan-600 text-white shadow-lg`
                             : `bg-gray-800 text-gray-50 border border-gray-700/20 hover:bg-gray-700`
                             }`}
-                        onClick={() => setActiveCategory(category)}
+                        onClick={() => setActiveCategory(category?.name)}
                     >
-                        {category}
+                        {category?.name}
                     </button>
                 ))}
             </div>

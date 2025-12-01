@@ -2,7 +2,7 @@ import { XIcon } from 'lucide-react';
 import React from 'react'
 
 interface SideDrawerOneProps {
-    isOpen: boolean;
+    isOpen?: boolean;
     onClose: () => void;
     title: string;
     children: React.ReactNode;

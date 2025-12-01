@@ -1,4 +1,4 @@
-import { Hero, Product } from "./Theme";
+import { Category, Hero, Product } from "./Theme";
 
 
 export interface NotificationState {
@@ -73,7 +73,29 @@ export const DUMMY_PRODUCTS: Product[] = [
     },
 ];
 
-export const DUMMY_CATEGORIES: string[] = ["Semua", "Minuman", "Makanan", "Peralatan", "Baru"];
+
+export const DUMMY_CATEGORIES: Category[] = [
+    {
+        id: 1,
+        name: "Semua"
+    },
+    {
+        id: 2,
+        name: "Minuman"
+    },
+    {
+        id: 3,
+        name: "Makanan"
+    },
+    {
+        id: 4,
+        name: "Peralatan"
+    },
+    {
+        id: 5,
+        name: "Baru"
+    },
+];
 
 export const DUMMY_HERO: Hero = {
     title: 'Penawaran Eksklusif',

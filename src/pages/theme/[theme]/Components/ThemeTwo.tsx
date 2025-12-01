@@ -1,213 +1,196 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { Heart, ShoppingBag, Clock, ChevronRight, CheckCircle, Smartphone, Palette } from 'lucide-react';
-import { ActiveModal, Color, COLOR_SCHEMES, DUMMY_CATEGORIES, DUMMY_PRODUCTS, getColorClasses, Product } from '@/lib/Types/Theme/Two';
-import SidebarModal from '@/Components/Theme/Two/SidebarModal';
-import FavoriteList from '@/Components/Theme/Two/FavoriteList';
-import OrderCartList from '@/Components/Theme/Two/OrderCartList';
-import HistoryList from '@/Components/Theme/Two/HistoryList';
-import DetailModal from '@/Components/Theme/Two/DetailModal';
+import Loading from '@/Components/component/Loading';
+import Categorie from '@/Components/Theme/Categorie';
+import Header from '@/Components/Theme/Header';
+import HeroSection from '@/Components/Theme/Hero';
+import Notification from '@/Components/Theme/Notification';
+import ProductSection from '@/Components/Theme/ProductSection';
+import ModalDetailProduct from '@/Components/Theme/ProductSection/ModaDetail';
+import SideDrawerTwo from '@/Components/Theme/SideDrawer/SideDrawerTwo';
+import ThemeSection from '@/Components/Theme/ThemeSection';
+import { Category, Hero, NotificationState, Product, Theme, UIState } from '@/lib/Types/Theme/Theme';
+import { DUMMY_CATEGORIES, DUMMY_HERO, DUMMY_HISTORY, DUMMY_ORDERS, DUMMY_PRODUCTS } from '@/lib/Types/Theme/Two';
+import { Get } from '@/utils/Get';
+import { Clock, Heart, ShoppingBag } from 'lucide-react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+
+const ThemeTwo = () => {
+    const [themeName, setThemeName] = useState('Jingga');
+    const [listTheme, setListTheme] = useState<Theme[]>([]);
+
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const [uiState, setUiState] = useState<UIState>({
+        showFavoritesDrawer: false,
+        showOrdersDrawer: false,
+        showHistoryDrawer: false,
+        selectedProduct: null,// FIXED KE DARK MODE
+    });
+    const [dataHero, setDataHero] = useState<Hero | null>(null);
+
+    const [activeCategory, setActiveCategory] = useState<string>('');
+    const [categorie, setCategorie] = useState<Category[]>();
+
+    const toggleDrawer = useCallback((drawerName: keyof UIState, state: boolean) => {
+        setUiState(prev => ({ ...prev, [drawerName]: state }));
+    }, []);
+    const [product, setProduct] = useState<Product[]>([]);
+    console.log('product', product)
+    const [notification, setNotification] = useState<NotificationState>({
+        message: '',
+        visible: false,
+        type: 'success',
+    });
+    useEffect(() => {
+        setCategorie(DUMMY_CATEGORIES);
+        setActiveCategory(DUMMY_CATEGORIES[0]?.name)
+        setDataHero(DUMMY_HERO);
+        setProduct(DUMMY_PRODUCTS)
+        getColorTheme()
+    }, []);
+
+    const openProductDetail = useCallback((product: Product) => {
+        setUiState(prev => ({ ...prev, selectedProduct: product }));
+    }, []);
 
 
-const App: React.FC = () => {
-    const [activeModal, setActiveModal] = useState<ActiveModal>('none');
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const [activeCategory, setActiveCategory] = useState<string>('Semua');
-    const [colorKey, setColorKey] = useState<Color>('indigo');
-    const [showColorPicker, setShowColorPicker] = useState(false);
+    const getColorTheme = async () => {
+        try {
+            setLoading(true)
+            const res = await Get<{ success: boolean; data: Theme[] }>(
+                `/color-theme`
+            );
 
-    // Helper untuk mendapatkan kelas warna dinamis
-    const colorClasses = useMemo(() => getColorClasses(colorKey), [colorKey]);
-
-    const handleOpenModal = useCallback((modal: ActiveModal, product: Product | null = null) => {
-        setActiveModal(modal);
-        if (product) {
-            setSelectedProduct(product);
+            if (res?.success) {
+                setListTheme(res?.data)
+                setThemeName(res?.data[0]?.name)
+            }
+        } catch (err: any) {
+            setLoading(false)
         }
-        setShowColorPicker(false); // Close picker when opening other modals
-    }, []);
+        setLoading(false)
+    }
 
-    const handleCloseModal = useCallback(() => {
-        setActiveModal('none');
-        setSelectedProduct(null);
-    }, []);
+    const ColorPrimary = useMemo(() => {
+        const color = listTheme?.find((t) => t?.name === themeName)?.primary
+        return color || listTheme[0]?.primary
+    }, [listTheme, themeName]);
 
-    // Filtered products based on active category
     const filteredProducts = useMemo(() => {
-        if (activeCategory === 'Semua') {
-            return DUMMY_PRODUCTS;
+        if (activeCategory === "Semua") {
+            return product;
         }
-        return DUMMY_PRODUCTS.filter(p => p.category === activeCategory);
-    }, [activeCategory]);
+        return product?.filter(p => p.category === activeCategory);
+    }, [activeCategory, product]);
 
-    // --- Color Palette Selector Component ---
-    const ColorPaletteSelector: React.FC = () => {
-        const handleColorChange = (color: Color) => {
-            setColorKey(color);
-            setShowColorPicker(false);
-        };
+    const closeProductDetail = useCallback(() => {
+        setUiState(prev => ({ ...prev, selectedProduct: null }));
+    }, []);
 
+    const showNotification = useCallback((message: string, type: 'success' | 'error' = 'success') => {
+        setNotification({ message, visible: true, type });
+        setTimeout(() => {
+            setNotification(prev => ({ ...prev, visible: false }));
+        }, 4000); // Notifikasi hilang setelah 4 detik
+    }, []);
+    if (loading) {
         return (
-            <div className="relative">
-                <button
-                    onClick={() => setShowColorPicker(!showColorPicker)}
-                    className={`p-2 rounded-full text-gray-600 hover:${colorClasses.iconColor} hover:bg-gray-100 transition duration-150`}
-                    aria-label="Pilih Skema Warna"
-                >
-                    <Palette size={24} />
-                </button>
-                {showColorPicker && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-100">
-                        <p className="px-4 py-2 text-xs font-semibold text-gray-500 border-b border-gray-300">Pilih Tema Warna</p>
-                        {Object.entries(COLOR_SCHEMES).map(([key, name]) => (
-                            <button
-                                key={key}
-                                onClick={() => handleColorChange(key as Color)}
-                                className={`w-full text-left px-4 py-2 text-sm flex items-center transition-colors duration-150 ${colorKey === key
-                                    ? `font-bold ${colorClasses.textAccent} bg-gray-50`
-                                    : 'text-gray-700 hover:bg-gray-100'
-                                    }`}
-                            >
-                                <span className={`w-3 h-3 rounded-full mr-3 bg-${key}-600 border border-gray-300`}></span>
-                                {name}
-                                {colorKey === key && <CheckCircle size={16} className={`ml-auto ${colorClasses.textAccent}`} />}
-                            </button>
-                        ))}
+            <Loading />
+        )
+    }
+
+    const renderDrawerContent = (type: keyof UIState) => {
+        switch (type) {
+            case 'showFavoritesDrawer':
+                return (
+                    <div className="space-y-4">
+                        <div className="flex items-center text-gray-500">
+                            <Heart size={20} className="mr-2" />
+                            <p className="font-medium">2 Produk yang Anda Suka</p>
+                        </div>
+                        <ul className="divide-y divide-gray-200 bg-white p-2 rounded-lg shadow-inner border border-gray-100">
+                            {product?.filter((p) => p?.isFavorite).map(item => (
+                                <li key={item.id} className="py-3 flex justify-between items-center text-gray-700 hover:bg-gray-50 px-2 rounded transition">
+                                    <span className="font-medium truncate">{item.name}</span>
+                                    <span className={`text-sm font-semibold text-${ColorPrimary}-600`}>Rp{item.basePrice.toLocaleString('id-ID')}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <p className="text-sm text-center text-gray-500 mt-6">
+                            Pilih ikon hati pada produk untuk menambahkannya ke daftar favorit.
+                        </p>
                     </div>
-                )}
-            </div>
-        );
+                );
+            case 'showOrdersDrawer':
+                const subtotal = DUMMY_ORDERS.reduce((sum, item) => sum + item.price, 0);
+                return (
+                    <div className="space-y-4">
+                        <div className="flex items-center text-gray-500">
+                            <ShoppingBag size={20} className="mr-2" />
+                            <p className="font-medium">Total {DUMMY_ORDERS.length} Item di Keranjang</p>
+                        </div>
+                        <ul className="divide-y divide-gray-200 bg-white p-2 rounded-lg shadow-inner border border-gray-100">
+                            {DUMMY_ORDERS.map(item => (
+                                <li key={item.id} className="py-3 flex justify-between items-center text-gray-700 px-2">
+                                    <span className="truncate">
+                                        <span className={`font-bold mr-2 text-${ColorPrimary}-600`}>{item.quantity}x</span>
+                                        {item.productName} ({item.variant})
+                                    </span>
+                                    <span className="text-sm font-semibold">Rp{item.price.toLocaleString('id-ID')}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="border-t border-gray-300 pt-4 flex justify-between font-bold text-lg text-gray-800">
+                            <span>Subtotal:</span>
+                            <span>Rp{subtotal.toLocaleString('id-ID')}</span>
+                        </div>
+                        <button className={`w-full mt-4 py-3 text-white font-bold rounded-xl transition duration-200 bg-${ColorPrimary}-600 hover:bg-${ColorPrimary}-700`}>
+                            Lanjut ke Pembayaran
+                        </button>
+                    </div>
+                );
+            case 'showHistoryDrawer':
+                return (
+                    <div className="space-y-4">
+                        <div className="flex items-center text-gray-500">
+                            <Clock size={20} className="mr-2" />
+                            <p className="font-medium">2 Riwayat Transaksi Terakhir</p>
+                        </div>
+                        <ul className="divide-y divide-gray-200 bg-white p-2 rounded-lg shadow-inner border border-gray-100">
+                            {DUMMY_HISTORY.map(history => (
+                                <li key={history.id} className="py-3 flex justify-between items-center text-gray-700 px-2">
+                                    <div>
+                                        <p className="font-medium text-gray-800">Order #{history.id} - {history.items} Item</p>
+                                        <p className="text-xs text-gray-500">{history.date}</p>
+                                    </div>
+                                    <div className="text-right">
+                                        <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${history.status === 'Selesai' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                                            }`}>
+                                            {history.status}
+                                        </span>
+                                        <p className="text-sm font-bold mt-1">Rp{history.total.toLocaleString('id-ID')}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                        <p className="text-sm text-center text-gray-500 mt-6">
+                            Semua riwayat pemesanan Anda tersimpan di sini.
+                        </p>
+                    </div>
+                );
+            default:
+                return <p>Konten tidak ditemukan.</p>;
+        }
     };
 
-
-    // --- HEADER ---
-    const Header: React.FC = () => (
-        <header className="sticky top-0 z-40 bg-white shadow-md">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                <div className="flex items-center">
-                    <h1 className={`text-2xl font-extrabold flex items-center ${colorClasses.titleText}`}>
-                        <Smartphone className={`w-6 h-6 mr-2 ${colorClasses.iconColor} hidden sm:inline`} /> Katalog Minimalis
-                    </h1>
-                    <div className="ml-4">
-                        <ColorPaletteSelector />
-                    </div>
-                </div>
-                <div className="flex space-x-4">
-                    <HeaderIcon
-                        Icon={Heart}
-                        label="Favorit"
-                        onClick={() => handleOpenModal('favorite')}
-                        colorClasses={colorClasses}
-                    />
-                    <HeaderIcon
-                        Icon={ShoppingBag}
-                        label="Pesanan"
-                        onClick={() => handleOpenModal('order')}
-                        colorClasses={colorClasses}
-                    />
-                    <HeaderIcon
-                        Icon={Clock}
-                        label="Riwayat"
-                        onClick={() => handleOpenModal('history')}
-                        colorClasses={colorClasses}
-                    />
-                </div>
-            </div>
-        </header>
-    );
-
-    const HeaderIcon: React.FC<{ Icon: React.ElementType; label: string; onClick: () => void; colorClasses: ReturnType<typeof getColorClasses> }> = ({
-        Icon,
-        label,
-        onClick,
-        colorClasses,
-    }) => (
-        <button
-            onClick={onClick}
-            className={`p-2 rounded-full text-gray-600 hover:${colorClasses.textAccent} ${colorClasses.hoverBgLight} transition duration-150 relative group`}
-            aria-label={label}
-        >
-            <Icon size={24} />
-            <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none hidden sm:block">
-                {label}
-            </span>
-        </button>
-    );
-
-    // --- HERO/BANNER SECTION ---
-    const HeroSection: React.FC = () => (
-        <div className={`relative ${colorClasses.lightBg} rounded-xl m-4 md:m-8 overflow-hidden shadow-lg`}>
-            <div className="p-8 md:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between">
-                <div className="max-w-lg mb-6 md:mb-0">
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
-                        Diskon Spesial Akhir Pekan!
-                    </h2>
-                    <p className="mt-4 text-gray-600 text-lg">
-                        Nikmati potongan harga 20% untuk semua kategori produk favorit Anda. Jangan sampai terlewat!
-                    </p>
-                    <button className={`mt-6 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white transition duration-150 ${colorClasses.primaryBg}`} onClick={() => {
-                        const sec = document.getElementById("produk-pilihan");
-                        sec?.scrollIntoView({ behavior: "smooth" });
-                    }}>
-                        Lihat Penawaran <ChevronRight size={20} className="ml-2" />
-                    </button>
-                </div>
-                <div className="w-full md:w-1/3 flex justify-center">
-                    <div className="text-6xl md:text-8xl p-4 bg-white rounded-full shadow-xl">
-                        🎉
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
-    // --- CATEGORIES SECTION ---
-    const CategoriesSection: React.FC = () => (
-        <div className="mt-8 px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Telusuri Kategori</h2>
-            <div className="flex space-x-3 overflow-x-auto pb-3 scrollbar-hide">
-                {['Semua', ...DUMMY_CATEGORIES.map(c => c.name)].map((name, index) => (
-                    <button
-                        key={index}
-                        onClick={() => setActiveCategory(name)}
-                        className={`flex-shrink-0 px-5 py-2.5 text-sm font-medium rounded-full transition-colors duration-200 shadow-sm ${activeCategory === name
-                            ? `${colorClasses.primaryBg} text-white ${colorClasses.shadowAccent}`
-                            : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-100'
-                            }`}
-                    >
-                        {DUMMY_CATEGORIES.find(c => c.name === name)?.icon} {name}
-                    </button>
-                ))}
-            </div>
-        </div>
-    );
-
-    // --- PRODUCT CARD ---
-    const ProductCard: React.FC<{ product: Product, colorClasses: ReturnType<typeof getColorClasses> }> = ({ product, colorClasses }) => (
-        <div
-            onClick={() => handleOpenModal('detail', product)}
-            className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden transform hover:-translate-y-1"
-        >
-            <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-48 object-cover object-center"
-                onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = `https://placehold.co/400x300/e0e0e0/333333?text=${product.name}`;
-                }}
-            />
-            <div className="p-4">
-                <p className={`text-xs font-semibold uppercase tracking-wider mb-1 ${colorClasses.textAccent}`}>
-                    {product.category}
-                </p>
-                <h3 className="text-lg font-semibold text-gray-800 truncate mb-1">{product.name}</h3>
-                <p className="text-xl font-bold text-gray-900">
-                    Rp{product.price.toLocaleString('id-ID')}
-                </p>
-                <p className="text-gray-500 text-sm mt-2 line-clamp-2">{product.description}</p>
-            </div>
-        </div>
-    );
+    const handleFav = (id?: number) => {
+        setProduct((prev) =>
+            prev.map((item) =>
+                item.id === id
+                    ? { ...item, isFavorite: !item.isFavorite }
+                    : item
+            )
+        );
+    };
 
     return (
         <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
@@ -222,69 +205,70 @@ const App: React.FC = () => {
         }
         /* Font family rule removed to rely on Next.js global settings */
       `}</style>
-
-            {/* 1. Header */}
-            <Header />
-
+            <Header
+                theme={2}
+                color={ColorPrimary} onIconClick={(drawerName) => toggleDrawer(drawerName, true)} />
             <main className="max-w-7xl mx-auto pb-12">
-                {/* 4. Hero Section */}
-                <HeroSection />
+                <ThemeSection themeName={themeName} setThemeName={setThemeName} themeList={listTheme} />
+                <HeroSection dataHero={dataHero} color={ColorPrimary} theme={2} />
+                {
+                    categorie &&
+                    <Categorie
+                        theme={2}
+                        categorie={categorie}
+                        setActiveCategory={setActiveCategory}
+                        activeCategory={activeCategory}
+                        color={ColorPrimary}
+                    />
+                }
 
-                {/* 5. Kategori */}
-                <CategoriesSection />
-
-                {/* 6. Card Produk */}
-                <div className="mt-10 px-4 sm:px-6 lg:px-8" id="produk-pilihan">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                        Produk Tersedia ({activeCategory === 'Semua' ? 'Semua' : activeCategory})
-                    </h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                        {filteredProducts.map(product => (
-                            <ProductCard key={product.id} product={product} colorClasses={colorClasses} />
-                        ))}
-                        {filteredProducts.length === 0 && (
-                            <div className="col-span-full text-center py-10 text-gray-500">
-                                Tidak ada produk di kategori ini.
-                            </div>
-                        )}
-                    </div>
-                </div>
+                <ProductSection
+                    theme={2}
+                    filteredProducts={filteredProducts}
+                    activeCategory={activeCategory}
+                    onClick={openProductDetail}
+                    color={ColorPrimary}
+                    handleFav={handleFav} />
             </main>
-
-            {/* 3. Sidebar Modals (Favorite, Order, History) */}
-            <SidebarModal
-                isOpen={activeModal === 'favorite'}
-                onClose={handleCloseModal}
-                title="Daftar Favorit"
+            <SideDrawerTwo
+                isOpen={uiState.showFavoritesDrawer}
+                onClose={() => toggleDrawer('showFavoritesDrawer', false)}
+                title="Daftar Favorit Anda"
             >
-                <FavoriteList colorClasses={colorClasses} />
-            </SidebarModal>
+                {renderDrawerContent('showFavoritesDrawer')}
+            </SideDrawerTwo>
 
-            <SidebarModal
-                isOpen={activeModal === 'order'}
-                onClose={handleCloseModal}
-                title="Keranjang Pesanan"
+            {/* Orders Drawer */}
+            <SideDrawerTwo
+                isOpen={uiState.showOrdersDrawer}
+                onClose={() => toggleDrawer('showOrdersDrawer', false)}
+                title="Keranjang Belanja"
             >
-                <OrderCartList colorClasses={colorClasses} />
-            </SidebarModal>
+                {renderDrawerContent('showOrdersDrawer')}
+            </SideDrawerTwo>
 
-            <SidebarModal
-                isOpen={activeModal === 'history'}
-                onClose={handleCloseModal}
-                title="Riwayat Pemesanan"
+            {/* History Order Drawer */}
+            <SideDrawerTwo
+                isOpen={uiState.showHistoryDrawer}
+                onClose={() => toggleDrawer('showHistoryDrawer', false)}
+                title="Riwayat Transaksi"
             >
-                <HistoryList />
-            </SidebarModal>
+                {renderDrawerContent('showHistoryDrawer')}
+            </SideDrawerTwo>
 
-            {/* 7. Product Detail Modal (Center) */}
-            <DetailModal
-                isOpen={activeModal === 'detail'}
-                onClose={handleCloseModal}
-                product={selectedProduct}
-                colorClasses={colorClasses}
-            />
+            {uiState.selectedProduct && (
+                <ModalDetailProduct
+                    theme={2}
+                    product={uiState.selectedProduct}
+                    onClose={closeProductDetail}
+                    onOrderSuccess={showNotification}
+                    color={ColorPrimary}
+                />
+            )}
+
+            <Notification theme={1} notification={notification} />
         </div>
-    );
-};
+    )
+}
 
-export default App;
+export default ThemeTwo
