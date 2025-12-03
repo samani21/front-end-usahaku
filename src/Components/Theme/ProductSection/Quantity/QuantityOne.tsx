@@ -5,7 +5,7 @@ const QuantityOne: React.FC<{
     id: number | 'base';
     quantity: number;
     onChange: (id: number | 'base', newQuantity: string) => void;
-    label: string;
+    label?: string;
     min: number;
 }> = ({ id, quantity, onChange, label, min }) => {
     // Fixed Dark Mode colors

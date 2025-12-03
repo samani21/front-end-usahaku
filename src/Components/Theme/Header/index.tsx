@@ -2,6 +2,7 @@ import { UIState } from '@/lib/Types/Theme/Theme';
 import React from 'react'
 import HeaderOne from './HeaderOne';
 import HeaderTwo from './HeaderTwo';
+import HeaderThree from './HeaderThree';
 
 type Props = {
     theme: number,
@@ -14,7 +15,9 @@ const Header = ({ theme, onIconClick, color }: Props) => {
         theme === 1 ?
             <HeaderOne onIconClick={onIconClick} /> :
             theme === 2 ?
-                <HeaderTwo color={color} onIconClick={onIconClick}/> : ''
+                <HeaderTwo color={color} onIconClick={onIconClick} /> :
+                theme === 3 ?
+                    <HeaderThree color={color} onIconClick={onIconClick} /> : ''
     )
 }
 

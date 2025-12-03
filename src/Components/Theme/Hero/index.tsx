@@ -2,6 +2,7 @@ import React from 'react'
 import HeroOne from './HeroOne';
 import { Hero } from '@/lib/Types/Theme/Theme';
 import HeroTwo from './HeroTwo';
+import HeroThree from './HeroThree';
 
 type Props = {
     theme: number;
@@ -14,7 +15,9 @@ const HeroSection = ({ theme, dataHero, color }: Props) => {
         theme === 1 ?
             <HeroOne dataHero={dataHero} /> :
             theme === 2 ?
-                <HeroTwo color={color} dataHero={dataHero} /> : ''
+                <HeroTwo color={color} dataHero={dataHero} /> :
+                theme === 3 ?
+                    <HeroThree color={color} dataHero={dataHero} /> : ''
     )
 }
 

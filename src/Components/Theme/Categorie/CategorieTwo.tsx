@@ -22,7 +22,7 @@ const CategorieTwo = ({ categorie, setActiveCategory, activeCategory, color }: P
                             : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-100'
                             }`}
                     >
-                        {categorie.find(c => c.name === name)?.icon} {name}
+                        {categorie?.find(c => c.name === name)?.icon} {name}
                     </button>
                 ))}
             </div>

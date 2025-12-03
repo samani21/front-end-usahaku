@@ -16,6 +16,7 @@ export interface Category {
     id?: number;
     name: string;
     icon?: string;
+    iconComponent?: React.ElementType;
 }
 
 export interface ProductVariant {
@@ -63,3 +64,5 @@ export interface Hero {
     cta: string,
     image?: string,
 }
+
+export type VariantQuantities = Record<number | 'base', number>;

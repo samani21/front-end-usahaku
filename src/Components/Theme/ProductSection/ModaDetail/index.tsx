@@ -2,6 +2,7 @@ import React from 'react'
 import ModalDetailOne from './ModalDetailOne';
 import { Product } from '@/lib/Types/Theme/Theme';
 import ModalDetailTwo from './ModalDetailTwo';
+import ModalDetailThree from './ModalDetailThree';
 
 type Props = {
     theme: number;
@@ -20,7 +21,11 @@ const ModalDetailProduct = ({ theme, product, onClose, onOrderSuccess, color }: 
             theme === 2 ?
                 <ModalDetailTwo product={product}
                     onClose={onClose}
-                    onOrderSuccess={onOrderSuccess} color={color} /> : ''
+                    onOrderSuccess={onOrderSuccess} color={color} /> :
+                theme === 3 ?
+                    <ModalDetailThree product={product}
+                        onClose={onClose}
+                        onOrderSuccess={onOrderSuccess} color={color} /> : ''
     )
 }
 

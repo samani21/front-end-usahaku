@@ -2,6 +2,7 @@ import { Product } from '@/lib/Types/Theme/Theme'
 import React from 'react'
 import ProductSectionOne from './ProductSectionOne';
 import ProductSectionTwo from './ProductSectionTwo';
+import ProductSectionThree from './ProductSectionThree';
 
 type Props = {
   theme: number,
@@ -17,7 +18,9 @@ const ProductSection = ({ theme, filteredProducts, activeCategory, onClick, colo
     theme === 1 ?
       <ProductSectionOne filteredProducts={filteredProducts} activeCategory={activeCategory} onClick={onClick} handleFav={handleFav} /> :
       theme === 2 ?
-        <ProductSectionTwo filteredProducts={filteredProducts} activeCategory={activeCategory} onClick={onClick} color={color} handleFav={handleFav} /> : ''
+        <ProductSectionTwo filteredProducts={filteredProducts} activeCategory={activeCategory} onClick={onClick} color={color} handleFav={handleFav} /> :
+        theme === 3 ?
+          <ProductSectionThree filteredProducts={filteredProducts} activeCategory={activeCategory} onClick={onClick} color={color} handleFav={handleFav} /> : ''
   )
 }
 
