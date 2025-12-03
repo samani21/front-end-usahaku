@@ -1,12 +1,12 @@
 import { Product } from '@/hooks/Theme/useProductCatalog';
-import { ColorClasses, formatRupiah } from '@/lib/Types/Theme/theme';
+import { formatRupiah } from '@/lib/Types/Theme/theme';
 import { Heart } from 'lucide-react';
 import React from 'react'
 
 interface ProductCardProps {
     product: Product;
     onClick: () => void;
-    onToggleFavorite: (id: string) => void;
+    onToggleFavorite: (id: number) => void;
     color: string;
 }
 

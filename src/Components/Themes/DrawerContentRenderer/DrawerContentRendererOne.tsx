@@ -1,5 +1,5 @@
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
-import { ColorClasses, formatRupiah } from '@/lib/Types/Theme/theme';
+import { formatRupiah } from '@/lib/Types/Theme/theme';
 import { History, X } from 'lucide-react';
 import React from 'react'
 
@@ -10,7 +10,7 @@ interface DrawerContentRendererProps {
     cart: OrderItem[];
     history: OrderItem[];
     cartTotal: number;
-    handleToggleFavorite: (id: string) => void;
+    handleToggleFavorite: (id: number) => void;
     handleRemoveFromCart: (index: number) => void;
 }
 

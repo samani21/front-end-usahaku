@@ -5,7 +5,7 @@ export interface Variant {
 }
 
 export interface Product {
-    id: string;
+    id: number;
     name: string;
     price: number;
     description: string;
@@ -16,7 +16,7 @@ export interface Product {
 }
 
 export interface OrderItem {
-    productId: string;
+    productId: number;
     productName: string;
     basePrice: number;
     variantName: string;

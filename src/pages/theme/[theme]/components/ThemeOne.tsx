@@ -1,8 +1,7 @@
 // src/ThemeFour.tsx
 import React from 'react';
-import { Heart, ShoppingCart, History, X, CheckCircle, Palette, Laptop } from 'lucide-react';
-import { formatRupiah, THEME_COLORS, ThemeName, ColorClasses, Theme } from '@/lib/Types/Theme/theme';
-import { Product, OrderItem, Variant, DrawerType } from '@/hooks/Theme/useProductCatalog';
+import { Heart, ShoppingCart, History, Laptop } from 'lucide-react';
+import { Hero, Theme } from '@/lib/Types/Theme/theme';
 import { DUMMY_CATEGORIES, useProductCatalog } from '@/hooks/Theme/ProductOne';
 import HeaderIconOne from '@/Components/Themes/HeaderIcon/HeaderIconOne';
 import ThemeSwitcher from '@/Components/Themes/ThemeSwitcher/ThemeSwitcher';
@@ -10,12 +9,22 @@ import CardProductOne from '@/Components/Themes/CardProduct/CardProductOne';
 import DrawerOne from '@/Components/Themes/Drawer/DrawerOne';
 import DrawerContentRendererOne from '@/Components/Themes/DrawerContentRenderer/DrawerContentRendererOne';
 import ModalProductDetailOne from '@/Components/Themes/ModalProductDetail/ModalProductDetailOne';
+import HeroOne from '@/Components/Themes/Hero/HeroOne';
 
 type Props = {
     themeName: string;
     setThemeName: (val: string) => void;
     listTheme: Theme[];
     color: string;
+}
+
+
+const DUMMY_HERO: Hero = {
+    // title: 'Penawaran Eksklusif',
+    sub_title: 'Temukan Gadget Impianmu!',
+    description: 'Jelajahi koleksi produk teknologi terbaru dengan harga terbaik dan varian terlengkap.',
+    cta: ' Lihat Semua Produk',
+    image: 'https://gizmologi.id/wp-content/uploads/2020/08/asus-rog-strix-g1517.jpg'
 }
 
 const ThemeOne = ({ themeName, listTheme, color, setThemeName }: Props) => {
@@ -56,24 +65,7 @@ const ThemeOne = ({ themeName, listTheme, color, setThemeName }: Props) => {
                 <ThemeSwitcher listTheme={listTheme} setThemeName={setThemeName} themeName={themeName} />
 
                 {/* 3. Hero Section / Banner */}
-                <section className={`bg-gradient-to-r from-${color}-600 to-${color}-900  p-8 sm:p-12 rounded-2xl shadow-xl text-white`}>
-                    <div className="flex flex-col md:flex-row items-center justify-between">
-                        <div className="max-w-lg mb-6 md:mb-0">
-                            <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-                                Temukan Gadget Impianmu!
-                            </h2>
-                            <p className="mt-3 text-white/80 text-lg">
-                                Jelajahi koleksi produk teknologi terbaru dengan harga terbaik dan varian terlengkap.
-                            </p>
-                            <button className={`mt-6 px-6 py-3 bg-white text-${color}-600 font-bold rounded-full shadow-lg hover:bg-gray-100 transition duration-300`}>
-                                Lihat Semua Produk
-                            </button>
-                        </div>
-                        <div className="hidden sm:block">
-                            <Laptop size={120} className="text-white/70" />
-                        </div>
-                    </div>
-                </section>
+                <HeroOne color={color} hero={DUMMY_HERO} />
 
                 {/* 4. Kategori Section */}
                 <section className="space-y-6">
@@ -123,6 +115,14 @@ const ThemeOne = ({ themeName, listTheme, color, setThemeName }: Props) => {
                 </section>
 
             </main>
+            {selectedProduct && (
+                <ModalProductDetailOne
+                    product={selectedProduct}
+                    onClose={closeDetailModal}
+                    onOrder={handleAddToCart}
+                    color={color}
+                />
+            )}
 
             {/* 7. Modal Samping (Drawer) */}
             <DrawerOne
@@ -143,14 +143,6 @@ const ThemeOne = ({ themeName, listTheme, color, setThemeName }: Props) => {
             </DrawerOne>
 
             {/* 8. Modal Detail Produk */}
-            {selectedProduct && (
-                <ModalProductDetailOne
-                    product={selectedProduct}
-                    onClose={closeDetailModal}
-                    onOrder={handleAddToCart}
-                    color={color}
-                />
-            )}
         </div>
     );
 }

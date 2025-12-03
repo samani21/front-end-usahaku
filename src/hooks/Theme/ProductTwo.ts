@@ -1,6 +1,7 @@
 import { ChevronDown, Laptop, Monitor, Smartphone, Tablet } from "lucide-react";
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
 import { useCallback, useMemo, useState } from "react";
+import { Hero } from "@/lib/Types/Theme/theme";
 
 export const DUMMY_PRODUCTS: Product[] = [
     {
@@ -66,9 +67,12 @@ export const DUMMY_CATEGORIES: Category[] = [
 ];
 
 export const DUMMY_HISTORY: OrderItem[] = [
-    { productId: 1, productName: 'Smartphone Ultra X Pro', basePrice: 8999000, variantName: 'Warna Hitam (Standar)', finalPrice: 8999000, quantity: 1 },
+    {
+        productId: 1, productName: 'Smartphone Ultra X Pro', basePrice: 8999000, variantName: 'Warna Hitam(Standar)', finalPrice: 8999000, quantity: 1
+    },
     { productId: 2, productName: 'Smartwatch Titan Series 3', basePrice: 3450000, variantName: 'Tali Karet', finalPrice: 3450000, quantity: 2 },
 ];
+
 
 export const useProductCatalog = () => {
     const [products, setProducts] = useState<Product[]>(DUMMY_PRODUCTS);

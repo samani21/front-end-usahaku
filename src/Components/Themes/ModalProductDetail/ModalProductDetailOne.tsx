@@ -1,5 +1,5 @@
 import { OrderItem, Product, Variant } from '@/hooks/Theme/useProductCatalog';
-import { ColorClasses, formatRupiah } from '@/lib/Types/Theme/theme';
+import {  formatRupiah } from '@/lib/Types/Theme/theme';
 import { CheckCircle, X } from 'lucide-react';
 import React from 'react'
 

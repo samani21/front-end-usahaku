@@ -1,4 +1,3 @@
-import { ColorClasses } from '@/lib/Types/Theme/theme';
 import { X } from 'lucide-react';
 import React from 'react'
 
