@@ -1,6 +1,7 @@
 import { ChevronDown, Laptop, Monitor, Smartphone, Tablet } from "lucide-react";
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Hero } from "@/lib/Types/Theme/theme";
 
 export const DUMMY_PRODUCTS: Product[] = [
     {
@@ -70,13 +71,30 @@ export const DUMMY_HISTORY: OrderItem[] = [
     { productId: 2, productName: 'Smartwatch Titan Series 3', basePrice: 3450000, variantName: 'Tali Karet', finalPrice: 3450000, quantity: 2 },
 ];
 
+const DUMMY_HERO: Hero = {
+    // title: 'Penawaran Eksklusif',
+    sub_title: 'Temukan Gadget Impianmu!',
+    description: 'Jelajahi koleksi produk teknologi terbaru dengan harga terbaik dan varian terlengkap.',
+    cta: ' Lihat Semua Produk',
+    image: 'https://gizmologi.id/wp-content/uploads/2020/08/asus-rog-strix-g1517.jpg'
+}
+
 export const useProductCatalog = () => {
     const [products, setProducts] = useState<Product[]>(DUMMY_PRODUCTS);
     const [cart, setCart] = useState<OrderItem[]>([]);
     const [history, setHistory] = useState<OrderItem[]>(DUMMY_HISTORY);
+    const [hero, setHero] = useState<Hero | null>(null);
+    const [categorie, setCategorie] = useState<Category[]>([]);
     const [activeDrawer, setActiveDrawer] = useState<DrawerType>(null);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [activeCategory, setActiveCategory] = useState('Semua Produk');
+
+    useEffect(() => {
+        setProducts(DUMMY_PRODUCTS)
+        setHistory(DUMMY_HISTORY);
+        setCategorie(DUMMY_CATEGORIES);
+        setHero(DUMMY_HERO)
+    }, [])
 
     const favoriteProducts: Product[] = useMemo(() => products.filter(p => p.isFavorite), [products]);
     const cartTotal: number = useMemo(() => cart.reduce((total, item) => total + item.finalPrice * item.quantity, 0), [cart]);
@@ -131,6 +149,8 @@ export const useProductCatalog = () => {
         activeDrawer,
         selectedProduct,
         activeCategory,
+        categorie,
+        hero,
 
         // Computed
         favoriteProducts,

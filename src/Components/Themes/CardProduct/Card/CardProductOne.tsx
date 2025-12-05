@@ -1,5 +1,6 @@
 import { Product } from '@/hooks/Theme/useProductCatalog';
 import { formatRupiah } from '@/lib/Types/Theme/theme';
+import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { Heart } from 'lucide-react';
 import React from 'react'
 
@@ -7,12 +8,12 @@ interface ProductCardProps {
     product: Product;
     onClick: () => void;
     onToggleFavorite: (id: number) => void;
-    color: string;
+    color: ThemeColorSet;
 }
 
 const CardProductOne: React.FC<ProductCardProps> = ({ product, onClick, onToggleFavorite, color }) => (
     <div
-        className="bg-white dark:bg-gray-700 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden group flex flex-col cursor-pointer h-full"
+        className={`bg-white dark:bg-gray-700 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden group flex flex-col cursor-pointer h-full ${color?.hoverText600}`}
     >
         <div className="relative">
             <img
@@ -35,7 +36,7 @@ const CardProductOne: React.FC<ProductCardProps> = ({ product, onClick, onToggle
                 {product.name}
             </h3>
             <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">{product.description}</p>
-            <p className={`text-2xl font-extrabold text-${color}-600 dark:text-${color}-400 mt-auto`}>
+            <p className={`text-2xl font-extrabold mt-auto`}>
                 {formatRupiah(product.price)}
             </p>
             <div className="text-xs text-gray-400 mt-1">

@@ -1,11 +1,12 @@
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
 import { formatRupiah } from '@/lib/Types/Theme/theme';
+import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { History, X } from 'lucide-react';
 import React from 'react'
 
 interface DrawerContentRendererProps {
     type: DrawerType;
-    color: string;
+    color: ThemeColorSet;
     favoriteProducts: Product[];
     cart: OrderItem[];
     history: OrderItem[];
@@ -39,7 +40,7 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
                             />
                             <div className="flex-grow">
                                 <p className="font-semibold text-gray-900 dark:text-white truncate">{p.name}</p>
-                                <p className={`text-sm text-${color}-600 dark:text-${color}-400`}>{formatRupiah(p.price)}</p>
+                                <p className={`text-sm ${color?.text600}`}>{formatRupiah(p.price)}</p>
                             </div>
                             <button
                                 onClick={() => handleToggleFavorite(p.id)}
@@ -68,7 +69,7 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
                                 <div className="flex-grow">
                                     <p className="font-semibold text-gray-900 dark:text-white">{item.productName}</p>
                                     <p className="text-xs text-gray-500 dark:text-gray-400">Varian: {item.variantName}</p>
-                                    <p className={`text-sm text-${color}-600 dark:text-${color}-400 font-bold mt-1`}>
+                                    <p className={`text-sm ${color?.text600}  font-bold mt-1`}>
                                         {item.quantity}x @ {formatRupiah(item.finalPrice)}
                                     </p>
                                     <p className="text-sm text-gray-900 dark:text-white font-bold">
@@ -91,10 +92,10 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
                 <div className="mt-4 pt-4 border-t dark:border-gray-700">
                     <div className="flex justify-between items-center mb-3">
                         <span className="text-lg font-extrabold text-gray-900 dark:text-white">Total Keseluruhan:</span>
-                        <span className={`text-2xl font-extrabold text-${color}-600 dark:text-${color}-400`}>{formatRupiah(cartTotal)}</span>
+                        <span className={`text-2xl font-extrabold ${color?.text600}`}>{formatRupiah(cartTotal)}</span>
                     </div>
                     <button
-                        className={`w-full py-3 bg-${color}-600 text-white font-bold rounded-lg shadow-lg hover:bg-${color}-700 transition duration-300 disabled:bg-gray-400`}
+                        className={`w-full py-3 ${color?.bg600} text-white font-bold rounded-lg shadow-lg ${color?.hoverBg700} transition duration-300 disabled:bg-gray-400`}
                         disabled={cart.length === 0}
                     >
                         Proses Checkout
@@ -111,7 +112,7 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
                 {history?.length > 0 ? (
                     history.map((item, index) => (
                         <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-sm opacity-80">
-                            <History size={24} className={`text-${color}-600 mt-1 flex-shrink-0`} />
+                            <History size={24} className={`${color?.text600} mt-1 flex-shrink-0`} />
                             <div className='flex-grow'>
                                 <p className="font-semibold text-gray-900 dark:text-white truncate">{item.productName}</p>
                                 <p className="text-xs text-gray-500 dark:text-gray-400">Varian: {item.variantName}</p>

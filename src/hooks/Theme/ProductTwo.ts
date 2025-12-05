@@ -57,13 +57,11 @@ export const DUMMY_PRODUCTS: Product[] = [
     },
 ];
 
-
 export const DUMMY_CATEGORIES: Category[] = [
-    { name: 'Semua Produk', iconComponent: Monitor },
-    { name: 'Laptop', iconComponent: Laptop },
-    { name: 'Smartphone', iconComponent: Smartphone },
-    { name: 'Monitor', iconComponent: Tablet },
-    { name: 'Aksesoris', iconComponent: ChevronDown },
+    { id: 1, name: 'Kopi', icon: '☕' },
+    { id: 2, name: 'Teh', icon: '🍵' },
+    { id: 3, name: 'Camilan', icon: '🍪' },
+    { id: 4, name: 'Jus Segar', icon: '🥤' },
 ];
 
 export const DUMMY_HISTORY: OrderItem[] = [
@@ -72,6 +70,8 @@ export const DUMMY_HISTORY: OrderItem[] = [
     },
     { productId: 2, productName: 'Smartwatch Titan Series 3', basePrice: 3450000, variantName: 'Tali Karet', finalPrice: 3450000, quantity: 2 },
 ];
+
+
 
 
 export const useProductCatalog = () => {

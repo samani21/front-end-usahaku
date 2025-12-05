@@ -1,8 +1,10 @@
+import { ThemeColor } from "./ThemeColor";
 
+type ValidColorKey = keyof typeof ThemeColor;
 export interface Theme {
     id: number;
     name: string;
-    primary: string;
+    primary: ValidColorKey;
     hex: string;
 }
 

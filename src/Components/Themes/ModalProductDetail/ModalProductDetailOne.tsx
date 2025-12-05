@@ -1,5 +1,6 @@
 import { OrderItem, Product, Variant } from '@/hooks/Theme/useProductCatalog';
-import {  formatRupiah } from '@/lib/Types/Theme/theme';
+import { formatRupiah } from '@/lib/Types/Theme/theme';
+import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { CheckCircle, X } from 'lucide-react';
 import React from 'react'
 
@@ -7,7 +8,7 @@ interface DetailModalProps {
     product: Product;
     onClose: () => void;
     onOrder: (item: OrderItem) => void;
-    color: string;
+    color: ThemeColorSet;
 }
 
 const ModalProductDetailOne: React.FC<DetailModalProps> = ({ product, onClose, onOrder, color }) => {
@@ -39,8 +40,8 @@ const ModalProductDetailOne: React.FC<DetailModalProps> = ({ product, onClose, o
         // Render Konfirmasi Pesanan secara overlay dalam modal
         return (
             <div className="absolute inset-0 bg-white/90 dark:bg-gray-800/90 flex flex-col items-center justify-center rounded-xl backdrop-blur-sm z-50">
-                <CheckCircle className={`text-${color}-600 mb-4`} size={64} />
-                <p className={`text-xl font-semibold text-${color}-600 dark:text-${color}-400`}>Berhasil Dipesan!</p>
+                <CheckCircle className={`${color?.text600} mb-4`} size={64} />
+                <p className={`text-xl font-semibold ${color?.text600}`}>Berhasil Dipesan!</p>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
                     {quantity}x {product.name} {selectedVariant && `(${selectedVariant?.name})`} telah ditambahkan.
                 </p>
@@ -77,7 +78,7 @@ const ModalProductDetailOne: React.FC<DetailModalProps> = ({ product, onClose, o
                     />
 
                     <h4 className="text-xl font-bold text-gray-900 dark:text-white">{product.name}</h4>
-                    <p className={`text-3xl font-extrabold text-${color}-600 dark:text-${color}-400`}>
+                    <p className={`text-3xl font-extrabold ${color?.text600}`}>
                         {formatRupiah(finalPrice)}
                     </p>
 
@@ -95,7 +96,7 @@ const ModalProductDetailOne: React.FC<DetailModalProps> = ({ product, onClose, o
                                     key={variant.id}
                                     onClick={() => setSelectedVariant(variant)}
                                     className={`w-full text-left p-3 rounded-lg border transition duration-150 ${selectedVariant.id === variant.id
-                                        ? `border-${color}-500 bg-${color}-50 dark:bg-${color}-900 text-${color}-800 dark:text-${color}-400 ring-2 ring-border-${color}-500`
+                                        ? `${color?.border500} ${color?.bg50} ${color?.text800} ring-2`
                                         : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600'
                                         }`}
                                 >
@@ -130,7 +131,7 @@ const ModalProductDetailOne: React.FC<DetailModalProps> = ({ product, onClose, o
                     <button
                         onClick={handleOrder}
                         disabled={quantity < 1}
-                        className={`px-6 py-3 bg-${color}-600 text-white font-bold rounded-lg shadow-lg $hover:bg-${color}-700 transition duration-300 disabled:bg-gray-400`}
+                        className={`px-6 py-3 ${color?.bg600} text-white font-bold rounded-lg shadow-lg ${color?.hoverBg700} transition duration-300 disabled:bg-gray-400`}
                     >
                         Pesan Sekarang ({formatRupiah(finalPrice * quantity)})
                     </button>
