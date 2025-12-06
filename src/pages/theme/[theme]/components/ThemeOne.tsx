@@ -3,8 +3,6 @@ import React from 'react';
 import { Theme } from '@/lib/Types/Theme/theme';
 import { useProductCatalog } from '@/hooks/Theme/ProductOne';
 import ThemeSwitcher from '@/Components/Themes/ThemeSwitcher/ThemeSwitcher';
-import DrawerOne from '@/Components/Themes/Drawer/DrawerOne';
-import HeroOne from '@/Components/Themes/Hero/HeroOne';
 import { ThemeColor, ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import Categorie from '@/Components/Themes/Categorie';
 import Header from '@/Components/Themes/Header';
@@ -12,6 +10,7 @@ import CardProduct from '@/Components/Themes/CardProduct/CardProduct';
 import DrawerContentRenderer from '@/Components/Themes/DrawerContentRenderer/DrawerContentRenderer';
 import ModalProductDetail from '@/Components/Themes/ModalProductDetail/ModalProductDetail';
 import Drawer from '@/Components/Themes/Drawer/Drawer';
+import HeroSection from '@/Components/Themes/Hero';
 
 type Props = {
     themeName: string;
@@ -56,7 +55,7 @@ const ThemeOne = ({ themeName, listTheme, color, setThemeName }: Props) => {
                 <ThemeSwitcher listTheme={listTheme} setThemeName={setThemeName} themeName={themeName} />
 
                 {/* 3. Hero Section / Banner */}
-                <HeroOne color={colors} hero={hero} />
+                <HeroSection theme={1} color={colors} hero={hero} />
 
                 {/* 4. Kategori Section */}
                 {categorie?.length > 0 ? <Categorie color={colors} categorie={categorie} theme={1} setActiveCategory={setActiveCategory}

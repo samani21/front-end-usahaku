@@ -2,6 +2,7 @@ import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import React from 'react'
 import HeaderOne from './HeaderOne';
+import HeaderTwo from './HeaderTwo';
 
 type Props = {
     theme: number
@@ -18,7 +19,12 @@ const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history }: P
             openDrawer={openDrawer}
             favoriteProducts={favoriteProducts}
             cart={cart}
-            history={history} /> : ''
+            history={history} /> :
+            theme === 2 ? <HeaderTwo color={color}
+                openDrawer={openDrawer}
+                favoriteProducts={favoriteProducts}
+                cart={cart}
+                history={history} /> : ''
     )
 }
 

@@ -2,6 +2,7 @@ import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import React from 'react'
 import DrawerContentRendererOne from './DrawerContentRendererOne';
+import DrawerContentRendererTwo from './DrawerContentRendererTwo';
 
 type Props = {
     theme: number
@@ -27,7 +28,17 @@ const DrawerContentRenderer = ({ theme, activeDrawer, type, color, favoriteProdu
                 history={history}
                 cartTotal={cartTotal}
                 handleToggleFavorite={handleToggleFavorite}
-                handleRemoveFromCart={handleRemoveFromCart} /> : ''
+                handleRemoveFromCart={handleRemoveFromCart} /> :
+            theme === 2 ?
+                <DrawerContentRendererTwo
+                    type={activeDrawer}
+                    color={color}
+                    favoriteProducts={favoriteProducts}
+                    cart={cart}
+                    history={history}
+                    cartTotal={cartTotal}
+                    handleToggleFavorite={handleToggleFavorite}
+                    handleRemoveFromCart={handleRemoveFromCart} /> : ''
     )
 }
 

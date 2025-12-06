@@ -2,6 +2,7 @@ import React from 'react'
 import ModalProductDetailOne from './ModalProductDetailOne'
 import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
+import ModalProductDetailTwo from './ModalProductDetailTwo';
 
 type Props = {
     theme: number;
@@ -17,7 +18,12 @@ const ModalProductDetail = ({ theme, selectedProduct, closeDetailModal, handleAd
             <ModalProductDetailOne product={selectedProduct}
                 onClose={closeDetailModal}
                 onOrder={handleAddToCart}
-                color={color} /> : ''
+                color={color} /> :
+            theme === 2 ?
+                <ModalProductDetailTwo product={selectedProduct}
+                    onClose={closeDetailModal}
+                    onOrder={handleAddToCart}
+                    color={color} /> : ''
     )
 }
 

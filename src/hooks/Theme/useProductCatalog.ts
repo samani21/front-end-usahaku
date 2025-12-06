@@ -1,5 +1,5 @@
 export interface Variant {
-    id: string;
+    id: number;
     name: string;
     priceAdjustment: number;
 }
@@ -16,12 +16,14 @@ export interface Product {
 }
 
 export interface OrderItem {
-    productId: number;
+    id: number;
     productName: string;
     basePrice: number;
     variantName: string;
     finalPrice: number;
     quantity: number;
+    date?: string;
+    status?: string;
 }
 
 export type DrawerType = 'favorite' | 'cart' | 'history' | null;

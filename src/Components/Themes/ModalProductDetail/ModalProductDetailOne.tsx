@@ -21,7 +21,7 @@ const ModalProductDetailOne: React.FC<DetailModalProps> = ({ product, onClose, o
     const handleOrder = () => {
         if (quantity < 1) return;
         const orderItem: OrderItem = {
-            productId: product.id,
+            id: product.id,
             productName: product.name,
             basePrice: product.price,
             variantName: selectedVariant?.name || product?.name,
