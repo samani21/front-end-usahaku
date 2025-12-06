@@ -3,6 +3,7 @@ import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import React from 'react'
 import ListProductOne from './ListProductOne';
 import ListProductTwo from './ListProductTwo';
+import ListProductThree from './ListProductThree';
 
 type Props = {
     theme: number;
@@ -25,7 +26,12 @@ const CardProduct = ({ theme, filteredProducts, openDetailModal, handleToggleFav
                 openDetailModal={openDetailModal}
                 handleToggleFavorite={handleToggleFavorite}
                 color={color}
-                activeCategory={activeCategory} /> : ''
+                activeCategory={activeCategory} /> :
+                theme === 3 ? <ListProductThree filteredProducts={filteredProducts}
+                    openDetailModal={openDetailModal}
+                    handleToggleFavorite={handleToggleFavorite}
+                    color={color}
+                    activeCategory={activeCategory} /> : ''
     )
 }
 

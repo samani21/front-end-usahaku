@@ -1,5 +1,4 @@
 import { Product } from '@/hooks/Theme/useProductCatalog';
-import { formatRupiah } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { Heart, HeartIcon } from 'lucide-react';
 import React from 'react'

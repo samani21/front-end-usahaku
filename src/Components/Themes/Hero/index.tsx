@@ -3,6 +3,7 @@ import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import React from 'react'
 import HeroOne from './HeroOne';
 import HeroTwo from './HeroTwo';
+import HeroThree from './HeroThree';
 
 type Props = {
     theme: number
@@ -15,7 +16,9 @@ const HeroSection = ({ color, hero, theme }: Props) => {
         theme === 1 ?
             <HeroOne color={color} hero={hero} /> :
             theme === 2 ?
-                <HeroTwo color={color} hero={hero} /> : ''
+                <HeroTwo color={color} hero={hero} /> :
+                theme === 3 ?
+                    <HeroThree color={color} hero={hero} /> : ''
     )
 }
 

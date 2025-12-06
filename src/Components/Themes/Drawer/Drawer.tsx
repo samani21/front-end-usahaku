@@ -2,6 +2,7 @@ import React from 'react'
 import DrawerOne from './DrawerOne';
 import { DrawerType } from '@/hooks/Theme/useProductCatalog';
 import DrawerTwo from './DrawerTwo';
+import DrawerThree from './DrawerThree';
 
 type Props = {
     theme: number;
@@ -24,7 +25,13 @@ const Drawer = ({ theme, activeDrawer, closeDrawer, drawerTitle, children }: Pro
                     isOpen={activeDrawer !== null}
                     onClose={closeDrawer}
                     title={drawerTitle}
-                    children={children} /> : ''
+                    children={children} /> :
+                theme === 3 ?
+                    <DrawerThree
+                        isOpen={activeDrawer !== null}
+                        onClose={closeDrawer}
+                        title={drawerTitle}
+                        children={children} /> : ''
     )
 }
 

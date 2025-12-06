@@ -3,6 +3,7 @@ import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import React from 'react'
 import DrawerContentRendererOne from './DrawerContentRendererOne';
 import DrawerContentRendererTwo from './DrawerContentRendererTwo';
+import DrawerContentRendererThree from './DrawerContentRendererThree';
 
 type Props = {
     theme: number
@@ -38,7 +39,17 @@ const DrawerContentRenderer = ({ theme, activeDrawer, type, color, favoriteProdu
                     history={history}
                     cartTotal={cartTotal}
                     handleToggleFavorite={handleToggleFavorite}
-                    handleRemoveFromCart={handleRemoveFromCart} /> : ''
+                    handleRemoveFromCart={handleRemoveFromCart} /> :
+                theme === 3 ?
+                    <DrawerContentRendererThree
+                        type={activeDrawer}
+                        color={color}
+                        favoriteProducts={favoriteProducts}
+                        cart={cart}
+                        history={history}
+                        cartTotal={cartTotal}
+                        handleToggleFavorite={handleToggleFavorite}
+                        handleRemoveFromCart={handleRemoveFromCart} /> : ''
     )
 }
 

@@ -3,6 +3,7 @@ import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import React from 'react'
 import CategorieOne from './CategorieOne';
 import CategorieTwo from './CategorieTwo';
+import CategorieThree from './CategorieThree';
 
 type Props = {
     color: ThemeColorSet;
@@ -25,7 +26,13 @@ const Categorie = ({ color, theme, categorie, setActiveCategory, activeCategory 
                     color={color}
                     categorie={categorie}
                     setActiveCategory={setActiveCategory}
-                    activeCategory={activeCategory} /> : ''
+                    activeCategory={activeCategory} /> :
+                theme === 3 ?
+                    <CategorieThree
+                        color={color}
+                        categorie={categorie}
+                        setActiveCategory={setActiveCategory}
+                        activeCategory={activeCategory} /> : ""
     )
 }
 

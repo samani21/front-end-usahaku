@@ -3,6 +3,7 @@ import ModalProductDetailOne from './ModalProductDetailOne'
 import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import ModalProductDetailTwo from './ModalProductDetailTwo';
+import ModalProductDetailThree from './ModalProductDetailThree';
 
 type Props = {
     theme: number;
@@ -23,7 +24,12 @@ const ModalProductDetail = ({ theme, selectedProduct, closeDetailModal, handleAd
                 <ModalProductDetailTwo product={selectedProduct}
                     onClose={closeDetailModal}
                     onOrder={handleAddToCart}
-                    color={color} /> : ''
+                    color={color} /> :
+                theme === 3 ?
+                    <ModalProductDetailThree product={selectedProduct}
+                        onClose={closeDetailModal}
+                        onOrder={handleAddToCart}
+                        color={color} /> : ''
     )
 }
 

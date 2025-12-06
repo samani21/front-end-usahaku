@@ -17,11 +17,7 @@ const ModalProductDetailTwo: React.FC<DetailModalProps> = ({ product, onClose, o
     const [quantity, setQuantity] = React.useState(1);
     const [showConfirmation, setShowConfirmation] = React.useState(false);
     const [isOrder, setIsOrder] = useState<boolean>(false);
-    // const finalPrice = product.price + (selectedVariant?.priceAdjustment || 0);
-    const finalPrice = useMemo(() => {
-        return (selectedVariant?.priceAdjustment || product.price) * quantity;
-    }, [quantity, selectedVariant])
-
+    const finalPrice = product.price + (selectedVariant?.priceAdjustment || 0);
     const handleOrder = () => {
         if (quantity < 1) return;
         const orderItem: OrderItem = {
@@ -136,7 +132,7 @@ const ModalProductDetailTwo: React.FC<DetailModalProps> = ({ product, onClose, o
                                 <CheckCircle size={20} className="mr-2" /> Berhasil Dipesan!
                             </>
                         ) : (
-                            `Pesan Sekarang (Rp${finalPrice.toLocaleString('id-ID')})`
+                            `Pesan Sekarang (Rp${(finalPrice * quantity).toLocaleString('id-ID')})`
                         )}
                     </button>
                 </div>
