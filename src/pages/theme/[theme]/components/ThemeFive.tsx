@@ -48,9 +48,9 @@ const ThemeFive = ({ themeName, listTheme, color, setThemeName }: Props) => {
                 history={history}
             />
 
-            <main className="container mx-auto p-4 pt-0">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* 2. Pemilih Tema Warna */}
-                <div className='mt-4'>
+                <div className=' mb-4'>
                     <ThemeSwitcherLight listTheme={listTheme} setThemeName={setThemeName} themeName={themeName} color={colors} />
                 </div>
                 {/* 3. Hero Section / Banner */}
@@ -99,7 +99,6 @@ const ThemeFive = ({ themeName, listTheme, color, setThemeName }: Props) => {
                     handleRemoveFromCart={handleRemoveFromCart}
                 />
             </Drawer>
-
             {/* 8. Modal Detail Produk */}
         </div>
     );

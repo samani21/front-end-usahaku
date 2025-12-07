@@ -1,92 +1,82 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Hero } from "@/lib/Types/Theme/theme";
-import { Box, CookingPot, Tag, Zap } from "lucide-react";
+import { Armchair, Bed, Box, CookingPot, Lamp, Sofa, Tag, Zap } from "lucide-react";
 
 export const DUMMY_PRODUCTS: Product[] = [
     {
         id: 1,
-        name: 'Mie Goreng Rasa Ayam Bawang',
-        price: 3500,
-        description: 'Mie instan dengan rasa ayam bawang klasik. Cocok untuk bekal atau sarapan cepat.',
-        imageUrl: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//89/MTA-3452732/sedaap_mie-instant-mie-sedap-70gr-rasa-ayam-bawang_full02.jpg',
-        category: 'Makanan Instan',
-        isFavorite: true,
+        name: "Sofa Minimalis Abu-abu",
+        imageUrl: "https://images.unsplash.com/photo-1759722668253-1767030ad9b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U29mYSUyME1pbmltYWxpcyUyMEFidS1hYnV8ZW58MHx8MHx8fDA%3D",
+        price: 6500000,
+        description: "Sofa 3 dudukan yang nyaman dengan kain linen abu-abu berkualitas tinggi, cocok untuk ruang tamu modern.",
+        category: "Sofa",
+        isFavorite: false,
         variants: [
-            { id: 101, name: 'Biasa', priceAdjustment: 0 },
-            { id: 102, name: 'Jumbo Pack (+20%)', priceAdjustment: 1000 },
+            { id: 101, name: "Linen Abu-abu", priceAdjustment: 0 },
+            { id: 102, name: "Beludru Biru Tua", priceAdjustment: 500000 },
+            { id: 103, name: "Kulit Sintetis Hitam", priceAdjustment: 1200000 },
         ],
     },
     {
         id: 2,
-        name: 'Teh Botol Dingin',
-        price: 5000,
-        description: 'Teh manis siap minum, sangat menyegarkan.',
-        imageUrl: 'https://cdn.infobrand.id/assets/images/compressed/posts/2023/02/15/menelusuri-pemilik-teh-botol-sosro-minuman-legendaris-teman-di-saat-makan.webp',
-        category: 'Minuman Segar',
+        name: "Meja Kopi Bundar Kayu Jati",
+        imageUrl: "https://images.unsplash.com/photo-1692262089751-7e26b69ad8d1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8TWVqYSUyMEtvcGklMjBCdW5kYXIlMjBLYXl1JTIwSmF0aXxlbnwwfHwwfHx8MA%3D%3D",
+        price: 1800000,
+        description: "Meja kopi bundar dari kayu jati solid dengan finishing alami. Tahan lama dan elegan.",
+        category: "Meja",
         isFavorite: false,
         variants: [
-            { id: 201, name: '330ml', priceAdjustment: 0 },
-            { id: 202, name: '500ml', priceAdjustment: 2500 },
+            { id: 201, name: "Diameter 60cm (Jati)", priceAdjustment: 0 },
+            { id: 202, name: "Diameter 80cm (Jati Premium)", priceAdjustment: 800000 },
         ],
     },
     {
         id: 3,
-        name: 'Biskuit Cokelat Premium',
-        price: 12500,
-        description: 'Biskuit renyah dengan lapisan cokelat tebal.',
-        imageUrl: 'https://inafood.com/wp-content/uploads/2023/04/Okebis-Cokelat-28-resize-cover-min.png',
-        category: 'Snack & Cokelat',
-        isFavorite: true,
+        name: "Lampu Lantai Baca Minimalis",
+        imageUrl: "https://images.unsplash.com/photo-1759722667550-81316a23d723?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8TGFtcHUlMjBMYW50YWklMjBCYWNhJTIwTWluaW1hbGlzfGVufDB8fDB8fHww",
+        price: 950000,
+        description: "Lampu lantai dengan desain ramping dan kepala lampu yang dapat disesuaikan. Ideal untuk sudut baca.",
+        category: "Lampu",
+        isFavorite: false,
         variants: [
-            { id: 301, name: 'Standar', priceAdjustment: 0 },
-            { id: 302, name: 'Edisi Keluarga', priceAdjustment: 7500 },
+            { id: 301, name: "Tinggi 150cm (Hitam Doff)", priceAdjustment: 0 },
+            { id: 302, name: "Tinggi 180cm (Emas)", priceAdjustment: 450000 },
         ],
     },
     {
         id: 4,
-        name: 'Minyak Goreng Pouch 2L',
-        price: 35000,
-        description: 'Minyak goreng berkualitas tinggi untuk hasil masakan terbaik.',
-        imageUrl: 'https://media.istockphoto.com/id/2172415199/id/foto/minyak-goreng-kelapa-dalam-kemasan-kantong-besar.jpg?s=612x612&w=0&k=20&c=9qwg85B53du_bG9EHphqywUehFE08zqb05IOhXkMrDU=',
-        category: 'Kebutuhan Dapur',
-        isFavorite: true,
+        name: "Kursi Makan Skandinavia",
+        imageUrl: "https://plus.unsplash.com/premium_photo-1683141419137-db47132b8df4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8S3Vyc2klMjBNYWthbiUyMFNrYW5kaW5hdmlhfGVufDB8fDB8fHww",
+        price: 450000,
+        description: "Kursi bergaya Skandinavia dengan kaki kayu beech dan dudukan empuk. Sangat nyaman dan ringan.",
+        category: "Kursi",
+        isFavorite: false,
         variants: [
+            { id: 401, name: "Dudukan Putih", priceAdjustment: 0 },
+            { id: 402, name: "Dudukan Abu-abu", priceAdjustment: 50000 },
         ],
     },
     {
         id: 5,
-        name: 'Kopi Instan 3-in-1',
-        price: 1500,
-        description: 'Kopi, gula, dan krimer dalam satu sachet.',
-        imageUrl: 'https://media.istockphoto.com/id/539834652/id/foto/nescafe-3-dalam-1.jpg?s=612x612&w=0&k=20&c=BWWQAKT5LeSyoE_Vh6lIyfKlGhRqDgdhfjUMt4O3NO0=',
-        category: 'Minuman Segar',
+        name: "Ranjang Tidur Kayu",
+        imageUrl: "https://images.unsplash.com/photo-1688383454669-9f5cc5991778?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fHJhbmphbmclMjBUaWR1ciUyMEtheXUlMjBFbWFzfGVufDB8fDB8fHww",
+        price: 8900000,
+        description: "Ranjang ukuran Queen dengan sandaran kepala berlapis. Memberikan nuansa mewah pada kamar tidur Anda.",
+        category: "Ranjang",
         isFavorite: false,
         variants: [
-            { id: 501, name: 'Per Sachet', priceAdjustment: 0 },
-            { id: 502, name: 'Box (10 Sachet)', priceAdjustment: 12000 },
-        ],
-    },
-    {
-        id: 6,
-        name: 'Keripik Kentang Original',
-        price: 8000,
-        description: 'Keripik kentang dengan bumbu asin alami.',
-        imageUrl: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/90/MTA-182223612/japota_japota_keripik_kentang_original_68_gr_full01_989f2500.jpg',
-        category: 'Snack & Cokelat',
-        isFavorite: false,
-        variants: [
-            { id: 601, name: 'Kecil (60g)', priceAdjustment: 0 },
-            { id: 602, name: 'Besar (120g)', priceAdjustment: 13000 },
+            { id: 501, name: "Queen (160x200)", priceAdjustment: 0 },
+            { id: 502, name: "King (180x200)", priceAdjustment: 1500000 },
         ],
     },
 ];
 
 export const DUMMY_CATEGORIES: Category[] = [
-    { id: 1, name: 'Makanan Instan', iconComponent: Box },
-    { id: 2, name: 'Minuman Segar', iconComponent: Zap },
-    { id: 3, name: 'Snack & Cokelat', iconComponent: Tag },
-    { id: 4, name: 'Kebutuhan Dapur', iconComponent: CookingPot },
+    { id: 1, name: 'Sofa', iconComponent: Sofa },
+    { id: 2, name: 'Kursi', iconComponent: Armchair },
+    { id: 3, name: 'Lampu', iconComponent: Lamp },
+    { id: 4, name: 'Ranjang', iconComponent: Bed },
 ];
 
 
@@ -102,10 +92,10 @@ export const DUMMY_HISTORY: OrderItem[] = [
 
 export const DUMMY_HERO: Hero = {
     // title: 'Penawaran Eksklusif',
-    sub_title: 'Hemat Akhir Pekan!',
-    description: 'iskon hingga 50% untuk produk pilihan.',
-    cta: 'Lihat Promo',
-    image: 'https://img.freepik.com/premium-vector/special-sale-promo-3d-editable-text-effect_567288-1644.jpg'
+    sub_title: 'Desain Ruangan Impian Anda.',
+    description: 'Koleksi furniture minimalis terbaik, fungsional, dan estetis untuk setiap sudut rumah.',
+    cta: 'Lihat Semua Produk',
+    image: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNvZmF8ZW58MHx8MHx8fDA%3D'
 }
 
 

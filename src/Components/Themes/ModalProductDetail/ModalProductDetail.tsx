@@ -5,6 +5,7 @@ import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import ModalProductDetailTwo from './ModalProductDetailTwo';
 import ModalProductDetailThree from './ModalProductDetailThree';
 import ModalProductDetailDarkLight from './ModalProductDetailDarkLight';
+import ModalProductDetailFive from './ModalProductDetailFive';
 
 type Props = {
     theme: number | string;
@@ -36,7 +37,12 @@ const ModalProductDetail = ({ theme, selectedProduct, closeDetailModal, handleAd
                             onClose={closeDetailModal}
                             onOrder={handleAddToCart}
                             color={color}
-                            themeMode={theme} /> : ''
+                            themeMode={theme} /> :
+                        theme === 5 ?
+                            <ModalProductDetailFive product={selectedProduct}
+                                onClose={closeDetailModal}
+                                onOrder={handleAddToCart}
+                                color={color} /> : ''
     )
 }
 

@@ -5,6 +5,7 @@ import HeroOne from './HeroOne';
 import HeroTwo from './HeroTwo';
 import HeroThree from './HeroThree';
 import HeroDarkLight from './HeroDarkLight';
+import HeroFive from './HeroFive';
 
 type Props = {
     theme: number | string;
@@ -21,7 +22,9 @@ const HeroSection = ({ color, hero, theme }: Props) => {
                 theme === 3 ?
                     <HeroThree color={color} hero={hero} /> :
                     typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
-                        <HeroDarkLight color={color} hero={hero} themeMode={theme} /> : ''
+                        <HeroDarkLight color={color} hero={hero} themeMode={theme} /> :
+                        theme === 5 ?
+                            <HeroFive color={color} hero={hero} /> : ''
 
     )
 }

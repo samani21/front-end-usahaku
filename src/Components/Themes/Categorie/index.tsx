@@ -40,7 +40,13 @@ const Categorie = ({ color, theme, categorie, setActiveCategory, activeCategory 
                             categorie={categorie}
                             setActiveCategory={setActiveCategory}
                             activeCategory={activeCategory}
-                            themeMode={theme} /> : ""
+                            themeMode={theme} /> :
+                        theme === 5 ?
+                            <CategorieThree
+                                color={color}
+                                categorie={categorie}
+                                setActiveCategory={setActiveCategory}
+                                activeCategory={activeCategory} /> : ""
     )
 }
 
