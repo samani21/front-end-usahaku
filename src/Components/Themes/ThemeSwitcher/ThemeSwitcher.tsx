@@ -1,32 +1,21 @@
-import React, { useState } from "react";
-import { ChevronDown, Palette } from "lucide-react";
-import { Theme } from "@/lib/Types/Theme/theme";
-
-
-interface ThemeColorSet {
-    text700: string;
-}
-
-interface ThemeSwitcherLightProps {
+import { Theme } from '@/lib/Types/Theme/theme';
+import { ChevronDown, Palette } from 'lucide-react';
+import React, { useState } from 'react'
+interface ThemeSwitcherProps {
     themeName: string;
     setThemeName: (val: string) => void;
     listTheme: Theme[];
-    color: ThemeColorSet;
 }
 
-export default function ThemeSwitcherLight({
-    themeName,
-    setThemeName,
-    listTheme,
-    color
-}: ThemeSwitcherLightProps) {
+const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ themeName, setThemeName, listTheme }) => {
+
     const [open, setOpen] = useState(false);
     const [opencategorie, setOpenCatgeorie] = useState<number | null>(null);
     return (
         <section className="flex justify-end items-center space-x-3">
             <Palette size={20} className="text-gray-500 dark:text-gray-400" />
 
-            <span className={`text-sm ${color?.text700} font-medium`}>
+            <span className={`text-sm text-gray-100 font-medium`}>
                 Pilih Tema:
             </span>
 
@@ -57,7 +46,7 @@ export default function ThemeSwitcherLight({
                                     <div className={`${opencategorie === t?.id ? 'grid grid-cols-10 gap-0' : 'hidden'} mt-4`}>
                                         {t?.categorie_maps?.map((c, index) => {
                                             const ringClass = `ring-${c.primary}-600`;
-                                            const borderActive = `border-${color}-900`;
+                                            const borderActive = `border-${c?.primary}-900`;
 
                                             return (
                                                 <button
@@ -79,5 +68,9 @@ export default function ThemeSwitcherLight({
                 </div>
             )}
         </section>
-    );
+    )
 }
+
+
+
+export default ThemeSwitcher
