@@ -4,76 +4,87 @@ import { Hero } from "@/lib/Types/Theme/theme";
 
 export const DUMMY_PRODUCTS: Product[] = [
     {
-        id: 101,
-        name: 'Espresso Blend Klasik',
-        price: 35000,
-        description: 'Campuran biji kopi Arabika dan Robusta dengan rasa yang seimbang dan aroma cokelat pekat.',
-        imageUrl: 'https://plus.unsplash.com/premium_photo-1675435646209-24c008f31d92?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEVzcHJlc3NvJTIwQmxlbmQlMjBLbGFzaWt8ZW58MHx8MHx8fDA%3D',
-        category: 'Kopi',
+        id: 1,
+        name: "Kopi Arabika Premium",
+        price: 55000,
+        description: "Biji kopi Arabika pilihan dari dataran tinggi, aroma kaya dan rasa seimbang. Cocok untuk semua metode seduh, dari V60 hingga Espresso. Produk ini bersertifikat organik.",
+        imageUrl: "https://images.unsplash.com/photo-1668923570518-9eb1f838f19b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8a29waSUyMGFyYWJpa2F8ZW58MHx8MHx8fDA%3D",
+        category: "Minuman",
         isFavorite: true,
         variants: [
-            { id: 1, name: 'Reguler', priceAdjustment: 0 },
-            { id: 2, name: 'Besar (+5K)', priceAdjustment: 5000 },
+            { id: 101, name: "250g Biji Utuh", priceAdjustment: 0 },
+            { id: 102, name: "250g Bubuk Halus", priceAdjustment: 5000 },
+            { id: 103, name: "500g Biji Utuh", priceAdjustment: 45000 },
         ],
     },
     {
-        id: 102,
-        name: 'Teh Hijau Matcha Latte',
-        price: 40000,
-        imageUrl: 'https://images.unsplash.com/photo-1638978127697-e4d55e88a6e4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8VGVoJTIwSGlqYXUlMjBNYXRjaGElMjBMYXR0ZXxlbnwwfHwwfHx8MA%3D%3D',
-        description: 'Matcha otentik dengan susu segar, memberikan energi dan ketenangan.',
-        category: 'Teh',
+        id: 2,
+        name: "Roti Gandum Utuh",
+        price: 30000,
+        description: "Roti sehat dengan serat tinggi, cocok untuk sarapan atau diet. Dibuat tanpa bahan pengawet dan kaya akan biji-bijian. Varian dengan biji bunga matahari menambah tekstur dan rasa.",
+        imageUrl: "https://images.unsplash.com/photo-1537200275355-4f0c0714f777?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cm90aSUyMGdhbmR1bXxlbnwwfHwwfHx8MA%3D%3D",
+        category: "Makanan",
         isFavorite: false,
         variants: [
-            { id: 1, name: 'Dingin', priceAdjustment: 0 },
-            { id: 2, name: 'Panas', priceAdjustment: 0 },
+            { id: 201, name: "Ukuran Standar", priceAdjustment: 0 },
+            { id: 202, name: "Tambahan Biji Matahari", priceAdjustment: 7000 },
         ],
     },
     {
-        id: 103,
-        name: 'Kue Cokelat Lava',
-        price: 25000,
-        imageUrl: 'https://images.unsplash.com/photo-1617305855058-336d24456869?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8S3VlJTIwQ29rZWxhdCUyMExhdmF8ZW58MHx8MHx8fDA%3D',
-        description: 'Kue cokelat lembut dengan lelehan cokelat di dalamnya.',
-        category: 'Camilan',
-        isFavorite: false,
-        variants: [
-        ],
-    },
-    {
-        id: 104,
-        name: 'Jus Mangga Tropis',
-        price: 28000,
-        imageUrl: 'https://media.istockphoto.com/id/1217751106/id/foto/jus-mangga-segar-dan-buah-mangga.jpg?s=612x612&w=0&k=20&c=1khIjBwIF2DKCVZzb_QL9pSBxxtfbc8en6eT8LFHKvY=',
-        description: 'Mangga pilihan yang diblender dengan sedikit es. Menyegarkan!',
-        category: 'Jus Segar',
+        id: 3,
+        name: "Aksesoris Meja Kerja",
+        price: 120000,
+        description: "Set perlengkapan minimalis untuk meja kerja Anda. Tingkatkan produktivitas! Termasuk tempat pensil, alas mouse kulit premium, dan pengelola kabel.",
+        imageUrl: "https://media.istockphoto.com/id/531737355/id/foto/pendidikan.webp?a=1&b=1&s=612x612&w=0&k=20&c=gjgWY3GrlRBFdd2Ojee4uZPjfFrnydz5cRkDlnThmD0=",
+        category: "Peralatan",
         isFavorite: true,
         variants: [
-            { id: 1, name: 'Normal Sugar', priceAdjustment: 0 },
-            { id: 2, name: 'Less Sugar', priceAdjustment: 0 },
+            { id: 301, name: "Warna Hitam Doff", priceAdjustment: 0 },
+            { id: 302, name: "Warna Putih Glossy", priceAdjustment: 10000 },
         ],
     },
     {
-        id: 105,
-        name: 'Kopi Susu Gula Aren',
-        price: 38000,
-        imageUrl: 'https://media.istockphoto.com/id/2225006703/id/foto/es-kopi-gula-aren-di-atas-meja-sementara-wanita-bekerja-di-laptop-di-kafe.jpg?s=612x612&w=0&k=20&c=fua5ftztVYJCL3emFTzLb5opUUzwTTTIjFoGw9QXehI=',
-        description: 'Kopi susu dengan sentuhan manis gula aren lokal. Favorit!',
-        category: 'Kopi',
+        id: 4,
+        name: "Teh Hijau Jepang",
+        price: 45000,
+        description: "Teh hijau premium impor dari Uji, Kyoto. Rasa otentik dan menyegarkan. Kaya antioksidan alami. Tersedia dalam kemasan kantong untuk kemudahan penyeduhan.",
+        imageUrl: "https://plus.unsplash.com/premium_photo-1694540110881-84add98c0a75?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGVoJTIwaGlqYXV8ZW58MHx8MHx8fDA%3D",
+        category: "Minuman",
         isFavorite: false,
         variants: [
-            { id: 1, name: 'Gelas Kecil', priceAdjustment: 0 },
-            { id: 2, name: 'Gelas Besar', priceAdjustment: 7000 },
+            { id: 401, name: "10 Kantong", priceAdjustment: 0 },
+            { id: 402, name: "20 Kantong", priceAdjustment: 35000 },
         ],
+    },
+    {
+        id: 5,
+        name: "Botol Minum Stainless Steel",
+        price: 85000,
+        description: "Botol minum isolasi ganda, menjaga suhu panas/dingin hingga 12 jam. Tersedia hanya dalam satu ukuran. Pilihan ideal untuk dibawa bepergian dan berolahraga.",
+        imageUrl: "https://media.istockphoto.com/id/1395178102/id/foto/botol-aluminium-tipe-open-end-standar-mudah-perak-di-toko-ritel-atau-pusat-perbelanjaan.webp?a=1&b=1&s=612x612&w=0&k=20&c=ssctB7sPPvk7uPx-aEe7QZyxfVlD3ZedIIbiUuU2MqU=",
+        category: "Peralatan",
+        isFavorite: false,
+        variants: [], // Varian kosong
     },
 ];
 export const DUMMY_CATEGORIES: Category[] = [
-    { id: 1, name: 'Kopi', icon: '☕' },
-    { id: 2, name: 'Teh', icon: '🍵' },
-    { id: 3, name: 'Camilan', icon: '🍪' },
-    { id: 4, name: 'Jus Segar', icon: '🥤' },
+    {
+        id: 2,
+        name: "Minuman"
+    },
+    {
+        id: 3,
+        name: "Makanan"
+    },
+    {
+        id: 4,
+        name: "Peralatan"
+    },
+    {
+        id: 5,
+        name: "Baru"
+    },
 ];
-
 
 export const DUMMY_HISTORY: OrderItem[] = [
     {
