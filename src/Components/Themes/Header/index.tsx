@@ -33,14 +33,15 @@ const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history, tog
                     favoriteProducts={favoriteProducts}
                     cart={cart}
                     history={history} /> :
-                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ? <HeaderDarkLight
-                        color={color}
-                        onThemeToggle={toggleTheme}
-                        openDrawer={openDrawer}
-                        favoriteProducts={favoriteProducts}
-                        cart={cart}
-                        history={history}
-                        themeMode={theme} /> : ''
+                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
+                        <HeaderDarkLight
+                            color={color}
+                            onThemeToggle={toggleTheme}
+                            openDrawer={openDrawer}
+                            favoriteProducts={favoriteProducts}
+                            cart={cart}
+                            history={history}
+                            themeMode={theme} /> : ''
     )
 }
 
