@@ -4,9 +4,10 @@ import React from 'react'
 import ListProductOne from './ListProductOne';
 import ListProductTwo from './ListProductTwo';
 import ListProductThree from './ListProductThree';
+import ListProductDarkLight from './ListProductDarkLight';
 
 type Props = {
-    theme: number;
+    theme: number | string;
     filteredProducts: Product[];
     openDetailModal: (val: Product) => void
     handleToggleFavorite: (id: number) => void;
@@ -31,7 +32,14 @@ const CardProduct = ({ theme, filteredProducts, openDetailModal, handleToggleFav
                     openDetailModal={openDetailModal}
                     handleToggleFavorite={handleToggleFavorite}
                     color={color}
-                    activeCategory={activeCategory} /> : ''
+                    activeCategory={activeCategory} /> :
+                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
+                        <ListProductDarkLight filteredProducts={filteredProducts}
+                            openDetailModal={openDetailModal}
+                            handleToggleFavorite={handleToggleFavorite}
+                            color={color}
+                            activeCategory={activeCategory}
+                            themeMode={theme} /> : ''
     )
 }
 

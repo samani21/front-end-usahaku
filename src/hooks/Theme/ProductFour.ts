@@ -38,7 +38,6 @@ export const DUMMY_PRODUCTS: Product[] = [
         category: 'Camilan',
         isFavorite: false,
         variants: [
-          
         ],
     },
     {
@@ -87,13 +86,11 @@ export const DUMMY_HISTORY: OrderItem[] = [
 
 
 export const DUMMY_HERO: Hero = {
-    // title: 'Penawaran Eksklusif',
-    sub_title: 'Diskon Spesial Akhir Pekan!',
-    description: 'Nikmati potongan harga 20% untuk semua kategori produk favorit Anda. Jangan sampai terlewat!',
-    cta: 'Lihat Penawaran',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_lyoTTWPt-5OvkGn5xTKTpJ2EWDWTMwJxA&s'
+    title: 'Penawaran Eksklusif',
+    sub_title: 'Diskon Hingga 30%',
+    description: 'Pilih produk favorit Anda dari semua kategori dan nikmati harga terbaik.',
+    cta: 'Belanja Sekarang'
 }
-
 
 export const useProductCatalog = () => {
     const [products, setProducts] = useState<Product[]>(DUMMY_PRODUCTS);
@@ -104,13 +101,14 @@ export const useProductCatalog = () => {
     const [activeDrawer, setActiveDrawer] = useState<DrawerType>(null);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [activeCategory, setActiveCategory] = useState('Semua');
-
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+    const [themeMode, setThemeMode] = useState<string>('Dark')
     useEffect(() => {
         setProducts(DUMMY_PRODUCTS)
         setHistory(DUMMY_HISTORY);
         setCategorie(DUMMY_CATEGORIES);
         setHero(DUMMY_HERO)
-    }, [])
+    }, []);
 
     const favoriteProducts: Product[] = useMemo(() => products.filter(p => p.isFavorite), [products]);
     const cartTotal: number = useMemo(() => cart.reduce((total, item) => total + item.finalPrice * item.quantity, 0), [cart]);
@@ -121,10 +119,17 @@ export const useProductCatalog = () => {
         return products.filter(p => p.category === activeCategory);
     }, [products, activeCategory]);
 
+    const toggleTheme = () => {
+        setIsDarkMode(!isDarkMode)
+        setThemeMode(isDarkMode ? "Light" : "Dark")
+    }
     // Actions
     const openDrawer = useCallback((type: DrawerType) => setActiveDrawer(type), []);
     const closeDrawer = useCallback(() => setActiveDrawer(null), []);
-    const openDetailModal = useCallback((product: Product) => setSelectedProduct(product), []);
+    const openDetailModal = useCallback((product: Product) => {
+        setSelectedProduct(product)
+        setActiveDrawer(null)
+    }, []);
     const closeDetailModal = useCallback(() => setSelectedProduct(null), []);
     const setActiveCategorySafe = useCallback((category: string) => setActiveCategory(category), []);
 
@@ -150,7 +155,7 @@ export const useProductCatalog = () => {
             return [...prevCart, item];
         });
         // Simulasi checkout: item masuk ke history
-        setHistory(prevHistory => [{ ...item, quantity: item.quantity }, ...prevHistory].slice(0, 5));
+        setHistory(prevHistory => [{ ...item, quantity: item.quantity, date: new Date().toISOString().split("T")[0], status: "Selesai" }, ...prevHistory].slice(0, 5));
     }, []);
 
     const handleRemoveFromCart = useCallback((indexToRemove: number) => {
@@ -182,5 +187,8 @@ export const useProductCatalog = () => {
         handleAddToCart,
         handleRemoveFromCart,
         setActiveCategory: setActiveCategorySafe,
+        toggleTheme,
+        isDarkMode,
+        themeMode
     };
 };

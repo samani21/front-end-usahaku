@@ -4,17 +4,19 @@ import React from 'react'
 import HeaderOne from './HeaderOne';
 import HeaderTwo from './HeaderTwo';
 import HeaderThree from './HeaderThree';
+import HeaderDarkLight from './HeaderDarkLight';
 
 type Props = {
-    theme: number
+    theme: number | string;
     color: ThemeColorSet;
     openDrawer: (val: DrawerType) => void;
     favoriteProducts: Product[];
     cart: OrderItem[];
     history: OrderItem[];
+    toggleTheme?: () => void;
 }
 
-const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history }: Props) => {
+const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history, toggleTheme }: Props) => {
     return (
         theme === 1 ? <HeaderOne color={color}
             openDrawer={openDrawer}
@@ -30,7 +32,15 @@ const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history }: P
                     openDrawer={openDrawer}
                     favoriteProducts={favoriteProducts}
                     cart={cart}
-                    history={history} /> : ''
+                    history={history} /> :
+                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ? <HeaderDarkLight
+                        color={color}
+                        onThemeToggle={toggleTheme}
+                        openDrawer={openDrawer}
+                        favoriteProducts={favoriteProducts}
+                        cart={cart}
+                        history={history}
+                        themeMode={theme} /> : ''
     )
 }
 

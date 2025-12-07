@@ -4,9 +4,10 @@ import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import ModalProductDetailTwo from './ModalProductDetailTwo';
 import ModalProductDetailThree from './ModalProductDetailThree';
+import ModalProductDetailDarkLight from './ModalProductDetailDarkLight';
 
 type Props = {
-    theme: number;
+    theme: number | string;
     selectedProduct: Product;
     closeDetailModal: () => void;
     handleAddToCart: (item: OrderItem) => void
@@ -29,7 +30,13 @@ const ModalProductDetail = ({ theme, selectedProduct, closeDetailModal, handleAd
                     <ModalProductDetailThree product={selectedProduct}
                         onClose={closeDetailModal}
                         onOrder={handleAddToCart}
-                        color={color} /> : ''
+                        color={color} /> :
+                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
+                        <ModalProductDetailDarkLight product={selectedProduct}
+                            onClose={closeDetailModal}
+                            onOrder={handleAddToCart}
+                            color={color}
+                            themeMode={theme} /> : ''
     )
 }
 

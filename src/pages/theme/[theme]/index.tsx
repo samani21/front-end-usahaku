@@ -6,6 +6,7 @@ import { Theme } from '@/lib/Types/Theme/theme';
 import Loading from '@/Components/component/Loading';
 import ThemeTwo from './components/ThemeTwo';
 import ThemeThree from './components/ThemeThree';
+import ThemeFour from './components/ThemeFour';
 
 const ThemePage = () => {
     const router = useRouter();
@@ -50,7 +51,10 @@ const ThemePage = () => {
                     listTheme={listTheme} color={ColorPrimary} setThemeName={setThemeName} /> :
                 theme === '3' ?
                     <ThemeThree themeName={themeName}
-                        listTheme={listTheme} color={ColorPrimary} setThemeName={setThemeName} /> : ''
+                        listTheme={listTheme} color={ColorPrimary} setThemeName={setThemeName} /> :
+                    theme === '4' ?
+                        <ThemeFour themeName={themeName}
+                            listTheme={listTheme} color={ColorPrimary} setThemeName={setThemeName} /> : ''
     )
 }
 

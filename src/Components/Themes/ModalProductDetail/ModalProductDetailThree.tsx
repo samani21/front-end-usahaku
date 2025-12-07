@@ -101,7 +101,7 @@ const ModalProductDetailThree: React.FC<DetailModalProps> = ({ product, onClose,
                                     <div className="flex justify-between items-center">
                                         <span className="font-medium text-gray-800">{variant.name}</span>
                                         <span className={`text-sm font-semibold ${color?.text600}`}>
-                                            {`+${formatRupiah(variant.priceAdjustment || product?.price)}`}
+                                            {`${variant.priceAdjustment > 0 ? '+' : ''}${formatRupiah(variant.priceAdjustment || product?.price)}`}
                                         </span>
                                     </div>
                                 </button>
@@ -128,7 +128,7 @@ const ModalProductDetailThree: React.FC<DetailModalProps> = ({ product, onClose,
                         </div>
                         <div className="text-right">
                             <p className="text-sm text-gray-500">Total Harga:</p>
-                            <p className={`text-2xl font-extrabold ${color?.text600}`}>{formatRupiah(quantity * (selectedVariant && selectedVariant?.priceAdjustment || product?.price))}</p>
+                            <p className={`text-2xl font-extrabold ${color?.text600}`}>{formatRupiah(finalPrice)}</p>
                         </div>
                     </div>
 

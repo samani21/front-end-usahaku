@@ -2,6 +2,7 @@ export interface Variant {
     id: number;
     name: string;
     priceAdjustment: number;
+    qty?: number;
 }
 
 export interface Product {

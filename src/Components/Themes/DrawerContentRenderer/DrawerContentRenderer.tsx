@@ -4,9 +4,10 @@ import React from 'react'
 import DrawerContentRendererOne from './DrawerContentRendererOne';
 import DrawerContentRendererTwo from './DrawerContentRendererTwo';
 import DrawerContentRendererThree from './DrawerContentRendererThree';
+import DrawerContentRendererDarkLight from './DrawerContentRendererDarkLight';
 
 type Props = {
-    theme: number
+    theme: number | string
     type: DrawerType;
     color: ThemeColorSet;
     favoriteProducts: Product[];
@@ -16,9 +17,10 @@ type Props = {
     handleToggleFavorite: (id: number) => void;
     handleRemoveFromCart: (index: number) => void;
     activeDrawer: DrawerType;
+    openDetailModal?: (val: Product) => void
 }
 
-const DrawerContentRenderer = ({ theme, activeDrawer, type, color, favoriteProducts, cart, history, cartTotal, handleToggleFavorite, handleRemoveFromCart }: Props) => {
+const DrawerContentRenderer = ({ theme, activeDrawer, type, color, favoriteProducts, cart, history, cartTotal, handleToggleFavorite, handleRemoveFromCart, openDetailModal }: Props) => {
     return (
         theme === 1 ?
             <DrawerContentRendererOne
@@ -49,7 +51,19 @@ const DrawerContentRenderer = ({ theme, activeDrawer, type, color, favoriteProdu
                         history={history}
                         cartTotal={cartTotal}
                         handleToggleFavorite={handleToggleFavorite}
-                        handleRemoveFromCart={handleRemoveFromCart} /> : ''
+                        handleRemoveFromCart={handleRemoveFromCart} /> :
+                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
+                        <DrawerContentRendererDarkLight
+                            type={activeDrawer}
+                            color={color}
+                            favoriteProducts={favoriteProducts}
+                            cart={cart}
+                            history={history}
+                            cartTotal={cartTotal}
+                            handleToggleFavorite={handleToggleFavorite}
+                            handleRemoveFromCart={handleRemoveFromCart}
+                            themeMode={theme}
+                            openModal={openDetailModal} /> : ''
     )
 }
 

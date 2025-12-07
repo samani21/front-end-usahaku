@@ -4,9 +4,10 @@ import React from 'react'
 import HeroOne from './HeroOne';
 import HeroTwo from './HeroTwo';
 import HeroThree from './HeroThree';
+import HeroDarkLight from './HeroDarkLight';
 
 type Props = {
-    theme: number
+    theme: number | string;
     color: ThemeColorSet;
     hero: Hero | null;
 }
@@ -18,7 +19,10 @@ const HeroSection = ({ color, hero, theme }: Props) => {
             theme === 2 ?
                 <HeroTwo color={color} hero={hero} /> :
                 theme === 3 ?
-                    <HeroThree color={color} hero={hero} /> : ''
+                    <HeroThree color={color} hero={hero} /> :
+                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
+                        <HeroDarkLight color={color} hero={hero} themeMode={theme} /> : ''
+
     )
 }
 

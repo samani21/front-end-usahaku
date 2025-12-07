@@ -4,10 +4,11 @@ import React from 'react'
 import CategorieOne from './CategorieOne';
 import CategorieTwo from './CategorieTwo';
 import CategorieThree from './CategorieThree';
+import CategorieDarkLight from './CategorieDarkLight';
 
 type Props = {
     color: ThemeColorSet;
-    theme: number;
+    theme: number | string;
     categorie: Category[];
     setActiveCategory: (val: string) => void;
     activeCategory: string
@@ -32,7 +33,14 @@ const Categorie = ({ color, theme, categorie, setActiveCategory, activeCategory 
                         color={color}
                         categorie={categorie}
                         setActiveCategory={setActiveCategory}
-                        activeCategory={activeCategory} /> : ""
+                        activeCategory={activeCategory} /> :
+                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
+                        <CategorieDarkLight
+                            color={color}
+                            categorie={categorie}
+                            setActiveCategory={setActiveCategory}
+                            activeCategory={activeCategory}
+                            themeMode={theme} /> : ""
     )
 }
 
