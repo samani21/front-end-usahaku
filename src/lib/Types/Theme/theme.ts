@@ -1,11 +1,16 @@
 import { ThemeColor } from "./ThemeColor";
 
 type ValidColorKey = keyof typeof ThemeColor;
-export interface Theme {
+export interface color {
     id: number;
     name: string;
     primary: ValidColorKey;
-    hex: string;
+}
+export interface Theme {
+    id: number;
+    style_category: string;
+    description: string;
+    categorie_maps: color[]
 }
 
 

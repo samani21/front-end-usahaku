@@ -5,6 +5,7 @@ import HeaderOne from './HeaderOne';
 import HeaderTwo from './HeaderTwo';
 import HeaderThree from './HeaderThree';
 import HeaderDarkLight from './HeaderDarkLight';
+import HeaderFive from './HeaderFive';
 
 type Props = {
     theme: number | string;
@@ -41,7 +42,13 @@ const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history, tog
                             favoriteProducts={favoriteProducts}
                             cart={cart}
                             history={history}
-                            themeMode={theme} /> : ''
+                            themeMode={theme} /> :
+                        theme === 5 ?
+                            <HeaderFive color={color}
+                                openDrawer={openDrawer}
+                                favoriteProducts={favoriteProducts}
+                                cart={cart}
+                                history={history} /> : ''
     )
 }
 
