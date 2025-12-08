@@ -6,6 +6,7 @@ import ModalProductDetailTwo from './ModalProductDetailTwo';
 import ModalProductDetailThree from './ModalProductDetailThree';
 import ModalProductDetailDarkLight from './ModalProductDetailDarkLight';
 import ModalProductDetailFive from './ModalProductDetailFive';
+import ModalProductDetailSix from './ModalProductDetailSix';
 
 type Props = {
     theme: number | string;
@@ -42,7 +43,12 @@ const ModalProductDetail = ({ theme, selectedProduct, closeDetailModal, handleAd
                             <ModalProductDetailFive product={selectedProduct}
                                 onClose={closeDetailModal}
                                 onOrder={handleAddToCart}
-                                color={color} /> : ''
+                                color={color} /> :
+                            theme === 6 ?
+                                <ModalProductDetailSix product={selectedProduct}
+                                    onClose={closeDetailModal}
+                                    onOrder={handleAddToCart}
+                                    color={color} /> : ''
     )
 }
 

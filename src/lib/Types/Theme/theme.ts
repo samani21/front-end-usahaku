@@ -16,9 +16,9 @@ export interface Theme {
 
 export interface Hero {
     title?: string,
-    sub_title: string,
-    description: string,
-    cta: string,
+    sub_title?: string,
+    description?: string,
+    cta?: string,
     image?: string,
 }
 // Fungsi utilitas

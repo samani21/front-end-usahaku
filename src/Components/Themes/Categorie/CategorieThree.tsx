@@ -11,38 +11,33 @@ type Props = {
 
 const CategorieThree = ({ color, categorie, setActiveCategory, activeCategory }: Props) => {
     return (
-        <section className="mb-12">
-            <h2 className={`text-3xl font-bold ${color?.text800} mb-6`}>Jelajahi Kategori</h2>
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+        <div className="mx-4 mt-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-3">Jelajahi Kategori</h2>
+            <div className="flex flex-wrap gap-2 md:gap-4 overflow-x-auto pb-2">
                 <button
                     onClick={() => setActiveCategory("Semua")}
-                    className={`flex flex-col items-center p-3 rounded-xl transition-all duration-200 w-24 h-24 text-center shadow-sm ${activeCategory === "Semua"
-                        ? `${color?.bg800} text-white ring-2 ${color?.ring800}`
-                        : `bg-white ${color?.text700} ${color?.hoverBg100} border ${color?.border200}`
-                        }`}
+                    className={`px-4 py-2 rounded-full text-sm transition ${activeCategory === 'Semua' ? `${color?.bg600} text-white shadow-md` : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                 >
-                    <span className="text-sm font-medium mt-8">Semua</span>
+                    Semua
                 </button>
                 {categorie.map(category => {
                     const Icon = category.iconComponent;
+
                     return (
                         <button
                             key={category.id}
                             onClick={() => setActiveCategory(category?.name)}
-                            className={`flex flex-col items-center p-3 rounded-xl transition-all duration-200 w-24 h-24 text-center shadow-sm ${activeCategory === category.name
-                                ? `${color?.bg800} text-white ring-2 ${color?.ring800}`
-                                : `bg-white ${color?.text700} ${color?.hoverBg100} border ${color?.border200}`
-                                }`}
+                            className={`flex items-center px-4 py-2 rounded-full text-sm transition ${activeCategory === category?.name ? `${color?.bg600} text-white shadow-md` : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                         >
                             {Icon &&
-                                <Icon size={24} className="mb-1" />
+                                <Icon className="h-4 w-4 mr-1" />
                             }
-                            <span className="text-sm font-medium mt-1">{category.name}</span>
+                            {category.name}
                         </button>
                     );
                 })}
             </div>
-        </section>
+        </div>
     )
 }
 

@@ -8,6 +8,7 @@ import ThemeTwo from './components/ThemeTwo';
 import ThemeThree from './components/ThemeThree';
 import ThemeFour from './components/ThemeFour';
 import ThemeFive from './components/ThemeFive';
+import ThemeSix from './components/ThemeSix';
 
 const ThemePage = () => {
     const router = useRouter();
@@ -66,7 +67,10 @@ const ThemePage = () => {
                             listTheme={listTheme} color={ColorPrimary} setThemeName={setThemeName} /> :
                         theme === '5' ?
                             <ThemeFive themeName={themeName}
-                                listTheme={listTheme} color={ColorPrimary} setThemeName={setThemeName} /> : ''
+                                listTheme={listTheme} color={ColorPrimary} setThemeName={setThemeName} /> :
+                            theme === '6' ?
+                                <ThemeSix themeName={themeName}
+                                    listTheme={listTheme} color={ColorPrimary} setThemeName={setThemeName} /> : ''
     )
 }
 

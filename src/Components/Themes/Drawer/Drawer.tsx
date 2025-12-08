@@ -6,6 +6,7 @@ import DrawerThree from './DrawerThree';
 import DrawerDarkLight from './DrawerDarkLight';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import DrawerFive from './DrawerFive';
+import DrawerSix from './DrawerSix';
 
 type Props = {
     theme: number | string;
@@ -50,7 +51,14 @@ const Drawer = ({ theme, activeDrawer, closeDrawer, drawerTitle, children, color
                                 onClose={closeDrawer}
                                 title={drawerTitle}
                                 children={children}
-                                color={color} /> : ''
+                                color={color} /> :
+                            theme === 6 ?
+                                <DrawerSix
+                                    isOpen={activeDrawer !== null}
+                                    onClose={closeDrawer}
+                                    title={drawerTitle}
+                                    children={children}
+                                    color={color} /> : ''
     )
 }
 
