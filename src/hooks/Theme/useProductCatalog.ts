@@ -11,9 +11,10 @@ export interface Product {
     price: number;
     description: string;
     imageUrl: string;
-    category: string;
+    category?: string;
     variants: Variant[];
-    isFavorite: boolean;
+    isFavorite?: boolean;
+    isPackage?: boolean;
 }
 
 export interface OrderItem {

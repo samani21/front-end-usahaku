@@ -7,6 +7,7 @@ import HeaderThree from './HeaderThree';
 import HeaderDarkLight from './HeaderDarkLight';
 import HeaderFive from './HeaderFive';
 import HeaderSix from './HeaderSix';
+import HeaderSevent from './HeaderSevent';
 
 type Props = {
     theme: number | string;
@@ -54,7 +55,12 @@ const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history, tog
                                 openDrawer={openDrawer}
                                 favoriteProducts={favoriteProducts}
                                 cart={cart}
-                                history={history} /> : ''
+                                history={history} /> :
+                                theme === 7 ? <HeaderSevent color={color}
+                                    openDrawer={openDrawer}
+                                    favoriteProducts={favoriteProducts}
+                                    cart={cart}
+                                    history={history} /> : ''
     )
 }
 
