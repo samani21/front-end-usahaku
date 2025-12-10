@@ -11,7 +11,13 @@ export const DUMMY_PRODUCTS: Product[] = [
         price: 500000,
         description: 'Pembuatan identitas visual profesional, 3 revisi, file lengkap.',
         variants: [],
-        imageUrl: '/theme/sevent/logo.png'
+        imageUrl: '/theme/sevent/logo.png',
+        isService: true,
+        information: [
+            "Kategori: Layanan Populer",
+            "Estimasi Pengerjaan: 3-7 Hari Kerja",
+            "Revisi: Maksimal 3x",
+        ]
     },
     {
         id: 2,
@@ -20,7 +26,13 @@ export const DUMMY_PRODUCTS: Product[] = [
         price: 1500000,
         description: 'Website 1 halaman responsif, hosting 1 tahun gratis.',
         variants: [],
-        imageUrl: '/theme/sevent/portofolio.png'
+        imageUrl: '/theme/sevent/portofolio.png',
+        isService: true,
+        information: [
+            "Kategori: Layanan Populer",
+            "Estimasi Pengerjaan: 3-7 Hari Kerja",
+            "Revisi: Maksimal 3x",
+        ]
     },
     {
         id: 3,
@@ -33,7 +45,13 @@ export const DUMMY_PRODUCTS: Product[] = [
             { id: 402, name: "2 Sisi", priceAdjustment: 20000 },
         ],
         isFavorite: true,
-        imageUrl: '/theme/sevent/kartu_nama.png'
+        imageUrl: '/theme/sevent/kartu_nama.png',
+        isService: true,
+        information: [
+            "Kategori: Layanan Populer",
+            "Estimasi Pengerjaan: 3-7 Hari Kerja",
+            "Revisi: Maksimal 3x",
+        ]
     },
     {
         id: 4,
@@ -44,7 +62,13 @@ export const DUMMY_PRODUCTS: Product[] = [
         variants: [
 
         ],
-        imageUrl: '/theme/sevent/brosur.png'
+        imageUrl: '/theme/sevent/brosur.png',
+        isService: true,
+        information: [
+            "Kategori: Layanan Populer",
+            "Estimasi Pengerjaan: 3-7 Hari Kerja",
+            "Revisi: Maksimal 3x",
+        ]
     },
     {
         id: 5,
@@ -54,7 +78,13 @@ export const DUMMY_PRODUCTS: Product[] = [
         description: 'Logo, Kartu Nama, Akun Media Sosial, dan Template Post.',
         variants: [],
         imageUrl: '/theme/sevent/paket_umkm.png',
-        isPackage: true
+        isPackage: true,
+        isService: true,
+        information: [
+            "Kategori: Layanan Populer",
+            "Estimasi Pengerjaan: 3-7 Hari Kerja",
+            "Revisi: Maksimal 3x",
+        ]
     },
     {
         id: 6,
@@ -64,7 +94,10 @@ export const DUMMY_PRODUCTS: Product[] = [
         description: 'Website, Logo, Desain UI/UX, dan Konsultasi Branding Awal.',
         variants: [],
         imageUrl: '/theme/sevent/paket_startup.png',
-        isPackage: true
+        isPackage: true,
+        isService: true,
+        information: [
+        ]
     },
     {
         id: 7,
@@ -73,7 +106,13 @@ export const DUMMY_PRODUCTS: Product[] = [
         price: 450000,
         description: 'Ilustrasi vektor original untuk berbagai kebutuhan.',
         variants: [],
-        imageUrl: '/theme/sevent/ilustrasi.png'
+        imageUrl: '/theme/sevent/ilustrasi.png',
+        isService: true,
+        information: [
+            "Kategori: Layanan Populer",
+            "Estimasi Pengerjaan: 3-7 Hari Kerja",
+            "Revisi: Maksimal 3x",
+        ]
     },
     {
         id: 8,
@@ -82,7 +121,13 @@ export const DUMMY_PRODUCTS: Product[] = [
         price: 1200000,
         description: 'Analisis mendalam, rekomendasi perbaikan, dan implementasi dasar.',
         variants: [],
-        imageUrl: '/theme/sevent/seo.png'
+        imageUrl: '/theme/sevent/seo.png',
+        isService: true,
+        information: [
+            "Kategori: Layanan Populer",
+            "Estimasi Pengerjaan: 3-7 Hari Kerja",
+            "Revisi: Maksimal 3x",
+        ]
     },
 ];
 

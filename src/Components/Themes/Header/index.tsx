@@ -8,6 +8,7 @@ import HeaderDarkLight from './HeaderDarkLight';
 import HeaderFive from './HeaderFive';
 import HeaderSix from './HeaderSix';
 import HeaderSevent from './HeaderSevent';
+import HeaderEight from './HeaderEight';
 
 type Props = {
     theme: number | string;
@@ -17,9 +18,11 @@ type Props = {
     cart: OrderItem[];
     history: OrderItem[];
     toggleTheme?: () => void;
+    isService?: boolean
+    handleChangeBusiness?: (val: boolean) => void;
 }
 
-const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history, toggleTheme }: Props) => {
+const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history, toggleTheme, isService, handleChangeBusiness }: Props) => {
     return (
         theme === 1 ? <HeaderOne color={color}
             openDrawer={openDrawer}
@@ -60,7 +63,14 @@ const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history, tog
                                     openDrawer={openDrawer}
                                     favoriteProducts={favoriteProducts}
                                     cart={cart}
-                                    history={history} /> : ''
+                                    history={history} /> :
+                                    theme === 8 ? <HeaderEight color={color}
+                                        openDrawer={openDrawer}
+                                        favoriteProducts={favoriteProducts}
+                                        cart={cart}
+                                        history={history}
+                                        isService={isService}
+                                        handleChangeBusiness={handleChangeBusiness} /> : ''
     )
 }
 

@@ -15,6 +15,8 @@ export interface Product {
     variants: Variant[];
     isFavorite?: boolean;
     isPackage?: boolean;
+    isService?: boolean;
+    information?: string[];
 }
 
 export interface OrderItem {
@@ -35,5 +37,6 @@ export interface Category {
     name: string,
     icon?: string,
     iconComponent?: React.ElementType;
+    isService?: boolean;
 }
 

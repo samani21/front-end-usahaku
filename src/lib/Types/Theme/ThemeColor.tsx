@@ -387,7 +387,7 @@ export const ThemeColor: ThemeColorType = {
         hoverText900: "hover:text-rose-900",
     },
     slate: {
-        gradient: 'from-blue-400 to-fuchsia-900 text-white',
+        gradient: 'from-zinc-500 to-gray-900 text-white',
         text50: "text-slate-50",
         text100: "text-slate-100",
         text200: "text-slate-200",
@@ -470,7 +470,7 @@ export const ThemeColor: ThemeColorType = {
         hoverText900: "hover:text-slate-900",
     },
     gray: {
-        gradient: 'from-gray-300 to-black text-white',
+        gradient: 'from-gray-300 to-zinc-600 text-black',
         text50: "text-gray-50",
         text100: "text-gray-100",
         text200: "text-gray-200",
@@ -719,7 +719,7 @@ export const ThemeColor: ThemeColorType = {
         hoverText900: "hover:text-neutral-900",
     },
     stone: {
-        gradient: 'from-stone-300 to-gray-900 text-white',
+        gradient: 'from-stone-400 to-gray-900 text-white',
         text50: "text-stone-50",
         text100: "text-stone-100",
         text200: "text-stone-200",
@@ -1134,7 +1134,7 @@ export const ThemeColor: ThemeColorType = {
         hoverText900: "hover:text-lime-900",
     },
     green: {
-        gradient: 'from-lime-400 to-blue-700 text-white',
+        gradient: 'from-lime-400 to-blue-700 text-zinc-900',
         text50: "text-green-50",
         text100: "text-green-100",
         text200: "text-green-200",
@@ -1217,7 +1217,7 @@ export const ThemeColor: ThemeColorType = {
         hoverText900: "hover:text-green-900",
     },
     teal: {
-        gradient: 'from-cyan-400 to-blue-900 text-white',
+        gradient: 'from-cyan-500 to-blue-900 text-white',
         text50: "text-teal-50",
         text100: "text-teal-100",
         text200: "text-teal-200",
