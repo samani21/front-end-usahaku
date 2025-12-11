@@ -10,8 +10,8 @@ import ModalProductDetail from '@/Components/Themes/ModalProductDetail/ModalProd
 import Drawer from '@/Components/Themes/Drawer/Drawer';
 import HeroSection from '@/Components/Themes/Hero';
 import ThemeSwitcherLight from '@/Components/Themes/ThemeSwitcher/ThemeSwitcherLight';
-import { useProductCatalog } from '@/hooks/Theme/ProductEight';
 import TypeProduct from '@/Components/Themes/ProductPackage';
+import { useProductCatalog } from '@/hooks/Theme/ProductNine';
 
 type Props = {
     themeName: string;
@@ -21,14 +21,14 @@ type Props = {
 }
 
 
-const ThemeEight = ({ themeName, listTheme, color, setThemeName }: Props) => {
+const ThemeNine = ({ themeName, listTheme, color, setThemeName }: Props) => {
     const {
         openDrawer, closeDrawer, activeDrawer,
         openDetailModal, closeDetailModal, selectedProduct,
         handleAddToCart, handleToggleFavorite, handleRemoveFromCart,
         favoriteProducts, cart, history, cartTotal,
         activeCategory, setActiveCategory, filteredProducts,
-        hero, categorie, isService, handleChangeBusiness, handlePackage, isPackage
+        hero, categorie, isService, handleChangeBusiness, handlePackage, isPackage, clientQueueNumber, currentQueueNumber, handleNextQueue, products
     } = useProductCatalog();
     const colors: ThemeColorSet = ThemeColor[color];
     const drawerTitle =
@@ -38,10 +38,10 @@ const ThemeEight = ({ themeName, listTheme, color, setThemeName }: Props) => {
 
 
     return (
-        <div className="min-h-screen bg-gray-100 font-sans relative">
+        <div className="min-h-screen bg-gray-50 font-sans">
             {/* 1. Header */}
             <Header
-                theme={8}
+                theme={9}
                 color={colors}
                 openDrawer={openDrawer}
                 favoriteProducts={favoriteProducts}
@@ -51,15 +51,17 @@ const ThemeEight = ({ themeName, listTheme, color, setThemeName }: Props) => {
                 handleChangeBusiness={handleChangeBusiness}
             />
 
-            <main className="container mx-auto p-4 md:p-8 mb-20">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* 2. Pemilih Tema Warna */}
                 <div className='mb-4'>
                     <ThemeSwitcherLight listTheme={listTheme} setThemeName={setThemeName} themeName={themeName} color={colors} />
                 </div>
                 {/* 3. Hero Section / Banner */}
-                <HeroSection theme={8} color={colors} hero={hero} />
+                <HeroSection theme={9} color={colors} hero={hero} clientQueueNumber={clientQueueNumber}
+                    currentQueueNumber={currentQueueNumber}
+                    handleNextQueue={handleNextQueue} />
                 {
-                    filteredProducts?.filter(f => f?.isPackage)?.length > 0 &&
+                    products?.filter(f => f?.isPackage)?.length > 0 &&
                     <TypeProduct
                         handlePackage={handlePackage}
                         isPackage={isPackage}
@@ -67,11 +69,11 @@ const ThemeEight = ({ themeName, listTheme, color, setThemeName }: Props) => {
                         theme={1} />
                 }
                 {/* 4. Kategori Section */}
-                {categorie?.length > 0 ? <Categorie color={colors} categorie={categorie} theme={7} setActiveCategory={setActiveCategory}
+                {categorie?.length > 0 ? <Categorie color={colors} categorie={categorie} theme={8} setActiveCategory={setActiveCategory}
                     activeCategory={activeCategory} /> : ''}
 
                 <CardProduct
-                    theme={8}
+                    theme={9}
                     filteredProducts={filteredProducts}
                     openDetailModal={openDetailModal}
                     handleToggleFavorite={handleToggleFavorite}
@@ -81,7 +83,7 @@ const ThemeEight = ({ themeName, listTheme, color, setThemeName }: Props) => {
             </main>
             {selectedProduct && (
                 <ModalProductDetail
-                    theme={isService ? 9 : 8}
+                    theme={10}
                     selectedProduct={selectedProduct}
                     closeDetailModal={closeDetailModal}
                     handleAddToCart={handleAddToCart}
@@ -115,4 +117,4 @@ const ThemeEight = ({ themeName, listTheme, color, setThemeName }: Props) => {
     );
 }
 
-export default ThemeEight
+export default ThemeNine

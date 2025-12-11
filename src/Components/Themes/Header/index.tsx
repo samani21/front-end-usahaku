@@ -9,6 +9,7 @@ import HeaderFive from './HeaderFive';
 import HeaderSix from './HeaderSix';
 import HeaderSevent from './HeaderSevent';
 import HeaderEight from './HeaderEight';
+import HeaderNine from './HeaderNine';
 
 type Props = {
     theme: number | string;
@@ -70,7 +71,14 @@ const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history, tog
                                         cart={cart}
                                         history={history}
                                         isService={isService}
-                                        handleChangeBusiness={handleChangeBusiness} /> : ''
+                                        handleChangeBusiness={handleChangeBusiness} /> :
+                                        theme === 9 ? <HeaderNine color={color}
+                                            openDrawer={openDrawer}
+                                            favoriteProducts={favoriteProducts}
+                                            cart={cart}
+                                            history={history}
+                                            isService={isService}
+                                            handleChangeBusiness={handleChangeBusiness} /> : ''
     )
 }
 

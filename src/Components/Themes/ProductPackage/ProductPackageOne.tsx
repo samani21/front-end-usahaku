@@ -8,7 +8,7 @@ type Props = {
     isPackage: boolean | string
 }
 
-const TypeProductOne = ({ handlePackage, isPackage, color }: Props) => {
+const ProductPackageOne = ({ handlePackage, isPackage, color }: Props) => {
     return (
         <section className="mb-8">
             <h2 className={`text-2xl font-bold text-slate-800 mb-4 border-b-2 ${color?.border600} pb-2`}>Filter Tipe Layanan</h2>
@@ -45,4 +45,4 @@ const TypeProductOne = ({ handlePackage, isPackage, color }: Props) => {
     )
 }
 
-export default TypeProductOne
+export default ProductPackageOne

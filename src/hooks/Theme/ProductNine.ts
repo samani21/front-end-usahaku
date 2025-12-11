@@ -1,183 +1,88 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Hero } from "@/lib/Types/Theme/theme";
+import { Scissors, WashingMachine, Zap } from "lucide-react";
 
 export const DUMMY_PRODUCTS: Product[] = [
     {
-        id: 1,
-        name: "Kopi Arabika Premium",
-        price: 125000,
-        category: "Makanan & Minuman",
-        description: "Biji kopi Arabika pilihan dari dataran tinggi. Rasa kaya dengan aroma floral dan sedikit sentuhan cokelat. Sangat cocok untuk metode seduh manual seperti V60 atau Chemex. Diproses dengan metode semi-washed untuk mendapatkan keasaman yang seimbang. Kemasan 250g.",
-        imageUrl: "https://images.unsplash.com/photo-1668923570518-9eb1f838f19b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a29waSUyMGFyYWJpa2F8ZW58MHx8MHx8fDA%3D",
-        variants: [
-            { id: 101, name: "1kg", priceAdjustment: 0 },
-            { id: 102, name: "15kg", priceAdjustment: 50000 },
-        ],
-    },
-
-    {
-        id: 2,
-        name: "Kemeja Linen Oversize",
-        price: 249000,
-        category: "Pakaian",
-        description: "Kemeja nyaman dengan bahan linen alami, cocok untuk gaya santai di iklim tropis.Desain oversize yang modern dan airy.Tersedia dalam 4 warna pastel yang lembut.",
-        imageUrl: "https://media.istockphoto.com/id/2236766372/id/foto/wanita-dengan-sweter-rajutan-lebar-krem-sweter-rajutan-leher-besar-dan-celana-panjang-coklat.webp?a=1&b=1&s=612x612&w=0&k=20&c=7mSX6rSDwGmwc9xOTq_Fb4UcFVMioWd3pzJSfRcta94=",
-        variants: []
-    },
-
-    {
-        id: 3,
-        name: "Headphone Nirkabel Z20",
-        price: 780000,
-        category: "Elektronik",
-        description: "Suara jernih dan bass mendalam,daya tahan baterai hingga 30 jam.Dilengkapi fitur noise cancelling adaptif.Desain lipat yang ergonomis,ringan dan nyaman digunakan seharian.",
-        imageUrl: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8SGVhZHBob25lJTIwTmlya2FiZWx8ZW58MHx8MHx8fDA%3D",
-        variants: []
-    },
-
-    {
-        id: 4,
-        name: "Buku Novel Fiksi Fantasi",
-        price: 85000,
-        category: "Buku",
-        description: "Petualangan epik di dunia yang penuh sihir dan misteri. Buku pertama dari trilogi 'Chronicles of Eldoria'. Total 550 halaman dengan ilustrasi eksklusif.",
-        imageUrl: "https://images.unsplash.com/photo-1759766199518-dbb5c6467707?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8QnVrdSUyME5vdmVsJTIwRmlrc2klMjBGYW50YXNpfGVufDB8fDB8fHww",
+        id: 101, name: "Potong Rambut Premium",
+        price: 50000, description: "Termasuk cuci, pijat ringan, dan styling.",
+        imageUrl: "https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG90b25nJTIwcmFtYnV0fGVufDB8fDB8fHww",
+        isService: true,
+        category: 'Barbershop',
         variants: []
     },
     {
-        id: 101,
-        name: "Desain Logo Korporat",
-        price: 500000,
-        category: "Branding",
-        isPackage: false,
-        description: "Pembuatan satu konsep logo utama dengan 2 kali revisi. Kami fokus pada identitas merek yang kuat dan mudah diingat.",
-        imageUrl: "/theme/eight/logo.png",
-        variants: [],
+        id: 102, name: "Perawatan Janggut",
+        price: 35000, description: "Trim, shaping, dan minyak perawatan janggut.",
+        imageUrl: "https://plus.unsplash.com/premium_photo-1721203653776-57aef8a96266?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8RGV0YWlsJTIwUGVyYXdhdGFuJTIwSmFuZ2d1dHxlbnwwfHwwfHx8MA%3D%3D",
         isService: true,
-        information: [
-            " 1 Konsep Logo Utama",
-            "2x Revisi Desain",
-            "File Source (AI/EPS)",
-            "PNG Transparan Resolusi Tinggi",
-        ]
+        category: 'Barbershop',
+        variants: []
+    },
+    // Layanan Laundry
+    {
+        id: 201, name: "Cuci Kering Satuan",
+        price: 15000, description: "Pakaian favorit Anda bersih dan rapi dalam 24 jam.",
+        imageUrl: "/theme/nine/cuci.png",
+        isService: true,
+        category: 'Laundry',
+        variants: []
     },
     {
-        id: 104,
-        name: "Desain Kartu Nama",
-        price: 150000,
-        category: "Branding",
-        isPackage: false,
-        description: "Desain kartu nama satu sisi,siap cetak(file PDF/ AI).Termasuk 1x revisi minor.Desain elegan dan profesional.",
-        imageUrl: "/theme/eight/kartu_nama.png",
-        variants: [],
+        id: 202, name: "Setrika Ekspres",
+        price: 10000, description: "Setrika cepat per kilogram, siap dalam 3 jam.",
+        imageUrl: "/theme/nine/setrika.png",
         isService: true,
-        information: [
-            "Desain 1 Sisi Eksklusif",
-            "File Siap Cetak (PDF & AI)",
-            "1x Revisi Warna & Tipografi",
-
-        ]
+        category: 'Laundry',
+        variants: []
+    },
+    // Layanan Aksesoris
+    {
+        id: 301, name: "Pembersihan Sepatu",
+        price: 45000, description: "Detailing sepatu premium, semua jenis bahan.",
+        imageUrl: "/theme/nine/sepatu.png",
+        isService: true,
+        category: 'Aksesoris',
+        variants: []
     },
 
+    // Paket Layanan
     {
-        id: 105,
-        name: "Pembuatan Iklan Digital",
-        price: 250000,
-        category: "Marketing",
-        isPackage: false,
-        description: "Satu set banner iklan untuk media sosial atau Google Display Network. Kami bantu optimalkan copy dan visual.",
-        imageUrl: "/theme/eight/seo.png",
-        variants: [],
+        id: 401, name: "Paket Ganteng Maksimal",
+        price: 100000, description: "Potong Rambut + Perawatan Janggut + Masker Wajah.",
+        imageUrl: "https://images.unsplash.com/photo-1593269233759-427ba69acca5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fHBvdG9uZyUyMHJhbWJ1dHxlbnwwfHwwfHx8MA%3D%3D",
         isService: true,
-        information: [
-            "1 Set Banner (3 Ukuran Berbeda)",
-            "File JPG/PNG Optimasi Web",
-            "Targeting Audiens Dasar",
-        ]
-    },
-
-
-    // Paket Layanan (Package)
-    {
-        id: 102,
-        name: "Platform E-commerce Kustom",
-        price: 3500000,
-        category: "Web Development",
+        category: 'Barbershop',
         isPackage: true,
-        description: "Desain UI/UX lengkap dan implementasi platform belanja online yang responsif dan aman.",
-        imageUrl: "/theme/eight/e_commerce.png",
-        variants: [],
-        isService: true,
-        information: [
-            "Desain UI/UX Kustom",
-            "Integrasi Payment Gateway",
-            "Optimasi SEO Dasar",
-            "Training Penggunaan Admin",
-            "Responsif untuk Mobile & Desktop",
-        ]
+        variants: []
     },
-
     {
-        id: 103,
-        name: "Strategi Konten Digital",
-        price: 1200000,
-        category: "Marketing",
-        isPackage: true,
-        description: "Rencana konten 1 bulan,10 desain grafis & analitik performa.Meningkatkan engagement audiens secara signifikan.",
-        imageUrl: "/theme/eight/content.png",
-        variants: [],
+        id: 402, name: "Paket Bersih Kinclong",
+        price: 75000, description: "5kg Cuci Kering + 5kg Setrika Reguler.",
+        imageUrl: "/theme/nine/Paket.png",
         isService: true,
-        information: [
-            "Rencana Konten 1 Bulan",
-            "10 Desain Grafis Postingan",
-            "Analitik Performanya Mingguan",
-            "Caption Writing Profesional",
-        ]
-    },
-
-    {
-        id: 106,
-        name: "Paket Branding Startup",
-        price: 2500000,
-        category: "Branding",
+        category: 'Laundry',
         isPackage: true,
-        description: "Mencakup Logo Korporat, Kartu Nama, Kop Surat, dan Panduan Merek Lengkap.Solusi A - Z untuk identitas bisnis baru.",
-        imageUrl: "/theme/eight/branding.png",
-        variants: [],
-        isService: true,
-        information: [
-            "Logo Korporat Premium",
-            "Desain Kartu Nama & Kop Surat",
-            "Panduan Merek Lengkap (PDF)",
-            "Template Media Sosial 3x",
-        ]
+        variants: []
     },
 ];
 
 export const DUMMY_CATEGORIES: Category[] = [
     {
-        id: 1, name: 'Web Development',
-        isService: true
+        id: 1, name: 'Barbershop',
+        isService: true,
+        iconComponent: Scissors
     },
     {
-        id: 2, name: 'Marketing',
-        isService: true
+        id: 2, name: 'Laundry',
+        isService: true,
+        iconComponent: WashingMachine
     },
     {
-        id: 3, name: 'Branding',
-        isService: true
-    },
-    {
-        id: 4, name: 'Makanan & Minuman',
-    },
-    {
-        id: 5, name: 'Pakaian',
-    },
-    {
-        id: 6, name: 'Elektronik',
-    }, {
-        id: 7, name: 'Buku',
+        id: 3, name: 'Aksesoris',
+        isService: true,
+        iconComponent: Zap
     },
 ];
 
@@ -188,11 +93,11 @@ export const DUMMY_HISTORY: OrderItem[] = [
 
 
 export const DUMMY_HERO: Hero = {
-    // title: 'SOLUSI KREATIF & DESAIN',
-    sub_title: 'Temukan Layanan Terbaik Anda',
-    description: 'Potong rambut, laundry, atau lainnya. Semua dalam satu klik!',
-    // cta: 'Lihat Penawaran Spesial',
-    // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
+    title: 'SOLUSI KREATIF & DESAIN',
+    sub_title: ' Katalog Layanan Digital Terbaik',
+    description: 'Temukan berbagai layanan desain, pengembangan web, dan marketing untuk mendukung bisnis Anda.',
+    cta: 'Lihat Penawaran Spesial',
+    image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
 }
 
 
@@ -207,8 +112,10 @@ export const useProductCatalog = () => {
     const [activeCategory, setActiveCategory] = useState('Semua');
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
     const [themeMode, setThemeMode] = useState<string>('Dark');
-    const [isService, setIsService] = useState<boolean>(false);
+    const [isService, setIsService] = useState<boolean>(true);
     const [isPackage, setIsPackage] = useState<boolean | string>('All');
+    const [clientQueueNumber, setClientQueueNumber] = useState<number>(Math.floor(Math.random() * 50) + 1);
+    const [currentQueueNumber, setCurrentQueueNumber] = useState<number>(1);
     useEffect(() => {
         setProducts(DUMMY_PRODUCTS)
         setHistory(DUMMY_HISTORY);
@@ -229,7 +136,7 @@ export const useProductCatalog = () => {
                     return products.filter((p) => p?.isService && p?.isPackage);
                 } else if (isPackage === false) {
                     return products.filter((p) => p?.isService && !p?.isPackage);
-                } {
+                } else {
                     return products.filter((p) => p?.isService);
                 }
             } else {
@@ -237,7 +144,7 @@ export const useProductCatalog = () => {
                     return products.filter((p) => !p?.isService && p?.isPackage);
                 } else if (isPackage === false) {
                     return products.filter((p) => !p?.isService && !p?.isPackage);
-                } {
+                } else {
                     return products.filter((p) => !p?.isService);
                 }
             }
@@ -248,7 +155,7 @@ export const useProductCatalog = () => {
                 return products.filter((p) => p?.isService && p?.isPackage && p?.category === activeCategory);
             } else if (isPackage === false) {
                 return products.filter((p) => p?.isService && !p?.isPackage && p?.category === activeCategory);
-            } {
+            } else {
                 return products.filter((p) => p?.isService && p?.category === activeCategory);
             }
         } else {
@@ -256,7 +163,7 @@ export const useProductCatalog = () => {
                 return products.filter((p) => !p?.isService && p?.isPackage && p?.category === activeCategory);
             } else if (isPackage === false) {
                 return products.filter((p) => !p?.isService && !p?.isPackage && p?.category === activeCategory);
-            } {
+            } else {
                 return products.filter((p) => !p?.isService && p?.category === activeCategory);
             }
         }
@@ -297,6 +204,7 @@ export const useProductCatalog = () => {
             }
             return [...prevCart, item];
         });
+        setClientQueueNumber(clientQueueNumber + 1)
         // Simulasi checkout: item masuk ke history
         setHistory(prevHistory => [{ ...item, quantity: item.quantity, date: new Date().toISOString().split("T")[0], status: "Selesai" }, ...prevHistory].slice(0, 5));
     }, []);
@@ -311,7 +219,10 @@ export const useProductCatalog = () => {
         } else {
             return DUMMY_CATEGORIES?.filter((c) => !c?.isService);
         }
-    }, [isService])
+    }, [isService]);
+    const handleNextQueue = () => {
+        setCurrentQueueNumber(prev => prev + 1);
+    };
     return {
         // State
         products,
@@ -343,6 +254,9 @@ export const useProductCatalog = () => {
         isService,
         handleChangeBusiness,
         handlePackage,
-        isPackage
+        isPackage,
+        clientQueueNumber,
+        currentQueueNumber,
+        handleNextQueue
     };
 };

@@ -65,7 +65,12 @@ const CardProduct = ({ theme, filteredProducts, openDetailModal, handleToggleFav
                                         handleToggleFavorite={handleToggleFavorite}
                                         color={color}
                                         activeCategory={activeCategory} /> :
-                                        ""
+                                        theme === 9 ? <ListProductEight filteredProducts={filteredProducts}
+                                            openDetailModal={openDetailModal}
+                                            handleToggleFavorite={handleToggleFavorite}
+                                            color={color}
+                                            activeCategory={activeCategory} /> :
+                                            ""
     )
 }
 

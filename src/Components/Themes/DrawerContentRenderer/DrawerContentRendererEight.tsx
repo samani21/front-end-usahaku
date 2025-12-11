@@ -53,7 +53,7 @@ const DrawerContentRendererEight: React.FC<DrawerContentRendererProps> = ({
                         <ul className="space-y-4">
                             {cart.map((item, index) => (
                                 <li key={index} className="p-4 border border-gray-200 rounded-lg flex justify-between items-center bg-white shadow-sm">
-                                    <span className="text-slate-800 font-medium">{item?.productName} (x1)</span><span className={`font-extrabold ${color?.text600}`}>Rp {item?.finalPrice * item?.quantity}</span>
+                                    <span className="text-slate-800 font-medium">{item?.productName} (x1)</span><span className={`font-extrabold ${color?.text600}`}>{formatRupiah(item?.finalPrice * item?.quantity)}</span>
                                 </li>
                             ))}
                             <div className="mt-4 pt-4 border-t border-gray-200 flex justify-between font-bold text-xl text-slate-800">

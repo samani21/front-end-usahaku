@@ -1,6 +1,6 @@
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import React from 'react'
-import TypeProductOne from './TypeProductOne';
+import ProductPackageOne from './ProductPackageOne';
 
 type Props = {
     theme: number
@@ -9,12 +9,12 @@ type Props = {
     isPackage: boolean | string
 }
 
-const TypeProduct = ({ color, handlePackage, isPackage, theme }: Props) => {
+const ProductPackage = ({ color, handlePackage, isPackage, theme }: Props) => {
     return (
-        theme === 1 ? <TypeProductOne handlePackage={handlePackage}
+        theme === 1 ? <ProductPackageOne handlePackage={handlePackage}
             isPackage={isPackage}
             color={color} /> : ''
     )
 }
 
-export default TypeProduct
+export default ProductPackage
