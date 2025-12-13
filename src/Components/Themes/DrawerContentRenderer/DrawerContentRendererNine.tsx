@@ -103,33 +103,20 @@ const DrawerContentRendererNine: React.FC<DrawerContentRendererProps> = ({
     // Konten History
     if (type === 'history') {
         return (
-            // <div>
-            //     <p className="text-gray-500 mb-4">Riwayat pemesanan layanan Anda sebelumnya.</p>
-            //     {history.length > 0 ? (
-            //         <ul className="space-y-3">
-            //             {history.map(item => (
-            //                 <li key={item.id} className="p-3 bg-green-50 rounded-lg flex justify-between items-center shadow-sm">
-            //                     <div>
-            //                         <span className="font-medium text-gray-700 block">{item.productName}</span>
-            //                         <span className="text-xs text-gray-500">Tanggal: {item.date}</span>
-            //                     </div>
-            //                     <button className="text-sm text-green-600 hover:underline">Lihat Invoice</button>
-            //                 </li>
-            //             ))}
-            //         </ul>
-            //     ) : (
-            //         <p className="text-center text-gray-500 italic py-8">Tidak ada riwayat pemesanan.</p>
-            //     )}
-            // </div>
-            history.length > 0 ?
-                <ul className="space-y-4">
-                    {history.map(item => (
-                        <li className="p-4 bg-gray-50 rounded-lg border border-gray-200 flex justify-between items-center">
-                            <span>#ORD-2024-10-15</span><span className="text-sm text-green-600 font-medium">Selesai</span>
-                        </li>
-                    ))}
-                </ul> :
-                <p className="text-center text-gray-500 italic py-8">Tidak ada riwayat pemesanan.</p>
+            <div>
+                {history?.length > 0 ? history?.map((item, index) => (
+                    <div key={index} className="mb-4 p-3 border rounded-lg bg-gray-50">
+                        <p className="font-bold text-sm text-gray-800">No. Pesanan: {item.id}</p>
+                        <p className="text-xs text-gray-500 mb-2">{item.date}</p>
+                        <p className="text-sm">
+                            <span className="font-semibold">{item.productName}</span> ({item.variantName}) x {item.quantity}
+                        </p>
+                    </div>
+                ))
+                    :
+                    <p className="text-center text-gray-500 italic py-8">Tidak ada riwayat pemesanan.</p>
+                }
+            </div>
         );
     }
 

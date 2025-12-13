@@ -1,82 +1,97 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Hero } from "@/lib/Types/Theme/theme";
-import { Scissors, WashingMachine, Zap } from "lucide-react";
+import { Coffee, Gift, Pizza, Scissors, Utensils, WashingMachine, Zap } from "lucide-react";
 
-export const DUMMY_PRODUCTS: Product[] = [
-    {
-        id: 1, category: 'Laundry',
-        name: 'Cuci Kering Lipat Express',
-        price: 15000,
-        description: 'Pakaian selesai dalam 6 jam. Per KG.',
-        imageUrl: 'https://images.unsplash.com/photo-1574057675080-6cdfd3225424?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fEN1Y2klMjBLZXJpbmclMjBMaXBhdCUyMEV4cHJlc3N8ZW58MHx8MHx8fDA%3D',
-        variants: [],
-        isService: true
-    },
-    {
-        id: 2, category: 'Laundry',
-        name: 'Setrika Uap Premium',
-        price: 12000,
-        description: 'Setrika profesional, bebas kusut. Per KG.',
-        imageUrl: 'https://media.istockphoto.com/id/2239558195/id/foto/setrika-uap-modern-bertumpu-pada-papan-setrika-di-ruangan-yang-terang-dengan-pencahayaan.webp?a=1&b=1&s=612x612&w=0&k=20&c=f0mFMIBA-ekEb3J5kUcBkZbz-N0-VH3K9HeEXb0Ktuw=',
-        variants: [],
-        isService: true
-    },
-    {
-        id: 3, category: 'Barbershop',
-        name: 'Potong Rambut Pria',
-        price: 35000,
-        description: 'Termasuk cuci dan styling.',
-        imageUrl: 'https://plus.unsplash.com/premium_photo-1661288502656-7265af3e6b23?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG90b25nJTIwUmFtYnV0JTIwUHJpYXxlbnwwfHwwfHx8MA%3D%3D',
-        variants: [],
-        isService: true
-    },
-    {
-        id: 4, category: 'Barbershop',
-        name: 'Pewarnaan Rambut',
-        price: 150000,
-        description: 'Konsultasi warna gratis.',
-        imageUrl: 'https://media.istockphoto.com/id/1182128730/id/foto/tangan-penata-rambut-dengan-sarung-tangan-hitam-melukis-rambut-wanita-itu-dengan-warna-merah.webp?a=1&b=1&s=612x612&w=0&k=20&c=W83K6VsWtGvtxNQ5vUbNvhjd9zVHDG9mscmrnnkzNwQ=',
-        variants: [],
-        isService: true
-    },
-    {
-        id: 5, category: 'Laundry',
-        isPackage: true,
-        name: 'Paket Hemat Bulanan',
-        price: 250000,
-        description: 'Gratis 5KG untuk total 50KG.',
-        imageUrl: 'https://plus.unsplash.com/premium_photo-1663036970563-99624abc950e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGF1bmRyeXxlbnwwfHwwfHx8MA%3D%3D',
-        variants: [],
-        isService: true
-    },
-    {
-        id: 6, category: 'Barbershop',
-        isPackage: true,
-        name: 'Paket Grooming Lengkap',
-        price: 75000,
-        description: 'Potong, cukur janggut, dan masker.',
-        imageUrl: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8QmFyYmVyfGVufDB8fDB8fHww',
-        variants: [],
-        isService: true
-    },
-];
+export const DUMMY_PRODUCTS: Product[] = [{
+    id: 1,
+    name: 'Nasi Goreng Spesial',
+    price: 25000,
+    description: 'Nasi goreng kampung dengan telur mata sapi, ayam suwir, dan acar. Rasa klasik yang memuaskan.',
+    imageUrl: 'https://asset.kompas.com/crops/VcgvggZKE2VHqIAUp1pyHFXXYCs=/202x66:1000x599/1200x800/data/photo/2023/05/07/6456a450d2edd.jpg',
+    category: 'Makanan Utama',
+    variants: [
+        { id: 1, name: 'Original', priceAdjustment: 0 },
+        { id: 3, name: 'Pedas Gila', priceAdjustment: 2000 },
+        { id: 2, name: 'Tanpa Telur', priceAdjustment: -1000 },
+    ],
+},
+{
+    id: 2,
+    name: 'Kopi Susu Gula Aren',
+    price: 18000,
+    description: 'Perpaduan kopi, susu creamy, dan manisnya gula aren alami.',
+    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkHljUqHY8-FoRbAEJUtKaDcf0siOOwxhPvg&s',
+    category: 'Minuman Segar',
+    variants: [
+        { id: 4, name: 'Dingin (Es)', priceAdjustment: 0 },
+        { id: 5, name: 'Panas', priceAdjustment: 0 },
+        { id: 6, name: 'Extra Shot', priceAdjustment: 5000 },
+    ],
+},
+{
+    id: 3,
+    name: 'Kentang Goreng Keju',
+    price: 15000,
+    description: 'Kentang goreng renyah disajikan dengan saus keju spesial.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Shake_shack_cheese_fries.jpg',
+    category: 'Cemilan',
+    variants: [
+        { id: 7, name: 'Porsi Kecil', priceAdjustment: 0 },
+        { id: 9, name: 'Porsi Besar', priceAdjustment: 5000 },
+    ],
+},
+{
+    id: 4,
+    name: 'Mie Ayam Bakso',
+    price: 28000,
+    description: 'Mie kenyal dengan topping ayam cincang dan bakso sapi urat.',
+    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPV-msWuAydYHqR_EDlrU6b_MTD-naSkiM1w&s',
+    category: 'Makanan Utama',
+    variants: [
+        { id: 10, name: 'Level 1', priceAdjustment: 0 },
+        { id: 11, name: 'Level 3 (Pedas)', priceAdjustment: 1000 },
+    ],
+},
+// --- MENU PAKET HEMAT BARU ---
+{
+    id: 5,
+    name: 'Paket Kenyang Berdua',
+    price: 80000,
+    description: '2 paket bakso nikmat + 2 es lemon timun mas',
+    imageUrl: 'https://katalogpromosi.com/wp-content/uploads/2025/08/bakso_boedjangan_paket_kenyang_berdua_18092025.jpg',
+    isPackage: true,
+    category: 'Makanan Utama',
+    variants: [
+        { id: 11, name: 'Normal', priceAdjustment: 0 },
+        { id: 12, name: 'Upgrade Minuman', priceAdjustment: 5000 }, // Contoh upgrade
+    ],
+},
+{
+    id: 6,
+    name: 'Paket Ngemil Santai',
+    price: 75000,
+    description: 'Kentang mushu/singkong kentang + 2 ice kopi gula melaka + Thick Toast peanut butter',
+    imageUrl: 'https://katalogpromosi.com/wp-content/uploads/2025/01/toast_box_sip_snack_23102025.jpg',
+    isPackage: true,
+    category: 'Cemilan',
+    variants: [
+        { id: 13, name: 'Original', priceAdjustment: 0 },
+    ],
+},];
 
 export const DUMMY_CATEGORIES: Category[] = [
     {
-        id: 1, name: 'Barbershop',
-        isService: true,
-        iconComponent: Scissors
+        id: 2, name: 'Makanan Utama',
+        iconComponent: Pizza,
     },
     {
-        id: 2, name: 'Laundry',
-        isService: true,
-        iconComponent: WashingMachine
+        id: 3, name: 'Minuman Segar',
+        iconComponent: Coffee,
     },
     {
-        id: 3, name: 'Aksesoris',
-        isService: true,
-        iconComponent: Zap
+        id: 4, name: 'Cemilan',
+        iconComponent: Utensils,
     },
 ];
 
@@ -105,7 +120,7 @@ export const useProductCatalog = () => {
     const [activeCategory, setActiveCategory] = useState('Semua');
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
     const [themeMode, setThemeMode] = useState<string>('Dark');
-    const [isService, setIsService] = useState<boolean>(true);
+    const [isService, setIsService] = useState<boolean>(false);
     const [isPackage, setIsPackage] = useState<boolean | string>('All');
     const [clientQueueNumber, setClientQueueNumber] = useState<number>(0);
     const [currentQueueNumber, setCurrentQueueNumber] = useState<number>(1);

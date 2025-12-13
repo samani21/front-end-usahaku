@@ -11,7 +11,7 @@ type Props = {
 const ProductPackageOne = ({ handlePackage, isPackage, color }: Props) => {
     return (
         <section className="mb-8">
-            <h2 className={`text-2xl font-bold text-slate-800 mb-4 border-b-2 ${color?.border600} pb-2`}>Filter Tipe Layanan</h2>
+            <h2 className={`text-2xl font-bold text-slate-800 mb-4 border-b-2 ${color?.border600} pb-2`}>Filter Tipe Produk/Layanan</h2>
             <div className="flex flex-wrap gap-4">
                 <button
                     onClick={() => handlePackage?.('All')}
@@ -29,7 +29,7 @@ const ProductPackageOne = ({ handlePackage, isPackage, color }: Props) => {
                         : `bg-white text-slate-700 ${color?.hoverBg50} border-gray-300 ${color?.hoverBorder300}`
                         }`}
                 >
-                    <Check className="w-4 h-4 mr-2" /> Layanan Satuan
+                    <Check className="w-4 h-4 mr-2" /> Satuan
                 </button>
                 <button
                     onClick={() => handlePackage?.(true)}
@@ -38,7 +38,7 @@ const ProductPackageOne = ({ handlePackage, isPackage, color }: Props) => {
                         : `bg-white text-slate-700 ${color?.hoverBg50} border-gray-300 ${color?.hoverBorder300}`
                         }`}
                 >
-                    <Package className="w-4 h-4 mr-2" /> Paket Layanan
+                    <Package className="w-4 h-4 mr-2" /> Paket
                 </button>
             </div>
         </section>

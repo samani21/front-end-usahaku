@@ -11,6 +11,7 @@ import HeroSevent from './HeroSevent';
 import HeroEight from './HeroEight';
 import HeroNine from './HeroNine';
 import HeroTen from './HeroTen';
+import HeroEleven from './HeroEleven';
 
 type Props = {
     theme: number | string;
@@ -42,7 +43,9 @@ const HeroSection = ({ color, hero, theme, clientQueueNumber, currentQueueNumber
                                         theme === 9 ?
                                             <HeroNine color={color} hero={hero} clientQueueNumber={clientQueueNumber} currentQueueNumber={currentQueueNumber} handleNextQueue={handleNextQueue} /> :
                                             theme === 10 ?
-                                                <HeroTen color={color} hero={hero} clientQueueNumber={clientQueueNumber} currentQueueNumber={currentQueueNumber} handleNextQueue={handleNextQueue} /> : ''
+                                                <HeroTen color={color} hero={hero} clientQueueNumber={clientQueueNumber} currentQueueNumber={currentQueueNumber} handleNextQueue={handleNextQueue} /> :
+                                                theme === 11 ?
+                                                    <HeroEleven color={color} hero={hero} clientQueueNumber={clientQueueNumber} currentQueueNumber={currentQueueNumber} handleNextQueue={handleNextQueue} /> : ''
 
     )
 }

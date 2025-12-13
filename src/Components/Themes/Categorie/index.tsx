@@ -9,6 +9,7 @@ import CategorieSix from './CategorieSix';
 import CategorieFive from './CategorieFive';
 import CategorieSevent from './CategorieSevent';
 import CategorieEight from './CategorieEight';
+import CategorieNine from './CategorieNine';
 
 type Props = {
     color: ThemeColorSet;
@@ -68,7 +69,13 @@ const Categorie = ({ color, theme, categorie, setActiveCategory, activeCategory 
                                             color={color}
                                             categorie={categorie}
                                             setActiveCategory={setActiveCategory}
-                                            activeCategory={activeCategory} /> : ""
+                                            activeCategory={activeCategory} /> :
+                                        theme === 9 ?
+                                            <CategorieNine
+                                                color={color}
+                                                categorie={categorie}
+                                                setActiveCategory={setActiveCategory}
+                                                activeCategory={activeCategory} /> : ""
     )
 }
 
