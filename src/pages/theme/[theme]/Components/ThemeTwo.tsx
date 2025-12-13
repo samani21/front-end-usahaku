@@ -34,7 +34,7 @@ const ThemeTwo = () => {
         setUiState(prev => ({ ...prev, [drawerName]: state }));
     }, []);
     const [product, setProduct] = useState<Product[]>([]);
-    console.log('product', product)
+    
     const [notification, setNotification] = useState<NotificationState>({
         message: '',
         visible: false,

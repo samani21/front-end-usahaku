@@ -90,7 +90,7 @@ const App = () => {
             {/* Notifikasi Sukses/Error (Pengganti Alert) */}
             <div
                 id="notification"
-                className="hidden fixed top-4 left-1/2 transform -translate-x-1/2 p-4 text-white font-semibold rounded-lg shadow-xl z-50 transition-all duration-300 flex items-center"
+                className="hidden fixed top-4 left-1/2 transform bg-red-500 -translate-x-1/2 p-4 text-white font-semibold rounded-lg shadow-xl z-50 transition-all duration-300 flex items-center"
                 role="alert"
             >
                 Notifikasi
