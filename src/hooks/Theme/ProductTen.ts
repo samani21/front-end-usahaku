@@ -5,66 +5,60 @@ import { Scissors, WashingMachine, Zap } from "lucide-react";
 
 export const DUMMY_PRODUCTS: Product[] = [
     {
-        id: 101, name: "Potong Rambut Premium",
-        price: 50000, description: "Termasuk cuci, pijat ringan, dan styling.",
-        imageUrl: "https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG90b25nJTIwcmFtYnV0fGVufDB8fDB8fHww",
-        isService: true,
-        category: 'Barbershop',
-        variants: []
+        id: 1, category: 'Laundry',
+        name: 'Cuci Kering Lipat Express',
+        price: 15000,
+        description: 'Pakaian selesai dalam 6 jam. Per KG.',
+        imageUrl: 'https://images.unsplash.com/photo-1574057675080-6cdfd3225424?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fEN1Y2klMjBLZXJpbmclMjBMaXBhdCUyMEV4cHJlc3N8ZW58MHx8MHx8fDA%3D',
+        variants: [],
+        isService: true
     },
     {
-        id: 102, name: "Perawatan Janggut",
-        price: 35000, description: "Trim, shaping, dan minyak perawatan janggut.",
-        imageUrl: "https://plus.unsplash.com/premium_photo-1721203653776-57aef8a96266?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8RGV0YWlsJTIwUGVyYXdhdGFuJTIwSmFuZ2d1dHxlbnwwfHwwfHx8MA%3D%3D",
-        isService: true,
-        category: 'Barbershop',
-        variants: []
-    },
-    // Layanan Laundry
-    {
-        id: 201, name: "Cuci Kering Satuan",
-        price: 15000, description: "Pakaian favorit Anda bersih dan rapi dalam 24 jam.",
-        imageUrl: "/theme/nine/cuci.png",
-        isService: true,
-        category: 'Laundry',
-        variants: []
+        id: 2, category: 'Laundry',
+        name: 'Setrika Uap Premium',
+        price: 12000,
+        description: 'Setrika profesional, bebas kusut. Per KG.',
+        imageUrl: 'https://media.istockphoto.com/id/2239558195/id/foto/setrika-uap-modern-bertumpu-pada-papan-setrika-di-ruangan-yang-terang-dengan-pencahayaan.webp?a=1&b=1&s=612x612&w=0&k=20&c=f0mFMIBA-ekEb3J5kUcBkZbz-N0-VH3K9HeEXb0Ktuw=',
+        variants: [],
+        isService: true
     },
     {
-        id: 202, name: "Setrika Ekspres",
-        price: 10000, description: "Setrika cepat per kilogram, siap dalam 3 jam.",
-        imageUrl: "/theme/nine/setrika.png",
-        isService: true,
-        category: 'Laundry',
-        variants: []
+        id: 3, category: 'Barbershop',
+        name: 'Potong Rambut Pria',
+        price: 35000,
+        description: 'Termasuk cuci dan styling.',
+        imageUrl: 'https://plus.unsplash.com/premium_photo-1661288502656-7265af3e6b23?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG90b25nJTIwUmFtYnV0JTIwUHJpYXxlbnwwfHwwfHx8MA%3D%3D',
+        variants: [],
+        isService: true
     },
-    // Layanan Aksesoris
     {
-        id: 301, name: "Pembersihan Sepatu",
-        price: 45000, description: "Detailing sepatu premium, semua jenis bahan.",
-        imageUrl: "/theme/nine/sepatu.png",
-        isService: true,
-        category: 'Aksesoris',
-        variants: []
+        id: 4, category: 'Barbershop',
+        name: 'Pewarnaan Rambut',
+        price: 150000,
+        description: 'Konsultasi warna gratis.',
+        imageUrl: 'https://media.istockphoto.com/id/1182128730/id/foto/tangan-penata-rambut-dengan-sarung-tangan-hitam-melukis-rambut-wanita-itu-dengan-warna-merah.webp?a=1&b=1&s=612x612&w=0&k=20&c=W83K6VsWtGvtxNQ5vUbNvhjd9zVHDG9mscmrnnkzNwQ=',
+        variants: [],
+        isService: true
     },
-
-    // Paket Layanan
     {
-        id: 401, name: "Paket Ganteng Maksimal",
-        price: 100000, description: "Potong Rambut + Perawatan Janggut + Masker Wajah.",
-        imageUrl: "https://images.unsplash.com/photo-1593269233759-427ba69acca5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fHBvdG9uZyUyMHJhbWJ1dHxlbnwwfHwwfHx8MA%3D%3D",
-        isService: true,
-        category: 'Barbershop',
+        id: 5, category: 'Laundry',
         isPackage: true,
-        variants: []
+        name: 'Paket Hemat Bulanan',
+        price: 250000,
+        description: 'Gratis 5KG untuk total 50KG.',
+        imageUrl: 'https://plus.unsplash.com/premium_photo-1663036970563-99624abc950e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGF1bmRyeXxlbnwwfHwwfHx8MA%3D%3D',
+        variants: [],
+        isService: true
     },
     {
-        id: 402, name: "Paket Bersih Kinclong",
-        price: 75000, description: "5kg Cuci Kering + 5kg Setrika Reguler.",
-        imageUrl: "/theme/nine/Paket.png",
-        isService: true,
-        category: 'Laundry',
+        id: 6, category: 'Barbershop',
         isPackage: true,
-        variants: []
+        name: 'Paket Grooming Lengkap',
+        price: 75000,
+        description: 'Potong, cukur janggut, dan masker.',
+        imageUrl: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8QmFyYmVyfGVufDB8fDB8fHww',
+        variants: [],
+        isService: true
     },
 ];
 
