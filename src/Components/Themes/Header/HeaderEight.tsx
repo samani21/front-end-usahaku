@@ -18,7 +18,7 @@ type Props = {
 const HeaderEight = ({ color, openDrawer, favoriteProducts, cart, history, isService, handleChangeBusiness }: Props) => {
     return (
         <header className="sticky top-0 bg-white border-b border-gray-200 shadow-lg z-30">
-            <div className="container mx-auto p-4 flex justify-between items-center">
+            <div className="max-w-7xl mx-auto p-4 flex justify-between items-center">
                 <div className="flex items-center space-x-6">
                     <h1 className={`md:text-3xl font-black ${color?.text600} tracking-wider`}>
                         {isService ? 'SOLUSI KREATIF' : 'CATALOG PRO'}

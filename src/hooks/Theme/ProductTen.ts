@@ -113,7 +113,7 @@ export const useProductCatalog = () => {
     const [themeMode, setThemeMode] = useState<string>('Dark');
     const [isService, setIsService] = useState<boolean>(true);
     const [isPackage, setIsPackage] = useState<boolean | string>('All');
-    const [clientQueueNumber, setClientQueueNumber] = useState<number>(Math.floor(Math.random() * 50) + 1);
+    const [clientQueueNumber, setClientQueueNumber] = useState<number>(0);
     const [currentQueueNumber, setCurrentQueueNumber] = useState<number>(1);
     useEffect(() => {
         setProducts(DUMMY_PRODUCTS)
@@ -203,7 +203,7 @@ export const useProductCatalog = () => {
             }
             return [...prevCart, item];
         });
-        setClientQueueNumber(clientQueueNumber + 1)
+        setClientQueueNumber(Math.floor(Math.random() * 50))
         // Simulasi checkout: item masuk ke history
         setHistory(prevHistory => [{ ...item, quantity: item.quantity, date: new Date().toISOString().split("T")[0], status: "Selesai" }, ...prevHistory].slice(0, 5));
     }, []);

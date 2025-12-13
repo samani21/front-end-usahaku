@@ -1,6 +1,6 @@
 import React from 'react'
 import DrawerOne from './DrawerOne';
-import { DrawerType } from '@/hooks/Theme/useProductCatalog';
+import { DrawerType, OrderItem } from '@/hooks/Theme/useProductCatalog';
 import DrawerTwo from './DrawerTwo';
 import DrawerThree from './DrawerThree';
 import DrawerDarkLight from './DrawerDarkLight';
@@ -9,6 +9,7 @@ import DrawerFive from './DrawerFive';
 import DrawerSix from './DrawerSix';
 import DrawerSevent from './DrawerSevent';
 import DrawerEight from './DrawerEight';
+import DrawerNine from './DrawerNine';
 
 type Props = {
     theme: number | string;
@@ -74,7 +75,14 @@ const Drawer = ({ theme, activeDrawer, closeDrawer, drawerTitle, children, color
                                             onClose={closeDrawer}
                                             title={drawerTitle}
                                             children={children}
-                                            color={color} /> : ''
+                                            color={color} /> :
+                                        theme === 9 ?
+                                            <DrawerNine
+                                                isOpen={activeDrawer !== null}
+                                                onClose={closeDrawer}
+                                                title={drawerTitle}
+                                                children={children}
+                                                color={color} /> : ''
     )
 }
 

@@ -9,6 +9,7 @@ import DrawerContentRendererFive from './DrawerContentRendererFive';
 import DrawerContentRendererSix from './DrawerContentRendererSix';
 import DrawerContentRendererSevent from './DrawerContentRendererSevent';
 import DrawerContentRendererEight from './DrawerContentRendererEight';
+import DrawerContentRendererNine from './DrawerContentRendererNine';
 
 type Props = {
     theme: number | string
@@ -107,7 +108,17 @@ const DrawerContentRenderer = ({ theme, activeDrawer, type, color, favoriteProdu
                                             history={history}
                                             cartTotal={cartTotal}
                                             handleToggleFavorite={handleToggleFavorite}
-                                            handleRemoveFromCart={handleRemoveFromCart} /> : ''
+                                            handleRemoveFromCart={handleRemoveFromCart} /> :
+                                        theme === 9 ?
+                                            <DrawerContentRendererNine
+                                                type={activeDrawer}
+                                                color={color}
+                                                favoriteProducts={favoriteProducts}
+                                                cart={cart}
+                                                history={history}
+                                                cartTotal={cartTotal}
+                                                handleToggleFavorite={handleToggleFavorite}
+                                                handleRemoveFromCart={handleRemoveFromCart} /> : ''
     )
 }
 

@@ -26,7 +26,7 @@ const HeroFive = ({ color, hero }: Props) => {
                 <div className="md:w-1/2 mt-6 md:mt-0 md:pl-10 flex justify-end">
                     {/* placeholder if needed, otherwise use Tailwind abstract art */}
                     <div className={`${color?.text700} font-bold text-lg hidden sm:block`}>
-                        <img src={hero?.image} className={`w-48 h-48 md:w-64 md:h-64 ${color?.bg400} rounded-[24px]`} />
+                        <img src={hero?.image} className={`object-cover w-48 h-48 md:w-64 md:h-64 ${color?.bg400} rounded-[24px]`} />
                     </div>
                 </div>
             </div>

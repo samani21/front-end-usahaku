@@ -10,6 +10,7 @@ import ListProductSix from './ListProductSix';
 import ListProductSevent from './ListProductSevent';
 import ListProductEight from './ListProductEight';
 import ListProductNine from './ListProductNine';
+import ListProductTen from './ListProductTen';
 
 type Props = {
     theme: number | string;
@@ -65,12 +66,16 @@ const CardProduct = ({ theme, filteredProducts, openDetailModal, handleToggleFav
                                         handleToggleFavorite={handleToggleFavorite}
                                         color={color}
                                         activeCategory={activeCategory} /> :
-                                        theme === 9 ? <ListProductEight filteredProducts={filteredProducts}
+                                        theme === 9 ? <ListProductNine filteredProducts={filteredProducts}
                                             openDetailModal={openDetailModal}
                                             handleToggleFavorite={handleToggleFavorite}
                                             color={color}
                                             activeCategory={activeCategory} /> :
-                                            ""
+                                            theme === 10 ? <ListProductTen filteredProducts={filteredProducts}
+                                                openDetailModal={openDetailModal}
+                                                handleToggleFavorite={handleToggleFavorite}
+                                                color={color}
+                                                activeCategory={activeCategory} /> : ""
     )
 }
 

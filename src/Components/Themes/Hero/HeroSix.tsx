@@ -11,7 +11,7 @@ type Props = {
 
 const HeroSix = ({ color, hero }: Props) => {
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
+        <div className="max-w-7xl mx-auto pt-8 pb-12">
             <div className={`bg-gradient-to-r ${color?.gradient} p-8 md:p-16 rounded-3xl shadow-2xl`}>
                 <div className="flex flex-col md:flex-row items-start justify-between">
                     <div>

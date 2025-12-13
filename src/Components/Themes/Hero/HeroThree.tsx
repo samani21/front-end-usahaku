@@ -10,7 +10,7 @@ type Props = {
 
 const HeroThree = ({ color, hero }: Props) => {
     return (
-        <div className={`relative overflow-hidden rounded-xl m-4 shadow-lg ${color?.bg50}`}> {/* Menggunakan warna tema terang */}
+        <div className={`relative overflow-hidden rounded-xl my-4 shadow-lg ${color?.bg50}`}> {/* Menggunakan warna tema terang */}
             <div className="p-6 md:p-10 flex flex-col md:flex-row items-center justify-between">
                 <div className="text-center md:text-left mb-4 md:mb-0">
                     <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800">

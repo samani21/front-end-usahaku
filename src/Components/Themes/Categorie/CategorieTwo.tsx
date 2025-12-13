@@ -11,7 +11,7 @@ type Props = {
 
 const CategorieTwo = ({ color, categorie, setActiveCategory, activeCategory }: Props) => {
     return (
-        <div className="mt-8 px-4 sm:px-6 lg:px-8">
+        <div className="mt-8 ">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Telusuri Kategori</h2>
             <div className="flex space-x-3 overflow-x-auto pb-3 scrollbar-hide">
                 <button

@@ -17,13 +17,18 @@ const HeroEight = ({ color, hero }: Props) => {
                 <p className={`max-w-3xl text-lg opacity-80`}>
                     {hero?.description}
                 </p>
-                <button className={`mt-6 px-6 w-full md:w-auto py-3 bg-white ${color?.text600} font-semibold rounded-lg hover:bg-gray-100 transition duration-150 shadow-lg`}>
-                    {hero?.cta}
-                </button>
+                {
+                    hero?.cta &&
+                    <button className={`mt-6 px-6 w-full md:w-auto py-3 bg-white ${color?.text600} font-semibold rounded-lg hover:bg-gray-100 transition duration-150 shadow-lg`}>
+                        {hero?.cta}
+                    </button>
+                }
             </div>
-            <div className='mt-2 md:w-100 p-4 rounded-[16px] bg-white md:mt-0'>
-                <img src={hero?.image} className='rounded-[12px]'/>
-            </div>
+            {hero?.image &&
+                <div className='mt-2 md:w-100 p-4 rounded-[16px] bg-white md:mt-0'>
+                    <img src={hero?.image} className='rounded-[12px]' />
+                </div>
+            }
         </section>
 
     )

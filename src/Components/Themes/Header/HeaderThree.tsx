@@ -16,7 +16,7 @@ type Props = {
 const HeaderThree = ({ color, openDrawer, favoriteProducts, cart, history }: Props) => {
     return (
         <header className="sticky top-0 z-20 bg-white shadow-md">
-            <div className="container mx-auto flex items-center justify-between p-4">
+            <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
                 <div className={`text-xl font-bold ${color?.text600}`}>
                     <Package className="inline h-6 w-6 mr-2" /> Minimarket App
                 </div>
