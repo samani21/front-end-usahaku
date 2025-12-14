@@ -7,9 +7,11 @@ export const DUMMY_PRODUCTS: Product[] = [{
     id: 1,
     name: 'Nasi Goreng Spesial',
     price: 25000,
+    oldPrice: 32000,
     description: 'Nasi goreng kampung dengan telur mata sapi, ayam suwir, dan acar. Rasa klasik yang memuaskan.',
     imageUrl: 'https://asset.kompas.com/crops/VcgvggZKE2VHqIAUp1pyHFXXYCs=/202x66:1000x599/1200x800/data/photo/2023/05/07/6456a450d2edd.jpg',
     category: 'Makanan Utama',
+    isRecomended: true,
     variants: [
         { id: 1, name: 'Original', priceAdjustment: 0 },
         { id: 3, name: 'Pedas Gila', priceAdjustment: 2000 },
@@ -23,6 +25,7 @@ export const DUMMY_PRODUCTS: Product[] = [{
     description: 'Perpaduan kopi, susu creamy, dan manisnya gula aren alami.',
     imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkHljUqHY8-FoRbAEJUtKaDcf0siOOwxhPvg&s',
     category: 'Minuman Segar',
+    isRecomended: true,
     variants: [
         { id: 4, name: 'Dingin (Es)', priceAdjustment: 0 },
         { id: 5, name: 'Panas', priceAdjustment: 0 },
@@ -78,7 +81,42 @@ export const DUMMY_PRODUCTS: Product[] = [{
     variants: [
         { id: 13, name: 'Original', priceAdjustment: 0 },
     ],
-},];
+},
+{
+    id: 7,
+    name: "Kopi Latte Caramel",
+    price: 35000,
+    category: 'Minuman Segar',
+    description: "Espresso dengan susu segar dan sirup karamel manis.",
+    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRetEu1YfkmziSSdJVN5wdicRx4DOEhuLP_mw&s",
+    variants: [{
+        id: 201,
+        name: "Panas",
+        priceAdjustment: 0
+    }, {
+        id: 202,
+        name: "Dingin",
+        priceAdjustment: 3000
+    }]
+},
+{
+    id: 8,
+    name: "Jus Alpukat",
+    price: 18000,
+    description: "Jus alpukat segar dengan sedikit susu kental manis.",
+    imageUrl: "https://res.cloudinary.com/dk0z4ums3/image/upload/v1708574230/attached_image/7-manfaat-jus-alpukat-bagi-kesehatan-yang-sayang-untuk-dilewatkan.jpg",
+    category: 'Minuman Segar',
+    variants: [{
+        id: 401,
+        name: "Tambah Gula",
+        priceAdjustment: 0
+    }, {
+        id: 402,
+        name: "Less Sugar",
+        priceAdjustment: 0
+    }]
+},
+];
 
 export const DUMMY_CATEGORIES: Category[] = [
     {
@@ -102,11 +140,11 @@ export const DUMMY_HISTORY: OrderItem[] = [
 
 
 export const DUMMY_HERO: Hero = {
-    // title: 'SOLUSI KREATIF & DESAIN',
-    sub_title: ' Layanan Cepat & Terpercaya',
-    description: 'Pesan jasa laundry, barbershop, dan lainnya dengan mudah. Layanan premium, harga terjangkau.',
-    cta: 'Lihat Katalog Sekarang',
-    // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
+    title: 'REKOMENDASI HARI INI',
+    sub_title: 'Nasi Goreng Spesial',
+    description: 'Nasi goreng dengan bumbu rahasia, telur, ayam suwir, dan kerupuk.',
+    cta: 'Pesan Sekarang',
+    // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg',
 }
 
 

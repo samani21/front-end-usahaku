@@ -42,57 +42,6 @@ const ModalProductDetailTwelve: React.FC<DetailModalProps> = ({ product, onClose
         >
             {quantity}x {product.name} {selectedVariant && `(${selectedVariant?.name})`} telah ditambahkan.
         </div> :
-            // <div
-            //     className="fixed inset-0 bg-black/60 z-40 flex items-center justify-center transition-opacity duration-300"
-            //     onClick={onClose}
-            // >
-            //     {/* Modal Content */}
-            //     <div
-            //         className="bg-white rounded-2xl shadow-2xl p-6 w-11/12 max-w-md transform transition-transform duration-300 ease-in-out scale-100"
-            //         onClick={(e) => e.stopPropagation()} // Stop propagation to prevent closing when clicking inside
-            //     >
-            //         <div className="flex justify-between items-center border-b border-gray-300 pb-3 mb-4">
-            //             <h2 className="text-xl font-bold text-gray-800">{product?.name}</h2>
-            //             <button onClick={onClose} className="text-gray-500 hover:text-gray-900 transition">
-            //                 <X size={20} />
-            //             </button>
-            //         </div>
-            //         <div className="space-y-4">
-            //             <div className="mb-4">
-            //                 <img
-            //                     src={product.imageUrl}
-            //                     alt={product.name}
-            //                     className="w-full h-48 object-cover rounded-lg mb-3"
-            //                 />
-            //                 <p className={`text-3xl font-extrabold ${color?.text600} mt-2`}>
-            //                     Rp {product.price.toLocaleString('id-ID')}
-            //                 </p>
-            //                 <p className="text-gray-500 mt-2">{product.description}</p>
-            //                 {
-            //                     product.category &&
-            //                     <p className="text-sm text-gray-600 mt-1">Kategori: <span className={`font-medium ${color?.text600}`}>{product.category}</span></p>
-            //                 }
-            //                 {
-            //                     product?.isPackage &&
-            //                     <p className="text-sm text-gray-600">Jenis: <span className={`font-medium ${color?.text600}`}>{product.isPackage && "Paket"}</span></p>
-            //                 }
-            //                 {
-            //                     product?.information && product?.information?.length > 0 &&
-            //                     product?.information?.map((info, i) => (
-            //                         <p key={i} className="text-sm text-gray-600">{info}</p>
-            //                     ))
-            //                 }
-            //             </div>
-
-            //             <button
-            //                 onClick={handleOrder}
-            //                 className={`w-full py-3 ${color?.bg600} text-white text-lg font-semibold rounded-xl shadow-lg ${color?.hoverBg700} transition duration-300 transform hover:scale-[1.01]`}
-            //             >
-            //                 Tambah ke Keranjang
-            //             </button>
-            //         </div>
-            //     </div>
-            // </div>
             <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
                 <div className="bg-white w-full max-w-lg rounded-xl shadow-2xl max-h-full overflow-y-auto transform transition-all scale-100 duration-300">
                     {/* Header dan Gambar */}
