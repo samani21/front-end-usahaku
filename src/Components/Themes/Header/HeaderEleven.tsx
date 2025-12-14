@@ -17,7 +17,7 @@ type Props = {
 
 const HeaderEleven = ({ color, openDrawer, favoriteProducts, cart, history, isService, handleChangeBusiness }: Props) => {
     return (
-        <header className={`sticky top-0 left-0 w-full ${color.bg700} shadow-md z-30`}>
+        <header className={`sticky top-0 left-0 w-full ${color?.bg700} shadow-md z-30`}>
             <div className="max-w-7xl mx-auto p-4 flex justify-between items-center text-white">
                 {/* Kiri: Posisi & Antrian - Dihapus dari sini karena sudah ada di banner baru */}
                 <div className="flex flex-col text-lg font-bold">
