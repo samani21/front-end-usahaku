@@ -35,7 +35,6 @@ const HeaderDarkLight: React.FC<HeaderProps> = ({ onThemeToggle, openDrawer, fav
                     <span className="hidden sm:inline">Katalog</span> <span className={primaryColor}>Modern</span>
                 </h1>
                 <div className="flex space-x-5 items-center">
-
                     {/* Tombol Theme Toggle */}
                     <div onClick={onThemeToggle} title={themeIconTitle}>
                         <ThemeIcon className={`${themeIconColor} hover:opacity-80 transition transform hover:scale-110`} />

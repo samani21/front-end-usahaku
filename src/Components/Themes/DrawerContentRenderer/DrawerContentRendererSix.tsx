@@ -13,6 +13,7 @@ interface DrawerContentRendererProps {
     cartTotal: number;
     handleToggleFavorite: (id: number) => void;
     handleRemoveFromCart: (index: number) => void;
+    handleCheckout: () => void;
 }
 
 const DrawerContentRendererSix: React.FC<DrawerContentRendererProps> = ({
@@ -22,7 +23,8 @@ const DrawerContentRendererSix: React.FC<DrawerContentRendererProps> = ({
     cart,
     history,
     cartTotal,
-    handleRemoveFromCart
+    handleRemoveFromCart,
+    handleCheckout
 }) => {
     // Konten Favorit
     if (type === 'favorite') {
@@ -72,6 +74,7 @@ const DrawerContentRendererSix: React.FC<DrawerContentRendererProps> = ({
                             <span className={`${color?.text700}`}>Rp {cartTotal?.toLocaleString('id-ID')}</span>
                         </div>
                         <button
+                            onClick={handleCheckout}
                             className={`w-full mt-2 ${color?.bg600} text-white font-extrabold py-3 rounded-xl ${color?.hoverBg700}transition shadow-lg `}
                         >
                             Lanjutkan Pembayaran

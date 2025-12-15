@@ -1,9 +1,8 @@
-import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Category, OrderItem, Product } from "./useProductCatalog";
 import { Hero } from "@/lib/Types/Theme/theme";
 import { Scissors, WashingMachine, Zap } from "lucide-react";
 
-export const DUMMY_PRODUCTS: Product[] = [
+export const DUMMY_PRODUCTS_NINE: Product[] = [
     {
         id: 101, name: "Potong Rambut Premium",
         price: 50000, description: "Termasuk cuci, pijat ringan, dan styling.",
@@ -68,7 +67,7 @@ export const DUMMY_PRODUCTS: Product[] = [
     },
 ];
 
-export const DUMMY_CATEGORIES: Category[] = [
+export const DUMMY_CATEGORIES_NINE: Category[] = [
     {
         id: 1, name: 'Barbershop',
         isService: true,
@@ -87,175 +86,15 @@ export const DUMMY_CATEGORIES: Category[] = [
 ];
 
 
-export const DUMMY_HISTORY: OrderItem[] = [
+export const DUMMY_HISTORY_NINE: OrderItem[] = [
 
 ];
 
 
-export const DUMMY_HERO: Hero = {
+export const DUMMY_HERO_NINE: Hero = {
     title: 'SOLUSI KREATIF & DESAIN',
     sub_title: ' Katalog Layanan Digital Terbaik',
     description: 'Temukan berbagai layanan desain, pengembangan web, dan marketing untuk mendukung bisnis Anda.',
     cta: 'Lihat Penawaran Spesial',
     image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
 }
-
-
-export const useProductCatalog = () => {
-    const [products, setProducts] = useState<Product[]>(DUMMY_PRODUCTS);
-    const [cart, setCart] = useState<OrderItem[]>([]);
-    const [history, setHistory] = useState<OrderItem[]>(DUMMY_HISTORY);
-    const [hero, setHero] = useState<Hero | null>(null);
-    const [activeDrawer, setActiveDrawer] = useState<DrawerType>(null);
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const [activeCategory, setActiveCategory] = useState('Semua');
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
-    const [themeMode, setThemeMode] = useState<string>('Dark');
-    const [isService, setIsService] = useState<boolean>(true);
-    const [isPackage, setIsPackage] = useState<boolean | string>('All');
-    const [clientQueueNumber, setClientQueueNumber] = useState<number>(Math.floor(Math.random() * 50) + 1);
-    const [currentQueueNumber, setCurrentQueueNumber] = useState<number>(1);
-    useEffect(() => {
-        setProducts(DUMMY_PRODUCTS)
-        setHistory(DUMMY_HISTORY);
-        setHero(DUMMY_HERO)
-    }, []);
-    const handleChangeBusiness = (value: boolean) => {
-        setIsService(value)
-    }
-    const handlePackage = (val: boolean | string) => {
-        setIsPackage(val)
-    }
-    const favoriteProducts: Product[] = useMemo(() => products.filter(p => p.isFavorite), [products]);
-    const cartTotal: number = useMemo(() => cart.reduce((total, item) => total + item.finalPrice * item.quantity, 0), [cart]);
-    const filteredProducts: Product[] = useMemo(() => {
-        if (activeCategory === 'Semua') {
-            if (isService) {
-                if (isPackage === true) {
-                    return products.filter((p) => p?.isService && p?.isPackage);
-                } else if (isPackage === false) {
-                    return products.filter((p) => p?.isService && !p?.isPackage);
-                } else {
-                    return products.filter((p) => p?.isService);
-                }
-            } else {
-                if (isPackage === true) {
-                    return products.filter((p) => !p?.isService && p?.isPackage);
-                } else if (isPackage === false) {
-                    return products.filter((p) => !p?.isService && !p?.isPackage);
-                } else {
-                    return products.filter((p) => !p?.isService);
-                }
-            }
-
-        }
-        if (isService) {
-            if (isPackage === true) {
-                return products.filter((p) => p?.isService && p?.isPackage && p?.category === activeCategory);
-            } else if (isPackage === false) {
-                return products.filter((p) => p?.isService && !p?.isPackage && p?.category === activeCategory);
-            } else {
-                return products.filter((p) => p?.isService && p?.category === activeCategory);
-            }
-        } else {
-            if (isPackage === true) {
-                return products.filter((p) => !p?.isService && p?.isPackage && p?.category === activeCategory);
-            } else if (isPackage === false) {
-                return products.filter((p) => !p?.isService && !p?.isPackage && p?.category === activeCategory);
-            } else {
-                return products.filter((p) => !p?.isService && p?.category === activeCategory);
-            }
-        }
-    }, [products, activeCategory, isPackage, isService]);
-
-    const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode)
-        setThemeMode(isDarkMode ? "Light" : "Dark")
-    }
-    // Actions
-    const openDrawer = useCallback((type: DrawerType) => setActiveDrawer(type), []);
-    const closeDrawer = useCallback(() => setActiveDrawer(null), []);
-    const openDetailModal = useCallback((product: Product) => {
-        setSelectedProduct(product)
-        setActiveDrawer(null)
-    }, []);
-    const closeDetailModal = useCallback(() => setSelectedProduct(null), []);
-    const setActiveCategorySafe = useCallback((category: string) => setActiveCategory(category), []);
-
-    const handleToggleFavorite = useCallback((productId: number) => {
-        setProducts(prevProducts =>
-            prevProducts?.map(p =>
-                p.id === productId ? { ...p, isFavorite: !p.isFavorite } : p
-            )
-        );
-    }, []);
-
-    const handleAddToCart = useCallback((item: OrderItem) => {
-        setCart(prevCart => {
-            const existingItemIndex = prevCart?.findIndex(
-                i => i.id === item.id && i.variantName === item.variantName
-            );
-
-            if (existingItemIndex > -1) {
-                return prevCart?.map((i, index) =>
-                    index === existingItemIndex ? { ...i, quantity: i.quantity + item.quantity } : i
-                );
-            }
-            return [...prevCart, item];
-        });
-        setClientQueueNumber(clientQueueNumber + 1)
-        // Simulasi checkout: item masuk ke history
-        setHistory(prevHistory => [{ ...item, quantity: item.quantity, date: new Date().toISOString().split("T")[0], status: "Selesai" }, ...prevHistory].slice(0, 5));
-    }, []);
-
-    const handleRemoveFromCart = useCallback((indexToRemove: number) => {
-        setCart(prevCart => prevCart.filter((_, i) => i !== indexToRemove));
-    }, []);
-
-    const categorie = useMemo(() => {
-        if (isService) {
-            return DUMMY_CATEGORIES?.filter((c) => c?.isService);
-        } else {
-            return DUMMY_CATEGORIES?.filter((c) => !c?.isService);
-        }
-    }, [isService]);
-    const handleNextQueue = () => {
-        setCurrentQueueNumber(prev => prev + 1);
-    };
-    return {
-        // State
-        products,
-        cart,
-        history,
-        activeDrawer,
-        selectedProduct,
-        activeCategory,
-        categorie,
-        hero,
-
-        // Computed
-        favoriteProducts,
-        cartTotal,
-        filteredProducts,
-
-        // Actions
-        openDrawer,
-        closeDrawer,
-        openDetailModal,
-        closeDetailModal,
-        handleToggleFavorite,
-        handleAddToCart,
-        handleRemoveFromCart,
-        setActiveCategory: setActiveCategorySafe,
-        toggleTheme,
-        isDarkMode,
-        themeMode,
-        isService,
-        handleChangeBusiness,
-        handlePackage,
-        isPackage,
-        clientQueueNumber,
-        currentQueueNumber,
-        handleNextQueue
-    };
-};

@@ -1,9 +1,8 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import { Hero } from "@/lib/Types/Theme/theme";
 import { Box, CookingPot, Tag, Zap } from "lucide-react";
 
-export const DUMMY_PRODUCTS: Product[] = [
+export const DUMMY_PRODUCTS_THREE: Product[] = [
     {
         id: 1,
         name: 'Mie Goreng Rasa Ayam Bawang',
@@ -82,7 +81,7 @@ export const DUMMY_PRODUCTS: Product[] = [
     },
 ];
 
-export const DUMMY_CATEGORIES: Category[] = [
+export const DUMMY_CATEGORIES_THREE: Category[] = [
     { id: 1, name: 'Makanan Instan', iconComponent: Box },
     { id: 2, name: 'Minuman Segar', iconComponent: Zap },
     { id: 3, name: 'Snack & Cokelat', iconComponent: Tag },
@@ -90,7 +89,7 @@ export const DUMMY_CATEGORIES: Category[] = [
 ];
 
 
-export const DUMMY_HISTORY: OrderItem[] = [
+export const DUMMY_HISTORY_THREE: OrderItem[] = [
     {
         id: 1, productName: 'Keripik Kentang Original', basePrice: 13000, variantName: 'Besar (120g)', finalPrice: 52000, quantity: 4, date: "2025-12-06", status: "Selesai"
     },
@@ -100,112 +99,10 @@ export const DUMMY_HISTORY: OrderItem[] = [
 ];
 
 
-export const DUMMY_HERO: Hero = {
+export const DUMMY_HERO_THREE: Hero = {
     // title: 'Penawaran Eksklusif',
     sub_title: 'Hemat Akhir Pekan!',
     description: 'iskon hingga 50% untuk produk pilihan.',
     cta: 'Lihat Promo',
     image: 'https://img.freepik.com/premium-vector/special-sale-promo-3d-editable-text-effect_567288-1644.jpg'
 }
-
-
-export const useProductCatalog = () => {
-    const [products, setProducts] = useState<Product[]>(DUMMY_PRODUCTS);
-    const [cart, setCart] = useState<OrderItem[]>([]);
-    const [history, setHistory] = useState<OrderItem[]>(DUMMY_HISTORY);
-    const [hero, setHero] = useState<Hero | null>(null);
-    const [categorie, setCategorie] = useState<Category[]>([]);
-    const [activeDrawer, setActiveDrawer] = useState<DrawerType>(null);
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const [activeCategory, setActiveCategory] = useState('Semua');
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
-    const [themeMode, setThemeMode] = useState<string>('Dark')
-    useEffect(() => {
-        setProducts(DUMMY_PRODUCTS)
-        setHistory(DUMMY_HISTORY);
-        setCategorie(DUMMY_CATEGORIES);
-        setHero(DUMMY_HERO)
-    }, []);
-
-    const favoriteProducts: Product[] = useMemo(() => products.filter(p => p.isFavorite), [products]);
-    const cartTotal: number = useMemo(() => cart.reduce((total, item) => total + item.finalPrice * item.quantity, 0), [cart]);
-    const filteredProducts: Product[] = useMemo(() => {
-        if (activeCategory === 'Semua') {
-            return products;
-        }
-        return products.filter(p => p.category === activeCategory);
-    }, [products, activeCategory]);
-
-    const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode)
-        setThemeMode(isDarkMode ? "Light" : "Dark")
-    }
-    // Actions
-    const openDrawer = useCallback((type: DrawerType) => setActiveDrawer(type), []);
-    const closeDrawer = useCallback(() => setActiveDrawer(null), []);
-    const openDetailModal = useCallback((product: Product) => {
-        setSelectedProduct(product)
-        setActiveDrawer(null)
-    }, []);
-    const closeDetailModal = useCallback(() => setSelectedProduct(null), []);
-    const setActiveCategorySafe = useCallback((category: string) => setActiveCategory(category), []);
-
-    const handleToggleFavorite = useCallback((productId: number) => {
-        setProducts(prevProducts =>
-            prevProducts?.map(p =>
-                p.id === productId ? { ...p, isFavorite: !p.isFavorite } : p
-            )
-        );
-    }, []);
-
-    const handleAddToCart = useCallback((item: OrderItem) => {
-        setCart(prevCart => {
-            const existingItemIndex = prevCart?.findIndex(
-                i => i.id === item.id && i.variantName === item.variantName
-            );
-
-            if (existingItemIndex > -1) {
-                return prevCart?.map((i, index) =>
-                    index === existingItemIndex ? { ...i, quantity: i.quantity + item.quantity } : i
-                );
-            }
-            return [...prevCart, item];
-        });
-        // Simulasi checkout: item masuk ke history
-        setHistory(prevHistory => [{ ...item, quantity: item.quantity, date: new Date().toISOString().split("T")[0], status: "Selesai" }, ...prevHistory].slice(0, 5));
-    }, []);
-
-    const handleRemoveFromCart = useCallback((indexToRemove: number) => {
-        setCart(prevCart => prevCart.filter((_, i) => i !== indexToRemove));
-    }, []);
-
-    return {
-        // State
-        products,
-        cart,
-        history,
-        activeDrawer,
-        selectedProduct,
-        activeCategory,
-        categorie,
-        hero,
-
-        // Computed
-        favoriteProducts,
-        cartTotal,
-        filteredProducts,
-
-        // Actions
-        openDrawer,
-        closeDrawer,
-        openDetailModal,
-        closeDetailModal,
-        handleToggleFavorite,
-        handleAddToCart,
-        handleRemoveFromCart,
-        setActiveCategory: setActiveCategorySafe,
-        toggleTheme,
-        isDarkMode,
-        themeMode
-    };
-};

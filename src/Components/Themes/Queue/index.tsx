@@ -1,24 +1,38 @@
-import React from 'react'
-import QueueOne from './QueueOne';
+import React from 'react';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 
+/* ===================== Components ===================== */
+import QueueOne from './QueueOne';
+
+/* ===================== Props ===================== */
 type Props = {
     theme: number;
     color: ThemeColorSet;
     clientQueueNumber?: number;
     currentQueueNumber?: number;
     handleNextQueue?: () => void;
-}
+};
 
-const Queue = ({ theme, clientQueueNumber, currentQueueNumber, handleNextQueue, color }: Props) => {
-    return (
-        theme === 1 ?
-            <QueueOne
-                clientQueueNumber={clientQueueNumber}
-                currentQueueNumber={currentQueueNumber}
-                handleNextQueue={handleNextQueue}
-                color={color} /> : ""
-    )
-}
+const Queue = ({
+    theme,
+    color,
+    clientQueueNumber,
+    currentQueueNumber,
+    handleNextQueue,
+}: Props) => {
+    const commonProps = {
+        color,
+        clientQueueNumber,
+        currentQueueNumber,
+        handleNextQueue,
+    };
 
-export default Queue
+    switch (theme) {
+        case 1:
+            return <QueueOne {...commonProps} />;
+        default:
+            return null;
+    }
+};
+
+export default Queue;

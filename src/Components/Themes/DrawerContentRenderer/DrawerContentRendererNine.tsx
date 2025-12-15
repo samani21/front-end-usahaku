@@ -15,6 +15,7 @@ interface DrawerContentRendererProps {
     cartTotal: number;
     handleToggleFavorite: (id: number) => void;
     handleRemoveFromCart: (index: number) => void;
+    handleCheckout: () => void;
 }
 
 const DrawerContentRendererNine: React.FC<DrawerContentRendererProps> = ({
@@ -24,6 +25,7 @@ const DrawerContentRendererNine: React.FC<DrawerContentRendererProps> = ({
     cart,
     history,
     cartTotal,
+    handleCheckout,
     handleRemoveFromCart
 }) => {
     // Konten Favorit
@@ -89,6 +91,7 @@ const DrawerContentRendererNine: React.FC<DrawerContentRendererProps> = ({
                         <span className={`${color?.text600}`} >Rp {cartTotal.toLocaleString('id-ID')}</span>
                     </div>
                     <button
+                        onClick={handleCheckout}
                         disabled={cart?.length === 0}
                         className={`w-full py-3 text-white text-lg font-semibold rounded-xl shadow-lg transition duration-300 ${cart?.length > 0 ? `${color?.bg600} ${color?.hoverBg700} transform hover:scale-[1.01]` : 'bg-gray-400 cursor-not-allowed'
                             }`}

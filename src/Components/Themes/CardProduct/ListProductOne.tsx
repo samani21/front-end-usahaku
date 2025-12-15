@@ -13,7 +13,7 @@ type Props = {
 
 const ListProductOne = ({ filteredProducts, openDetailModal, handleToggleFavorite, color, activeCategory }: Props) => {
     return (
-        <section className="space-y-6">
+        <section className="space-y-6 mt-4">
             <h2 className="text-3xl font-bold border-b pb-2 border-gray-200 dark:border-gray-700">
                 Daftar Produk ({activeCategory})
             </h2>

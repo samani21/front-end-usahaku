@@ -13,6 +13,7 @@ interface DrawerContentRendererProps {
     cartTotal: number;
     handleToggleFavorite: (id: number) => void;
     handleRemoveFromCart: (index: number) => void;
+    handleCheckout: () => void;
 }
 
 const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
@@ -24,6 +25,7 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
     cartTotal,
     handleToggleFavorite,
     handleRemoveFromCart,
+    handleCheckout
 }) => {
     // Konten Favorit
     if (type === 'favorite') {
@@ -58,7 +60,6 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
         );
     }
 
-    // Konten Cart
     if (type === 'cart') {
         return (
             <div className="flex flex-col h-full">
@@ -95,6 +96,7 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
                         <span className={`text-2xl font-extrabold ${color?.text600}`}>{formatRupiah(cartTotal)}</span>
                     </div>
                     <button
+                        onClick={handleCheckout}
                         className={`w-full py-3 ${color?.bg600} text-white font-bold rounded-lg shadow-lg ${color?.hoverBg700} transition duration-300 disabled:bg-gray-400`}
                         disabled={cart.length === 0}
                     >

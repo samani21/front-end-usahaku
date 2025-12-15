@@ -42,7 +42,7 @@ const HeaderSix = ({ color, openDrawer, favoriteProducts, cart, history }: Props
                     </button>
                     <button onClick={() => openDrawer('history')} className={`p-2 ${color?.text600} hover:bg-gray-100 rounded-full transition relative`} aria-label="Keranjang Belanja">
                         <Clock className="w-6 h-6" />
-                        {cart.length > 0 && (
+                        {history.length > 0 && (
                             <span className={`absolute top-0 right-0 h-4 w-4 ${color?.bg600} text-white text-xs rounded-full flex items-center justify-center border-2 border-white font-bold`}>
                                 {history.length}
                             </span>

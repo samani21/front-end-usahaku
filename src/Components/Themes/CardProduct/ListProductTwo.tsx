@@ -14,7 +14,7 @@ type Props = {
 
 const ListProductTwo = ({ filteredProducts, openDetailModal, handleToggleFavorite, color, activeCategory }: Props) => {
     return (
-        <div className="mt-10 px-4 sm:px-6 lg:px-8" id="produk-pilihan">
+        <div className="mt-10" id="produk-pilihan">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">
                 Produk Tersedia ({activeCategory === 'Semua' ? 'Semua' : activeCategory})
             </h2>

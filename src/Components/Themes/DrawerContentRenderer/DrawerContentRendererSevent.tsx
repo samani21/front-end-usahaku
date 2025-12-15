@@ -14,6 +14,7 @@ interface DrawerContentRendererProps {
     cartTotal: number;
     handleToggleFavorite: (id: number) => void;
     handleRemoveFromCart: (index: number) => void;
+    handleCheckout: () => void;
 }
 
 const DrawerContentRendererSevent: React.FC<DrawerContentRendererProps> = ({
@@ -23,7 +24,8 @@ const DrawerContentRendererSevent: React.FC<DrawerContentRendererProps> = ({
     cart,
     history,
     cartTotal,
-    handleRemoveFromCart
+    handleRemoveFromCart,
+    handleCheckout
 }) => {
     // Konten Favorit
     if (type === 'favorite') {
@@ -49,37 +51,6 @@ const DrawerContentRendererSevent: React.FC<DrawerContentRendererProps> = ({
     // Konten Cart
     if (type === 'cart') {
         return (
-            // cart.length === 0 ? (
-            //     <div className="text-center py-10">
-            //         <ShoppingCart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            //         <p className="text-gray-500">Keranjang Anda masih kosong.</p>
-            //     </div>
-            // ) : (
-            //     <>
-            //         <ul className="space-y-4">
-            //             {cart.map((item, index) => (
-            //                 <li key={index} className="flex justify-between items-center p-4 bg-gray-50 rounded-xl shadow-sm">
-            //                     <div>
-            //                         <p className="font-semibold text-gray-800">{item.productName}</p>
-            //                         <p className="text-sm text-gray-500">({item.variantName}) x {item.quantity}</p>
-            //                         <p className="text-sm font-bold text-gray-600 mt-1">Rp {(item.finalPrice).toLocaleString('id-ID')}</p>
-            //                     </div>
-            //                 </li>
-            //             ))}
-            //         </ul>
-            //         <div className="mt-8 pt-4 border-t border-gray-200">
-            //             <div className="flex justify-between font-bold text-xl text-gray-800 mb-4">
-            //                 <span>TOTAL AKHIR:</span>
-            //                 <span className={`${color?.text700}`}>Rp {cartTotal?.toLocaleString('id-ID')}</span>
-            //             </div>
-            //             <button
-            //                 className={`w-full mt-2 ${color?.bg600} text-white font-extrabold py-3 rounded-xl ${color?.hoverBg700}transition shadow-lg `}
-            //             >
-            //                 Lanjutkan Pembayaran
-            //             </button>
-            //         </div>
-            //     </>
-            // )
             <div className="flex flex-col h-full justify-between">
                 <div className="flex-grow overflow-y-auto pr-2">
                     <p className="text-gray-500 mb-4">Layanan yang saat ini ada di keranjang atau dalam proses pemesanan.</p>
@@ -128,7 +99,7 @@ const DrawerContentRendererSevent: React.FC<DrawerContentRendererProps> = ({
 
                             {/* Tombol Pesan/Checkout untuk seluruh keranjang */}
                             <button
-                                onClick={() => alert('Simulasi: Melanjutkan ke halaman Checkout.')}
+                                onClick={handleCheckout}
                                 className={`w-full py-3 ${color?.bg600} text-white font-semibold rounded-lg shadow-md ${color?.hoverBg700} transition duration-300 focus:outline-none focus:ring-4 ${color?.ring500} focus:ring-opacity-50`}
                             >
                                 Lanjutkan Pemesanan ({cart.length} Item)

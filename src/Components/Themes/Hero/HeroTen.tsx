@@ -5,14 +5,11 @@ import { useMemo, useState } from 'react';
 type Props = {
     color: ThemeColorSet;
     hero: Hero | null
-    clientQueueNumber?: number;
-    currentQueueNumber?: number;
-    handleNextQueue?: () => void;
 }
 
 
 
-const HeroTen = ({ color, hero, clientQueueNumber, currentQueueNumber, handleNextQueue }: Props) => {
+const HeroTen = ({ color, hero}: Props) => {
 
     return (
         <section id="home" className={`${color?.bg50} pt-20 pb-12 sm:pt-24 sm:pb-16 text-center  rounded-b-xl mb-4`}>

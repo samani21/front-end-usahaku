@@ -42,3 +42,8 @@ export interface Category {
     isService?: boolean;
 }
 
+export interface OrderHistory {
+    items: OrderItem[];
+    date: string;
+    status: 'Selesai' | 'Diproses' | 'Batal';
+}

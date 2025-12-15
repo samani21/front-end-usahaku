@@ -18,7 +18,7 @@ const MapTableOne = ({ color, clientQueueNumber, currentQueueNumber }: Props) =>
             </div>
             <div className='flex space-x-4 text-sm font-medium'>
                 <span>Antrian Pesanan: <span className={`font-bold ${color?.text600}`}>{clientQueueNumber}</span></span>
-                <span>Antrian Sekarang: <span className={`font-bold ${color?.text600}`}>{currentQueueNumber}</span></span>
+                <span>Antrian Sekarang: <span className={`font-bold ${color?.text600}`}>{(clientQueueNumber || 0) > 0 ? currentQueueNumber : 0}</span></span>
             </div>
         </div>
     )

@@ -1,20 +1,35 @@
+import React from 'react';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React from 'react'
+
+/* ===================== Components ===================== */
 import ProductPackageOne from './ProductPackageOne';
 
+/* ===================== Props ===================== */
 type Props = {
-    theme: number
+    theme: number;
     color: ThemeColorSet;
     handlePackage: (val: boolean | string) => void;
-    isPackage: boolean | string
-}
+    isPackage: boolean | string;
+};
 
-const ProductPackage = ({ color, handlePackage, isPackage, theme }: Props) => {
-    return (
-        theme === 1 ? <ProductPackageOne handlePackage={handlePackage}
-            isPackage={isPackage}
-            color={color} /> : ''
-    )
-}
+const ProductPackage = ({
+    theme,
+    color,
+    handlePackage,
+    isPackage,
+}: Props) => {
+    const commonProps = {
+        color,
+        handlePackage,
+        isPackage,
+    };
 
-export default ProductPackage
+    switch (theme) {
+        case 1:
+            return <ProductPackageOne {...commonProps} />;
+        default:
+            return null;
+    }
+};
+
+export default ProductPackage;

@@ -1,24 +1,44 @@
-import React from 'react'
-import MapTableOne from './MapTableOne'
+import React from 'react';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import MapTableTwo from './MapTableTwo';
 
+/* ===================== Components ===================== */
+import MapTableOne from './MapTableOne';
+import MapTableTwo from './MapTableTwo';
+import MapTableThree from './MapTableThree';
+
+/* ===================== Props ===================== */
 type Props = {
-    theme: number
+    theme: number;
     color: ThemeColorSet;
     clientQueueNumber?: number;
     currentQueueNumber?: number;
-}
+    handleNextQueue?: () => void;
+};
 
-const MapTable = ({ theme, color, clientQueueNumber, currentQueueNumber }: Props) => {
-    return (
-        theme === 1 ? <MapTableOne color={color}
-            clientQueueNumber={clientQueueNumber}
-            currentQueueNumber={currentQueueNumber} /> :
-            theme === 2 ? <MapTableTwo color={color}
-                clientQueueNumber={clientQueueNumber}
-                currentQueueNumber={currentQueueNumber} /> : ""
-    )
-}
+const MapTable = ({
+    theme,
+    color,
+    clientQueueNumber,
+    currentQueueNumber,
+    handleNextQueue
+}: Props) => {
+    const commonProps = {
+        color,
+        clientQueueNumber,
+        currentQueueNumber,
+        handleNextQueue
+    };
 
-export default MapTable
+    switch (theme) {
+        case 1:
+            return <MapTableOne {...commonProps} />;
+        case 2:
+            return <MapTableTwo {...commonProps} />;
+        case 3:
+            return <MapTableThree {...commonProps} />;
+        default:
+            return null;
+    }
+};
+
+export default MapTable;

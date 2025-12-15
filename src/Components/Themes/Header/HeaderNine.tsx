@@ -33,7 +33,7 @@ const HeaderNine = ({ color, openDrawer, favoriteProducts, cart, history, isServ
                     <button onClick={() => openDrawer('cart')} className={`relative p-2 text-gray-600 ${color?.hoverText600} rounded-full transition`}>
                         <ShoppingCart size={24} />
                         {/* Badge keranjang */}
-                        <span className="absolute top-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white bg-red-500"></span>
+                        {cart?.length > 0 && <span className="absolute top-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white bg-red-500"></span>}
                     </button>
                     <button onClick={() => openDrawer('history')} className={`p-2 text-gray-600 ${color?.hoverText600} rounded-full transition`}>
                         <History size={24} />

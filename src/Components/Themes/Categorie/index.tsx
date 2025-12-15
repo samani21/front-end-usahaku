@@ -1,82 +1,69 @@
+import React from 'react';
 import { Category } from '@/hooks/Theme/useProductCatalog';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React from 'react'
+
+/* ===================== Components ===================== */
 import CategorieOne from './CategorieOne';
 import CategorieTwo from './CategorieTwo';
 import CategorieThree from './CategorieThree';
 import CategorieDarkLight from './CategorieDarkLight';
-import CategorieSix from './CategorieSix';
 import CategorieFive from './CategorieFive';
+import CategorieSix from './CategorieSix';
 import CategorieSevent from './CategorieSevent';
 import CategorieEight from './CategorieEight';
 import CategorieNine from './CategorieNine';
 
+/* ===================== Props ===================== */
 type Props = {
     color: ThemeColorSet;
     theme: number | string;
     categorie: Category[];
     setActiveCategory: (val: string) => void;
-    activeCategory: string
-}
+    activeCategory: string;
+    themeMode: 'Dark' | 'Light';
+};
 
-const Categorie = ({ color, theme, categorie, setActiveCategory, activeCategory }: Props) => {
-    return (
-        theme === 1 ?
-            <CategorieOne
-                color={color}
-                categorie={categorie}
-                setActiveCategory={setActiveCategory}
-                activeCategory={activeCategory} /> :
-            theme === 2 ?
-                <CategorieTwo
-                    color={color}
-                    categorie={categorie}
-                    setActiveCategory={setActiveCategory}
-                    activeCategory={activeCategory} /> :
-                theme === 3 ?
-                    <CategorieThree
-                        color={color}
-                        categorie={categorie}
-                        setActiveCategory={setActiveCategory}
-                        activeCategory={activeCategory} /> :
-                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
-                        <CategorieDarkLight
-                            color={color}
-                            categorie={categorie}
-                            setActiveCategory={setActiveCategory}
-                            activeCategory={activeCategory}
-                            themeMode={theme} /> :
-                        theme === 5 ?
-                            <CategorieFive
-                                color={color}
-                                categorie={categorie}
-                                setActiveCategory={setActiveCategory}
-                                activeCategory={activeCategory} /> :
-                            theme === 6 ?
-                                <CategorieSix
-                                    color={color}
-                                    categorie={categorie}
-                                    setActiveCategory={setActiveCategory}
-                                    activeCategory={activeCategory} /> :
-                                theme === 7 ?
-                                    <CategorieSevent
-                                        color={color}
-                                        categorie={categorie}
-                                        setActiveCategory={setActiveCategory}
-                                        activeCategory={activeCategory} /> :
-                                    theme === 8 ?
-                                        <CategorieEight
-                                            color={color}
-                                            categorie={categorie}
-                                            setActiveCategory={setActiveCategory}
-                                            activeCategory={activeCategory} /> :
-                                        theme === 9 ?
-                                            <CategorieNine
-                                                color={color}
-                                                categorie={categorie}
-                                                setActiveCategory={setActiveCategory}
-                                                activeCategory={activeCategory} /> : ""
-    )
-}
+const Categorie = ({
+    color,
+    theme,
+    categorie,
+    setActiveCategory,
+    activeCategory,
+    themeMode
+}: Props) => {
+    const commonProps = {
+        color,
+        categorie,
+        setActiveCategory,
+        activeCategory,
+    };
 
-export default Categorie
+
+    /* ===================== Numeric Theme ===================== */
+    switch (theme) {
+        case 1:
+            return <CategorieOne {...commonProps} />;
+        case 2:
+            return <CategorieTwo {...commonProps} />;
+        case 3:
+            return <CategorieThree {...commonProps} />;
+        case 4:
+            return <CategorieDarkLight {...commonProps}
+                themeMode={themeMode}
+            />;
+        case 5:
+            return <CategorieFive {...commonProps} />;
+        case 6:
+            return <CategorieSix {...commonProps} />;
+        case 7:
+            return <CategorieSevent {...commonProps} />;
+        case 8:
+            return <CategorieEight {...commonProps} />;
+        case 9:
+            return <CategorieNine {...commonProps} />;
+        default:
+            return null;
+    }
+};
+
+export default Categorie;

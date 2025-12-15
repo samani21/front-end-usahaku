@@ -1,6 +1,8 @@
+import React from 'react';
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React from 'react'
+
+/* ===================== Headers ===================== */
 import HeaderOne from './HeaderOne';
 import HeaderTwo from './HeaderTwo';
 import HeaderThree from './HeaderThree';
@@ -14,6 +16,7 @@ import HeaderTen from './HeaderTen';
 import HeaderEleven from './HeaderEleven';
 import HeaderTwelve from './HeaderTwelve';
 
+/* ===================== Props ===================== */
 type Props = {
     theme: number | string;
     color: ThemeColorSet;
@@ -22,88 +25,64 @@ type Props = {
     cart: OrderItem[];
     history: OrderItem[];
     toggleTheme?: () => void;
-    isService?: boolean
+    isService?: boolean;
     handleChangeBusiness?: (val: boolean) => void;
-}
+    themeMode: 'Dark' | 'Light';
+};
 
-const Header = ({ theme, color, openDrawer, favoriteProducts, cart, history, toggleTheme, isService, handleChangeBusiness }: Props) => {
-    return (
-        theme === 1 ? <HeaderOne color={color}
-            openDrawer={openDrawer}
-            favoriteProducts={favoriteProducts}
-            cart={cart}
-            history={history} /> :
-            theme === 2 ? <HeaderTwo color={color}
-                openDrawer={openDrawer}
-                favoriteProducts={favoriteProducts}
-                cart={cart}
-                history={history} /> :
-                theme === 3 ? <HeaderThree color={color}
-                    openDrawer={openDrawer}
-                    favoriteProducts={favoriteProducts}
-                    cart={cart}
-                    history={history} /> :
-                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
-                        <HeaderDarkLight
-                            color={color}
-                            onThemeToggle={toggleTheme}
-                            openDrawer={openDrawer}
-                            favoriteProducts={favoriteProducts}
-                            cart={cart}
-                            history={history}
-                            themeMode={theme} /> :
-                        theme === 5 ?
-                            <HeaderFive color={color}
-                                openDrawer={openDrawer}
-                                favoriteProducts={favoriteProducts}
-                                cart={cart}
-                                history={history} /> :
-                            theme === 6 ? <HeaderSix color={color}
-                                openDrawer={openDrawer}
-                                favoriteProducts={favoriteProducts}
-                                cart={cart}
-                                history={history} /> :
-                                theme === 7 ? <HeaderSevent color={color}
-                                    openDrawer={openDrawer}
-                                    favoriteProducts={favoriteProducts}
-                                    cart={cart}
-                                    history={history} /> :
-                                    theme === 8 ? <HeaderEight color={color}
-                                        openDrawer={openDrawer}
-                                        favoriteProducts={favoriteProducts}
-                                        cart={cart}
-                                        history={history}
-                                        isService={isService}
-                                        handleChangeBusiness={handleChangeBusiness} /> :
-                                        theme === 9 ? <HeaderNine color={color}
-                                            openDrawer={openDrawer}
-                                            favoriteProducts={favoriteProducts}
-                                            cart={cart}
-                                            history={history}
-                                            isService={isService}
-                                            handleChangeBusiness={handleChangeBusiness} /> :
-                                            theme === 10 ? <HeaderTen color={color}
-                                                openDrawer={openDrawer}
-                                                favoriteProducts={favoriteProducts}
-                                                cart={cart}
-                                                history={history}
-                                                isService={isService}
-                                                handleChangeBusiness={handleChangeBusiness} /> :
-                                                theme === 11 ? <HeaderEleven color={color}
-                                                    openDrawer={openDrawer}
-                                                    favoriteProducts={favoriteProducts}
-                                                    cart={cart}
-                                                    history={history}
-                                                    isService={isService}
-                                                    handleChangeBusiness={handleChangeBusiness} /> :
-                                                    theme === 12 ? <HeaderTwelve color={color}
-                                                        openDrawer={openDrawer}
-                                                        favoriteProducts={favoriteProducts}
-                                                        cart={cart}
-                                                        history={history}
-                                                        isService={isService}
-                                                        handleChangeBusiness={handleChangeBusiness} /> : ''
-    )
-}
+const Header = ({
+    theme,
+    color,
+    openDrawer,
+    favoriteProducts,
+    cart,
+    history,
+    toggleTheme,
+    isService,
+    handleChangeBusiness,
+    themeMode
+}: Props) => {
+    const commonProps = {
+        color,
+        openDrawer,
+        favoriteProducts,
+        cart,
+        history,
+        isService,
+        handleChangeBusiness,
+        themeMode
+    };
 
-export default Header
+    /* ===================== Numeric Theme ===================== */
+    switch (theme) {
+        case 1:
+            return <HeaderOne {...commonProps} />;
+        case 2:
+            return <HeaderTwo {...commonProps} />;
+        case 3:
+            return <HeaderThree {...commonProps} />;
+        case 4:
+            return <HeaderDarkLight {...commonProps} themeMode={themeMode}
+                onThemeToggle={toggleTheme} />;
+        case 5:
+            return <HeaderFive {...commonProps} />;
+        case 6:
+            return <HeaderSix {...commonProps} />;
+        case 7:
+            return <HeaderSevent {...commonProps} />;
+        case 8:
+            return <HeaderEight {...commonProps} />;
+        case 9:
+            return <HeaderNine {...commonProps} />;
+        case 10:
+            return <HeaderTen {...commonProps} />;
+        case 11:
+            return <HeaderEleven {...commonProps} />;
+        case 12:
+            return <HeaderTwelve {...commonProps} />;
+        default:
+            return null;
+    }
+};
+
+export default Header;

@@ -13,6 +13,7 @@ interface DrawerContentRendererProps {
     cartTotal: number;
     handleToggleFavorite: (id: number) => void;
     handleRemoveFromCart: (index: number) => void;
+    handleCheckout: () => void;
 }
 
 const DrawerContentRendererFive: React.FC<DrawerContentRendererProps> = ({
@@ -22,7 +23,8 @@ const DrawerContentRendererFive: React.FC<DrawerContentRendererProps> = ({
     cart,
     history,
     cartTotal,
-    handleRemoveFromCart
+    handleRemoveFromCart,
+    handleCheckout
 }) => {
     // Konten Favorit
     if (type === 'favorite') {
@@ -51,41 +53,6 @@ const DrawerContentRendererFive: React.FC<DrawerContentRendererProps> = ({
     if (type === 'cart') {
         return (
 
-            // <div className="space-y-4">
-            //     <div className="flex items-center text-gray-500">
-            //         <ShoppingBag size={20} className="mr-2" />
-            //         <p className="font-medium">Total {cart?.length} Item di Keranjang</p>
-            //     </div>
-            //     <ul className="divide-y divide-gray-200 bg-white p-2 rounded-lg shadow-inner border border-gray-100">
-            //         {cart?.map((item, index) => (
-            //             <div key={index} className="p-3 bg-gray-50 rounded-lg text-sm">
-            //                 <div className='flex items-start justify-between gap-1'>
-            //                     <div>
-            //                         <p className='w-full'>{item.productName}</p>
-            //                         <p className='w-full'>{item.variantName}</p>
-            //                     </div>
-            //                     <p className='text-red-500 cursor-pointer' onClick={() => handleRemoveFromCart(index)}>X</p>
-
-            //                 </div>
-            //                 <div className='flex items-start justify-between gap-1'>
-            //                     <div>
-            //                         <span className="font-semibold text-gray-800">{item?.quantity}x @</span>
-            //                         <span className="font-semibold text-gray-800">{formatRupiah(item.finalPrice)}</span>
-            //                     </div>
-            //                     <p>{formatRupiah(item.finalPrice * item?.quantity)}</p>
-            //                 </div>
-            //             </div>
-            //         ))}
-            //     </ul>
-            //     <div className="border-t border-gray-300 pt-4 flex justify-between font-bold text-lg text-gray-800">
-            //         <span>Subtotal:</span>{ }
-            //         <span>Rp{cartTotal.toLocaleString('id-ID')}</span>
-            //     </div>
-            //     <button className={`w-full mt-4 py-3 text-white font-bold rounded-xl transition duration-200 ${color?.bg600} ${color?.hoverBg700}`}>
-            //         Lanjut ke Pembayaran
-            //     </button>
-
-            // </div>
             <div className="flex flex-col space-y-4 h-full">
                 {/* List Item */}
                 <ul className="space-y-4">
@@ -114,7 +81,7 @@ const DrawerContentRendererFive: React.FC<DrawerContentRendererProps> = ({
 
                     {/* Tombol Bayar */}
                     <button
-
+                        onClick={handleCheckout}
                         className={`w-full py-3 ${color?.bg800} text-white font-bold rounded-lg hover:bg-gray-700 transition duration-300 shadow-lg disabled:bg-gray-400`}
                         disabled={cart.length === 0}
                     >

@@ -13,7 +13,7 @@ interface ProductCardProps {
 
 const CardProductOne: React.FC<ProductCardProps> = ({ product, onClick, onToggleFavorite, color }) => (
     <div
-        className={`bg-white dark:bg-gray-700 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden group flex flex-col cursor-pointer h-full ${color?.hoverText600}`}
+        className={`bg-white dark:bg-gray-700 dark:hover:text-gray-400 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden group flex flex-col cursor-pointer h-full ${color?.hoverText600}`}
     >
         <div className="relative">
             <img

@@ -1,6 +1,8 @@
+import React from 'react';
 import { Product } from '@/hooks/Theme/useProductCatalog';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React from 'react'
+
+/* ===================== Product Lists ===================== */
 import ListProductOne from './ListProductOne';
 import ListProductTwo from './ListProductTwo';
 import ListProductThree from './ListProductThree';
@@ -14,81 +16,66 @@ import ListProductTen from './ListProductTen';
 import ListProductEleven from './ListProductEleven';
 import ListProductTwelve from './ListProductTwelve';
 
+/* ===================== Props ===================== */
 type Props = {
     theme: number | string;
     filteredProducts: Product[];
-    openDetailModal: (val: Product) => void
+    openDetailModal: (val: Product) => void;
     handleToggleFavorite: (id: number) => void;
     color: ThemeColorSet;
-    activeCategory: string
-}
+    activeCategory: string;
+    themeMode: 'Dark' | 'Light';
+};
 
-const CardProduct = ({ theme, filteredProducts, openDetailModal, handleToggleFavorite, color, activeCategory
+const CardProduct = ({
+    theme,
+    filteredProducts,
+    openDetailModal,
+    handleToggleFavorite,
+    color,
+    activeCategory,
+    themeMode
 }: Props) => {
-    return (
-        theme === 1 ? <ListProductOne filteredProducts={filteredProducts}
-            openDetailModal={openDetailModal}
-            handleToggleFavorite={handleToggleFavorite}
-            color={color}
-            activeCategory={activeCategory} /> :
-            theme === 2 ? <ListProductTwo filteredProducts={filteredProducts}
-                openDetailModal={openDetailModal}
-                handleToggleFavorite={handleToggleFavorite}
-                color={color}
-                activeCategory={activeCategory} /> :
-                theme === 3 ? <ListProductThree filteredProducts={filteredProducts}
-                    openDetailModal={openDetailModal}
-                    handleToggleFavorite={handleToggleFavorite}
-                    color={color}
-                    activeCategory={activeCategory} /> :
-                    typeof theme === "string" && (theme === "Dark" || theme === "Light") ?
-                        <ListProductDarkLight filteredProducts={filteredProducts}
-                            openDetailModal={openDetailModal}
-                            handleToggleFavorite={handleToggleFavorite}
-                            color={color}
-                            activeCategory={activeCategory}
-                            themeMode={theme} /> :
-                        theme === 5 ? <ListProductFive filteredProducts={filteredProducts}
-                            openDetailModal={openDetailModal}
-                            handleToggleFavorite={handleToggleFavorite}
-                            color={color}
-                            activeCategory={activeCategory} /> :
-                            theme === 6 ? <ListProductSix filteredProducts={filteredProducts}
-                                openDetailModal={openDetailModal}
-                                handleToggleFavorite={handleToggleFavorite}
-                                color={color}
-                                activeCategory={activeCategory} /> :
-                                theme === 7 ? <ListProductSevent filteredProducts={filteredProducts}
-                                    openDetailModal={openDetailModal}
-                                    handleToggleFavorite={handleToggleFavorite}
-                                    color={color}
-                                    activeCategory={activeCategory} /> :
-                                    theme === 8 ? <ListProductEight filteredProducts={filteredProducts}
-                                        openDetailModal={openDetailModal}
-                                        handleToggleFavorite={handleToggleFavorite}
-                                        color={color}
-                                        activeCategory={activeCategory} /> :
-                                        theme === 9 ? <ListProductNine filteredProducts={filteredProducts}
-                                            openDetailModal={openDetailModal}
-                                            handleToggleFavorite={handleToggleFavorite}
-                                            color={color}
-                                            activeCategory={activeCategory} /> :
-                                            theme === 10 ? <ListProductTen filteredProducts={filteredProducts}
-                                                openDetailModal={openDetailModal}
-                                                handleToggleFavorite={handleToggleFavorite}
-                                                color={color}
-                                                activeCategory={activeCategory} /> :
-                                                theme === 11 ? <ListProductEleven filteredProducts={filteredProducts}
-                                                    openDetailModal={openDetailModal}
-                                                    handleToggleFavorite={handleToggleFavorite}
-                                                    color={color}
-                                                    activeCategory={activeCategory} /> :
-                                                    theme === 12 ? <ListProductTwelve filteredProducts={filteredProducts}
-                                                        openDetailModal={openDetailModal}
-                                                        handleToggleFavorite={handleToggleFavorite}
-                                                        color={color}
-                                                        activeCategory={activeCategory} /> : ""
-    )
-}
+    const commonProps = {
+        filteredProducts,
+        openDetailModal,
+        handleToggleFavorite,
+        color,
+        activeCategory,
+    };
 
-export default CardProduct
+    /* ===================== Numeric Theme ===================== */
+    switch (theme) {
+        case 1:
+            return <ListProductOne {...commonProps} />;
+        case 2:
+            return <ListProductTwo {...commonProps} />;
+        case 3:
+            return <ListProductThree {...commonProps} />;
+        case 4:
+            return <ListProductDarkLight
+                {...commonProps}
+                themeMode={themeMode}
+            />;
+        case 5:
+            return <ListProductFive {...commonProps} />;
+        case 6:
+            return <ListProductSix {...commonProps} />;
+        case 7:
+            return <ListProductSevent {...commonProps} />;
+        case 8:
+            return <ListProductEight {...commonProps} />;
+        case 9:
+            return <ListProductNine {...commonProps} />;
+        case 10:
+            return <ListProductTen {...commonProps} />;
+        case 11:
+            return <ListProductEleven {...commonProps} />;
+        case 12:
+            return <ListProductTwelve {...commonProps} />;
+        default:
+            return null;
+    }
+};
+
+export default CardProduct;

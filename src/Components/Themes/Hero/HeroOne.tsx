@@ -9,7 +9,7 @@ type Props = {
 
 const HeroOne = ({ color, hero }: Props) => {
     return (
-        <section className={`bg-gradient-to-r ${color?.gradient} p-8 sm:p-12 rounded-2xl shadow-xl`}>
+        <section className={`bg-gradient-to-r ${color?.gradient} p-8 mb-4 sm:p-12 rounded-2xl shadow-xl`}>
             <div className="flex flex-col md:flex-row items-center justify-between">
                 <div className="max-w-lg mb-6 md:mb-0">
                     <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight">

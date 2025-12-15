@@ -14,7 +14,8 @@ interface DrawerContentRendererProps {
     handleToggleFavorite: (id: number) => void;
     handleRemoveFromCart: (index: number) => void;
     themeMode: number | string;
-    openModal?: (val: Product) => void
+    openModal?: (val: Product) => void;
+    handleCheckout: () => void;
 }
 
 const DrawerContentRendererDarkLight: React.FC<DrawerContentRendererProps> = ({
@@ -26,6 +27,7 @@ const DrawerContentRendererDarkLight: React.FC<DrawerContentRendererProps> = ({
     cartTotal,
     handleRemoveFromCart,
     themeMode,
+    handleCheckout,
     openModal
 }) => {
     const drawerCardBg = themeMode === 'Dark' ? 'bg-gray-800' : 'bg-gray-100';
@@ -46,23 +48,6 @@ const DrawerContentRendererDarkLight: React.FC<DrawerContentRendererProps> = ({
 
     if (type === 'favorite') {
         return (
-            // <div className="space-y-4">
-            //     <div className="flex items-center text-gray-500">
-            //         <Heart size={20} className="mr-2" />
-            //         <p className="font-medium">2 Produk yang Anda Suka</p>
-            //     </div>
-            //     <ul className="divide-y divide-gray-200 bg-white p-2 rounded-lg shadow-inner border border-gray-100">
-            //         {favoriteProducts?.filter((p) => p?.isFavorite).map(item => (
-            //             <li key={item.id} className="py-3 flex justify-between items-center text-gray-700 hover:bg-gray-50 px-2 rounded transition cursor-pointer" >
-            //                 <span className="font-medium truncate">{item.name}</span>
-            //                 <span className={`text-sm font-semibold ${color?.text600}`}>Rp{item.price.toLocaleString('id-ID')}</span>
-            //             </li>
-            //         ))}
-            //     </ul>
-            //     <p className="text-sm text-center text-gray-500 mt-6">
-            //         Pilih ikon hati pada produk untuk menambahkannya ke daftar favorit.
-            //     </p>
-            // </div>
             <div className="space-y-4">
                 {favoriteProducts.length > 0 ?
                     favoriteProducts.map(p => (
@@ -110,7 +95,9 @@ const DrawerContentRendererDarkLight: React.FC<DrawerContentRendererProps> = ({
                 <div className={`flex justify-between text-2xl font-extrabold ${primaryText}`}>
                     <span>Total:</span> <span>{formatRupiah(cartTotal)}</span>
                 </div>
-                <button className={`w-full ${secondaryBg} text-white py-3 rounded-xl mt-4 font-bold text-lg hover:opacity-90 transition shadow-lg`}>Lanjutkan Pembayaran</button>
+                <button
+                    onClick={handleCheckout}
+                    className={`w-full ${secondaryBg} text-white py-3 rounded-xl mt-4 font-bold text-lg hover:opacity-90 transition shadow-lg`}>Lanjutkan Pembayaran</button>
             </div>
         );
     }
