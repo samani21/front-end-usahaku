@@ -23,11 +23,12 @@ type Props = {
     color: keyof typeof ThemeColor;
     themeSections: ThemeSection;
     theme: number;
+    loading: boolean
 }
 
-const ThemeComponents = ({ themeName, setThemeName, listTheme, color, themeSections, theme }: Props) => {
+const ThemeComponents = ({ themeName, setThemeName, listTheme, color, themeSections, theme, loading }: Props) => {
     /* ===================== Hook ===================== */
-
+    if (loading) return;
     const {
         openDrawer,
         closeDrawer,
@@ -113,6 +114,7 @@ const ThemeComponents = ({ themeName, setThemeName, listTheme, color, themeSecti
                 toggleTheme={toggleTheme}
                 handleChangeBusiness={handleChangeBusiness}
             />
+
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* ===================== Theme Switcher ===================== */}

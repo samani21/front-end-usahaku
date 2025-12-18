@@ -284,6 +284,7 @@ const ThemePage = () => {
             setThemeName={setThemeName}
             themeSections={themeSection}
             theme={Number(theme)}
+            loading={loading}
         />
     );
 };

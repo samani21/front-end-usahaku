@@ -39,19 +39,18 @@ const MapTableThree = ({ color, clientQueueNumber, currentQueueNumber, handleNex
                     </div>
 
                     {/* Tampilan Nomor Antrian */}
-                    <div className="md:w-1/2 flex flex-col sm:flex-row items-center justify-center md:justify-end space-y-4 sm:space-y-0 sm:space-x-4">
+                    <div className="flex items-center gap-2">
 
                         {/* Antrian Pelanggan */}
                         <div className={`bg-white ${color?.text600} p-4 rounded-xl shadow-lg flex-1 min-w-[150px]`}>
                             <p className="text-sm font-medium text-gray-500">Nomor Anda</p>
                             <p className="text-4xl font-bold">{clientQueueNumber}</p>
                         </div>
-
-                        {/* Antrian Berjalan */}
                         <div className={`bg-white ${color?.text600} p-4 rounded-xl shadow-lg flex-1 min-w-[150px]`}>
                             <p className="text-sm font-medium text-gray-500">Sedang Berjalan</p>
                             <p className="text-4xl font-bold text-red-600">{currentQueueNumber}</p>
                         </div>
+
                     </div>
                 </div>
 
