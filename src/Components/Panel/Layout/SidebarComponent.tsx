@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { menuSidebar } from '@/lib/MenuSidebar';
 
 type Props = {
-    isActivityDropdownOpen: boolean;
-    setIsActivityDropdownOpen: Dispatch<SetStateAction<boolean>>;
+    isActivityDropdownOpen: string;
+    setIsActivityDropdownOpen: Dispatch<SetStateAction<string>>;
     isSidebarOpen: boolean;
     setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -20,7 +20,7 @@ const SidebarComponent = ({ isActivityDropdownOpen, setIsActivityDropdownOpen, i
             const parts = route.pathname.split("/");
             const basePath = parts.slice(0, 3).join("/");
             setPathNameParent(basePath)
-            setIsActivityDropdownOpen(true)
+            setIsActivityDropdownOpen(basePath)
         }
     }, [route?.pathname]);
     return (
@@ -31,7 +31,6 @@ const SidebarComponent = ({ isActivityDropdownOpen, setIsActivityDropdownOpen, i
                     onClick={() => setIsSidebarOpen(false)}
                 ></div>
             )}
-
             <div
                 className={`fixed md:relative flex-col w-64 bg-white border-r border-gray-100 p-6 z-30 transition-transform duration-300 ease-in-out h-full ${isSidebarOpen
                     ? 'translate-x-0 flex'
@@ -50,14 +49,14 @@ const SidebarComponent = ({ isActivityDropdownOpen, setIsActivityDropdownOpen, i
                                 ms?.child ? <div key={i}>
                                     <SidebarItem
                                         onClick={() => {
-                                            setIsActivityDropdownOpen(!isOpen ? true : false)
+                                            setIsActivityDropdownOpen(`/panel/${ms?.label}`)
                                             setPathNameParent(`/panel${ms?.href}`)
                                         }}
                                         Icon={ms?.Icon} label={ms?.label} href={ms?.href} child={true} isActive={String(route?.pathname) === `/panel${ms?.href}` ? true : false}
                                     >
-                                        <ChevronDown className={`w-4 h-4 ml-auto text-gray-400 transition transform ${isActivityDropdownOpen ? 'rotate-180' : ''}`} />
+                                        <ChevronDown className={`w-4 h-4 ml-auto text-gray-400 transition transform ${!isOpen ? 'rotate-180' : ''}`} />
                                     </SidebarItem>
-                                    <div className={`${isActivityDropdownOpen && isOpen ? 'block' : 'hidden'} pl-8 pt-1 pb-1 space-y-1`}>
+                                    <div className={`${isOpen ? 'block' : 'hidden'} pl-8 pt-1 pb-1 space-y-1`}>
                                         {
                                             ms?.child?.map((c, i) => (
                                                 <button key={i} onClick={() => route?.push(`/panel${ms?.href}${c?.href}`)} className={`block p-2 w-full text-left rounded-lg text-sm ${route?.pathname === `/panel${ms?.href}${c?.href}` ? 'text-blue-800 font-bold bg-blue-200' : 'text-gray-600'} hover:bg-gray-100 transition duration-150`}>{c?.label}</button>

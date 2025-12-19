@@ -1,4 +1,4 @@
-import { Gift, LayoutDashboard, Store } from "lucide-react";
+import { Gift, Globe, LayoutDashboard, Store } from "lucide-react";
 import { ReactElement } from "react";
 
 interface child {
@@ -38,5 +38,16 @@ export const menuSidebar: menuSide[] = [
         Icon: Store,
         label: "Outlite",
         href: '/outlite'
+    },
+    {
+        Icon: Globe,
+        label: "katalog",
+        href: '/catalog',
+        child: [
+            {
+                label: 'Header',
+                href: '/header'
+            },
+        ]
     },
 ]

@@ -13,9 +13,9 @@ const LayoutContent = ({ children }: { children: React.ReactNode }) => {
     const { currentAlert, setCurrentAlert } = useAlert();
     const token = getToken();
     const router = useRouter();
-    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
     const [isMobileActionMenuOpen, setIsMobileActionMenuOpen] = useState<boolean>(false);
-    const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState<boolean>(false);
+    const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState<string>('');
     const pathname = usePathname();
     const [loading, setLoading] = useState<boolean>(false);
     const segments = pathname.split("/").filter(Boolean);
