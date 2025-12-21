@@ -1,5 +1,5 @@
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import { Heart, History, ShoppingCart, Smartphone } from 'lucide-react';
+import { Heart, History, ShoppingCart } from 'lucide-react';
 import React from 'react'
 
 interface HeaderIconProps {
@@ -33,8 +33,9 @@ type Props = {
     logo: string | null;
     span1: string;
     span2: string;
+    frameLogo: string;
 }
-const Two = ({ color, bg, text, logo, span1, span2 }: Props) => {
+const Two = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
     return (
         <>
             <header className="sticky top-0 z-40 bg-white shadow-md">
@@ -42,7 +43,9 @@ const Two = ({ color, bg, text, logo, span1, span2 }: Props) => {
                     <div className="flex items-center gap-2">
                         {
                             logo &&
-                            <img src={logo} className='w-10 h-10 object-cover rounded-[8px]' />
+                            <div className={`${frameLogo === 'Light' ? 'bg-gray-100' : 'bg-gray-900'} p-1 rounded-[8px] max-w-16`}>
+                                <img src={logo} className=' rounded-[8px]' />
+                            </div>
                         }
                         <h1 className={`text-2xl font-extrabold flex items-center ${color?.text700}`}>
                             {span1}{span2}

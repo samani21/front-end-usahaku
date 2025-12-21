@@ -30,7 +30,7 @@ const HeaderTwo = ({ color, openDrawer, favoriteProducts, cart, history }: Props
                     </div>
                 </div>
             </header>
-            <nav className="flex space-x-3 sm:hidden justify-between px-8 fixed bottom-0 bg-gray-100 w-full z-10">
+            <nav className="flex space-x-3 sm:hidden justify-between px-8 fixed bottom-0 bg-gray-100 w-full z-10 pt-1">
                 <HeaderIconTwo Icon={Heart} onClick={() => openDrawer('favorite')} count={favoriteProducts.length} label="Buka Favorit" color={color} />
                 <HeaderIconTwo Icon={ShoppingCart} onClick={() => openDrawer('cart')} count={cart.length} label="Buka Keranjang" color={color} />
                 <HeaderIconTwo Icon={History} onClick={() => openDrawer('history')} count={history.length} label="Buka Riwayat Pesanan" color={color} />

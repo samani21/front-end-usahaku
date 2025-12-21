@@ -14,6 +14,7 @@ const HeaderConfigPage = (props: Props) => {
     const [themeMode, setThemeMode] = useState<string>("Dark");
     const [headerLayout, setHeaderLayout] = useState<number | null>(null);
     const [bannerFile, setBannerFile] = useState<File | null>(null);
+    const [frameLogo, setFrameLogo] = useState<string>('Dark');
     const [logo, setLogo] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [span1, setSpan1] = useState<string>('Brand ');
@@ -90,7 +91,7 @@ const HeaderConfigPage = (props: Props) => {
                             </div>
                             <div className="bg-slate-50 min-h-[150px]">
                                 <HeaderConfig theme={headerLayout} color={colors} themeMode={themeMode} logo={logo} span1={span1}
-                                    span2={span2} />
+                                    span2={span2} setThemeMode={setThemeMode} frameLogo={frameLogo} />
                             </div>
                         </div>
                     }
@@ -103,18 +104,18 @@ const HeaderConfigPage = (props: Props) => {
                             </div>
                             <div className="grid sm:grid-cols-3 gap-3">
                                 {[
-                                    { id: 1, label: 'Dark Mode', mode: 'Dark' },
+                                    { id: 1, label: '1', mode: 'Dark' },
                                     { id: 2, label: '2', mode: 'Light' },
-                                    { id: 3, label: '3', mode: 'Dark' },
+                                    { id: 3, label: '3', mode: 'Light' },
                                     { id: 4, label: '4', mode: 'Dark' },
-                                    { id: 5, label: '5', mode: 'Dark' },
-                                    { id: 6, label: '6', mode: 'Dark' },
-                                    { id: 7, label: '7', mode: 'Dark' },
-                                    { id: 8, label: '8', mode: 'Dark' },
-                                    { id: 9, label: '9', mode: 'Dark' },
-                                    { id: 10, label: '10', mode: 'Dark' },
-                                    { id: 11, label: '11', mode: 'Dark' },
-                                    { id: 12, label: '12', mode: 'Dark' },
+                                    { id: 5, label: '5', mode: 'Light' },
+                                    { id: 6, label: '6', mode: 'Light' },
+                                    { id: 7, label: '7', mode: 'Light' },
+                                    { id: 8, label: '8', mode: 'Light' },
+                                    { id: 9, label: '9', mode: 'Light' },
+                                    { id: 10, label: '10', mode: 'Light' },
+                                    { id: 11, label: '11', mode: 'Light' },
+                                    { id: 12, label: '12', mode: 'Light' },
                                 ].map((item) => (
                                     <button
                                         key={item.id}
@@ -127,7 +128,7 @@ const HeaderConfigPage = (props: Props) => {
                                             : 'border-slate-100 hover:border-slate-200 bg-white text-slate-500'
                                             }`}
                                     >
-                                        <div className={`w-full h-8 bg-slate-200 rounded flex items-center px-1 gap-1`}>
+                                        <div className={`w-full h-8 ${item?.mode === "Dark" ? 'bg-gray-800' : ' bg-slate-200'} rounded flex items-center px-1 gap-1`}>
                                             <div className="w-3 h-3 bg-indigo-400 rounded-sm"></div>
                                             <div className="w-6 h-1 bg-slate-300 rounded-full"></div>
                                         </div>
@@ -136,43 +137,65 @@ const HeaderConfigPage = (props: Props) => {
                                 ))}
                             </div>
                         </div>
-                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                            <div className="flex items-center gap-2 mb-4">
-                                <Palette size={18} className="text-indigo-600" />
-                                <h3 className="font-semibold text-slate-800">Aksen Warna Utama</h3>
-                            </div>
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                {listColor?.map((colorKey, i) => {
-                                    const color: ThemeColorSet = ThemeColor[colorKey?.primary];
-                                    return (
-                                        <button
-                                            key={i}
-                                            onClick={() => setAccentColor(colorKey?.primary)}
-                                            className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all ${accentColor === colorKey?.primary
-                                                ? 'border-indigo-600 bg-indigo-50 shadow-sm'
-                                                : 'border-slate-100 hover:border-slate-200 bg-white'
-                                                }`}
-                                        >
-                                            <div className={`w-6 h-6 rounded-full shadow-inner ${color?.bg600}`}></div>
-                                            <span className="text-sm font-medium capitalize text-slate-700">{colorKey?.primary}</span>
-                                            {accentColor === colorKey?.primary && <Check size={14} className="ml-auto text-indigo-600" />}
-                                        </button>
-                                    )
-                                }
-                                )}
-                            </div>
+                        {
+                            headerLayout != 5 && <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <Palette size={18} className="text-indigo-600" />
+                                    <h3 className="font-semibold text-slate-800">Aksen Warna Utama</h3>
+                                </div>
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                    {listColor?.map((colorKey, i) => {
+                                        const color: ThemeColorSet = ThemeColor[colorKey?.primary];
+                                        return (
+                                            <button
+                                                key={i}
+                                                onClick={() => setAccentColor(colorKey?.primary)}
+                                                className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all ${accentColor === colorKey?.primary
+                                                    ? 'border-indigo-600 bg-indigo-50 shadow-sm'
+                                                    : 'border-slate-100 hover:border-slate-200 bg-white'
+                                                    }`}
+                                            >
+                                                <div className={`w-6 h-6 rounded-full shadow-inner ${color?.bg600}`}></div>
+                                                <span className="text-sm font-medium capitalize text-slate-700">{colorKey?.primary}</span>
+                                                {accentColor === colorKey?.primary && <Check size={14} className="ml-auto text-indigo-600" />}
+                                            </button>
+                                        )
+                                    }
+                                    )}
+                                </div>
 
-                            <div className="mt-6 p-4 rounded-lg bg-slate-50 border border-slate-100">
-                                <p className="text-xs text-slate-500 flex items-center gap-2">
-                                    <ChevronRight size={14} className="text-indigo-500" />
-                                    Warna ini akan diterapkan pada teks Span 1, icon keranjang, dan elemen interaktif lainnya.
-                                </p>
+                                <div className="mt-6 p-4 rounded-lg bg-slate-50 border border-slate-100">
+                                    <p className="text-xs text-slate-500 flex items-center gap-2">
+                                        <ChevronRight size={14} className="text-indigo-500" />
+                                        Warna ini akan diterapkan pada teks Span 1, icon keranjang, dan elemen interaktif lainnya.
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        }
                         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                             <div className="flex items-center gap-2 mb-4">
                                 <ImageIcon size={18} className="text-indigo-600" />
                                 <h3 className="font-semibold text-slate-800">Logo Website</h3>
+                            </div>
+
+                            <div className="flex items-center justify-between w-full my-4">
+                                <h3 className='text-gray-700'>Frame Logo</h3>
+                                <div className="flex justify-around p-1 bg-gray-100 rounded-xl border border-gray-200">
+                                    <button
+                                        onClick={() => setFrameLogo("Dark")}
+                                        className={`flex-1 py-2 px-2 text-sm font-semibold rounded-lg transition-colors ${frameLogo === 'Dark' ? `bg-gray-600 text-white shadow-md` : 'text-slate-600'
+                                            }`}
+                                    >
+                                        Dark
+                                    </button>
+                                    <button
+                                        onClick={() => setFrameLogo("Light")}
+                                        className={`flex-1 py-2 px-2 text-sm font-semibold rounded-lg transition-colors ${frameLogo === 'Light' ? `bg-gray-600 text-white shadow-md` : 'text-slate-600'
+                                            }`}
+                                    >
+                                        Light
+                                    </button>
+                                </div>
                             </div>
                             <div
                                 onClick={() => fileInputRef.current?.click()}
@@ -205,9 +228,7 @@ const HeaderConfigPage = (props: Props) => {
                                 />
                             </div>
                         </div>
-                        {/* Text & Color Column */}
                         <div className="space-y-6">
-                            {/* 3. Text Input (Span 1 & 2) */}
                             <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                                 <div className="flex items-center gap-2 mb-4">
                                     <Type size={18} className="text-indigo-600" />
@@ -215,7 +236,7 @@ const HeaderConfigPage = (props: Props) => {
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Span 1 (Berwarna)</label>
+                                        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Span 1</label>
                                         <input
                                             type="text"
                                             value={span1}
@@ -225,7 +246,7 @@ const HeaderConfigPage = (props: Props) => {
                                         />
                                     </div>
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Span 2 (Polos)</label>
+                                        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Span 2</label>
                                         <input
                                             type="text"
                                             value={span2}
