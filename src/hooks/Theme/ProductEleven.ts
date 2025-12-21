@@ -1,5 +1,5 @@
 import { Category, OrderItem, Product } from "./useProductCatalog";
-import { Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Types/Theme/theme";
 import { Coffee, Pizza, Utensils } from "lucide-react";
 
 export const DUMMY_PRODUCTS_ELEVEN: Product[] = [{
@@ -144,4 +144,21 @@ export const DUMMY_HERO_ELEVEN: Hero = {
     description: 'Nasi goreng dengan bumbu rahasia, telur, ayam suwir, dan kerupuk.',
     cta: 'Pesan Sekarang',
     // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg',
+}
+
+
+export const DUMMY_HEADER_ELEVEN: Header = {
+    span1: 'Kedai  ',
+    span2: 'Mantap.',
+    color: 'rose',
+    // logo: "/logo/tema-6.svg",
+    frameLogo: 'Light'
+}
+
+export const DUMMY_HEADER_TWELVE: Header = {
+    span1: 'Menu  ',
+    span2: 'Digital.',
+    color: 'orange',
+    logo: "/logo/tema-12.svg",
+    frameLogo: 'Light'
 }

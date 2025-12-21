@@ -1,5 +1,5 @@
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import { Heart, History, ShoppingBag, ShoppingCart, TextAlignJustify } from 'lucide-react';
+import { Heart, History, ShoppingCart, TextAlignJustify } from 'lucide-react';
 import React, { useState } from 'react'
 
 

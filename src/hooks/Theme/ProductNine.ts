@@ -1,5 +1,5 @@
 import { Category, OrderItem, Product } from "./useProductCatalog";
-import { Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Types/Theme/theme";
 import { Scissors, WashingMachine, Zap } from "lucide-react";
 
 export const DUMMY_PRODUCTS_NINE: Product[] = [
@@ -97,4 +97,11 @@ export const DUMMY_HERO_NINE: Hero = {
     description: 'Temukan berbagai layanan desain, pengembangan web, dan marketing untuk mendukung bisnis Anda.',
     cta: 'Lihat Penawaran Spesial',
     image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
+}
+export const DUMMY_HEADER_NINE: Header = {
+    span1: 'ServiceKu ',
+    // span2: 'PRO.',
+    color: 'sky',
+    logo: "/logo/tema-9.svg",
+    frameLogo: 'Light'
 }

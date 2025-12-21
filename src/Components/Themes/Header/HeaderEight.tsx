@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import HeaderIconOne from '../HeaderIcon/HeaderIconOne'
-import { Clock, Coffee, Heart, History, Package, ShoppingBag, ShoppingCart, Smartphone, TextAlignJustify } from 'lucide-react'
+import { Heart, History, ShoppingCart, TextAlignJustify } from 'lucide-react'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
-import HeaderIconTwo from '../HeaderIcon/HeaderIconTwo';
+import { Header } from '@/lib/Types/Theme/theme';
 
 type Props = {
     color: ThemeColorSet;
@@ -13,18 +12,27 @@ type Props = {
     history: OrderItem[];
     isService?: boolean
     handleChangeBusiness?: (val: boolean) => void;
+    header: Header | null;
 }
 
-const HeaderEight = ({ color, openDrawer, favoriteProducts, cart, history, isService, handleChangeBusiness }: Props) => {
+const HeaderEight = ({ color, openDrawer, favoriteProducts, cart, history, isService, handleChangeBusiness, header }: Props) => {
     const [openList, setOpenList] = useState<boolean>(false);
     return (
         <>
             <header className="sticky top-0 bg-white border-b border-gray-200 shadow-lg z-30">
                 <div className={`max-w-7xl mx-auto p-4 flex justify-between items-center ${openList && 'shadow-md'}`}>
                     <div className="flex items-center space-x-6">
-                        <h1 className={`md:text-3xl font-black ${color?.text600} tracking-wider`}>
-                            CATALOG PRO
-                        </h1>
+                        <div className='flex items-center gap-2'>
+                            {
+                                header?.logo &&
+                                <div className={`${header?.frameLogo === 'Light' ? 'bg-gray-100' : 'bg-gray-900'} p-1 rounded-[8px] max-w-16`}>
+                                    <img src={header?.logo} className=' rounded-[8px]' />
+                                </div>
+                            }
+                            <h1 className={`md:text-3xl font-black ${color?.text600} tracking-wider`}>
+                                {header?.span1}{header?.span2}
+                            </h1>
+                        </div>
                         {/* Tombol Alih Tampilan (Desktop) */}
                         <div className="hidden sm:flex p-1 bg-gray-100 rounded-full border border-gray-200">
                             <button

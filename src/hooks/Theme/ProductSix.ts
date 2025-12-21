@@ -1,5 +1,5 @@
 import { Category, OrderItem, Product } from "./useProductCatalog";
-import { Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Types/Theme/theme";
 import { Armchair, Bed, Lamp, Sofa } from "lucide-react";
 
 export const DUMMY_PRODUCTS_SIX: Product[] = [
@@ -81,4 +81,12 @@ export const DUMMY_HERO_SIX: Hero = {
     description: 'Jelajahi menu pilihan kami yang disiapkan dengan bahan-bahan terbaik dan penuh cinta.',
     cta: 'Lihat Semua Produk',
     image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
+}
+
+export const DUMMY_HEADER_SIX: Header = {
+    span1: 'Kedai ',
+    span2: 'Nusa.',
+    color: 'zinc',
+    logo: "/logo/tema-6.svg",
+    frameLogo: 'Light'
 }

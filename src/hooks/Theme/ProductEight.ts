@@ -1,5 +1,5 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
-import { Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Types/Theme/theme";
 
 export const DUMMY_PRODUCTS_EIGHT: Product[] = [
     {
@@ -192,4 +192,13 @@ export const DUMMY_HERO_EIGHT: Hero = {
     description: 'Potong rambut, laundry, atau lainnya. Semua dalam satu klik!',
     // cta: 'Lihat Penawaran Spesial',
     // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
+}
+
+
+export const DUMMY_HEADER_EIGHT: Header = {
+    span1: 'CATALOG ',
+    span2: 'PRO.',
+    color: 'teal',
+    // logo: "/logo/tema-6.svg",
+    frameLogo: 'Light'
 }

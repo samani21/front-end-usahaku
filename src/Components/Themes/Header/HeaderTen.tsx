@@ -1,9 +1,8 @@
 import React from 'react'
-import HeaderIconOne from '../HeaderIcon/HeaderIconOne'
-import { Clock, Coffee, Heart, History, Package, ShoppingBag, ShoppingCart, Smartphone, Zap } from 'lucide-react'
+import { Heart, History, ShoppingCart } from 'lucide-react'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
-import HeaderIconTwo from '../HeaderIcon/HeaderIconTwo';
+import { Header } from '@/lib/Types/Theme/theme';
 
 type Props = {
     color: ThemeColorSet;
@@ -13,16 +12,25 @@ type Props = {
     history: OrderItem[];
     isService?: boolean
     handleChangeBusiness?: (val: boolean) => void;
+    header: Header | null;
 }
 
-const HeaderTen = ({ color, openDrawer, favoriteProducts, cart, history, isService, handleChangeBusiness }: Props) => {
+const HeaderTen = ({ color, openDrawer, cart, header }: Props) => {
     return (
         <>
             <header className="sticky top-0 z-30 bg-white shadow-md =">
                 <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
-                    <h1 className={`text-xl font-bold ${color?.text600} tracking-wider`}>
-                        <span className="hidden sm:inline">Katalog</span> Layanan
-                    </h1>
+                    <div className='flex items-center gap-2'>
+                        {
+                            header?.logo &&
+                            <div className={`${header?.frameLogo === 'Light' ? 'bg-gray-100' : 'bg-gray-900'} p-1 rounded-[8px] max-w-16`}>
+                                <img src={header?.logo} className=' rounded-[8px]' />
+                            </div>
+                        }
+                        <h1 className={`text-xl font-bold ${color?.text600} tracking-wider`}>
+                            {header?.span1}{header?.span2}
+                        </h1>
+                    </div>
                     <div className="hidden sm:flex space-x-4">
                         <button
                             onClick={() => openDrawer('favorite')}

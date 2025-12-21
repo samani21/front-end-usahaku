@@ -21,7 +21,15 @@ export interface Hero {
     cta?: string,
     image?: string,
 }
-// Fungsi utilitas
+
+export interface Header {
+    logo?: string,
+    span1: string,
+    span2?: string,
+    color: string,
+    frameLogo: string
+}
+
 export const formatRupiah = (amount: number) => {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(amount);
 };

@@ -16,6 +16,7 @@ const DrawerDarkLight: React.FC<DrawerProps> = ({ isOpen, onClose, title, childr
     const overlayBg = themeMode === 'Dark' ? 'bg-gray-900' : 'bg-gray-900/50';
     const cardBgColor = themeMode === 'Dark' ? 'bg-gray-800' : `bg-white`;
     const mainTextColor = themeMode === 'Dark' ? 'text-gray-50' : `text-gray-900`;
+    const mainTextColorHover = themeMode === 'Dark' ? 'hover:text-gray-100' : `hover:text-gray-700`;
     const shadowClass = themeMode === 'Dark' ? 'shadow-2xl shadow-black/50' : 'shadow-xl shadow-gray-300/70';
 
     return (
@@ -35,9 +36,9 @@ const DrawerDarkLight: React.FC<DrawerProps> = ({ isOpen, onClose, title, childr
                 aria-modal="true"
                 aria-labelledby="drawer-title"
             >
-                <div className={`flex justify-between items-center p-4 border-b border-gray-700/20 ${headerBg} text-white`}>
+                <div className={`flex justify-between items-center p-4 border-b border-gray-700/20 cursor-pointer ${headerBg} ${mainTextColor}`}>
                     <h2 id="drawer-title" className="text-xl font-semibold">{title}</h2>
-                    <X className="text-white hover:text-white/80" onClick={onClose} />
+                    <X className={`${mainTextColor} ${mainTextColorHover}`} onClick={onClose} />
                 </div>
                 <div className="p-4 overflow-y-auto h-[calc(100%-64px)]">
                     {children}

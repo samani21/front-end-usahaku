@@ -1,6 +1,6 @@
 import { Category, DrawerType, OrderItem, Product } from './useProductCatalog';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Hero } from '@/lib/Types/Theme/theme';
+import { Header, Hero } from '@/lib/Types/Theme/theme';
 import { DEFAULT_DUMMY_THEME, DUMMY_THEME_MAP } from './dummyThemeMap';
 
 /* ===================== Helpers ===================== */
@@ -38,6 +38,7 @@ export const useProductCatalogs = (theme?: number, service?: boolean) => {
     const [cart, setCart] = useState<OrderItem[]>([]);
     const [history, setHistory] = useState<OrderItem[]>(themeData.history);
     const [hero, setHero] = useState<Hero | null>(themeData.hero);
+    const [header, setHeader] = useState<Header | null>(themeData.header);
     const [activeDrawer, setActiveDrawer] = useState<DrawerType>(null);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [activeCategory, setActiveCategory] = useState('Semua');
@@ -56,6 +57,7 @@ export const useProductCatalogs = (theme?: number, service?: boolean) => {
         setProducts(themeData.products);
         setHistory(themeData.history);
         setHero(themeData.hero);
+        setHeader(themeData.header);
     }, [theme]);
     /* ===================== Computed ===================== */
     const favoriteProducts = useMemo(
@@ -229,6 +231,7 @@ export const useProductCatalogs = (theme?: number, service?: boolean) => {
         cart,
         history,
         hero,
+        header,
         activeDrawer,
         selectedProduct,
         activeCategory,

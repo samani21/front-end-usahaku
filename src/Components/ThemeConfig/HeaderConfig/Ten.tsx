@@ -1,7 +1,6 @@
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import { Heart, History, ShoppingBag, ShoppingCart, TextAlignJustify } from 'lucide-react';
-import React, { useState } from 'react'
-
+import { Heart, History, ShoppingCart } from 'lucide-react';
+import React from 'react'
 
 type Props = {
     color: ThemeColorSet;

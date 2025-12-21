@@ -2,7 +2,7 @@ import CardProduct from '@/Components/Themes/CardProduct/CardProduct';
 import Categorie from '@/Components/Themes/Categorie';
 import Drawer from '@/Components/Themes/Drawer/Drawer';
 import DrawerContentRenderer from '@/Components/Themes/DrawerContentRenderer/DrawerContentRenderer';
-import Header from '@/Components/Themes/Header';
+import HeaderSeaction from '@/Components/Themes/Header';
 import HeroSection from '@/Components/Themes/Hero';
 import MapTable from '@/Components/Themes/MapTable';
 import ModalProductDetail from '@/Components/Themes/ModalProductDetail/ModalProductDetail';
@@ -14,7 +14,7 @@ import ThemeSwitcherLight from '@/Components/Themes/ThemeSwitcher/ThemeSwitcherL
 import { useProductCatalogs } from '@/hooks/Theme/useProductCatalogs';
 import { Theme, ThemeSection } from '@/lib/Types/Theme/theme';
 import { ThemeColor, ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React from 'react'
+import React, { useState } from 'react'
 
 type Props = {
     themeName: string;
@@ -52,6 +52,7 @@ const ThemeComponents = ({ themeName, setThemeName, listTheme, color, themeSecti
         filteredProducts,
 
         hero,
+        header,
         categorie,
 
         isService,
@@ -69,6 +70,7 @@ const ThemeComponents = ({ themeName, setThemeName, listTheme, color, themeSecti
         themeMode,
         toggleTheme
     } = useProductCatalogs(theme, themeSections?.isService);
+    const [isChangeColor, setIsChangeColor] = useState<boolean>(false)
 
     /* ===================== Derived State ===================== */
     const colors: ThemeColorSet = ThemeColor[color];
@@ -102,12 +104,13 @@ const ThemeComponents = ({ themeName, setThemeName, listTheme, color, themeSecti
                 `}
             </style>
             {/* ===================== Header ===================== */}
-            <Header
+            <HeaderSeaction
                 theme={themeSections?.header}
-                color={colors}
+                color={isChangeColor ? color : header?.color}
                 openDrawer={openDrawer}
                 favoriteProducts={favoriteProducts}
                 cart={cart}
+                header={header}
                 history={history}
                 isService={isService}
                 themeMode={themeMode}
@@ -120,16 +123,17 @@ const ThemeComponents = ({ themeName, setThemeName, listTheme, color, themeSecti
                 {/* ===================== Theme Switcher ===================== */}
                 <div className="mb-4">
                     {
-                        themeMode === "Dark" && themeSections?.dark ? <ThemeSwitcher listTheme={listTheme} setThemeName={setThemeName} themeName={themeName} /> :
+                        themeMode === "Dark" && themeSections?.dark ? <ThemeSwitcher
+                            onChangeColor={() => setIsChangeColor(true)} listTheme={listTheme} setThemeName={setThemeName} themeName={themeName} /> :
                             <ThemeSwitcherLight
                                 listTheme={listTheme}
                                 themeName={themeName}
                                 setThemeName={setThemeName}
                                 color={colors}
+                                onChangeColor={() => setIsChangeColor(true)}
                             />
                     }
                 </div>
-
                 {/* ===================== Map / Queue Table ===================== */}
                 <MapTable
                     theme={themeSections?.mapTable}

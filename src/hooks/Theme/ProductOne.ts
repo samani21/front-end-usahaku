@@ -1,6 +1,6 @@
 import { ChevronDown, Laptop, Smartphone, Tablet } from "lucide-react";
 import { Category, OrderItem, Product } from "./useProductCatalog";
-import { Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Types/Theme/theme";
 
 export const DUMMY_PRODUCTS_ONE: Product[] = [
     {
@@ -75,4 +75,13 @@ export const DUMMY_HERO_ONE: Hero = {
     description: 'Jelajahi koleksi produk teknologi terbaru dengan harga terbaik dan varian terlengkap.',
     cta: ' Lihat Semua Produk',
     image: 'https://gizmologi.id/wp-content/uploads/2020/08/asus-rog-strix-g1517.jpg'
+}
+
+
+export const DUMMY_HEADER_ONE: Header = {
+    span1: 'E-KATALOG ',
+    span2: 'TEKNOLOGI',
+    color: 'zinc',
+    // logo: "/logo/logo.png",
+    frameLogo: 'Light'
 }

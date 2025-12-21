@@ -1,5 +1,5 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
-import { Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Types/Theme/theme";
 import { Box, CookingPot, Tag, Zap } from "lucide-react";
 
 export const DUMMY_PRODUCTS_THREE: Product[] = [
@@ -105,4 +105,13 @@ export const DUMMY_HERO_THREE: Hero = {
     description: 'iskon hingga 50% untuk produk pilihan.',
     cta: 'Lihat Promo',
     image: 'https://img.freepik.com/premium-vector/special-sale-promo-3d-editable-text-effect_567288-1644.jpg'
+}
+
+
+export const DUMMY_HEADER_THREE: Header = {
+    span1: 'Minimarket ',
+    span2: 'App',
+    color: 'green',
+    logo: "/logo/tema-3.svg",
+    frameLogo: 'Light'
 }

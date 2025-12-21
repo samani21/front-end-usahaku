@@ -104,27 +104,6 @@ const Twelve = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                 <div className={`p-20 text-center ${bg} ${text} italic`}>
                     Konten Website...
                 </div>
-                {/* <nav className="flex sm:hidden ${bg}  justify-between px-8">
-                    <button
-                        className={`relative p-2 rounded-full ${color?.hoverBg600} transition-colors`}
-                    >
-                        <Heart size={24} />
-                        <span className="absolute top-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white bg-red-500"></span>
-
-                    </button>
-                    <button
-                        className={`relative p-2 rounded-full ${color?.hoverBg600} transition-colors`}
-                    >
-                        <ShoppingCart size={24} />
-                        <span className="absolute top-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white bg-red-500"></span>
-
-                    </button>
-                    <button
-                        className={`p-2 rounded-full ${color?.hoverBg600} transition-colors`}
-                    >
-                        <History size={24} />
-                    </button>
-                </nav> */}
             </div>
         </>
     )

@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import HeaderIconOne from '../HeaderIcon/HeaderIconOne'
-import { Clock, Coffee, Heart, History, Menu, Package, ShoppingBag, ShoppingCart, Smartphone, Utensils, Zap } from 'lucide-react'
+import { Clock, Heart, Menu, ShoppingCart } from 'lucide-react'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
-import HeaderIconTwo from '../HeaderIcon/HeaderIconTwo';
+import { Header } from '@/lib/Types/Theme/theme';
 
 type Props = {
     color: ThemeColorSet;
@@ -11,21 +10,26 @@ type Props = {
     favoriteProducts: Product[];
     cart: OrderItem[];
     history: OrderItem[];
-    isService?: boolean
+    isService?: boolean;
+    header: Header | null
     handleChangeBusiness?: (val: boolean) => void;
 }
 
-const HeaderTwelve = ({ color, openDrawer, favoriteProducts, cart, history, isService, handleChangeBusiness }: Props) => {
+const HeaderTwelve = ({ color, openDrawer, favoriteProducts, cart, history, header }: Props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     return (
         <header className="sticky top-0 z-30 bg-white shadow-md">
             <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-                {/* Logo/Title - Tetap Oranye untuk Branding */}
-                <div className="flex items-center space-x-2">
-                    <Utensils className={color?.text500} size={32} />
+                <div className='flex items-center gap-2'>
+                    {
+                        header?.logo &&
+                        <div className={`${header?.frameLogo === 'Light' ? 'bg-gray-100' : 'bg-gray-900'} p-1 rounded-[8px] max-w-16`}>
+                            <img src={header?.logo} className=' rounded-[8px]' />
+                        </div>
+                    }
                     <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">
-                        <span className={color?.text500}>Menu</span>Digital
+                        <span className={color?.text500}>{header?.span1}</span>{header?.span2}
                     </h1>
                 </div>
 

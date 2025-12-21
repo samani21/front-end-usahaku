@@ -1,5 +1,5 @@
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import { Clock, Heart, History, ShoppingBag, ShoppingCart } from 'lucide-react';
+import { Heart, History, ShoppingBag } from 'lucide-react';
 import React from 'react'
 
 

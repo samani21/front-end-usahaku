@@ -1,6 +1,6 @@
 import React from 'react';
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
-import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
+import { ThemeColor, ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 
 /* ===================== Headers ===================== */
 import HeaderOne from './HeaderOne';
@@ -15,11 +15,12 @@ import HeaderNine from './HeaderNine';
 import HeaderTen from './HeaderTen';
 import HeaderEleven from './HeaderEleven';
 import HeaderTwelve from './HeaderTwelve';
+import { Header } from '@/lib/Types/Theme/theme';
 
 /* ===================== Props ===================== */
 type Props = {
     theme: number | string;
-    color: ThemeColorSet;
+    color?: string;
     openDrawer: (val: DrawerType) => void;
     favoriteProducts: Product[];
     cart: OrderItem[];
@@ -28,9 +29,10 @@ type Props = {
     isService?: boolean;
     handleChangeBusiness?: (val: boolean) => void;
     themeMode: 'Dark' | 'Light';
+    header: Header | null
 };
 
-const Header = ({
+const HeaderSeaction = ({
     theme,
     color,
     openDrawer,
@@ -40,49 +42,52 @@ const Header = ({
     toggleTheme,
     isService,
     handleChangeBusiness,
-    themeMode
+    themeMode,
+    header
 }: Props) => {
+
+    const colors: ThemeColorSet = ThemeColor[color as keyof typeof ThemeColor];
     const commonProps = {
-        color,
+        colors,
         openDrawer,
         favoriteProducts,
         cart,
         history,
         isService,
         handleChangeBusiness,
-        themeMode
+        themeMode,
+        header
     };
-
     /* ===================== Numeric Theme ===================== */
     switch (theme) {
         case 1:
-            return <HeaderOne {...commonProps} />;
+            return <HeaderOne {...commonProps} color={colors} />;
         case 2:
-            return <HeaderTwo {...commonProps} />;
+            return <HeaderTwo {...commonProps} color={colors} />;
         case 3:
-            return <HeaderThree {...commonProps} />;
+            return <HeaderThree {...commonProps} color={colors} />;
         case 4:
             return <HeaderDarkLight {...commonProps} themeMode={themeMode}
-                onThemeToggle={toggleTheme} />;
+                onThemeToggle={toggleTheme} color={colors} />;
         case 5:
-            return <HeaderFive {...commonProps} />;
+            return <HeaderFive {...commonProps} color={colors} />;
         case 6:
-            return <HeaderSix {...commonProps} />;
+            return <HeaderSix {...commonProps} color={colors} />;
         case 7:
-            return <HeaderSevent {...commonProps} />;
+            return <HeaderSevent {...commonProps} color={colors} />;
         case 8:
-            return <HeaderEight {...commonProps} />;
+            return <HeaderEight {...commonProps} color={colors} />;
         case 9:
-            return <HeaderNine {...commonProps} />;
+            return <HeaderNine {...commonProps} color={colors} />;
         case 10:
-            return <HeaderTen {...commonProps} />;
+            return <HeaderTen {...commonProps} color={colors} />;
         case 11:
-            return <HeaderEleven {...commonProps} />;
+            return <HeaderEleven {...commonProps} color={colors} />;
         case 12:
-            return <HeaderTwelve {...commonProps} />;
+            return <HeaderTwelve {...commonProps} color={colors} />;
         default:
             return null;
     }
 };
 
-export default Header;
+export default HeaderSeaction;

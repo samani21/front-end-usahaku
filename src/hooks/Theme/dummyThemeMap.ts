@@ -1,23 +1,24 @@
 // dummyThemeMap.ts
-import { DUMMY_CATEGORIES_FOUR, DUMMY_HERO_FOUR, DUMMY_HISTORY_FOUR, DUMMY_PRODUCTS_FOUR } from './ProductFour';
-import { DUMMY_CATEGORIES_FIVE, DUMMY_HERO_FIVE, DUMMY_HISTORY_FIVE, DUMMY_PRODUCTS_FIVE } from './ProductFive';
-import { DUMMY_CATEGORIES_ONE, DUMMY_HERO_ONE, DUMMY_HISTORY_ONE, DUMMY_PRODUCTS_ONE } from './ProductOne';
-import { DUMMY_CATEGORIES_THREE, DUMMY_HERO_THREE, DUMMY_HISTORY_THREE, DUMMY_PRODUCTS_THREE } from './ProductThree';
-import { DUMMY_CATEGORIES_TWO, DUMMY_HERO_TWO, DUMMY_HISTORY_TWO, DUMMY_PRODUCTS_TWO } from './ProductTwo';
-import { DUMMY_CATEGORIES_SEVENT, DUMMY_HERO_SEVENT, DUMMY_HISTORY_SEVENT, DUMMY_PRODUCTS_SEVENT } from './ProductSevent';
-import { DUMMY_CATEGORIES_EIGHT, DUMMY_HERO_EIGHT, DUMMY_HISTORY_EIGHT, DUMMY_PRODUCTS_EIGHT } from './ProductEight';
-import { DUMMY_CATEGORIES_NINE, DUMMY_HERO_NINE, DUMMY_HISTORY_NINE, DUMMY_PRODUCTS_NINE } from './ProductNine';
-import { DUMMY_CATEGORIES_TEN, DUMMY_HERO_TEN, DUMMY_HISTORY_TEN, DUMMY_PRODUCTS_TEN } from './ProductTen';
-import { DUMMY_CATEGORIES_ELEVEN, DUMMY_HERO_ELEVEN, DUMMY_HISTORY_ELEVEN, DUMMY_PRODUCTS_ELEVEN } from './ProductEleven';
+import { DUMMY_CATEGORIES_FOUR, DUMMY_HEADER_FOUR, DUMMY_HERO_FOUR, DUMMY_HISTORY_FOUR, DUMMY_PRODUCTS_FOUR } from './ProductFour';
+import { DUMMY_CATEGORIES_FIVE, DUMMY_HEADER_FIVE, DUMMY_HERO_FIVE, DUMMY_HISTORY_FIVE, DUMMY_PRODUCTS_FIVE } from './ProductFive';
+import { DUMMY_CATEGORIES_ONE, DUMMY_HEADER_ONE, DUMMY_HERO_ONE, DUMMY_HISTORY_ONE, DUMMY_PRODUCTS_ONE } from './ProductOne';
+import { DUMMY_CATEGORIES_THREE, DUMMY_HEADER_THREE, DUMMY_HERO_THREE, DUMMY_HISTORY_THREE, DUMMY_PRODUCTS_THREE } from './ProductThree';
+import { DUMMY_CATEGORIES_TWO, DUMMY_HEADER_TWO, DUMMY_HERO_TWO, DUMMY_HISTORY_TWO, DUMMY_PRODUCTS_TWO } from './ProductTwo';
+import { DUMMY_CATEGORIES_SEVENT, DUMMY_HEADER_SEVENT, DUMMY_HERO_SEVENT, DUMMY_HISTORY_SEVENT, DUMMY_PRODUCTS_SEVENT } from './ProductSevent';
+import { DUMMY_CATEGORIES_EIGHT, DUMMY_HEADER_EIGHT, DUMMY_HERO_EIGHT, DUMMY_HISTORY_EIGHT, DUMMY_PRODUCTS_EIGHT } from './ProductEight';
+import { DUMMY_CATEGORIES_NINE, DUMMY_HEADER_NINE, DUMMY_HERO_NINE, DUMMY_HISTORY_NINE, DUMMY_PRODUCTS_NINE } from './ProductNine';
+import { DUMMY_CATEGORIES_TEN, DUMMY_HEADER_TEN, DUMMY_HERO_TEN, DUMMY_HISTORY_TEN, DUMMY_PRODUCTS_TEN } from './ProductTen';
+import { DUMMY_CATEGORIES_ELEVEN, DUMMY_HEADER_ELEVEN, DUMMY_HEADER_TWELVE, DUMMY_HERO_ELEVEN, DUMMY_HISTORY_ELEVEN, DUMMY_PRODUCTS_ELEVEN } from './ProductEleven';
 import { Product, OrderItem, Category } from './useProductCatalog';
-import { Hero } from '@/lib/Types/Theme/theme';
-import { DUMMY_CATEGORIES_SIX, DUMMY_HERO_SIX, DUMMY_HISTORY_SIX, DUMMY_PRODUCTS_SIX } from './ProductSix';
+import { Header, Hero } from '@/lib/Types/Theme/theme';
+import { DUMMY_CATEGORIES_SIX, DUMMY_HEADER_SIX, DUMMY_HERO_SIX, DUMMY_HISTORY_SIX, DUMMY_PRODUCTS_SIX } from './ProductSix';
 
 type DummyThemeData = {
     products: Product[];
     history: OrderItem[];
-    hero: Hero | null;
     categories: Category[];
+    hero: Hero | null;
+    header: Header | null;
 };
 
 export const DUMMY_THEME_MAP: Record<number, DummyThemeData> = {
@@ -26,72 +27,84 @@ export const DUMMY_THEME_MAP: Record<number, DummyThemeData> = {
         history: DUMMY_HISTORY_ONE,
         hero: DUMMY_HERO_ONE,
         categories: DUMMY_CATEGORIES_ONE,
+        header: DUMMY_HEADER_ONE
     },
     2: {
         products: DUMMY_PRODUCTS_TWO,
         history: DUMMY_HISTORY_TWO,
         hero: DUMMY_HERO_TWO,
         categories: DUMMY_CATEGORIES_TWO,
+        header: DUMMY_HEADER_TWO
     },
     3: {
         products: DUMMY_PRODUCTS_THREE,
         history: DUMMY_HISTORY_THREE,
         hero: DUMMY_HERO_THREE,
         categories: DUMMY_CATEGORIES_THREE,
+        header: DUMMY_HEADER_THREE
     },
     4: {
         products: DUMMY_PRODUCTS_FOUR,
         history: DUMMY_HISTORY_FOUR,
         hero: DUMMY_HERO_FOUR,
         categories: DUMMY_CATEGORIES_FOUR,
+        header: DUMMY_HEADER_FOUR
     },
     5: {
         products: DUMMY_PRODUCTS_FIVE,
         history: DUMMY_HISTORY_FIVE,
         hero: DUMMY_HERO_FIVE,
         categories: DUMMY_CATEGORIES_FIVE,
+        header: DUMMY_HEADER_FIVE
     },
     6: {
         products: DUMMY_PRODUCTS_SIX,
         history: DUMMY_HISTORY_SIX,
         hero: DUMMY_HERO_SIX,
         categories: DUMMY_CATEGORIES_SIX,
+        header: DUMMY_HEADER_SIX
     },
     7: {
         products: DUMMY_PRODUCTS_SEVENT,
         history: DUMMY_HISTORY_SEVENT,
         hero: DUMMY_HERO_SEVENT,
         categories: DUMMY_CATEGORIES_SEVENT,
+        header: DUMMY_HEADER_SEVENT
     },
     8: {
         products: DUMMY_PRODUCTS_EIGHT,
         history: DUMMY_HISTORY_EIGHT,
         hero: DUMMY_HERO_EIGHT,
         categories: DUMMY_CATEGORIES_EIGHT,
+        header: DUMMY_HEADER_EIGHT
     },
     9: {
         products: DUMMY_PRODUCTS_NINE,
         history: DUMMY_HISTORY_NINE,
         hero: DUMMY_HERO_NINE,
         categories: DUMMY_CATEGORIES_NINE,
+        header: DUMMY_HEADER_NINE
     },
     10: {
         products: DUMMY_PRODUCTS_TEN,
         history: DUMMY_HISTORY_TEN,
         hero: DUMMY_HERO_TEN,
         categories: DUMMY_CATEGORIES_TEN,
+        header: DUMMY_HEADER_TEN
     },
     11: {
         products: DUMMY_PRODUCTS_ELEVEN,
         history: DUMMY_HISTORY_ELEVEN,
         hero: DUMMY_HERO_ELEVEN,
         categories: DUMMY_CATEGORIES_ELEVEN,
+        header: DUMMY_HEADER_ELEVEN
     },
     12: {
         products: DUMMY_PRODUCTS_ELEVEN,
         history: DUMMY_HISTORY_ELEVEN,
         hero: DUMMY_HERO_ELEVEN,
         categories: DUMMY_CATEGORIES_ELEVEN,
+        header: DUMMY_HEADER_TWELVE
     },
     // theme lain tinggal tambah
 };
@@ -101,4 +114,5 @@ export const DEFAULT_DUMMY_THEME: DummyThemeData = {
     history: DUMMY_HISTORY_ONE,
     hero: DUMMY_HERO_ONE,
     categories: DUMMY_CATEGORIES_ONE,
+    header: DUMMY_HEADER_ONE
 };

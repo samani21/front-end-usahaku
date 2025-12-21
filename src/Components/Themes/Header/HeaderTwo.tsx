@@ -1,9 +1,9 @@
 import React from 'react'
-import HeaderIconOne from '../HeaderIcon/HeaderIconOne'
-import { Heart, History, ShoppingCart, Smartphone } from 'lucide-react'
+import { Heart, History, ShoppingCart } from 'lucide-react'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
 import HeaderIconTwo from '../HeaderIcon/HeaderIconTwo';
+import { Header } from '@/lib/Types/Theme/theme';
 
 type Props = {
     color: ThemeColorSet;
@@ -11,16 +11,23 @@ type Props = {
     favoriteProducts: Product[];
     cart: OrderItem[];
     history: OrderItem[];
+    header: Header | null
 }
 
-const HeaderTwo = ({ color, openDrawer, favoriteProducts, cart, history }: Props) => {
+const HeaderTwo = ({ color, openDrawer, favoriteProducts, cart, history, header }: Props) => {
     return (
         <>
             <header className="sticky top-0 z-40 bg-white shadow-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-2">
+                        {
+                            header?.logo &&
+                            <div className={`${header?.frameLogo === 'Light' ? 'bg-gray-100' : 'bg-gray-900'} p-1 rounded-[8px] max-w-16`}>
+                                <img src={header?.logo} className=' rounded-[8px]' />
+                            </div>
+                        }
                         <h1 className={`text-2xl font-extrabold flex items-center ${color?.text700}`}>
-                            <Smartphone className={`w-6 h-6 mr-2 ${color?.text500} hidden sm:inline`} /> Katalog Minimalis
+                            {header?.span1}{header?.span2}
                         </h1>
                     </div>
                     <div className="hidden sm:flex space-x-4">

@@ -5,9 +5,10 @@ interface ThemeSwitcherProps {
     themeName: string;
     setThemeName: (val: string) => void;
     listTheme: Theme[];
+    onChangeColor: () => void
 }
 
-const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ themeName, setThemeName, listTheme }) => {
+const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ themeName, setThemeName, listTheme, onChangeColor }) => {
 
     const [open, setOpen] = useState(false);
     const [opencategorie, setOpenCatgeorie] = useState<number | null>(null);
@@ -43,21 +44,22 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ themeName, setThemeName, 
                                         <ChevronDown className={`transform ${opencategorie === t?.id && 'rotate-180'}`} />
                                     </div>
                                     <p onClick={() => setOpenCatgeorie(opencategorie === t?.id ? null : t?.id)}>{t?.description}</p>
-                                    <div className={`${opencategorie === t?.id ? 'grid grid-cols-10 gap-0' : 'hidden'} mt-4`}>
+                                    <div className={`${opencategorie === t?.id ? 'flex items-center bg-white py-1 px-4 rounded-lg' : 'hidden'} mt-4`}>
                                         {t?.categorie_maps?.map((c, index) => {
-                                            const ringClass = `ring-${c.primary}-600`;
-                                            const borderActive = `border-${c?.primary}-900`;
-
+                                            const text = `text-${c?.primary}-600`
+                                            const bg = `bg-${c?.primary}-600`
                                             return (
                                                 <button
                                                     key={index}
-                                                    onClick={() => setThemeName(c.name)}
-                                                    className={`w-6 h-6 bg-${c?.name}-500 rounded-full border-2 transition duration-200 
-            ${themeName === c.name ? `${borderActive} dark:border-white ring-2 ring-offset-2 ${ringClass}`
-                                                            : 'border-gray-300'}
-            `}
-                                                    aria-label={`Pilih tema ${c?.name}`}   // ← ini aman dan wajib
-                                                />
+                                                    onClick={() => {
+                                                        setThemeName(c.name)
+                                                        onChangeColor()
+                                                    }}
+                                                    className={`font-bold  text-[14px] ${text} flex flex-col items-center w-full`}
+                                                >
+                                                    <div className={`${bg} w-6 h-6 rounded-full`} />
+                                                    {c?.primary}
+                                                </button>
                                             )
                                         })}
                                     </div>

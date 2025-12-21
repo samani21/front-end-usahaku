@@ -1,5 +1,5 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
-import { Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Types/Theme/theme";
 
 export const DUMMY_PRODUCTS_TWO: Product[] = [
     {
@@ -91,4 +91,12 @@ export const DUMMY_HERO_TWO: Hero = {
     description: 'Nikmati potongan harga 20% untuk semua kategori produk favorit Anda. Jangan sampai terlewat!',
     cta: 'Lihat Penawaran',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_lyoTTWPt-5OvkGn5xTKTpJ2EWDWTMwJxA&s'
+}
+
+export const DUMMY_HEADER_TWO: Header = {
+    span1: 'Katalog ',
+    span2: 'Minimalis',
+    color: 'zinc',
+    logo: "/logo/tema-2.svg",
+    frameLogo: 'Light'
 }

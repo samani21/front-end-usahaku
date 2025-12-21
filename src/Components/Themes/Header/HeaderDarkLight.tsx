@@ -1,4 +1,5 @@
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
+import { Header } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { HeartIcon, HistoryIcon, MoonIcon, ShoppingCartIcon, SunIcon } from 'lucide-react';
 import React from 'react'
@@ -11,9 +12,10 @@ interface HeaderProps {
     color: ThemeColorSet;
     history: OrderItem[];
     themeMode: number | string;
+    header: Header | null
 }
 
-const HeaderDarkLight: React.FC<HeaderProps> = ({ onThemeToggle, openDrawer, favoriteProducts, cart, history, color, themeMode }) => {
+const HeaderDarkLight: React.FC<HeaderProps> = ({ onThemeToggle, openDrawer, favoriteProducts, cart, history, color, themeMode, header }) => {
     // Kelas warna dinamis berdasarkan tema
     const primaryColor = themeMode === 'Dark' ? `text-cyan-500` : color?.text500;
     const text = themeMode === 'Dark' ? `text-gray-800` : color?.text900;
@@ -32,9 +34,17 @@ const HeaderDarkLight: React.FC<HeaderProps> = ({ onThemeToggle, openDrawer, fav
         <>
             <header className={`sticky top-0 z-30 ${bgColor} ${shadow}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                    <h1 className={`text-3xl font-extrabold ${textColor} tracking-wider`}>
-                        <span className="hidden sm:inline">Katalog</span> <span className={primaryColor}>Modern</span>
-                    </h1>
+                    <div className='flex items-center gap-2'>
+                        {
+                            header?.logo &&
+                            <div className={`${header?.frameLogo === 'Light' ? 'bg-gray-100' : 'bg-gray-900'} p-1 rounded-[8px] max-w-16`}>
+                                <img src={header?.logo} className=' rounded-[8px]' />
+                            </div>
+                        }
+                        <h1 className={`text-3xl font-extrabold ${textColor} tracking-wider`}>
+                            <span className="">{header?.span1}</span> <span className={primaryColor}>{header?.span2}</span>
+                        </h1>
+                    </div>
                     <div className="hidden sm:flex space-x-5 items-center">
                         {/* Tombol Theme Toggle */}
                         <div onClick={onThemeToggle} title={themeIconTitle}>

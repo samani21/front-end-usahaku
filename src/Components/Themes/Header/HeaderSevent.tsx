@@ -1,9 +1,8 @@
 import React from 'react'
-import HeaderIconOne from '../HeaderIcon/HeaderIconOne'
-import { Clock, Coffee, Heart, History, Package, ShoppingBag, ShoppingCart, Smartphone } from 'lucide-react'
+import { Heart, History, ShoppingBag } from 'lucide-react'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
-import HeaderIconTwo from '../HeaderIcon/HeaderIconTwo';
+import { Header } from '@/lib/Types/Theme/theme';
 
 type Props = {
     color: ThemeColorSet;
@@ -11,16 +10,25 @@ type Props = {
     favoriteProducts: Product[];
     cart: OrderItem[];
     history: OrderItem[];
+    header: Header | null
 }
 
-const HeaderSevent = ({ color, openDrawer, favoriteProducts, cart, history }: Props) => {
+const HeaderSevent = ({ color, openDrawer, favoriteProducts, cart, history, header }: Props) => {
     return (
         <>
             <header className="sticky top-0 z-30 bg-white shadow-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-                    <h1 className={`text-2xl font-extrabold ${color?.text600}`}>
-                        Catalog<span className="text-gray-900">Pro</span>
-                    </h1>
+                    <div className='flex items-center gap-2'>
+                        {
+                            header?.logo &&
+                            <div className={`${header?.frameLogo === 'Light' ? 'bg-gray-100' : 'bg-gray-900'} p-1 rounded-[8px] max-w-16`}>
+                                <img src={header?.logo} className=' rounded-[8px]' />
+                            </div>
+                        }
+                        <h1 className={`text-2xl font-extrabold ${color?.text600}`}>
+                            {header?.span1}{header?.span2}
+                        </h1>
+                    </div>
                     <nav className="hidden sm:flex items-center space-x-3">
                         {/* Icon Favorite */}
                         <button
