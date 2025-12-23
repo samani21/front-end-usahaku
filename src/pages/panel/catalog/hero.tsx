@@ -1,12 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import MainLayout from '../Layout/MainLayout'
-import HeaderConfig from '@/Components/ThemeConfig/HeaderConfig'
 import { ThemeColor, ThemeColorSet } from '@/lib/Types/Theme/ThemeColor'
 import { Check, ChevronRight, ImageIcon, Info, Layout, Palette, Type, Upload } from 'lucide-react'
 import { Get } from '@/utils/Get'
 import { color, Hero } from '@/lib/Types/Theme/theme'
 import Loading from '@/Components/component/Loading'
-import HeroConfig from '@/Components/ThemeConfig/HeaderConfig/HeroConfig'
 import { DUMMY_HERO_ONE } from '@/hooks/Theme/ProductOne'
 import { DUMMY_HERO_TWO } from '@/hooks/Theme/ProductTwo'
 import { DUMMY_HERO_THREE } from '@/hooks/Theme/ProductThree'
@@ -16,6 +14,7 @@ import { DUMMY_HERO_SIX } from '@/hooks/Theme/ProductSix'
 import { DUMMY_HERO_SEVENT } from '@/hooks/Theme/ProductSevent'
 import { DUMMY_HERO_EIGHT } from '@/hooks/Theme/ProductEight'
 import { DUMMY_HERO_TEN } from '@/hooks/Theme/ProductTen'
+import HeroConfig from '@/Components/ThemeConfig/HeroConfig'
 
 type Props = {}
 
@@ -149,7 +148,7 @@ const HeroConfigPage = (props: Props) => {
                         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                             <div className="flex items-center gap-2 mb-4">
                                 <Layout size={18} className="text-indigo-600" />
-                                <h3 className="font-semibold text-slate-800">Pilih Layout Header</h3>
+                                <h3 className="font-semibold text-slate-800">Pilih Layout Hero/Banner</h3>
                             </div>
                             <div className="grid sm:grid-cols-3 gap-3">
                                 {[
@@ -331,7 +330,7 @@ const HeroConfigPage = (props: Props) => {
                             <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                                 <div className="flex items-center gap-2 mb-4">
                                     <Type size={18} className="text-indigo-600" />
-                                    <h3 className="font-semibold text-slate-800">Nama Brand / Judul</h3>
+                                    <h3 className="font-semibold text-slate-800">Atur Teks Banner</h3>
                                 </div>
                                 <div className="grid grid-cols-1 gap-4">
                                     <div className="space-y-1.5">
