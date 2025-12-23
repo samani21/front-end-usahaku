@@ -96,7 +96,8 @@ export const DUMMY_HERO_NINE: Hero = {
     sub_title: ' Katalog Layanan Digital Terbaik',
     description: 'Temukan berbagai layanan desain, pengembangan web, dan marketing untuk mendukung bisnis Anda.',
     cta: 'Lihat Penawaran Spesial',
-    image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
+    image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg',
+    color: 'gray'
 }
 export const DUMMY_HEADER_NINE: Header = {
     span1: 'ServiceKu ',

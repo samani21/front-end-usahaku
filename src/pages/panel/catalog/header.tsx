@@ -13,7 +13,7 @@ const HeaderConfigPage = (props: Props) => {
     const [accentColor, setAccentColor] = useState<string>('orange');
     const [themeMode, setThemeMode] = useState<string>("Dark");
     const [headerLayout, setHeaderLayout] = useState<number | null>(null);
-    const [bannerFile, setBannerFile] = useState<File | null>(null);
+    const [bannerFile, setLogoFile] = useState<File | null>(null);
     const [frameLogo, setFrameLogo] = useState<string>('Dark');
     const [logo, setLogo] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -45,7 +45,7 @@ const HeaderConfigPage = (props: Props) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        setBannerFile(file);
+        setLogoFile(file);
 
         const b64 = await handleFileToBase64(file);
         setLogo(b64);

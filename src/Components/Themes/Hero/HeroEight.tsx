@@ -8,27 +8,33 @@ type Props = {
 
 const HeroEight = ({ color, hero }: Props) => {
     return (
-        <section className={`md:flex justify-between items-center p-8 md:p-12 rounded-2xl mb-12 shadow-2xl bg-gradient-to-r ${color?.gradient}`}>
-            <div>
-                <p className={`text-lg font-bold mb-1`}>{hero?.title}</p>
-                <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
-                    {hero?.sub_title}
-                </h1>
-                <p className={`max-w-3xl text-lg opacity-80`}>
-                    {hero?.description}
-                </p>
+        <section className={`${color?.bg600} rounded-xl shadow-lg p-6 sm:p-10 mb-12 relative overflow-hidden`}>
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            <div className=" flex flex-col md:flex-row items-center justify-between">
+                <div className=" mb-6 md:mb-0 w-full">
+                    <h4 className="text-md sm:text-lg font-extrabold leading-tight text-white">
+                        {hero?.title}
+                    </h4>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3 leading-tight">
+                        {hero?.sub_title}
+                    </h2>
+                    <p className={`${color?.text200} text-lg mb-6 max-w-2xl`}>
+                        {hero?.description}
+                    </p>
+                    {
+                        hero?.cta &&
+                        <button className={`bg-white ${color?.text600} font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-50 transition duration-300`}>
+                            {hero?.cta}
+                        </button>
+                    }
+                </div>
                 {
-                    hero?.cta &&
-                    <button className={`mt-6 px-6 w-full md:w-auto py-3 bg-white ${color?.text600} font-semibold rounded-lg hover:bg-gray-100 transition duration-150 shadow-lg`}>
-                        {hero?.cta}
-                    </button>
+                    hero?.image &&
+                    <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3  hidden sm:grid`}>
+                        <img src={hero?.image} className="rounded-[8px] shadow-xl w-full" />
+                    </div>
                 }
             </div>
-            {hero?.image &&
-                <div className='mt-2 md:w-100 p-4 rounded-[16px] bg-white md:mt-0'>
-                    <img src={hero?.image} className='rounded-[12px]' />
-                </div>
-            }
         </section>
 
     )

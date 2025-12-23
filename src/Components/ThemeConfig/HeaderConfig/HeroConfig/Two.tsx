@@ -1,14 +1,28 @@
+import { DUMMY_HERO_TWO } from '@/hooks/Theme/ProductTwo';
 import { Hero } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { ChevronRight } from 'lucide-react';
-import React from 'react'
+import React, { useMemo } from 'react'
 
 type Props = {
     color: ThemeColorSet;
-    hero: Hero | null
+    dataHero: Hero,
 }
 
-const HeroThree = ({ color, hero }: Props) => {
+const Two = ({ color, dataHero }: Props) => {
+    const hero = useMemo(() => {
+        const HeroOld = DUMMY_HERO_TWO;
+        const data = {
+            title: dataHero?.title || HeroOld?.title,
+            sub_title: dataHero?.sub_title || HeroOld?.sub_title,
+            description: dataHero?.description || HeroOld?.description,
+            cta: dataHero?.cta || HeroOld?.cta,
+            image: dataHero?.image || HeroOld?.image,
+            isFrame: dataHero?.isFrame || HeroOld?.isFrame,
+            frame: dataHero?.frame || HeroOld?.frame
+        }
+        return data
+    }, [dataHero])
     return (
         <div className={`relative ${color?.bg50} rounded-xl my-4 overflow-hidden shadow-lg`}>
             <div className="p-8 md:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between">
@@ -31,7 +45,7 @@ const HeroThree = ({ color, hero }: Props) => {
                 </div>
                 {
                     hero?.image &&
-                    <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-full sm:w-1/3`}>
+                    <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3  hidden sm:grid`}>
                         <img src={hero?.image} className=' rounded-[8px] w-full' />
                     </div>
                 }
@@ -41,4 +55,4 @@ const HeroThree = ({ color, hero }: Props) => {
     )
 }
 
-export default HeroThree
+export default Two

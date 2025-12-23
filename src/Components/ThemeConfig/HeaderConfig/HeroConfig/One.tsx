@@ -1,13 +1,27 @@
+import { DUMMY_HERO_ONE } from '@/hooks/Theme/ProductOne';
 import { Hero } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React from 'react'
+import React, { useMemo } from 'react'
 
 type Props = {
     color: ThemeColorSet;
-    hero: Hero | null
+    dataHero: Hero;
 }
 
-const HeroOne = ({ color, hero }: Props) => {
+const One = ({ color, dataHero }: Props) => {
+    const hero = useMemo(() => {
+        const HeroOld = DUMMY_HERO_ONE;
+        const data = {
+            title: dataHero?.title || HeroOld?.title,
+            sub_title: dataHero?.sub_title || HeroOld?.sub_title,
+            description: dataHero?.description || HeroOld?.description,
+            cta: dataHero?.cta || HeroOld?.cta,
+            image: dataHero?.image || HeroOld?.image,
+            isFrame: dataHero?.isFrame || HeroOld?.isFrame,
+            frame: dataHero?.frame || HeroOld?.frame
+        }
+        return data
+    }, [dataHero])
     return (
         <section className={`bg-gradient-to-r ${color?.gradient} p-8 mb-4 sm:p-12 rounded-2xl shadow-xl`}>
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -30,7 +44,7 @@ const HeroOne = ({ color, hero }: Props) => {
                 </div>
                 {
                     hero?.image &&
-                    <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3 flex item-center justify-center`}>
+                    <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3  hidden sm:flex item-center justify-center`}>
                         <img src={hero?.image} className=' rounded-[8px]' />
                     </div>
                 }
@@ -39,4 +53,4 @@ const HeroOne = ({ color, hero }: Props) => {
     )
 }
 
-export default HeroOne
+export default One

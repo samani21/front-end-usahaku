@@ -1,15 +1,27 @@
+import { DUMMY_HERO_SIX } from '@/hooks/Theme/ProductSix';
 import { Hero } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import { ChevronRight, Utensils } from 'lucide-react';
-import { title } from 'process';
-import React from 'react'
+import React, { useMemo } from 'react'
 
 type Props = {
     color: ThemeColorSet;
-    hero: Hero | null
+    dataHero: Hero
 }
 
-const HeroSix = ({ color, hero }: Props) => {
+const Six = ({ color, dataHero }: Props) => {
+    const hero = useMemo(() => {
+        const HeroOld = DUMMY_HERO_SIX;
+        const data = {
+            title: dataHero?.title || HeroOld?.title,
+            sub_title: dataHero?.sub_title || HeroOld?.sub_title,
+            description: dataHero?.description || HeroOld?.description,
+            cta: dataHero?.cta || HeroOld?.cta,
+            image: dataHero?.image || HeroOld?.image,
+            isFrame: dataHero?.isFrame || HeroOld?.isFrame,
+            frame: dataHero?.frame || HeroOld?.frame
+        }
+        return data
+    }, [dataHero])
     return (
         <div className=" mx-auto pt-8 pb-12">
             <div className={`bg-gradient-to-r ${color?.gradient} p-8 md:p-16 rounded-3xl shadow-2xl`}>
@@ -41,4 +53,4 @@ const HeroSix = ({ color, hero }: Props) => {
     )
 }
 
-export default HeroSix
+export default Six

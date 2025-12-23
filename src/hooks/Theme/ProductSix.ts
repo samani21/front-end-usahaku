@@ -80,7 +80,8 @@ export const DUMMY_HERO_SIX: Hero = {
     sub_title: 'Nikmati Kualitas, Dapatkan Rasa.',
     description: 'Jelajahi menu pilihan kami yang disiapkan dengan bahan-bahan terbaik dan penuh cinta.',
     cta: 'Lihat Semua Produk',
-    image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
+    image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg',
+    color: 'stone'
 }
 
 export const DUMMY_HEADER_SIX: Header = {

@@ -104,7 +104,10 @@ export const DUMMY_HERO_THREE: Hero = {
     sub_title: 'Hemat Akhir Pekan!',
     description: 'iskon hingga 50% untuk produk pilihan.',
     cta: 'Lihat Promo',
-    image: 'https://img.freepik.com/premium-vector/special-sale-promo-3d-editable-text-effect_567288-1644.jpg'
+    image: 'https://img.freepik.com/premium-vector/special-sale-promo-3d-editable-text-effect_567288-1644.jpg',
+    isFrame: true,
+    frame: "Light",
+    color: 'teal'
 }
 
 

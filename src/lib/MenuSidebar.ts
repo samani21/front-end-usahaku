@@ -48,6 +48,10 @@ export const menuSidebar: menuSide[] = [
                 label: 'Header',
                 href: '/header'
             },
+            {
+                label: 'Hero/Banner',
+                href: '/hero'
+            },
         ]
     },
 ]

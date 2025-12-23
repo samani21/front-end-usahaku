@@ -74,7 +74,10 @@ export const DUMMY_HERO_ONE: Hero = {
     sub_title: 'Temukan Gadget Impianmu!',
     description: 'Jelajahi koleksi produk teknologi terbaru dengan harga terbaik dan varian terlengkap.',
     cta: ' Lihat Semua Produk',
-    image: 'https://gizmologi.id/wp-content/uploads/2020/08/asus-rog-strix-g1517.jpg'
+    image: 'https://gizmologi.id/wp-content/uploads/2020/08/asus-rog-strix-g1517.jpg',
+    isFrame: true,
+    frame: "Dark",
+    color: 'neutral'
 }
 
 

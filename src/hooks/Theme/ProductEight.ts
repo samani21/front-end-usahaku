@@ -192,6 +192,7 @@ export const DUMMY_HERO_EIGHT: Hero = {
     description: 'Potong rambut, laundry, atau lainnya. Semua dalam satu klik!',
     // cta: 'Lihat Penawaran Spesial',
     // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
+    color:'teal'
 }
 
 

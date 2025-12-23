@@ -94,7 +94,10 @@ export const DUMMY_HERO_FIVE: Hero = {
     sub_title: 'Desain Ruangan Impian Anda.',
     description: 'Koleksi furniture minimalis terbaik, fungsional, dan estetis untuk setiap sudut rumah.',
     cta: 'Lihat Semua Produk',
-    image: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNvZmF8ZW58MHx8MHx8fDA%3D'
+    image: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNvZmF8ZW58MHx8MHx8fDA%3D',
+    // isFrame: true,
+    frame: "Light",
+    color:'slate'
 }
 
 export const DUMMY_HEADER_FIVE: Header = {

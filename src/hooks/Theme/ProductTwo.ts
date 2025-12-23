@@ -90,7 +90,10 @@ export const DUMMY_HERO_TWO: Hero = {
     sub_title: 'Diskon Spesial Akhir Pekan!',
     description: 'Nikmati potongan harga 20% untuk semua kategori produk favorit Anda. Jangan sampai terlewat!',
     cta: 'Lihat Penawaran',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_lyoTTWPt-5OvkGn5xTKTpJ2EWDWTMwJxA&s'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_lyoTTWPt-5OvkGn5xTKTpJ2EWDWTMwJxA&s',
+    isFrame: false,
+    frame: "Dark",
+    color:"zinc"
 }
 
 export const DUMMY_HEADER_TWO: Header = {

@@ -184,16 +184,18 @@ const ThemeComponents = ({ themeName, setThemeName, listTheme, color, themeSecti
                     />
                 )}
 
-                {/* ===================== Product List ===================== */}
-                <CardProduct
-                    theme={themeSections?.cardProduct}
-                    color={colors}
-                    filteredProducts={filteredProducts}
-                    activeCategory={activeCategory}
-                    openDetailModal={openDetailModal}
-                    handleToggleFavorite={handleToggleFavorite}
-                    themeMode={themeMode}
-                />
+                <div id='produk-pilihan'>
+                    {/* ===================== Product List ===================== */}
+                    <CardProduct
+                        theme={themeSections?.cardProduct}
+                        color={colors}
+                        filteredProducts={filteredProducts}
+                        activeCategory={activeCategory}
+                        openDetailModal={openDetailModal}
+                        handleToggleFavorite={handleToggleFavorite}
+                        themeMode={themeMode}
+                    />
+                </div>
 
                 {/* ===================== Queue ===================== */}
                 <Queue

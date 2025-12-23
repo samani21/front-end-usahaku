@@ -1,12 +1,27 @@
+import { DUMMY_HERO_SEVENT } from '@/hooks/Theme/ProductSevent';
 import { Hero } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
+import React, { useMemo } from 'react'
 
 type Props = {
     color: ThemeColorSet;
-    hero: Hero | null
+    dataHero: Hero
 }
 
-const HeroSevent = ({ color, hero }: Props) => {
+const Sevent = ({ color, dataHero }: Props) => {
+    const hero = useMemo(() => {
+        const HeroOld = DUMMY_HERO_SEVENT;
+        const data = {
+            title: dataHero?.title || HeroOld?.title,
+            sub_title: dataHero?.sub_title || HeroOld?.sub_title,
+            description: dataHero?.description || HeroOld?.description,
+            cta: dataHero?.cta || HeroOld?.cta,
+            image: dataHero?.image || HeroOld?.image,
+            isFrame: dataHero?.isFrame || HeroOld?.isFrame,
+            frame: dataHero?.frame || HeroOld?.frame
+        }
+        return data
+    }, [dataHero])
     return (
         <section className={`${color?.bg600} rounded-xl shadow-lg p-6 sm:p-10 mb-12 relative overflow-hidden`}>
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
@@ -36,4 +51,4 @@ const HeroSevent = ({ color, hero }: Props) => {
     )
 }
 
-export default HeroSevent
+export default Sevent

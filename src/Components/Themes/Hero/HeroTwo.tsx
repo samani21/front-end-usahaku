@@ -12,7 +12,10 @@ const HeroTwo = ({ color, hero }: Props) => {
     return (
         <div className={`relative ${color?.bg50} rounded-xl my-4 overflow-hidden shadow-lg`}>
             <div className="p-8 md:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between">
-                <div className="max-w-lg mb-6 md:mb-0">
+                <div className=" mb-6 md:mb-0 w-full">
+                    <h4 className="text-md sm:text-lg font-extrabold leading-tight">
+                        {hero?.title}
+                    </h4>
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
                         {hero?.sub_title}
                     </h2>
@@ -26,11 +29,15 @@ const HeroTwo = ({ color, hero }: Props) => {
                         {hero?.cta || "Lihat Penawaran"} <ChevronRight size={20} className="ml-2" />
                     </button>
                 </div>
-                <div className="w-full md:w-1/3 flex justify-center">
-                    <img src={hero?.image} className='w-full rounded-[24px]' />
-                </div>
+                {
+                    hero?.image &&
+                    <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3 flex item-center justify-center`}>
+                        <img src={hero?.image} className=' rounded-[8px]' />
+                    </div>
+                }
+
             </div>
-        </div>
+        </div >
     )
 }
 

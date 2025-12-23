@@ -144,6 +144,7 @@ export const DUMMY_HERO_ELEVEN: Hero = {
     description: 'Nasi goreng dengan bumbu rahasia, telur, ayam suwir, dan kerupuk.',
     cta: 'Pesan Sekarang',
     // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg',
+    color: 'gray'
 }
 
 

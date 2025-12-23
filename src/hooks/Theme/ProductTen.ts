@@ -91,6 +91,7 @@ export const DUMMY_HERO_TEN: Hero = {
     description: 'Pesan jasa laundry, barbershop, dan lainnya dengan mudah. Layanan premium, harga terjangkau.',
     cta: 'Lihat Katalog Sekarang',
     // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
+    color: 'gray'
 }
 
 export const DUMMY_HEADER_TEN: Header = {

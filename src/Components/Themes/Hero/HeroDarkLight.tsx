@@ -1,12 +1,17 @@
 import { Hero } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React from 'react'
+import React, { FC } from 'react'
 
 type Props = {
     hero: Hero | null;
     color: ThemeColorSet;
     themeMode: number | string;
 }
+const CartIcon: FC<{ className?: string; strokeWidth?: number; }> = ({ className, strokeWidth = 1 }) => (
+    <svg className={className} strokeWidth={strokeWidth} xmlns="http://www.w3.org/2000/svg" width="90" height="" viewBox="0 0 24 24" fill="none" stroke="none" strokeLinecap="round" strokeLinejoin="round">
+        <path fill="currentColor" fill-rule="evenodd" d="M1.289 2.763a.75.75 0 0 1 .948-.475l.265.089l.04.013c.626.209 1.155.385 1.572.579c.442.206.826.46 1.117.865c.291.403.412.848.467 1.333c.052.456.052 1.014.052 1.674V9.5c0 1.435.002 2.437.103 3.192c.099.734.28 1.122.556 1.399c.277.277.666.457 1.4.556c.755.101 1.756.103 3.191.103h7a.75.75 0 0 1 0 1.5h-7.055c-1.367 0-2.47 0-3.337-.116c-.9-.122-1.658-.38-2.26-.982s-.86-1.36-.981-2.26c-.117-.867-.117-1.97-.117-3.337V6.883c0-.713 0-1.185-.042-1.546c-.04-.342-.107-.506-.194-.626c-.086-.12-.221-.237-.533-.382c-.33-.153-.777-.304-1.453-.53l-.265-.087a.75.75 0 0 1-.474-.95" clip-rule="evenodd" /><path fill="currentColor" d="M5.745 6q.006.39.005.841V9.5c0 1.435.002 2.437.103 3.192q.023.165.05.308h10.12c.959 0 1.438 0 1.814-.248s.565-.688.942-1.57l.43-1c.809-1.89 1.213-2.834.769-3.508S18.506 6 16.45 6z" opacity="0.5" /><path fill="currentColor" d="M7.25 9A.75.75 0 0 1 8 8.25h3a.75.75 0 0 1 0 1.5H8A.75.75 0 0 1 7.25 9m.25 9a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3M18 19.5a1.5 1.5 0 1 0-3 0a1.5 1.5 0 0 0 3 0" />
+    </svg>
+);
 
 const HeroDarkLight = ({ themeMode, hero, color }: Props) => {
     const heroGradient = themeMode === 'Dark'
@@ -21,7 +26,7 @@ const HeroDarkLight = ({ themeMode, hero, color }: Props) => {
     return (
         <section className={`bg-gradient-to-r ${heroGradient} rounded-3xl shadow-2xl overflow-hidden mb-16 p-8 md:p-16 ${heroTextColor}`}>
             <div className="flex flex-col md:flex-row items-center justify-between">
-                <div className="md:w-3/5">
+                <div className="w-full">
                     <span className={`text-sm font-semibold uppercase tracking-widest ${heroAccentText} mb-2 block`}>{hero?.title}</span>
                     <h2 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4">{hero?.sub_title}</h2>
                     <p className={`text-xl mb-8 ${themeMode === 'Dark' ? 'text-cyan-100' : 'text-gray-700'}`}>{hero?.description}</p>
@@ -29,14 +34,15 @@ const HeroDarkLight = ({ themeMode, hero, color }: Props) => {
                         {hero?.cta}
                     </button>
                 </div>
-                <div className="hidden md:block md:w-1/4">
-                    {/* SVG Ilustrasi Modern */}
-                    <svg className={`w-full h-auto opacity-80 ${themeMode === 'Dark' ? 'text-white' : 'text-gray-700'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="9" cy="21" r="1" />
-                        <circle cx="20" cy="21" r="1" />
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                    </svg>
-                </div>
+                {
+                    hero?.iconDefault ?
+                        <div className={`${hero?.frame == 'Light' ? 'bg-gray-100' : hero?.frame === 'Dark' && heroButtonClasses} rounded-full w-1/4 hidden sm:grid`}>
+                            <CartIcon className={`${color?.text500} w-full`} />
+                        </div> :
+                        <div className={`${hero?.isFrame == true && hero?.frame == 'Light' ? 'bg-gray-100' : hero?.isFrame == true && hero?.frame === 'Dark' && 'bg-gray-900'} rounded-[12px] p-4 w-1/4 hidden sm:grid`}>
+                            <img src={hero?.image} className="rounded-[8px] w-full max-h-60" />
+                        </div>
+                }
             </div>
         </section>
 

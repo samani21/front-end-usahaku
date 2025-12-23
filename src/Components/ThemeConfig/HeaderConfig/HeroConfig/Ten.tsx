@@ -1,18 +1,30 @@
+
+import { DUMMY_HERO_TEN } from '@/hooks/Theme/ProductTen';
 import { Hero } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import { useMemo, useState } from 'react';
+import React, { useMemo } from 'react'
 
 type Props = {
     color: ThemeColorSet;
-    hero: Hero | null
+    dataHero: Hero
 }
 
-
-
-const HeroTen = ({ color, hero }: Props) => {
-
+const Ten = ({ color, dataHero }: Props) => {
+    const hero = useMemo(() => {
+        const HeroOld = DUMMY_HERO_TEN;
+        const data = {
+            title: dataHero?.title || HeroOld?.title,
+            sub_title: dataHero?.sub_title || HeroOld?.sub_title,
+            description: dataHero?.description || HeroOld?.description,
+            cta: dataHero?.cta || HeroOld?.cta,
+            image: dataHero?.image || HeroOld?.image,
+            isFrame: dataHero?.isFrame || HeroOld?.isFrame,
+            frame: dataHero?.frame || HeroOld?.frame
+        }
+        return data
+    }, [dataHero])
     return (
-        <section id="home" className={`${color?.bg50} pt-20 pb-12 sm:pt-24 sm:pb-16 ${hero?.image ? "" : 'text-center'} rounded-b-xl mb-4`}>
+        <section id="home" className={`${color?.bg50} pt-20 pb-12 sm:pt-24 sm:pb-16 ${ hero?.image?"":'text-center'} rounded-b-xl mb-4`}>
             <div className="container mx-auto px-4 flex items-center justify-between">
                 <div className=" mb-6 md:mb-0 w-full ">
                     <h4 className="text-md sm:text-lg font-extrabold leading-tight text-white">
@@ -41,4 +53,4 @@ const HeroTen = ({ color, hero }: Props) => {
     )
 }
 
-export default HeroTen
+export default Ten

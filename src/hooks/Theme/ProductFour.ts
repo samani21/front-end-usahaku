@@ -99,7 +99,12 @@ export const DUMMY_HERO_FOUR: Hero = {
     title: 'Penawaran Eksklusif',
     sub_title: 'Diskon Hingga 30%',
     description: 'Pilih produk favorit Anda dari semua kategori dan nikmati harga terbaik.',
-    cta: 'Belanja Sekarang'
+    cta: 'Belanja Sekarang',
+    // isFrame: true,
+    image: '/logo/banner-4.svg',
+    frame: "Light",
+    iconDefault: true,
+    color: 'sky'
 }
 
 export const DUMMY_HEADER_FOUR: Header = {

@@ -20,6 +20,10 @@ export interface Hero {
     description?: string,
     cta?: string,
     image?: string,
+    isFrame?: boolean
+    frame?: string
+    iconDefault?: boolean;
+    color: string
 }
 
 export interface Header {
