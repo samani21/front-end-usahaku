@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import MainLayout from '../Layout/MainLayout'
 import { ThemeColor, ThemeColorSet } from '@/lib/Types/Theme/ThemeColor'
-import { Check, ChevronRight, ImageIcon, Info, Layout, Palette, Type, Upload } from 'lucide-react'
+import { Check, ChevronRight, Layout, Palette, } from 'lucide-react'
 import { Get } from '@/utils/Get'
 import { color, Hero } from '@/lib/Types/Theme/theme'
 import Loading from '@/Components/component/Loading'
@@ -14,27 +14,15 @@ import { DUMMY_HERO_SIX } from '@/hooks/Theme/ProductSix'
 import { DUMMY_HERO_SEVENT } from '@/hooks/Theme/ProductSevent'
 import { DUMMY_HERO_EIGHT } from '@/hooks/Theme/ProductEight'
 import { DUMMY_HERO_TEN } from '@/hooks/Theme/ProductTen'
-import HeroConfig from '@/Components/ThemeConfig/HeroConfig'
 import QueueConfig from '@/Components/ThemeConfig/QueueConfig'
 
 type Props = {}
 
 const QueuePage = (props: Props) => {
     const [accentColor, setAccentColor] = useState<string>('');
-    const [themeMode, setThemeMode] = useState<string>("Dark");
     const [queueLayout, setQueue] = useState<number | null>(null);
-    const [bannerFile, setBannerFile] = useState<File | null>(null);
-    const [frameBanner, setFrameBanner] = useState<string | null>(null);
-    const [banner, setBanner] = useState<string | null>(null);
-    const [isBanner, setIsBanner] = useState<boolean>(false);
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const [title, setTitle] = useState<string>('');
-    const [subtitle, setSubtitle] = useState<string>('');
-    const [desc, setDesc] = useState<string>('');
-    const [cta, setCta] = useState<string>('');
     const [listColor, setListColor] = useState<color[]>();
     const [loading, setLoading] = useState<boolean>(false);
-    const [defaultImage, setDefaultImage] = useState<boolean>(true);
     useEffect(() => {
         getColorTheme();
     }, []);
@@ -55,46 +43,13 @@ const QueuePage = (props: Props) => {
         setAccentColor(heroMap[queueLayout || 0] ?? '')
     }, [queueLayout])
 
-    const hero = useMemo(() => {
-        const dataHero: Hero = {
-            title: title,
-            sub_title: subtitle,
-            description: desc,
-            cta: cta,
-            image: banner ? banner : '',
-            isFrame: isBanner,
-            frame: frameBanner ? frameBanner : '',
-            iconDefault: defaultImage,
-            color: accentColor
-        }
-        return dataHero
-    }, [title, subtitle, desc, cta, isBanner, banner, frameBanner, defaultImage])
-
     const colors = useMemo(() => {
         if (accentColor in ThemeColor) {
             return ThemeColor[accentColor as keyof typeof ThemeColor]
         }
         return ThemeColor.orange
     }, [accentColor]);
-    const handleFileToBase64 = (file: File): Promise<string> =>
-        new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(String(reader.result));
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-        });
 
-    const handleBannerUpload = async (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        setBannerFile(file);
-
-        const b64 = await handleFileToBase64(file);
-        setBanner(b64);
-    };
     const getColorTheme = async () => {
         try {
             setLoading(true);
@@ -158,7 +113,6 @@ const QueuePage = (props: Props) => {
                                         key={item.id}
                                         onClick={() => {
                                             setQueue(item.id)
-                                            setThemeMode(item?.mode)
                                         }}
                                         className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${queueLayout === item.id
                                             ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
