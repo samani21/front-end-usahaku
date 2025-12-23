@@ -60,6 +60,10 @@ export const menuSidebar: menuSide[] = [
                 label: 'Produk Rekomendasi',
                 href: '/recomended'
             },
+            {
+                label: 'Kategori',
+                href: '/categorie'
+            },
         ]
     },
 ]
