@@ -52,6 +52,10 @@ export const menuSidebar: menuSide[] = [
                 label: 'Hero/Banner',
                 href: '/hero'
             },
+            {
+                label: 'Antrian',
+                href: '/queue'
+            },
         ]
     },
 ]
