@@ -3,6 +3,7 @@ import React from 'react'
 import One from './One';
 import Two from './Two';
 import Three from './Three';
+import Four from './Four';
 
 type Props = {
     theme: number
@@ -22,6 +23,8 @@ const QueueConfig = ({ theme, color }: Props) => {
             return <Two {...commonProps} />
         case 3:
             return <Three {...commonProps} />
+        case 4:
+            return <Four {...commonProps} />
         default:
             return null;
     }

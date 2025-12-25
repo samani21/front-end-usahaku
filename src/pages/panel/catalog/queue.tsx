@@ -5,43 +5,18 @@ import { Check, ChevronRight, Layout, Palette, } from 'lucide-react'
 import { Get } from '@/utils/Get'
 import { color, Hero } from '@/lib/Types/Theme/theme'
 import Loading from '@/Components/component/Loading'
-import { DUMMY_HERO_ONE } from '@/hooks/Theme/ProductOne'
-import { DUMMY_HERO_TWO } from '@/hooks/Theme/ProductTwo'
-import { DUMMY_HERO_THREE } from '@/hooks/Theme/ProductThree'
-import { DUMMY_HERO_FOUR } from '@/hooks/Theme/ProductFour'
-import { DUMMY_HERO_FIVE } from '@/hooks/Theme/ProductFive'
-import { DUMMY_HERO_SIX } from '@/hooks/Theme/ProductSix'
-import { DUMMY_HERO_SEVENT } from '@/hooks/Theme/ProductSevent'
-import { DUMMY_HERO_EIGHT } from '@/hooks/Theme/ProductEight'
-import { DUMMY_HERO_TEN } from '@/hooks/Theme/ProductTen'
 import QueueConfig from '@/Components/ThemeConfig/QueueConfig'
 
 type Props = {}
 
 const QueuePage = (props: Props) => {
-    const [accentColor, setAccentColor] = useState<string>('');
+    const [accentColor, setAccentColor] = useState<string>('orange');
     const [queueLayout, setQueue] = useState<number | null>(null);
     const [listColor, setListColor] = useState<color[]>();
     const [loading, setLoading] = useState<boolean>(false);
     useEffect(() => {
         getColorTheme();
     }, []);
-
-    useEffect(() => {
-        const heroMap: Record<number, string> = {
-            1: DUMMY_HERO_ONE?.color,
-            2: DUMMY_HERO_TWO?.color,
-            3: DUMMY_HERO_THREE?.color,
-            4: DUMMY_HERO_FOUR?.color,
-            5: DUMMY_HERO_FIVE?.color,
-            6: DUMMY_HERO_SIX?.color,
-            7: DUMMY_HERO_SEVENT?.color,
-            8: DUMMY_HERO_EIGHT?.color,
-            10: DUMMY_HERO_TEN?.color,
-        }
-
-        setAccentColor(heroMap[queueLayout || 0] ?? '')
-    }, [queueLayout])
 
     const colors = useMemo(() => {
         if (accentColor in ThemeColor) {
@@ -108,6 +83,7 @@ const QueuePage = (props: Props) => {
                                     { id: 1, label: '1', mode: 'Dark' },
                                     { id: 2, label: '2', mode: 'Light' },
                                     { id: 3, label: '3', mode: 'Light' },
+                                    { id: 4, label: '4', mode: 'Light' },
                                 ].map((item) => (
                                     <button
                                         key={item.id}
