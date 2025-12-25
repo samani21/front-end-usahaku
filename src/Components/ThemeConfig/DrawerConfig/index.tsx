@@ -1,33 +1,46 @@
-import { DUMMY_HISTORY_FOUR, DUMMY_PRODUCTS_FOUR } from '@/hooks/Theme/ProductFour';
-import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
+import React, { useMemo, useState } from 'react'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { HeartIcon, HistoryIcon, MoonIcon, ShoppingCartIcon, SunIcon } from 'lucide-react';
-import React, { useMemo, useState } from 'react'
-import DrawerFour from './Drawer/DrawerFour';
+import One from './One';
+import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
+import { DUMMY_HISTORY_ONE, DUMMY_PRODUCTS_ONE } from '@/hooks/Theme/ProductOne';
+import { DUMMY_HISTORY_THREE, DUMMY_PRODUCTS_THREE } from '@/hooks/Theme/ProductThree';
 
 type Props = {
+    theme: number;
     color: ThemeColorSet;
-    bg: string;
-    text: string;
-    logo: string | null;
-    span1: string;
-    span2: string;
-    frameLogo: string;
-    themeMode?: string
+    themeMode: string;
     setThemeMode: (val: string) => void;
 }
-const Four = ({ color, bg, text, logo, span1, span2, themeMode, setThemeMode, frameLogo }: Props) => {
-    const [openDrawer, setOpenDrawer] = useState<string | null>(null);
-    const [title, setTitle] = useState<string>('');
 
-    const favoriteProducts: Product[] = DUMMY_PRODUCTS_FOUR?.filter(p => p?.isFavorite);
-    const history: OrderItem[] = DUMMY_HISTORY_FOUR;
+const DrawerConfig = ({ theme, color, themeMode, setThemeMode }: Props) => {
+    const [openDrawer, setOpenDrawer] = useState<string | null>(null);
+    const bg = themeMode === "Dark" ? 'bg-gray-900' : 'bg-gray-100'
+    const text = themeMode === "Dark" ? 'text-gray-50' : 'text-gray-900'
+    const [title, setTile] = useState<string>('')
+    const commonProps = {
+        color,
+        bg,
+        text,
+        themeMode,
+        setThemeMode,
+    };
+    const favoriteProducts: Product[] = DUMMY_PRODUCTS_THREE?.filter(p => p?.isFavorite);
+    const history: OrderItem[] = DUMMY_HISTORY_THREE;
     /* ===================== Numeric Theme ===================== */
     const cartTotal = useMemo(
         () => history.reduce((t, i) => t + i.finalPrice * i.quantity, 0),
         [history]
     );
+    const Main = ({ themes }: { themes: number }) => {
+        switch (themes) {
+            case 1:
+                return <One isOpen={openDrawer ? true : false} onClose={() => setOpenDrawer(null)} title={title} favoriteProducts={favoriteProducts} type={openDrawer ? openDrawer : ''} color={color} history={history} cart={history} cartTotal={cartTotal} />;
 
+            default:
+                return null;
+        }
+    }
     const primaryColor = themeMode === 'Dark' ? `text-cyan-500` : color?.text500;
     const texts = themeMode === 'Dark' ? `text-gray-800` : color?.text900;
     const countColor = themeMode === 'Dark' ? `bg-cyan-300` : color?.bg300;
@@ -45,43 +58,37 @@ const Four = ({ color, bg, text, logo, span1, span2, themeMode, setThemeMode, fr
             <header className={`sticky top-0 z-30 ${bgColor} ${shadow}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                     <div className='flex items-center gap-2'>
-                        {
-                            logo &&
-                            <div className={`${frameLogo === 'Light' ? 'bg-gray-100' : 'bg-gray-900'} p-1 rounded-[8px] max-w-16`}>
-                                <img src={logo} className=' rounded-[8px]' />
-                            </div>
-                        }
                         <h1 className={`text-3xl font-extrabold ${textColor} tracking-wider`}>
-                            <span className="">{span1}</span> <span className={primaryColor}>{span2}</span>
+                            <span className="">Contoh</span> <span className={primaryColor}>Katalog</span>
                         </h1>
                     </div>
                     <div className="hidden sm:flex space-x-5 items-center">
-                        <div onClick={() => setThemeMode(themeMode == 'Dark' ? 'Light' : 'Dark')} title={themeIconTitle}>
+                        <div className='cursor-pointer' onClick={() => setThemeMode(themeMode == 'Dark' ? 'Light' : 'Dark')} title={themeIconTitle}>
                             <ThemeIcon className={`${themeIconColor} hover:opacity-80 transition transform hover:scale-110`} />
                         </div>
 
                         <div onClick={() => {
                             setOpenDrawer('favorite')
-                            setTitle('Favorit')
-                        }} title="Favorit" className={`p-2 rounded-full text-gray-600 transition duration-150 relative group`}>
+                            setTile('Favorit')
+                        }} title="Favorit" className={`p-2 rounded-full text-gray-600 transition duration-150 relative group cursor-pointer`}>
                             <HeartIcon className="text-red-500 hover:text-red-700 transition transform hover:scale-110" />
                             <span className={`absolute top-2 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none ${texts} transform translate-x-1/2 -translate-y-1/2 ${countColor} rounded-full`}>
-                                {favoriteProducts?.length}
+                                2
                             </span>
                         </div>
                         <div onClick={() => {
-                            setOpenDrawer('cart')
-                            setTitle('Pesanan Saat Ini')
-                        }} className={`p-2 rounded-full text-gray-600 transition duration-150 relative group`} title="Pesanan Saat Ini">
+                            setOpenDrawer('cart');
+                            setTile('Pesanan Saat Ini')
+                        }} className={`p-2 rounded-full text-gray-600 transition duration-150 relative group cursor-pointer`} title="Pesanan Saat Ini">
                             <ShoppingCartIcon className={`${primaryColor} hover:opacity-80 transition transform hover:scale-110`} />
                             <span className={`absolute top-2 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none ${texts} transform translate-x-1/2 -translate-y-1/2 ${countColor} rounded-full`}>
-                                {history?.length}
+                                4
                             </span>
                         </div>
                         <div onClick={() => {
-                            setOpenDrawer('history')
-                            setTitle('Riwayat Pesanan')
-                        }} className={`p-2 rounded-full text-gray-600 transition duration-150 relative group`} title="Riwayat Pesanan">
+                            setOpenDrawer('history');
+                            setTile('Riwayat Pesanan')
+                        }} className={`p-2 rounded-full text-gray-600 transition duration-150 relative group cursor-pointer`} title="Riwayat Pesanan">
                             <HistoryIcon className={`${secondaryColor} hover:opacity-80 transition transform hover:scale-110`} /> <span className={`absolute top-2 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none ${texts} transform translate-x-1/2 -translate-y-1/2 ${countColor} rounded-full`}>
                                 {history?.length > 99 ? '99+' : history?.length}
                             </span>
@@ -90,7 +97,7 @@ const Four = ({ color, bg, text, logo, span1, span2, themeMode, setThemeMode, fr
                 </div>
             </header>
             <div className="w-full shadow-2xl overflow-hidden">
-                <div className={`p-20 text-center ${bg} ${text} italic h-[561px] sm:h-[700px]`}>
+                <div className={`p-20 text-center ${bg} ${text} italic h-[500px] flex items-center justify-center`}>
                     Konten Website...
                 </div>
                 <nav className={`flex sm:hidden ${bg}  justify-between px-8`}>
@@ -101,26 +108,26 @@ const Four = ({ color, bg, text, logo, span1, span2, themeMode, setThemeMode, fr
 
                     <div onClick={() => {
                         setOpenDrawer('favorite')
-                        setTitle('Favorit')
+                        setTile('Favorit')
                     }} title="Favorit" className={`p-2 rounded-full text-gray-600 transition duration-150 relative group`}>
                         <HeartIcon className="text-red-500 hover:text-red-700 transition transform hover:scale-110" />
                         <span className={`absolute top-2 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none ${texts} transform translate-x-1/2 -translate-y-1/2 ${countColor} rounded-full`}>
-                            {favoriteProducts?.length}
+                            2
                         </span>
                     </div>
-                    <div onClick={() => {
-                        setOpenDrawer('cart')
-                        setTitle('Pesanan Saat Ini')
-                    }} className={`p-2 rounded-full text-gray-600 transition duration-150 relative group`} title="Pesanan Saat Ini">
+                    <div className={`p-2 rounded-full text-gray-600 transition duration-150 relative group`} onClick={() => {
+                        setOpenDrawer('cart');
+                        setTile('Pesanan Saat Ini')
+                    }} title="Pesanan Saat Ini">
                         <ShoppingCartIcon className={`${primaryColor} hover:opacity-80 transition transform hover:scale-110`} />
                         <span className={`absolute top-2 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none ${texts} transform translate-x-1/2 -translate-y-1/2 ${countColor} rounded-full`}>
-                            {history?.length}
+                            4
                         </span>
                     </div>
-                    <div onClick={() => {
-                        setOpenDrawer('history')
-                        setTitle('Riwayat Pesanan')
-                    }} className={`p-2 rounded-full text-gray-600 transition duration-150 relative group`} title="Riwayat Pesanan">
+                    <div className={`p-2 rounded-full text-gray-600 transition duration-150 relative group`} onClick={() => {
+                        setOpenDrawer('history');
+                        setTile('Riwayat Pesanan')
+                    }} title="Riwayat Pesanan">
                         <HistoryIcon className={`${secondaryColor} hover:opacity-80 transition transform hover:scale-110`} /> <span className={`absolute top-2 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none ${texts} transform translate-x-1/2 -translate-y-1/2 ${countColor} rounded-full`}>
                             {history?.length > 99 ? '99+' : history?.length}
                         </span>
@@ -129,22 +136,12 @@ const Four = ({ color, bg, text, logo, span1, span2, themeMode, setThemeMode, fr
             </div>
             {
                 openDrawer &&
-                <div className='absolute inset-0 z-40  backdrop-blur-[0px] h-[670px]'>
-                    <DrawerFour
-                        isOpen={openDrawer ? true : false}
-                        onClose={() => setOpenDrawer(null)}
-                        title={title}
-                        favoriteProducts={favoriteProducts}
-                        type={openDrawer ? openDrawer : ''}
-                        color={color}
-                        cart={history}
-                        history={history}
-                        themeMode={themeMode}
-                        cartTotal={cartTotal} />
+                <div className='absolute inset-0 z-40 bg-black/40 backdrop-blur-[0.6px] h-[495px]'>
+                    <Main themes={1} />
                 </div>
             }
         </div>
     );
 }
 
-export default Four
+export default DrawerConfig

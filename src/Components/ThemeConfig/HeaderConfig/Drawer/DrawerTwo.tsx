@@ -1,14 +1,22 @@
+import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
+import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { X } from 'lucide-react';
 import React from 'react'
+import ContentDrawerTwo from './Content/ContentDrawerTwo';
 
-interface DrawerProps {
+type Props = {
     isOpen: boolean;
     onClose: () => void;
     title: string;
-    children: React.ReactNode;
+    favoriteProducts: Product[];
+    type: string;
+    color: ThemeColorSet;
+    cart: OrderItem[];
+    history: OrderItem[];
+    cartTotal: number;
 }
 
-const DrawerTwo: React.FC<DrawerProps> = ({ isOpen, onClose, title, children }) => {
+const DrawerTwo = ({ isOpen, onClose, title, type, favoriteProducts, color, cart, history, cartTotal }: Props) => {
     return (
         <div
             className={`fixed inset-0 z-50 transition-opacity duration-300 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
@@ -32,10 +40,17 @@ const DrawerTwo: React.FC<DrawerProps> = ({ isOpen, onClose, title, children }) 
                         <X size={24} />
                     </button>
                 </div>
-                <div className="overflow-y-auto h-[calc(100%-65px)]">{children}</div>
+                <div className="overflow-y-auto h-[calc(100%-65px)]">
+                    <ContentDrawerTwo type={type}
+                        favoriteProducts={favoriteProducts}
+                        color={color}
+                        cart={cart}
+                        history={history}
+                        cartTotal={cartTotal} />
+                </div>
             </div>
         </div>
     );
-};
+}
 
 export default DrawerTwo

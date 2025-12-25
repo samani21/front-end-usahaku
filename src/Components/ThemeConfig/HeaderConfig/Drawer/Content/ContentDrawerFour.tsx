@@ -1,35 +1,19 @@
-import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
+import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
 import { formatRupiah } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import { Clock, Heart, History, ShoppingBag, X } from 'lucide-react';
 import React from 'react'
 
-interface DrawerContentRendererProps {
-    type: DrawerType;
-    color: ThemeColorSet;
+type Props = {
     favoriteProducts: Product[];
+    type: string;
+    color: ThemeColorSet;
     cart: OrderItem[];
     history: OrderItem[];
     cartTotal: number;
-    handleToggleFavorite: (id: number) => void;
-    handleRemoveFromCart: (index: number) => void;
-    themeMode: number | string;
-    openModal?: (val: Product) => void;
-    handleCheckout: () => void;
+    themeMode?: string;
 }
 
-const DrawerContentRendererDarkLight: React.FC<DrawerContentRendererProps> = ({
-    type,
-    color,
-    favoriteProducts,
-    cart,
-    history,
-    cartTotal,
-    handleRemoveFromCart,
-    themeMode,
-    handleCheckout,
-    openModal
-}) => {
+const ContentDrawerFour = ({ type, favoriteProducts, cart, cartTotal, history, color, themeMode }: Props) => {
     const drawerCardBg = themeMode === 'Dark' ? 'bg-gray-800' : 'bg-gray-100';
     const drawerBorderColor = themeMode === 'Dark' ? 'border-gray-700/20' : 'border-gray-300';
     const secondaryBg = themeMode === 'Dark' ? `bg-teal-700` : color?.bg700;
@@ -46,7 +30,6 @@ const DrawerContentRendererDarkLight: React.FC<DrawerContentRendererProps> = ({
                             <p className={`font-semibold ${mainTextColor}`}>{p.name}</p>
                             <button
                                 className={`text-sm ${primaryText} font-medium hover:underline`}
-                                onClick={() => openModal?.(p)}
                             >
                                 Lihat Detail
                             </button>
@@ -69,7 +52,7 @@ const DrawerContentRendererDarkLight: React.FC<DrawerContentRendererProps> = ({
                                     <p className='w-full'>{item.productName}</p>
                                     <p className='w-full'>{item.variantName}</p>
                                 </div>
-                                <p className='text-red-500 cursor-pointer' onClick={() => handleRemoveFromCart(index)}>X</p>
+                                <p className='text-red-500 cursor-pointer' >X</p>
 
                             </div>
                             <div className='flex items-start justify-between gap-1'>
@@ -87,7 +70,6 @@ const DrawerContentRendererDarkLight: React.FC<DrawerContentRendererProps> = ({
                     <span>Total:</span> <span>{formatRupiah(cartTotal)}</span>
                 </div>
                 <button
-                    onClick={handleCheckout}
                     className={`w-full ${secondaryBg} text-white py-3 rounded-xl mt-4 font-bold text-lg hover:opacity-90 transition shadow-lg`}>Lanjutkan Pembayaran</button>
             </div>
         );
@@ -110,7 +92,6 @@ const DrawerContentRendererDarkLight: React.FC<DrawerContentRendererProps> = ({
     }
 
     return null;
-};
+}
 
-
-export default DrawerContentRendererDarkLight
+export default ContentDrawerFour

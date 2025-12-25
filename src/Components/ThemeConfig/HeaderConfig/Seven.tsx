@@ -1,6 +1,9 @@
+import { DUMMY_HISTORY_SEVENT, DUMMY_PRODUCTS_SEVENT } from '@/hooks/Theme/ProductSevent';
+import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { Heart, History, ShoppingBag } from 'lucide-react';
-import React from 'react'
+import React, { useMemo, useState } from 'react'
+import DrawerSevent from './Drawer/DrawerSevent';
 
 
 type Props = {
@@ -13,8 +16,19 @@ type Props = {
     frameLogo: string;
 }
 const Seven = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
+    const [openDrawer, setOpenDrawer] = useState<string | null>(null);
+    const [title, setTitle] = useState<string>('');
+
+    const favoriteProducts: Product[] = DUMMY_PRODUCTS_SEVENT?.filter(p => p?.isFavorite);
+    const history: OrderItem[] = DUMMY_HISTORY_SEVENT;
+    /* ===================== Numeric Theme ===================== */
+    const cartTotal = useMemo(
+        () => history.reduce((t, i) => t + i.finalPrice * i.quantity, 0),
+        [history]
+    );
+
     return (
-        <>
+        <div className='relative'>
             <header className="sticky top-0 z-30 bg-white shadow-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
                     <div className='flex items-center gap-2'>
@@ -31,6 +45,10 @@ const Seven = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                     <nav className="hidden sm:flex items-center space-x-3">
                         {/* Icon Favorite */}
                         <button
+                            onClick={() => {
+                                setOpenDrawer('favorite')
+                                setTitle('Favorit')
+                            }}
                             className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-red-500 transition relative"
                             aria-label="Favorite"
                         >
@@ -40,6 +58,10 @@ const Seven = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                         </button>
                         {/* Icon Order (Keranjang) */}
                         <button
+                            onClick={() => {
+                                setOpenDrawer('cart')
+                                setTitle('Pesanan Anda')
+                            }}
                             className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-blue-500 transition relative"
                             aria-label="Order"
                         >
@@ -47,6 +69,10 @@ const Seven = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                             <span className="absolute top-1 right-1 h-2 w-2 bg-blue-500 rounded-full border-2 border-white"></span>
                         </button>
                         <button
+                            onClick={() => {
+                                setOpenDrawer('history')
+                                setTitle('Riwayat Pesanan')
+                            }}
                             className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-blue-500 transition relative"
                             aria-label="Order"
                         >
@@ -59,11 +85,14 @@ const Seven = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                 </div>
             </header>
             <div className="w-full shadow-2xl overflow-hidden">
-                <div className={`p-20 text-center ${bg} ${text} italic`}>
+                <div className={`p-20 text-center ${bg} ${text} italic h-[561px] sm:h-[700px]`}>
                     Konten Website...
                 </div>
                 <nav className="flex sm:hidden ${bg}  justify-between px-8">
-                    <button
+                    <button onClick={() => {
+                        setOpenDrawer('favorite')
+                        setTitle('Favorit')
+                    }}
                         className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-red-500 transition relative"
                         aria-label="Favorite"
                     >
@@ -72,14 +101,20 @@ const Seven = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
 
                     </button>
                     {/* Icon Order (Keranjang) */}
-                    <button
+                    <button onClick={() => {
+                        setOpenDrawer('cart')
+                        setTitle('Pesanan Anda')
+                    }}
                         className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-blue-500 transition relative"
                         aria-label="Order"
                     >
                         <ShoppingBag size={24} />
                         <span className="absolute top-1 right-1 h-2 w-2 bg-blue-500 rounded-full border-2 border-white"></span>
                     </button>
-                    <button
+                    <button onClick={() => {
+                        setOpenDrawer('history')
+                        setTitle('Riwayat Pesanan')
+                    }}
                         className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-blue-500 transition relative"
                         aria-label="Order"
                     >
@@ -89,7 +124,22 @@ const Seven = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                     </button>
                 </nav>
             </div>
-        </>
+            {
+                openDrawer &&
+                <div className='absolute inset-0 z-40  backdrop-blur-[0px] h-[670px]'>
+                    <DrawerSevent
+                        isOpen={openDrawer ? true : false}
+                        onClose={() => setOpenDrawer(null)}
+                        title={title}
+                        favoriteProducts={favoriteProducts}
+                        type={openDrawer ? openDrawer : ''}
+                        color={color}
+                        cart={history}
+                        history={history}
+                        cartTotal={cartTotal} />
+                </div>
+            }
+        </div>
     )
 }
 

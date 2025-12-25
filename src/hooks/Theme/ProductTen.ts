@@ -43,6 +43,7 @@ export const DUMMY_PRODUCTS_TEN: Product[] = [
         id: 5, category: 'Laundry',
         isPackage: true,
         name: 'Paket Hemat Bulanan',
+        isFavorite:true,
         price: 250000,
         description: 'Gratis 5KG untuk total 50KG.',
         imageUrl: 'https://plus.unsplash.com/premium_photo-1663036970563-99624abc950e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGF1bmRyeXxlbnwwfHwwfHx8MA%3D%3D',
@@ -81,6 +82,8 @@ export const DUMMY_CATEGORIES_TEN: Category[] = [
 
 
 export const DUMMY_HISTORY_TEN: OrderItem[] = [
+    { id: 1, productName: 'Paket Grooming Lengkap', basePrice: 75000, variantName: '', finalPrice: 75000, quantity: 1 },
+    { id: 2, productName: 'Setrika Uap Premium', basePrice: 12000, variantName: '', finalPrice: 12000, quantity: 1 },
 
 ];
 

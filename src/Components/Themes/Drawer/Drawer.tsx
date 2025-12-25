@@ -39,6 +39,7 @@ const Drawer = ({
         title: drawerTitle,
         children,
         color,
+        activeDrawer
     };
 
     /* ===================== Numeric Theme ===================== */

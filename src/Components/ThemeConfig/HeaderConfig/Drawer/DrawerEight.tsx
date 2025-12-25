@@ -1,19 +1,25 @@
-import { DrawerType } from '@/hooks/Theme/useProductCatalog';
+import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import { color } from 'framer-motion';
 import { Clock, Heart, ShoppingCart, X } from 'lucide-react';
 import React from 'react'
+import ContentDrawerFive from './Content/ContentDrawerFive';
+import ContentDrawerSix from './Content/ContentDrawerSIx';
+import ContentDrawerSevent from './Content/ContentDrawerSevent';
+import ContentDrawerEight from './Content/ContentDrawerEight';
 
-interface DrawerProps {
+type Props = {
     isOpen: boolean;
     onClose: () => void;
     title: string;
-    color?: ThemeColorSet;
-    children: React.ReactNode;
-    activeDrawer: DrawerType;
+    favoriteProducts: Product[];
+    type: string;
+    color: ThemeColorSet;
+    cart: OrderItem[];
+    history: OrderItem[];
+    cartTotal: number;
 }
 
-const DrawerEight: React.FC<DrawerProps> = ({ isOpen, onClose, title, children, color, activeDrawer }) => {
+const DrawerEight = ({ isOpen, onClose, title, type, favoriteProducts, color, cart, history, cartTotal }: Props) => {
     return (
         <>
             {/* Overlay */}
@@ -36,22 +42,17 @@ const DrawerEight: React.FC<DrawerProps> = ({ isOpen, onClose, title, children, 
                     </button>
                 </div>
                 <div className="p-5 flex-grow overflow-y-auto">
-                    {children}
+                    <ContentDrawerEight type={type}
+                        favoriteProducts={favoriteProducts}
+                        color={color}
+                        cart={cart}
+                        history={history}
+                        cartTotal={cartTotal} />
                 </div>
-                {
-                    activeDrawer === 'cart' &&
-                    <div className="p-5 border-t border-gray-100 flex-shrink-0">
-                        <button
-                            className={`w-full py-3 text-white font-semibold rounded-xl transition duration-150 shadow-md ${color?.bg600} ${color?.hoverBg700} `}
-                            onClick={onClose}
-                        >
-                            Lanjutkan Belanja
-                        </button>
-                    </div>
-                }
+             
             </div>
         </>
     );
-};
+}
 
 export default DrawerEight

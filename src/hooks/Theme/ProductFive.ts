@@ -24,7 +24,7 @@ export const DUMMY_PRODUCTS_FIVE: Product[] = [
         price: 1800000,
         description: "Meja kopi bundar dari kayu jati solid dengan finishing alami. Tahan lama dan elegan.",
         category: "Meja",
-        isFavorite: false,
+        isFavorite: true,
         variants: [
             { id: 201, name: "Diameter 60cm (Jati)", priceAdjustment: 0 },
             { id: 202, name: "Diameter 80cm (Jati Premium)", priceAdjustment: 800000 },
@@ -50,7 +50,7 @@ export const DUMMY_PRODUCTS_FIVE: Product[] = [
         price: 450000,
         description: "Kursi bergaya Skandinavia dengan kaki kayu beech dan dudukan empuk. Sangat nyaman dan ringan.",
         category: "Kursi",
-        isFavorite: false,
+        isFavorite: true,
         variants: [
             { id: 401, name: "Dudukan Putih", priceAdjustment: 0 },
             { id: 402, name: "Dudukan Abu-abu", priceAdjustment: 50000 },

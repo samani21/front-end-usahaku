@@ -7,6 +7,7 @@ export const DUMMY_PRODUCTS_ELEVEN: Product[] = [{
     name: 'Nasi Goreng Spesial',
     price: 25000,
     oldPrice: 32000,
+    isFavorite: true,
     description: 'Nasi goreng kampung dengan telur mata sapi, ayam suwir, dan acar. Rasa klasik yang memuaskan.',
     imageUrl: 'https://asset.kompas.com/crops/VcgvggZKE2VHqIAUp1pyHFXXYCs=/202x66:1000x599/1200x800/data/photo/2023/05/07/6456a450d2edd.jpg',
     category: 'Makanan Utama',
@@ -38,6 +39,7 @@ export const DUMMY_PRODUCTS_ELEVEN: Product[] = [{
     description: 'Kentang goreng renyah disajikan dengan saus keju spesial.',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Shake_shack_cheese_fries.jpg',
     category: 'Cemilan',
+    isFavorite: true,
     variants: [
         { id: 7, name: 'Porsi Kecil', priceAdjustment: 0 },
         { id: 9, name: 'Porsi Besar', priceAdjustment: 5000 },
@@ -134,6 +136,8 @@ export const DUMMY_CATEGORIES_ELEVEN: Category[] = [
 
 
 export const DUMMY_HISTORY_ELEVEN: OrderItem[] = [
+    { id: 1, productName: 'Nasi Goreng Spesial', basePrice: 25000, variantName: '', finalPrice: 25000, quantity: 1 },
+    { id: 2, productName: 'Kentang Goreng Keju', basePrice: 15000, variantName: '', finalPrice: 15000, quantity: 1 },
 
 ];
 

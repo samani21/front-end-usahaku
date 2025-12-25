@@ -7,6 +7,7 @@ export const DUMMY_PRODUCTS_EIGHT: Product[] = [
         name: "Kopi Arabika Premium",
         price: 125000,
         category: "Makanan & Minuman",
+        isFavorite:true,
         description: "Biji kopi Arabika pilihan dari dataran tinggi. Rasa kaya dengan aroma floral dan sedikit sentuhan cokelat. Sangat cocok untuk metode seduh manual seperti V60 atau Chemex. Diproses dengan metode semi-washed untuk mendapatkan keasaman yang seimbang. Kemasan 250g.",
         imageUrl: "https://images.unsplash.com/photo-1668923570518-9eb1f838f19b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a29waSUyMGFyYWJpa2F8ZW58MHx8MHx8fDA%3D",
         variants: [
@@ -182,7 +183,9 @@ export const DUMMY_CATEGORIES_EIGHT: Category[] = [
 
 
 export const DUMMY_HISTORY_EIGHT: OrderItem[] = [
-
+    { id: 1, productName: 'Kemeja Linen Oversize', basePrice: 249000, variantName: '', finalPrice: 249000, quantity: 2 },
+    { id: 2, productName: 'Desain Logo Korporat', basePrice: 500000, variantName: '', finalPrice: 500000, quantity: 1 },
+    { id: 2, productName: 'Kopi Arabika Premium', basePrice: 125000, variantName: '1kg', finalPrice: 125000, quantity: 2 },
 ];
 
 
@@ -192,7 +195,7 @@ export const DUMMY_HERO_EIGHT: Hero = {
     description: 'Potong rambut, laundry, atau lainnya. Semua dalam satu klik!',
     // cta: 'Lihat Penawaran Spesial',
     // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
-    color:'teal'
+    color: 'teal'
 }
 
 

@@ -16,6 +16,7 @@ export const DUMMY_PRODUCTS_NINE: Product[] = [
         price: 35000, description: "Trim, shaping, dan minyak perawatan janggut.",
         imageUrl: "https://plus.unsplash.com/premium_photo-1721203653776-57aef8a96266?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8RGV0YWlsJTIwUGVyYXdhdGFuJTIwSmFuZ2d1dHxlbnwwfHwwfHx8MA%3D%3D",
         isService: true,
+        isFavorite: true,
         category: 'Barbershop',
         variants: []
     },
@@ -42,6 +43,7 @@ export const DUMMY_PRODUCTS_NINE: Product[] = [
         price: 45000, description: "Detailing sepatu premium, semua jenis bahan.",
         imageUrl: "/theme/nine/sepatu.png",
         isService: true,
+        isFavorite: true,
         category: 'Aksesoris',
         variants: []
     },
@@ -87,9 +89,9 @@ export const DUMMY_CATEGORIES_NINE: Category[] = [
 
 
 export const DUMMY_HISTORY_NINE: OrderItem[] = [
-
+    { id: 1, productName: 'Paket Bersih Kinclong', basePrice: 75000, variantName: '', finalPrice: 75000, quantity: 2 },
+    { id: 2, productName: 'Perawatan Janggut', basePrice: 35000, variantName: '', finalPrice: 35000, quantity: 1 },
 ];
-
 
 export const DUMMY_HERO_NINE: Hero = {
     title: 'SOLUSI KREATIF & DESAIN',

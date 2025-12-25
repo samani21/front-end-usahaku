@@ -135,6 +135,9 @@ export const DUMMY_CATEGORIES_SEVENT: Category[] = [
 
 
 export const DUMMY_HISTORY_SEVENT: OrderItem[] = [
+    { id: 1, productName: 'SEO Audit & Optimasi Dasar', basePrice: 1200000, variantName: '', finalPrice: 1200000, quantity: 1 },
+    { id: 2, productName: 'Paket Peluncuran Startup', basePrice: 8000000, variantName: '', finalPrice: 8000000, quantity: 1 },
+    { id: 3, productName: 'Ilustrasi Khusus', basePrice: 450000, variantName: '', finalPrice: 450000, quantity: 1 },
 
 ];
 
@@ -145,7 +148,7 @@ export const DUMMY_HERO_SEVENT: Hero = {
     description: 'Temukan berbagai layanan desain, pengembangan web, dan marketing untuk mendukung bisnis Anda.',
     cta: 'Lihat Penawaran Spesial',
     // image: 'https://tangerangkota.go.id/assets/storage/files/photos/34305ternyata-ini-fakta-menarik-dari-kopi-34305.jpeg'
-    color:'slate'
+    color: 'slate'
 }
 
 

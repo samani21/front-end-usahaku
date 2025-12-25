@@ -10,11 +10,11 @@ export const DUMMY_PRODUCTS_ONE: Product[] = [
         description: 'Laptop berperforma tinggi untuk gaming dan editing profesional. Dilengkapi kartu grafis terbaru.',
         imageUrl: 'https://dlcdnwebimgs.asus.com/files/media/71a33ba1-1be2-44c1-9541-70b4c800abf8/v1/images/Strix_G16_KV_16x9.webp',
         category: 'Laptop',
+        isService: true,
         variants: [
             { id: 1, name: 'RAM 16GB / SSD 512GB', priceAdjustment: 0 },
             { id: 2, name: 'RAM 32GB / SSD 1TB (Premium)', priceAdjustment: 3000000 },
         ],
-        isFavorite: false,
     },
     {
         id: 2,
@@ -36,11 +36,12 @@ export const DUMMY_PRODUCTS_ONE: Product[] = [
         description: 'Melacak aktivitas olahraga, detak jantung, dan notifikasi pintar. Tahan air hingga 50m.',
         imageUrl: 'https://media.tatacroma.com/Croma%20Assets/Communication/Wearable%20Devices/Images/276060_0_e4dbrp.png',
         category: 'Aksesoris',
+        isService: true,
+        isFavorite:true,
         variants: [
             { id: 5, name: 'Tali Karet', priceAdjustment: 0 },
             { id: 6, name: 'Tali Logam', priceAdjustment: 350000 },
         ],
-        isFavorite: false,
     },
     {
         id: 4,
@@ -49,10 +50,11 @@ export const DUMMY_PRODUCTS_ONE: Product[] = [
         description: 'Layar melengkung 144Hz untuk pengalaman kerja dan gaming yang imersif.',
         imageUrl: 'https://www.lg.com/content/dam/channel/wcms/id/monitor/ultrawide/34wr50qk/gallery/gallery/ultrawide-34wr50qk-gallery-04-2010.jpg',
         category: 'Monitor',
+        isService: true,
+        isFavorite:true,
         variants: [
 
         ],
-        isFavorite: false,
     },
 ];
 

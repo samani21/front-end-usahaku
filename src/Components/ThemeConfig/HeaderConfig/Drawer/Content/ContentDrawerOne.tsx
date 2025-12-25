@@ -1,33 +1,19 @@
-import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
+import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
 import { formatRupiah } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import { History, X } from 'lucide-react';
 import React from 'react'
 
-interface DrawerContentRendererProps {
-    type: DrawerType;
-    color: ThemeColorSet;
+type Props = {
     favoriteProducts: Product[];
+    type: string;
+    color: ThemeColorSet;
     cart: OrderItem[];
     history: OrderItem[];
     cartTotal: number;
-    handleToggleFavorite: (id: number) => void;
-    handleRemoveFromCart: (index: number) => void;
-    handleCheckout: () => void;
 }
 
-const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
-    type,
-    color,
-    favoriteProducts,
-    cart,
-    history,
-    cartTotal,
-    handleToggleFavorite,
-    handleRemoveFromCart,
-    handleCheckout
-}) => {
-    // Konten Favorit
+const ContentDrawerOne = ({ type, favoriteProducts, cart, cartTotal, history, color }: Props) => {
     if (type === 'favorite') {
         return (
             <div className="space-y-4">
@@ -45,7 +31,6 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
                                 <p className={`text-sm ${color?.text200}`}>{formatRupiah(p.price)}</p>
                             </div>
                             <button
-                                onClick={() => handleToggleFavorite(p.id)}
                                 className="text-red-500 hover:text-red-700 p-1"
                                 aria-label="Hapus dari Favorit"
                             >
@@ -78,7 +63,7 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
                                     </p>
                                 </div>
                                 <button
-                                    onClick={() => handleRemoveFromCart(index)}
+                                    // onClick={() => handleRemoveFromCart(index)}
                                     className="text-red-500 hover:text-red-700 p-1 mt-1"
                                     aria-label="Hapus Item"
                                 >
@@ -96,7 +81,7 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
                         <span className={`text-2xl font-extrabold ${color?.text400}`}>{formatRupiah(cartTotal)}</span>
                     </div>
                     <button
-                        onClick={handleCheckout}
+                        // onClick={handleCheckout}
                         className={`w-full py-3 ${color?.bg600} text-white font-bold rounded-lg shadow-lg ${color?.hoverBg700} transition duration-300 disabled:bg-gray-400`}
                         disabled={cart.length === 0}
                     >
@@ -134,8 +119,6 @@ const DrawerContentRendererOne: React.FC<DrawerContentRendererProps> = ({
         );
     }
 
-    return null;
-};
+}
 
-
-export default DrawerContentRendererOne
+export default ContentDrawerOne

@@ -1,33 +1,19 @@
-import { DrawerType, OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
+import { OrderItem, Product } from '@/hooks/Theme/useProductCatalog';
 import { formatRupiah } from '@/lib/Types/Theme/theme';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import index from '@/pages/auth/[auth]';
-import { CheckCircle, ChevronRight, Clock, Heart, History, ShoppingBag, ShoppingCart, X } from 'lucide-react';
+import { ChevronRight, } from 'lucide-react';
 import React from 'react'
 
-interface DrawerContentRendererProps {
-    type: DrawerType;
-    color: ThemeColorSet;
+type Props = {
     favoriteProducts: Product[];
+    type: string;
+    color: ThemeColorSet;
     cart: OrderItem[];
     history: OrderItem[];
     cartTotal: number;
-    handleToggleFavorite: (id: number) => void;
-    handleRemoveFromCart: (index: number) => void;
-    handleCheckout: () => void;
 }
 
-const DrawerContentRendererSevent: React.FC<DrawerContentRendererProps> = ({
-    type,
-    color,
-    favoriteProducts,
-    cart,
-    history,
-    cartTotal,
-    handleRemoveFromCart,
-    handleCheckout
-}) => {
-    // Konten Favorit
+const ContentDrawerSevent = ({ type, favoriteProducts, cart, cartTotal, history, color }: Props) => {
     if (type === 'favorite') {
         return (
             <div>
@@ -73,7 +59,6 @@ const DrawerContentRendererSevent: React.FC<DrawerContentRendererProps> = ({
                                         {/* Tombol Hapus per item */}
                                         <button
                                             className="text-sm text-red-500 hover:text-red-700 font-medium transition"
-                                            onClick={() => handleRemoveFromCart(index)}
                                         >
                                             Hapus
                                         </button>
@@ -99,7 +84,6 @@ const DrawerContentRendererSevent: React.FC<DrawerContentRendererProps> = ({
 
                             {/* Tombol Pesan/Checkout untuk seluruh keranjang */}
                             <button
-                                onClick={handleCheckout}
                                 className={`w-full py-3 ${color?.bg600} text-white font-semibold rounded-lg shadow-md ${color?.hoverBg700} transition duration-300 focus:outline-none focus:ring-4 ${color?.ring500} focus:ring-opacity-50`}
                             >
                                 Lanjutkan Pemesanan ({cart.length} Item)
@@ -136,7 +120,6 @@ const DrawerContentRendererSevent: React.FC<DrawerContentRendererProps> = ({
     }
 
     return null;
-};
+}
 
-
-export default DrawerContentRendererSevent
+export default ContentDrawerSevent
