@@ -36,7 +36,7 @@ const CardProductOne: React.FC<ProductCardProps> = ({ product, onClick, onToggle
                 {product.name}
             </h3>
             <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">{product.description}</p>
-            <p className={`text-2xl font-extrabold mt-auto`}>
+            <p className={`text-2xl font-extrabold mt-auto ${color?.text200}`}>
                 {formatRupiah(product.price)}
             </p>
             <div className="text-xs text-gray-400 mt-1">

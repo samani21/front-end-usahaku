@@ -65,8 +65,8 @@ export const menuSidebar: menuSide[] = [
                 href: '/categorie'
             },
             {
-                label: 'Modal Drawer',
-                href: '/drawer'
+                label: 'Produk dan Modal',
+                href: '/product'
             },
         ]
     },
