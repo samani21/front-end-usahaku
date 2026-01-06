@@ -47,7 +47,7 @@ const Four = ({ color, bg, text, logo, span1, span2, themeMode, setThemeMode, fr
                     <div className='flex items-center gap-2'>
                         {
                             logo &&
-                            <div className={`${frameLogo === 'Light' ? 'bg-gray-100' : 'bg-gray-900'} p-1 rounded-[8px] max-w-16`}>
+                            <div className={`${frameLogo === 'Light' ? 'bg-gray-100' : frameLogo === 'Dark' ? 'bg-gray-900' : ''} p-1 rounded-[8px] max-w-16`}>
                                 <img src={logo} className=' rounded-[8px]' />
                             </div>
                         }
