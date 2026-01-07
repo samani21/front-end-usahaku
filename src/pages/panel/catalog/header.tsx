@@ -8,7 +8,7 @@ import { color } from '@/lib/Types/Theme/theme'
 import Loading from '@/Components/component/Loading'
 import { Post } from '@/utils/Post'
 import { useAlert } from '@/Context/AlertContext'
-import { Catalog, header } from '@/Types/config'
+import { Catalog } from '@/Types/config'
 
 type Props = {}
 
@@ -76,7 +76,6 @@ export default function HeaderConfigPage() {
             if (res?.success) {
                 setHeaderLayout(res?.data?.header?.theme)
                 setAccentColor(res?.data?.header?.color)
-                setThemeMode(res?.data?.header?.mode)
                 if (res?.data?.header?.frame) {
                     setFrameLogo(res?.data?.header?.frame)
                 }
@@ -114,7 +113,6 @@ export default function HeaderConfigPage() {
             if (span2 != '') {
                 payload.append('span_two', span2);
             }
-            payload.append('mode', themeMode);
             payload.append('delete_image', deleteImage ? '1' : '0');
 
             const res = await Post(`/catalog/header`, payload);

@@ -6,9 +6,10 @@ import React, { useMemo } from 'react'
 type Props = {
     color: ThemeColorSet;
     dataHero: Hero;
+    deleteImage: boolean;
 }
 
-const One = ({ color, dataHero }: Props) => {
+const One = ({ color, dataHero, deleteImage }: Props) => {
     const hero = useMemo(() => {
         const HeroOld = DUMMY_HERO_ONE;
         const data = {
@@ -43,7 +44,7 @@ const One = ({ color, dataHero }: Props) => {
                     </button>
                 </div>
                 {
-                    hero?.image &&
+                    hero?.image && !deleteImage &&
                     <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3  hidden sm:flex item-center justify-center`}>
                         <img src={hero?.image} className=' rounded-[8px]' />
                     </div>

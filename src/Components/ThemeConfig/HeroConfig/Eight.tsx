@@ -7,10 +7,11 @@ import React, { useMemo } from 'react'
 
 type Props = {
     color: ThemeColorSet;
-    dataHero: Hero
+    dataHero: Hero;
+    deleteImage: boolean;
 }
 
-const Eight = ({ color, dataHero }: Props) => {
+const Eight = ({ color, dataHero, deleteImage }: Props) => {
     const hero = useMemo(() => {
         const HeroOld = DUMMY_HERO_EIGHT;
         const data = {
@@ -46,7 +47,7 @@ const Eight = ({ color, dataHero }: Props) => {
                     }
                 </div>
                 {
-                    hero?.image &&
+                    hero?.image && !deleteImage &&
                     <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3  hidden sm:grid`}>
                         <img src={hero?.image} className="rounded-[8px] shadow-xl w-full" />
                     </div>

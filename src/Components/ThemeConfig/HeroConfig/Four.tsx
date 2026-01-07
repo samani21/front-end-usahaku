@@ -8,6 +8,7 @@ type Props = {
     dataHero: Hero;
     setThemeMode: (val: string) => void;
     themeMode: string;
+    deleteImage: boolean;
 }
 
 const CartIcon: FC<{ className?: string; strokeWidth?: number; }> = ({ className, strokeWidth = 1 }) => (
@@ -17,7 +18,7 @@ const CartIcon: FC<{ className?: string; strokeWidth?: number; }> = ({ className
 );
 
 
-const Four = ({ color, dataHero, themeMode, setThemeMode }: Props) => {
+const Four = ({ color, dataHero, themeMode, setThemeMode, deleteImage }: Props) => {
     const hero = useMemo(() => {
         const HeroOld = DUMMY_HERO_FOUR;
         const data = {

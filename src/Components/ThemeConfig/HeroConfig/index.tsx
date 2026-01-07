@@ -15,16 +15,18 @@ type Props = {
     color: ThemeColorSet;
     themeMode: string;
     dataHero: Hero;
+    deleteImage: boolean;
     setThemeMode: (val: string) => void
 }
 
-const HeroConfig = ({ theme, color, themeMode, dataHero, setThemeMode }: Props) => {
+const HeroConfig = ({ theme, color, themeMode, dataHero, setThemeMode, deleteImage }: Props) => {
 
     const commonProps = {
         color,
         dataHero,
         setThemeMode,
-        themeMode
+        themeMode,
+        deleteImage
     };
 
     /* ===================== Numeric Theme ===================== */

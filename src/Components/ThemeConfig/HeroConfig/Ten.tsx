@@ -6,10 +6,11 @@ import React, { useMemo } from 'react'
 
 type Props = {
     color: ThemeColorSet;
-    dataHero: Hero
+    dataHero: Hero;
+    deleteImage: boolean;
 }
 
-const Ten = ({ color, dataHero }: Props) => {
+const Ten = ({ color, dataHero, deleteImage }: Props) => {
     const hero = useMemo(() => {
         const HeroOld = DUMMY_HERO_TEN;
         const data = {
@@ -24,7 +25,7 @@ const Ten = ({ color, dataHero }: Props) => {
         return data
     }, [dataHero])
     return (
-        <section id="home" className={`${color?.bg50} pt-20 pb-12 sm:pt-24 sm:pb-16 ${ hero?.image?"":'text-center'} rounded-b-xl mb-4`}>
+        <section id="home" className={`${color?.bg50} pt-20 pb-12 sm:pt-24 sm:pb-16 ${hero?.image ? "" : 'text-center'} rounded-b-xl mb-4`}>
             <div className="container mx-auto px-4 flex items-center justify-between">
                 <div className=" mb-6 md:mb-0 w-full ">
                     <h4 className="text-md sm:text-lg font-extrabold leading-tight text-white">
@@ -43,7 +44,7 @@ const Ten = ({ color, dataHero }: Props) => {
                     </div>
                 </div>
                 {
-                    hero?.image &&
+                    hero?.image && !deleteImage &&
                     <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3  hidden sm:grid`}>
                         <img src={hero?.image} className="rounded-[8px] shadow-xl w-full" />
                     </div>
