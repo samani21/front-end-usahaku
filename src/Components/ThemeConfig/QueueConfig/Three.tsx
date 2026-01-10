@@ -4,9 +4,11 @@ import React, { useMemo, useState } from 'react'
 
 type Props = {
     color: ThemeColorSet;
+    span1?: string;
+    span2?: string;
 }
 
-const Three = ({ color }: Props) => {
+const Three = ({ color, span1, span2 }: Props) => {
     const clientQueueNumber = 10;
     const [currentQueueNumber, setCurrentQueueNumber] = useState<number>(3);
     const queueStatus = useMemo(() => {
@@ -25,11 +27,10 @@ const Three = ({ color }: Props) => {
                 <div className="md:flex md:justify-between md:items-start space-y-6 md:space-y-0">
                     <div className="md:w-1/2">
                         <h2 className="text-3xl sm:text-4xl font-extrabold mb-2">
-                            Temukan Layanan Terbaik Anda
-
+                            {span1 ? span1 : " Temukan Layanan Terbaik Anda"}
                         </h2>
                         <p className="text-white/80 text-lg">
-                            Potong rambut, laundry, atau lainnya. Semua dalam satu klik!
+                            {span2 ? span2 : "Potong rambut, laundry, atau lainnya. Semua dalam satu klik!"}
                         </p>
                         {/* Menampilkan Status Antrian */}
                         <div className={`mt-4 inline-block p-2 rounded-lg font-semibold shadow-md ${queueStatus.color}`}>

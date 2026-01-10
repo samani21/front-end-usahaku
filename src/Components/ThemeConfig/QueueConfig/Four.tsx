@@ -51,7 +51,7 @@ const Four = ({ color }: Props) => {
 
                 <div className="mt-8">
                     <p className="text-sm text-gray-600 mb-3">
-                        *Tombol ini memajukan antrian secara lokal (simulasi).
+                        *Tombol ini memajukan antrian hanya simulasi.
                     </p>
                     <button
                         onClick={() => setCurrentQueueNumber(currentQueueNumber + 1)}
@@ -62,9 +62,6 @@ const Four = ({ color }: Props) => {
                     </button>
                 </div>
 
-                <p className="mt-8 text-sm text-gray-500">
-                    Aplikasi berjalan dalam mode lokal (tanpa database).
-                </p>
             </div>
         </section>
     )

@@ -146,8 +146,8 @@ export default function BusinessProfile() {
         }
         setAddresses(data?.data?.address)
         setForm(business)
-        setLogoPreview(process.env.NEXT_PUBLIC_MINIO + data?.data?.logo_url)
-        setBannerPreview(process.env.NEXT_PUBLIC_MINIO + data?.data?.banner_url)
+        setLogoPreview(data?.data?.logo_url)
+        setBannerPreview(data?.data?.banner_url)
       }
     } catch (err: any) {
       console.log(err.message || "Gagal mengambil data");

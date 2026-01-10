@@ -8,11 +8,13 @@ import Four from './Four';
 type Props = {
     theme: number
     color: ThemeColorSet;
+    span1?: string;
+    span2?: string;
 }
 
-const QueueConfig = ({ theme, color }: Props) => {
+const QueueConfig = ({ theme, color, span1, span2 }: Props) => {
     const commonProps = {
-        color,
+        color, span1, span2
     };
 
     /* ===================== Numeric Theme ===================== */
