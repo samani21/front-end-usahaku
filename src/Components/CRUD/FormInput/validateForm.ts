@@ -6,7 +6,7 @@ export const validateForm = (data: ProductForm): { isValid: boolean; errors: Err
 
     // 1. Validasi Produk Dasar
     if (!data.name.trim()) { errors.name = 'Nama produk wajib diisi.'; isValid = false; }
-    if (!data.description.trim()) { errors.description = 'Deskripsi wajib diisi.'; isValid = false; }
+    // if (!data.description.trim()) { errors.description = 'Deskripsi wajib diisi.'; isValid = false; }
 
     const price = parseFloat(data.price as string);
     if (data.price === '') {

@@ -259,7 +259,7 @@ export default function BusinessProfile() {
             </h2>
 
             <div className="space-y-4">
-              {addresses.map((addr, i) => (
+              {addresses?.map((addr, i) => (
                 <div key={addr.id} className="flex flex-col gap-2 p-4 border border-zinc-200 rounded-xl bg-zinc-50">
                   <Label>Nama Outlite</Label>
                   <Input value={addr.name} onChange={(e) => updateAddress(addr.id, "name", e.target.value)} />

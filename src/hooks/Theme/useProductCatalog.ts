@@ -13,12 +13,16 @@ export interface Product {
     description: string;
     imageUrl: string;
     category?: string;
+    stock?: number;
     variants: Variant[];
     isFavorite?: boolean;
     isPackage?: boolean;
     isService?: boolean;
     information?: string[];
-    isRecomended?: boolean
+    isRecomended?: boolean;
+    titleRecomended?: string;
+    colorRecomended?: string;
+    discount?: number;
 }
 
 export interface OrderItem {

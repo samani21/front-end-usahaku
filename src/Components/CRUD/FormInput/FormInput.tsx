@@ -10,12 +10,13 @@ type Props = {
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
     error?: string;
     min?: number;
+    max?: number;
     required?: boolean;
     options?: SelectOption[];
-
+    placeholder?: string;
 }
 
-const FormInput = ({ label, type, name, value, onChange, error, min = 0, required = false, options = [] }: Props) => {
+const FormInput = ({ label, type, name, value, onChange, error, min = 0, required = false, options = [], placeholder, max }: Props) => {
     const isFile = type === 'file';
     const isTextArea = type === 'textarea';
     const isSelect = type === 'select';
@@ -66,6 +67,7 @@ const FormInput = ({ label, type, name, value, onChange, error, min = 0, require
                     value={isPrice ? (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : "") : value}
                     onChange={isPrice ? handlePriceChange : onChange}
                     className={`${baseInputClasses} ${isFile ? fileInputClasses : ''} ${errorClasses}`}
+                    placeholder={placeholder ?? ''}
                 />
             ) : isSelect ? (
                 <select
@@ -97,15 +99,16 @@ const FormInput = ({ label, type, name, value, onChange, error, min = 0, require
             ) : (
                 <input
                     id={name}
-                    type={isFile ? 'file' : 'text'}
+                    type={isFile ? 'file' : type}
                     name={name}
                     {...(!isFile && { value: value })}
                     onChange={onChange}
                     min={type === 'number' ? min : undefined}
+                    max={type === 'number' ? max : undefined}
                     className={`${baseInputClasses} ${isFile ? fileInputClasses : ''} ${errorClasses}`}
                     // required={required}
                     step="1"
-                    placeholder={type === 'number' && value === '' && !error ? '0' : undefined}
+                    placeholder={type === 'number' && value === '' && !error ? '0' : placeholder ?? undefined}
                 />
             )}
             {error && (

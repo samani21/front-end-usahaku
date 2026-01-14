@@ -12,7 +12,7 @@ export interface Variant {
 /** Tipe untuk State Formulir Produk */
 export interface ProductForm {
     name: string;
-    description: string;
+    description?: string;
     price: string | number;
     stock: string | number;
     image: File | null;
@@ -31,7 +31,6 @@ export interface VariantErrors {
 
 export interface Errors {
     name: string;
-    description: string;
     price: string;
     stock: string;
     variants: VariantErrors[];
@@ -41,7 +40,6 @@ export interface Errors {
 
 export const initialProductState: ProductForm = {
     name: '',
-    description: '',
     price: '',
     stock: '',
     image: null,
@@ -52,7 +50,6 @@ export const initialProductState: ProductForm = {
 
 export const initialErrors: Errors = {
     name: '',
-    description: '',
     price: '',
     stock: '',
     variants: [],
@@ -79,4 +76,10 @@ export interface ResProduct {
     stock: number,
     id: number,
     variants: Variants[]
+    price_discount?: number,
+    final_price?: number,
+    is_recomended?: boolean
+    title_recomended?: string,
+    color_recomended?: string,
+    percent_discount?: number,
 }

@@ -167,7 +167,6 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
 
     // Penambahan/Penghapusan Varian
     const addVariant = () => {
-        console.log('add variant')
         setProductData(prev => ({
             ...prev,
             variants: [...prev.variants, { name: '', price: '', stock: '', image: null, imagePreviewUrl: null }],
@@ -209,7 +208,7 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
 
         // Tambahkan field produk dasar
         formData.append('name', productData.name);
-        formData.append('description', productData.description);
+        formData.append('description', productData.description ?? '');
         formData.append('price', (productData.price === '' ? 0 : productData.price).toString());
         formData.append('stock', (productData.stock === '' ? 0 : productData.stock).toString());
         formData.append('has_variant', productData.has_variant.toString());
@@ -358,8 +357,6 @@ const ProductFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Prop
                                     name="description"
                                     value={productData.description}
                                     onChange={handleProductChange}
-                                    error={errors.description}
-                                    required
                                 />
                             </div>
                         </div>
