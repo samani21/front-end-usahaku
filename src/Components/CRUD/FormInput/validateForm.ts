@@ -1,6 +1,6 @@
 import { Errors, initialErrors, ProductForm, VariantErrors } from "@/lib/Types/Product/ProductState";
 
-export const validateForm = (data: ProductForm): { isValid: boolean; errors: Errors } => {
+export const validateForm = (data: any): { isValid: boolean; errors: any } => {
     const errors: Errors = JSON.parse(JSON.stringify(initialErrors)); // Deep copy
     let isValid = true;
 
@@ -24,7 +24,7 @@ export const validateForm = (data: ProductForm): { isValid: boolean; errors: Err
 
     // 2. Validasi Varian
     if (data.has_variant === 1) {
-        errors.variants = data.variants.map((variant, index) => {
+        errors.variants = data.variants.map((variant: any) => {
             const variantErrors: VariantErrors = { name: '', price: '', stock: '' };
 
             if (!variant.name.trim()) {

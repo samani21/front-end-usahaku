@@ -32,6 +32,11 @@ export const menuSidebar: menuSide[] = [
                 label: 'List',
                 href: '/list'
             },
+
+            {
+                label: 'Kategori',
+                href: '/categorie'
+            },
         ]
     },
     {

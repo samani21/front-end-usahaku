@@ -5,7 +5,7 @@ import React from 'react'
 type Props = {
     isOpen: boolean;
     onClose: () => void;
-    deleteData: ResProduct | null
+    deleteData: any | null
     handleDelete: (id: number | null) => void;
 }
 
