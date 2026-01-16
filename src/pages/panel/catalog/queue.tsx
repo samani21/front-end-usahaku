@@ -128,7 +128,7 @@ export default function QueuePage() {
 
             const res = await Post(`/catalog/queue`, payload);
             if (res) {
-                showFinalAlert('success', 'Berhasil', 'Atur config header berhasil')
+                showFinalAlert('success', 'Berhasil', 'Atur config antrian berhasil')
             }
         } catch (err: any) {
             showFinalAlert(

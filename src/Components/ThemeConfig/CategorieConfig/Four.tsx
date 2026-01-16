@@ -1,14 +1,16 @@
-import { DUMMY_CATEGORIES_FOUR } from '@/hooks/Theme/ProductFour';
+import { ResCategorie } from '@/lib/Types/Product/CategorieState';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 type Props = {
     color: ThemeColorSet;
     themeMode: string;
     setThemeMode: (val: string) => void
+    categorie: ResCategorie[];
+    frameIcon: 'Light' | 'Dark' | null
 }
 
-const Four = ({ color, themeMode, setThemeMode }: Props) => {
+const Four = ({ color, themeMode, setThemeMode, categorie, frameIcon }: Props) => {
     const [activeCategory, setActiveCategory] = useState<string>('Semua');
     const mainTextColor = themeMode === 'Dark' ? 'text-gray-50' : 'text-gray-800';
     const primaryBg = themeMode === 'Dark' ? `bg-cyan-600` : color?.bg600;
@@ -48,15 +50,21 @@ const Four = ({ color, themeMode, setThemeMode }: Props) => {
                     >
                         Semua
                     </button>
-                    {DUMMY_CATEGORIES_FOUR.map(category => (
+                    {categorie.map(category => (
                         <button
                             key={category?.id}
-                            className={`flex-shrink-0 py-2.5 px-8 rounded-full text-lg font-semibold transition duration-200 shadow-md ${activeCategory === category?.name
+                            className={`flex-shrink-0 py-2.5 flex items-center gap-2 px-8 rounded-full text-lg font-semibold transition duration-200 shadow-md ${activeCategory === category?.name
                                 ? `${primaryBg} text-white shadow-lg`
                                 : `${cardBgColor} ${mainTextColor} border ${themeMode === 'Dark' ? 'border-gray-700/20 hover:bg-gray-700' : 'border-gray-300 hover:bg-gray-200'}`
                                 }`}
                             onClick={() => setActiveCategory(category?.name)}
                         >
+                            {
+                                category?.icon &&
+                                <div className={`${frameIcon === 'Light' ? color?.bg100 : frameIcon === 'Dark' ? color?.bg900 : ""} rounded-full p-1`}>
+                                    <img src={category?.icon} className='w-[24px] h-[24px]' />
+                                </div>
+                            }
                             {category?.name}
                         </button>
                     ))}

@@ -1,13 +1,14 @@
-import { DUMMY_CATEGORIES_NINE } from '@/hooks/Theme/ProductNine';
+import { ResCategorie } from '@/lib/Types/Product/CategorieState';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 type Props = {
     color: ThemeColorSet;
-
+    categorie: ResCategorie[];
+    frameIcon: 'Light' | 'Dark' | null
 }
 
-const Nine = ({ color }: Props) => {
+const Nine = ({ color, categorie, frameIcon }: Props) => {
     const [activeCategory, setActiveCategory] = useState<string>('Semua');
     return (
         <section className="mb-12 p-4">
@@ -23,8 +24,7 @@ const Nine = ({ color }: Props) => {
                 >
                     <span>Semua</span>
                 </button>
-                {DUMMY_CATEGORIES_NINE.map(category => {
-                    const Icon = category.iconComponent;
+                {categorie.map(category => {
                     return (
                         <button
                             key={category.id}
@@ -34,8 +34,10 @@ const Nine = ({ color }: Props) => {
                                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
                                 }`}
                         >
-                            {Icon &&
-                                <Icon className="h-4 w-4 mr-1" />
+                            {category?.icon &&
+                                <div className={`${frameIcon === 'Light' ? color?.bg100 : frameIcon === 'Dark' ? color?.bg900 : ""} rounded-full p-1`}>
+                                    <img src={category?.icon} className='w-[24px] h-[24px]' />
+                                </div>
                             }
                             <span>{category.name}</span>
                         </button>

@@ -1,7 +1,5 @@
-import React from 'react'
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
 import One from './One';
-import { Hero } from '@/lib/Types/Theme/theme';
 import Two from './Two';
 import Three from './Three';
 import Four from './Four';
@@ -9,19 +7,24 @@ import Five from './Five';
 import Six from './Six';
 import Eight from './Eight';
 import Nine from './Nine';
+import { ResCategorie } from '@/lib/Types/Product/CategorieState';
 type Props = {
     theme: number;
     color: ThemeColorSet;
     themeMode: string;
-    setThemeMode: (val: string) => void
+    setThemeMode: (val: string) => void;
+    categorie: ResCategorie[];
+    frameIcon: 'Light' | 'Dark' | null
 }
 
-const CategorieConfig = ({ theme, color, themeMode, setThemeMode }: Props) => {
+const CategorieConfig = ({ theme, color, themeMode, setThemeMode, categorie, frameIcon }: Props) => {
 
     const commonProps = {
         color,
         themeMode,
-        setThemeMode
+        setThemeMode,
+        categorie,
+        frameIcon
     };
 
     /* ===================== Numeric Theme ===================== */

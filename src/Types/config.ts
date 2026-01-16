@@ -14,6 +14,12 @@ interface queue {
     span_two?: string;
 }
 
+interface categorie {
+    theme: number;
+    color: string;
+    frame?: "Light" | "Dark" | null;
+}
+
 interface Hero {
     theme: number;
     color: string;
@@ -29,4 +35,5 @@ export interface Catalog {
     header: header;
     hero: Hero;
     queue: queue;
+    categorie: categorie;
 }

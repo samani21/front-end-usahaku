@@ -1,13 +1,14 @@
-import { DUMMY_CATEGORIES_FIVE } from '@/hooks/Theme/ProductFive';
+import { ResCategorie } from '@/lib/Types/Product/CategorieState';
 import { ThemeColorSet } from '@/lib/Types/Theme/ThemeColor';
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 type Props = {
     color: ThemeColorSet;
-
+    categorie: ResCategorie[];
+    frameIcon: 'Light' | 'Dark' | null
 }
 
-const Five = ({ color }: Props) => {
+const Five = ({ color, categorie, frameIcon }: Props) => {
     const [activeCategory, setActiveCategory] = useState<string>('Semua');
     return (
         <section className="mb-12 p-4">
@@ -22,8 +23,7 @@ const Five = ({ color }: Props) => {
                 >
                     <span className="text-sm font-medium mt-8">Semua</span>
                 </button>
-                {DUMMY_CATEGORIES_FIVE.map(category => {
-                    const Icon = category.iconComponent;
+                {categorie.map(category => {
                     return (
                         <button
                             key={category.id}
@@ -33,10 +33,12 @@ const Five = ({ color }: Props) => {
                                 : `bg-white ${color?.text700} ${color?.hoverBg100} border ${color?.border200}`
                                 }`}
                         >
-                            {Icon &&
-                                <Icon size={24} className="mb-1" />
+                            {category?.icon &&
+                                <div className={`${frameIcon === 'Light' ? color?.bg100 : frameIcon === 'Dark' ? color?.bg900 : ""} rounded-full p-1`}>
+                                    <img src={category?.icon} className='w-[24px] h-[24px]' />
+                                </div>
                             }
-                            <span className="text-sm font-medium mt-1">{category.name}</span>
+                            <span className={`text-sm font-medium ${category?.icon ? 'mt-1' : "mt-8"}`}>{category.name}</span>
                         </button>
                     );
                 })}
