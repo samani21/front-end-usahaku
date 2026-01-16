@@ -19,6 +19,10 @@ interface categorie {
     color: string;
     frame?: "Light" | "Dark" | null;
 }
+interface product {
+    theme: number;
+    color: string;
+}
 
 interface Hero {
     theme: number;
@@ -36,4 +40,5 @@ export interface Catalog {
     hero: Hero;
     queue: queue;
     categorie: categorie;
+    product: product;
 }

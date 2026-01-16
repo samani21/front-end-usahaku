@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import MainLayout from '../Layout/MainLayout'
-import HeaderConfig from '@/Components/ThemeConfig/HeaderConfig'
 import { ThemeColor, ThemeColorSet } from '@/lib/Types/Theme/ThemeColor'
-import { Check, ChevronRight, ImageIcon, Info, Layout, Palette, Type, Upload } from 'lucide-react'
+import { Check, ChevronRight, Circle, CircleCheck, Layout, Palette } from 'lucide-react'
 import { Get } from '@/utils/Get'
 import { color } from '@/lib/Types/Theme/theme'
 import Loading from '@/Components/component/Loading'
 import ProductConfig from '@/Components/ThemeConfig/CardProduct'
 import { Product } from '@/hooks/Theme/useProductCatalog'
 import ModalProduct from '@/Components/ThemeConfig/ModalProduct'
-
-type Props = {}
+import { useAlert } from '@/Context/AlertContext'
+import { Catalog } from '@/Types/config'
+import { Post } from '@/utils/Post'
 
 const listProduct: Product[] = [
     {
@@ -166,7 +166,9 @@ const listProduct: Product[] = [
     },
 ]
 
-const ProductPage = (props: Props) => {
+export default function ProductPage() {
+    const { showFinalAlert, simulateProcess } = useAlert();
+    const [layoutProduct, setLayoutProduct] = useState<number>(0);
     const [accentColor, setAccentColor] = useState<string>('orange');
     const [listColor, setListColor] = useState<color[]>();
     const [loading, setLoading] = useState<boolean>(false);
@@ -176,6 +178,7 @@ const ProductPage = (props: Props) => {
     const [themeMode, setThemeMode] = useState<'Light' | 'Dark'>('Light');
     useEffect(() => {
         getColorTheme();
+        getCategorie();
     }, []);
 
     const colors = useMemo(() => {
@@ -204,19 +207,57 @@ const ProductPage = (props: Props) => {
             setLoading(false);
         }
     };
+    const getCategorie = async () => {
+        try {
+            setLoading(true);
+            const res = await Get<{ success: boolean; data: Catalog }>('/catalog');
+
+            if (res?.success) {
+                setLayoutProduct(res?.data?.product?.theme)
+                setAccentColor(res?.data?.product?.color)
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSubmit = async () => {
+        try {
+            simulateProcess();
+
+            const payload = new FormData();
+            payload.append('theme', String(layoutProduct));
+            payload.append('color', accentColor);
+
+
+            const res = await Post(`/catalog/product`, payload);
+            if (res) {
+                showFinalAlert('success', 'Berhasil', 'Atur config kategori berhasil')
+            }
+        } catch (err: any) {
+            showFinalAlert(
+                'error',
+                'Gagal!',
+                err.message
+            );
+            console.log(err.message || "Gagal mengambil data");
+        }
+    }
+
+
 
 
     return (
 
         loading ? <Loading /> :
-            <MainLayout>
+            <div>
                 <main className='space-y-4'>
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                             <h2 className="text-2xl font-bold">Pengaturan Tampilan Produk dan Modal</h2>
                             <p className="text-slate-500 text-sm">Sesuaikan identitas visual katalog website Anda.</p>
                         </div>
-                        <button className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm">
+                        <button onClick={handleSubmit} className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm">
                             Simpan Perubahan
                         </button>
                     </div>
@@ -257,10 +298,21 @@ const ProductPage = (props: Props) => {
                                     { id: 11, label: '11', mode: 'Light' },
                                     { id: 12, label: '12', mode: 'Light' },
                                 ].map((item) =>
-                                    <ProductConfig theme={item?.id} key={item?.id} product={products[item?.id - 1]} color={colors} handleFav={handleFav} onClick={() => {
-                                        setCardProduct(item?.id)
-                                        setProduct(products[item?.id - 1])
-                                    }} themeMode={themeMode} />)}
+                                    <>
+                                        <div className='flex items-center gap-2 cursor-pointer' onClick={() => setLayoutProduct(item?.id)} >
+                                            {
+                                                layoutProduct === item?.id ?
+                                                    <CircleCheck /> :
+                                                    <Circle />
+                                            }
+                                            <p className='font-semibold text-gray-700'>Tampilan {item?.id}</p>
+                                        </div>
+                                        <ProductConfig theme={item?.id} key={item?.id} product={products[item?.id - 1]} color={colors} handleFav={handleFav} onClick={() => {
+                                            setCardProduct(item?.id)
+                                            setProduct(products[item?.id - 1])
+                                        }} themeMode={themeMode} />
+                                    </>
+                                )}
                             </div>
                         </div>
                         <div className="w-full bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
@@ -301,8 +353,11 @@ const ProductPage = (props: Props) => {
                     cardProduct != 0 && product &&
                     <ModalProduct product={product} color={colors} onClose={() => setCardProduct(0)} theme={cardProduct} themeMode={themeMode} />
                 }
-            </MainLayout>
+            </div>
     )
 }
 
-export default ProductPage
+ProductPage.getLayout = function getLayout(page: ReactElement) {
+    // Di sinilah Halaman dibungkus oleh MainLayout (dan AlertProvider di dalamnya)
+    return <MainLayout>{page}</MainLayout>;
+};
