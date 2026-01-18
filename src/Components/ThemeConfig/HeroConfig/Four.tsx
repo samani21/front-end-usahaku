@@ -8,7 +8,7 @@ type Props = {
     dataHero: Hero;
     setThemeMode: (val: string) => void;
     themeMode: string;
-    deleteImage: boolean;
+    deleteImage?: boolean;
 }
 
 const CartIcon: FC<{ className?: string; strokeWidth?: number; }> = ({ className, strokeWidth = 1 }) => (

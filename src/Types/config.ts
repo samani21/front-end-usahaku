@@ -1,4 +1,4 @@
-interface header {
+export interface ResHeader {
     theme: number;
     color: string;
     logo?: string;
@@ -24,7 +24,7 @@ interface product {
     color: string;
 }
 
-interface Hero {
+export interface ResHero {
     theme: number;
     color: string;
     image?: string;
@@ -36,8 +36,8 @@ interface Hero {
 }
 
 export interface Catalog {
-    header: header;
-    hero: Hero;
+    header: ResHeader;
+    hero: ResHero;
     queue: queue;
     categorie: categorie;
     product: product;

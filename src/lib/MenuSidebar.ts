@@ -73,6 +73,11 @@ export const menuSidebar: menuSide[] = [
                 label: 'Produk dan Modal',
                 href: '/product'
             },
+
+            {
+                label: 'Preview',
+                href: '/preview'
+            },
         ]
     },
 ]

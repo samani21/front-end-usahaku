@@ -6,7 +6,7 @@ import React, { useMemo } from 'react'
 type Props = {
     color: ThemeColorSet;
     dataHero: Hero;
-    deleteImage: boolean;
+    deleteImage?: boolean;
 }
 
 const Six = ({ color, dataHero, deleteImage }: Props) => {

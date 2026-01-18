@@ -49,8 +49,8 @@ const One = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
         [history]
     );
     return (
-        <div className='relative'>
-            <header className=" bg-white dark:bg-gray-800 shadow-md">
+        <div className=''>
+            <header className="absolute w-full bg-white dark:bg-gray-800 shadow-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                     <div className='flex items-center gap-2'>
                         {
@@ -79,28 +79,23 @@ const One = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                     </nav>
                 </div>
             </header>
-            <div className="w-full shadow-2xl overflow-hidden">
-                <div className={`p-20 text-center ${bg} ${text} italic  h-[561px] sm:h-[700px] `}>
-                    Konten Website...
-                </div>
-                <nav className="flex sm:hidden bg-gray-800 justify-between px-8">
-                    <HeaderIconOne Icon={Heart} count={favoriteProducts?.length} label="Buka Favorit" drawer='favorite' onClik={(e, t) => {
-                        setOpenDrawer(e)
-                        setTitle(t)
-                    }} />
-                    <HeaderIconOne Icon={ShoppingCart} count={history?.length} label="Buka Keranjang" drawer='cart' onClik={(e, t) => {
-                        setOpenDrawer(e)
-                        setTitle(t)
-                    }} />
-                    <HeaderIconOne Icon={History} count={history?.length} label="Buka Riwayat Pesanan" drawer='history' onClik={(e, t) => {
-                        setOpenDrawer(e)
-                        setTitle(t)
-                    }} />
-                </nav>
-            </div>
+            <nav className="absolute bottom-0 w-full z-40 flex sm:hidden bg-gray-800 justify-between px-8">
+                <HeaderIconOne Icon={Heart} count={favoriteProducts?.length} label="Buka Favorit" drawer='favorite' onClik={(e, t) => {
+                    setOpenDrawer(e)
+                    setTitle(t)
+                }} />
+                <HeaderIconOne Icon={ShoppingCart} count={history?.length} label="Buka Keranjang" drawer='cart' onClik={(e, t) => {
+                    setOpenDrawer(e)
+                    setTitle(t)
+                }} />
+                <HeaderIconOne Icon={History} count={history?.length} label="Buka Riwayat Pesanan" drawer='history' onClik={(e, t) => {
+                    setOpenDrawer(e)
+                    setTitle(t)
+                }} />
+            </nav>
             {
                 openDrawer &&
-                <div className='absolute inset-0 z-40 bg-black/40 backdrop-blur-[0.6px] h-[670px]'>
+                <div className='absolute inset-0 z-41 bg-black/40 backdrop-blur-[0.6px]'>
                     <DrawerOne
                         isOpen={openDrawer ? true : false}
                         onClose={() => setOpenDrawer(null)}

@@ -15,7 +15,7 @@ type Props = {
     color: ThemeColorSet;
     themeMode: string;
     dataHero: Hero;
-    deleteImage: boolean;
+    deleteImage?: boolean;
     setThemeMode: (val: string) => void
 }
 

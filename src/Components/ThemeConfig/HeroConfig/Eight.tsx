@@ -8,7 +8,7 @@ import React, { useMemo } from 'react'
 type Props = {
     color: ThemeColorSet;
     dataHero: Hero;
-    deleteImage: boolean;
+    deleteImage?: boolean;
 }
 
 const Eight = ({ color, dataHero, deleteImage }: Props) => {
@@ -27,7 +27,7 @@ const Eight = ({ color, dataHero, deleteImage }: Props) => {
     }, [dataHero])
     return (
         <section className={`${color?.bg600} rounded-xl shadow-lg p-6 sm:p-10 mb-12 relative overflow-hidden`}>
-            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            {/* <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div> */}
             <div className=" flex flex-col md:flex-row items-center justify-between">
                 <div className=" mb-6 md:mb-0 w-full">
                     <h4 className="text-md sm:text-lg font-extrabold leading-tight text-white">
@@ -41,7 +41,7 @@ const Eight = ({ color, dataHero, deleteImage }: Props) => {
                     </p>
                     {
                         hero?.cta &&
-                        <button className={`bg-white ${color?.text600} font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-50 transition duration-300`}>
+                        <button className={`bg-white ${color?.text600}  font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-50 transition duration-300`}>
                             {hero?.cta}
                         </button>
                     }
