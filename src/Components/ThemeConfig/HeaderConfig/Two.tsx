@@ -53,8 +53,8 @@ const Two = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
         [history]
     );
     return (
-        <div className='relative'>
-            <header className="sticky top-0 z-40 bg-white shadow-md">
+        <div className=''>
+            <header className="absolute w-full top-0 bg-white shadow-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                     <div className="flex items-center gap-2">
                         {
@@ -83,28 +83,23 @@ const Two = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                     </div>
                 </div>
             </header>
-            <div className="w-full shadow-2xl">
-                <div className={`p-20 text-center ${bg} ${text} italic h-[561px] sm:h-[700px]`}>
-                    Konten Website...
-                </div>
-                <nav className="flex sm:hidden ${bg}  justify-between px-8">
-                    <HeaderIconTwo Icon={Heart} count={favoriteProducts?.length} label="Buka Favorit" color={color} drawer='favorite' onClik={(e, t) => {
-                        setOpenDrawer(e)
-                        setTitle(t)
-                    }} />
-                    <HeaderIconTwo Icon={ShoppingCart} count={history?.length} label="Buka Keranjang" color={color} drawer='cart' onClik={(e, t) => {
-                        setOpenDrawer(e)
-                        setTitle(t)
-                    }} />
-                    <HeaderIconTwo Icon={History} count={history?.length} label="Buka Riwayat Pesanan" color={color} drawer='history' onClik={(e, t) => {
-                        setOpenDrawer(e)
-                        setTitle(t)
-                    }} />
-                </nav>
-            </div>
+            <nav className={`absolute bottom-0 w-full flex sm:hidden ${bg} justify-between px-8`}>
+                <HeaderIconTwo Icon={Heart} count={favoriteProducts?.length} label="Buka Favorit" color={color} drawer='favorite' onClik={(e, t) => {
+                    setOpenDrawer(e)
+                    setTitle(t)
+                }} />
+                <HeaderIconTwo Icon={ShoppingCart} count={history?.length} label="Buka Keranjang" color={color} drawer='cart' onClik={(e, t) => {
+                    setOpenDrawer(e)
+                    setTitle(t)
+                }} />
+                <HeaderIconTwo Icon={History} count={history?.length} label="Buka Riwayat Pesanan" color={color} drawer='history' onClik={(e, t) => {
+                    setOpenDrawer(e)
+                    setTitle(t)
+                }} />
+            </nav>
             {
                 openDrawer &&
-                <div className='absolute inset-0 z-40  backdrop-blur-[0px] h-[670px]'>
+                <div className='absolute inset-0 z-40  backdrop-blur-[0px] '>
                     <DrawerTwo
                         isOpen={openDrawer ? true : false}
                         onClose={() => setOpenDrawer(null)}

@@ -8,7 +8,9 @@ import Loading from '@/Components/component/Loading'
 import QueueConfig from '@/Components/ThemeConfig/QueueConfig'
 import { Post } from '@/utils/Post'
 import { useAlert } from '@/Context/AlertContext'
-import { Catalog } from '@/Types/config'
+import { Catalog, queue } from '@/Types/config'
+import { Delete } from '@/utils/Delete'
+import ModalDelete from '@/Components/CRUD/ModalDelete'
 
 type Props = {}
 
@@ -20,6 +22,8 @@ export default function QueuePage() {
     const [loading, setLoading] = useState<boolean>(false);
     const [span1, setSpan1] = useState<string>('')
     const [span2, setSpan2] = useState<string>('')
+    const [deleteData, setDeleData] = useState<queue | null>(null)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     useEffect(() => {
         getColorTheme();
         getQueue()
@@ -59,6 +63,7 @@ export default function QueuePage() {
                 if (res?.data?.queue?.span_two) {
                     setSpan2(res?.data?.queue?.span_two)
                 }
+                setDeleData(res?.data?.queue)
             }
         } finally {
             setLoading(false);
@@ -129,6 +134,7 @@ export default function QueuePage() {
             const res = await Post(`/catalog/queue`, payload);
             if (res) {
                 showFinalAlert('success', 'Berhasil', 'Atur config antrian berhasil')
+                getQueue()
             }
         } catch (err: any) {
             showFinalAlert(
@@ -140,6 +146,29 @@ export default function QueuePage() {
         }
     }
 
+    const onDelete = async (id: number | null) => {
+        try {
+            simulateProcess();
+
+            const res = await Delete(`/catalog/queue/${id}`);
+            if (res) {
+                showFinalAlert('success', 'Berhasil', 'Hapus produk berhasil')
+                setIsModalOpen(false);
+                setQueue(null)
+                setSpan1('')
+                setSpan2('')
+            }
+        } catch (err: any) {
+            showFinalAlert(
+                'error',
+                'Gagal!',
+                err.message
+            );
+            console.log(err.message || "Gagal mengambil data");
+        }
+    };
+
+
     return (
 
         loading ? <Loading /> :
@@ -149,9 +178,14 @@ export default function QueuePage() {
                         <h2 className="text-2xl font-bold">Pengaturan Tampilan Antrian</h2>
                         <p className="text-slate-500 text-sm">Sesuaikan identitas visual katalog website Anda.</p>
                     </div>
-                    <button onClick={handleSubmit} className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm">
-                        Simpan Perubahan
-                    </button>
+                    <div className='space-x-4'>
+                        <button onClick={handleSubmit} className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm">
+                            Simpan Perubahan
+                        </button>
+                        <button onClick={() => setIsModalOpen(true)} className="bg-rose-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-700 transition shadow-sm">
+                            Hapus
+                        </button>
+                    </div>
                 </div>
                 {
                     queueLayout &&
@@ -252,7 +286,13 @@ export default function QueuePage() {
                         </div>
                     </div>
                 </div>
-
+                <ModalDelete
+                    isOpen={isModalOpen}
+                    onClose={() => {
+                        setIsModalOpen(false)
+                    }}
+                    deleteData={deleteData}
+                    handleDelete={onDelete} />
             </main>
     )
 }

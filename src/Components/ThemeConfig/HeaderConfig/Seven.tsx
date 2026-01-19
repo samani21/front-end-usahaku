@@ -28,8 +28,8 @@ const Seven = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
     );
 
     return (
-        <div className='relative'>
-            <header className="sticky top-0 z-30 bg-white shadow-md">
+        <div className=''>
+            <header className="absolute w-full z-0 bg-white shadow-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
                     <div className='flex items-center gap-2'>
                         {
@@ -84,49 +84,44 @@ const Seven = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                     </nav>
                 </div>
             </header>
-            <div className="w-full shadow-2xl overflow-hidden">
-                <div className={`p-20 text-center ${bg} ${text} italic h-[561px] sm:h-[700px]`}>
-                    Konten Website...
-                </div>
-                <nav className="flex sm:hidden ${bg}  justify-between px-8">
-                    <button onClick={() => {
-                        setOpenDrawer('favorite')
-                        setTitle('Favorit')
-                    }}
-                        className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-red-500 transition relative"
-                        aria-label="Favorite"
-                    >
-                        <Heart size={24} />
-                        <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full border-2 border-white"></span>
+            <nav className={`absolute w-full bottom-0 flex sm:hidden ${bg} justify-between px-8`}>
+                <button onClick={() => {
+                    setOpenDrawer('favorite')
+                    setTitle('Favorit')
+                }}
+                    className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-red-500 transition relative"
+                    aria-label="Favorite"
+                >
+                    <Heart size={24} />
+                    <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full border-2 border-white"></span>
 
-                    </button>
-                    {/* Icon Order (Keranjang) */}
-                    <button onClick={() => {
-                        setOpenDrawer('cart')
-                        setTitle('Pesanan Anda')
-                    }}
-                        className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-blue-500 transition relative"
-                        aria-label="Order"
-                    >
-                        <ShoppingBag size={24} />
-                        <span className="absolute top-1 right-1 h-2 w-2 bg-blue-500 rounded-full border-2 border-white"></span>
-                    </button>
-                    <button onClick={() => {
-                        setOpenDrawer('history')
-                        setTitle('Riwayat Pesanan')
-                    }}
-                        className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-blue-500 transition relative"
-                        aria-label="Order"
-                    >
-                        <History size={24} />
-                        <span className="absolute top-1 right-1 h-2 w-2 bg-blue-500 rounded-full border-2 border-white"></span>
+                </button>
+                {/* Icon Order (Keranjang) */}
+                <button onClick={() => {
+                    setOpenDrawer('cart')
+                    setTitle('Pesanan Anda')
+                }}
+                    className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-blue-500 transition relative"
+                    aria-label="Order"
+                >
+                    <ShoppingBag size={24} />
+                    <span className="absolute top-1 right-1 h-2 w-2 bg-blue-500 rounded-full border-2 border-white"></span>
+                </button>
+                <button onClick={() => {
+                    setOpenDrawer('history')
+                    setTitle('Riwayat Pesanan')
+                }}
+                    className="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-blue-500 transition relative"
+                    aria-label="Order"
+                >
+                    <History size={24} />
+                    <span className="absolute top-1 right-1 h-2 w-2 bg-blue-500 rounded-full border-2 border-white"></span>
 
-                    </button>
-                </nav>
-            </div>
+                </button>
+            </nav>
             {
                 openDrawer &&
-                <div className='absolute inset-0 z-40  backdrop-blur-[0px] h-[670px]'>
+                <div className='absolute inset-0 z-40  backdrop-blur-[0px]'>
                     <DrawerSevent
                         isOpen={openDrawer ? true : false}
                         onClose={() => setOpenDrawer(null)}

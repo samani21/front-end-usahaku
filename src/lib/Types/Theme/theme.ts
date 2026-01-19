@@ -21,7 +21,7 @@ export interface Hero {
     cta?: string,
     image?: string,
     isFrame?: boolean
-    frame?: string
+    frame?: string | null
     iconDefault?: boolean;
     color: string
 }

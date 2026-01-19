@@ -27,8 +27,8 @@ const Nine = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
         [history]
     );
     return (
-        <div className='relative'>
-            <header className="sticky top-0 z-30 bg-white shadow-md">
+        <div className=''>
+            <header className="absolute top-0 w-full bg-white shadow-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
                     <div className='flex items-center gap-2'>
                         {
@@ -69,40 +69,35 @@ const Nine = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                     </div>
                 </div>
             </header>
-            <div className="w-full shadow-2xl overflow-hidden">
-                <div className={`p-20 text-center ${bg} ${text} italic  h-[561px] sm:h-[700px]`}>
-                    Konten Website...
-                </div>
-                <nav className="flex sm:hidden ${bg}  justify-between px-8">
-                    <button
-                        onClick={() => {
-                            setOpenDrawer('favorite')
-                            setTitle('Daftar Favorit')
-                        }}
-                        className={`relative p-2 text-red-600 ${color?.hoverText600} rounded-full transition`}
-                    >
-                        <Heart className="w-6 h-6" />
-                    </button>
-                    <button
-                        onClick={() => {
-                            setOpenDrawer('cart')
-                            setTitle('Keranjang Belanja')
-                        }} className={`relative p-2 text-gray-600 ${color?.hoverText600} rounded-full transition`}>
-                        <ShoppingCart size={24} />
-                        <span className="absolute top-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white bg-red-500"></span>
-                    </button>
-                    <button
-                        onClick={() => {
-                            setOpenDrawer('history')
-                            setTitle('Keranjang Belanja')
-                        }} className={`p-2 text-gray-600 ${color?.hoverText600} rounded-full transition`}>
-                        <History size={24} />
-                    </button>
-                </nav>
-            </div>
+            <nav className={`absolute w-full bottom-0 flex sm:hidden ${bg} justify-between px-8`}>
+                <button
+                    onClick={() => {
+                        setOpenDrawer('favorite')
+                        setTitle('Daftar Favorit')
+                    }}
+                    className={`relative p-2 text-red-600 ${color?.hoverText600} rounded-full transition`}
+                >
+                    <Heart className="w-6 h-6" />
+                </button>
+                <button
+                    onClick={() => {
+                        setOpenDrawer('cart')
+                        setTitle('Keranjang Belanja')
+                    }} className={`relative p-2 text-gray-600 ${color?.hoverText600} rounded-full transition`}>
+                    <ShoppingCart size={24} />
+                    <span className="absolute top-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white bg-red-500"></span>
+                </button>
+                <button
+                    onClick={() => {
+                        setOpenDrawer('history')
+                        setTitle('Keranjang Belanja')
+                    }} className={`p-2 text-gray-600 ${color?.hoverText600} rounded-full transition`}>
+                    <History size={24} />
+                </button>
+            </nav>
             {
                 openDrawer &&
-                <div className='absolute inset-0 z-40  backdrop-blur-[0px] h-[670px]'>
+                <div className='absolute inset-0 z-40  backdrop-blur-[0px]'>
                     <DrawerEight
                         isOpen={openDrawer ? true : false}
                         onClose={() => setOpenDrawer(null)}

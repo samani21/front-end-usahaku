@@ -43,47 +43,27 @@ const Four = ({ color, dataHero, themeMode, setThemeMode, deleteImage }: Props) 
         : `${color?.bg600} ${color?.hoverBg700} text-white`;
 
     return (
-        <>
-            <i className='font-medium text-gray-600'>*Ini tampil saat atur hero/banner aja pilihan dark dan light ini</i>
-            <div className="flex justify-around p-1 bg-gray-100 rounded-xl border border-gray-200 mb-4">
-                <button
-                    onClick={() => setThemeMode("Dark")}
-                    className={`flex-1 py-2 px-2 text-sm font-semibold rounded-lg transition-colors ${themeMode === 'Dark' ? `bg-gray-600 text-white shadow-md` : 'text-slate-600'
-                        }`}
-                >
-                    Dark
-                </button>
-                <button
-                    onClick={() => setThemeMode("Light")}
-                    className={`flex-1 py-2 px-2 text-sm font-semibold rounded-lg transition-colors ${themeMode === 'Light' ? `bg-gray-600 text-white shadow-md` : 'text-slate-600'
-                        }`}
-                >
-                    Light
-                </button>
-            </div>
-            <section className={`bg-gradient-to-r ${heroGradient} rounded-3xl shadow-2xl overflow-hidden mb-16 p-8 md:p-16 ${heroTextColor}`}>
-                <div className="flex flex-col md:flex-row items-center justify-between">
-                    <div className="w-full">
-                        <span className={`text-sm font-semibold uppercase tracking-widest ${heroAccentText} mb-2 block`}>{hero?.title}</span>
-                        <h2 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4">{hero?.sub_title}</h2>
-                        <p className={`text-xl mb-8 ${themeMode === 'Dark' ? 'text-cyan-100' : 'text-gray-700'}`}>{hero?.description}</p>
-                        <button className={`font-bold py-3.5 px-10 rounded-full shadow-lg transition duration-300 transform hover:scale-105 ${heroButtonClasses}`}>
-                            {hero?.cta}
-                        </button>
-                    </div>
-                    {
-                        hero?.iconDefault ?
-                            <div className={`${hero?.frame == 'Light' ? 'bg-gray-100' : hero?.frame === 'Dark' && heroButtonClasses} rounded-full w-1/4 hidden sm:grid`}>
-                                <CartIcon className={`${color?.text500} w-full`} />
-                            </div> :
-                            <div className={`${hero?.isFrame == true && hero?.frame == 'Light' ? 'bg-gray-100' : hero?.isFrame == true && hero?.frame === 'Dark' && 'bg-gray-900'} rounded-[12px] p-4 w-1/4 hidden sm:grid`}>
-                                <img src={hero?.image} className="rounded-[8px] w-full max-h-60" />
-                            </div>
-                    }
+        <section className={`bg-gradient-to-r ${heroGradient} rounded-3xl shadow-2xl overflow-hidden mb-16 p-8 md:p-16 ${heroTextColor}`}>
+            <div className="flex flex-col md:flex-row items-center justify-between">
+                <div className="w-full">
+                    <span className={`text-sm font-semibold uppercase tracking-widest ${heroAccentText} mb-2 block`}>{hero?.title}</span>
+                    <h2 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4">{hero?.sub_title}</h2>
+                    <p className={`text-xl mb-8 ${themeMode === 'Dark' ? 'text-cyan-100' : 'text-gray-700'}`}>{hero?.description}</p>
+                    <button className={`font-bold py-3.5 px-10 rounded-full shadow-lg transition duration-300 transform hover:scale-105 ${heroButtonClasses}`}>
+                        {hero?.cta}
+                    </button>
                 </div>
-            </section>
-        </>
-
+                {
+                    hero?.iconDefault ?
+                        <div className={`${hero?.frame == 'Light' ? 'bg-gray-100' : hero?.frame === 'Dark' && heroButtonClasses} rounded-full w-1/4 hidden sm:grid`}>
+                            <CartIcon className={`${color?.text500} w-full`} />
+                        </div> :
+                        <div className={`${hero?.isFrame == true && hero?.frame == 'Light' ? 'bg-gray-100' : hero?.isFrame == true && hero?.frame === 'Dark' && 'bg-gray-900'} rounded-[12px] p-4 w-1/4 hidden sm:grid`}>
+                            <img src={hero?.image} className="rounded-[8px] w-full max-h-60" />
+                        </div>
+                }
+            </div>
+        </section>
     )
 }
 

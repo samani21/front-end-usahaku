@@ -17,9 +17,9 @@ const One = ({ color, dataHero, deleteImage }: Props) => {
             sub_title: dataHero?.sub_title || HeroOld?.sub_title,
             description: dataHero?.description || HeroOld?.description,
             cta: dataHero?.cta || HeroOld?.cta,
-            image: dataHero?.image || HeroOld?.image,
-            isFrame: dataHero?.isFrame || HeroOld?.isFrame,
-            frame: dataHero?.frame || HeroOld?.frame
+            image: dataHero?.image,
+            isFrame: dataHero?.isFrame,
+            frame: dataHero?.frame
         }
         return data
     }, [dataHero])
@@ -45,7 +45,7 @@ const One = ({ color, dataHero, deleteImage }: Props) => {
                 </div>
                 {
                     hero?.image && !deleteImage &&
-                    <div className={`${hero?.isFrame && hero?.frame === 'Light' ? 'bg-gray-100' : hero?.isFrame && hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3  hidden sm:flex item-center justify-center`}>
+                    <div className={`${hero?.frame === 'Light' ? 'bg-gray-100' : hero?.frame === 'Dark' && 'bg-gray-900'} p-1 rounded-[12px] w-1/3  hidden sm:flex item-center justify-center`}>
                         <img src={hero?.image} className=' rounded-[8px]' />
                     </div>
                 }

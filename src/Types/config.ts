@@ -7,7 +7,7 @@ export interface ResHeader {
     span_two?: string;
 }
 
-interface queue {
+export interface queue {
     theme: number;
     color: string;
     span_one?: string;
@@ -26,6 +26,7 @@ interface product {
 
 export interface ResHero {
     theme: number;
+    id: number;
     color: string;
     image?: string;
     frame?: string;

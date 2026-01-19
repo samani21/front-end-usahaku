@@ -30,8 +30,8 @@ const Eight = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
         [history]
     );
     return (
-        <div className='relative'>
-            <header className="sticky top-0 bg-white border-b border-gray-200 shadow-lg z-30">
+        <div className=''>
+            <header className="absolute w-full bg-white border-b border-gray-200 shadow-lg">
                 <div className={`max-w-7xl mx-auto p-4 flex justify-between items-center ${openList && 'shadow-md'}`}>
                     <div className="flex items-center space-x-6">
                         <div className='flex items-center gap-2'>
@@ -140,32 +140,27 @@ const Eight = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                 </div>
             </header>
 
-            <div className="w-full shadow-2xl overflow-hidden">
-                <div className={`p-20 text-center ${bg} ${text} italic h-[541px] sm:h-[700px]`}>
-                    Konten Website...
-                </div>
-                <div className="sm:hidden bg-white border-t border-gray-200 shadow-2xl z-20 p-3">
-                    <div className="flex justify-around p-1 bg-gray-100 rounded-xl border border-gray-200">
-                        <button
-                            onClick={() => setIsService(false)}
-                            className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors ${!isService ? `${color?.bg600} text-white shadow-md` : 'text-slate-600'
-                                }`}
-                        >
-                            Produk
-                        </button>
-                        <button
-                            onClick={() => setIsService(true)}
-                            className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors ${isService ? `${color?.bg600} text-white shadow-md` : 'text-slate-600'
-                                }`}
-                        >
-                            Layanan Jasa Desain
-                        </button>
-                    </div>
+            <div className={`absolute bottom-0 w-full sm:hidden bg-white border-t border-gray-200 shadow-2xl z-20 p-3`}>
+                <div className="flex justify-around p-1 bg-gray-100 rounded-xl border border-gray-200">
+                    <button
+                        onClick={() => setIsService(false)}
+                        className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors ${!isService ? `${color?.bg600} text-white shadow-md` : 'text-slate-600'
+                            }`}
+                    >
+                        Produk
+                    </button>
+                    <button
+                        onClick={() => setIsService(true)}
+                        className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors ${isService ? `${color?.bg600} text-white shadow-md` : 'text-slate-600'
+                            }`}
+                    >
+                        Layanan Jasa Desain
+                    </button>
                 </div>
             </div>
             {
                 openDrawer &&
-                <div className='absolute inset-0 z-40  backdrop-blur-[0px] h-[670px]'>
+                <div className='absolute inset-0 z-40  backdrop-blur-[0px]'>
                     <DrawerEight
                         isOpen={openDrawer ? true : false}
                         onClose={() => setOpenDrawer(null)}

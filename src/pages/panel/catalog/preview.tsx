@@ -22,6 +22,7 @@ const PreviewPage = () => {
 
     const [heroLayout, setHeroLayout] = useState<number | null>(null);
     const [dataHero, setDataHero] = useState<ResHero | null>(null);
+    const [deleteImage, setDeleImage] = useState<boolean>(true);
     useEffect(() => {
         getCalog();
     }, []);
@@ -73,6 +74,7 @@ const PreviewPage = () => {
     }, [dataHero, dataHeader]);
     const hero = useMemo(() => {
         setHeroLayout(dataHero?.theme ?? 0)
+        setDeleImage(dataHero?.image ? false : true)
         const hero: Hero = {
             title: dataHero?.title,
             sub_title: dataHero?.subtitle,
@@ -96,7 +98,7 @@ const PreviewPage = () => {
                     span2={span2} setThemeMode={setThemeMode} frameLogo={frameLogo} />
             }
             <div className={`flex items-start justify-center py-24  ${themeMode === "Dark" ? "bg-gray-900" : "bg-slate-50"} h-full`}>
-                <div className='w-7xl'>
+                <div className='w-7xl px-2 sm:px-0'>
                     {
                         heroLayout &&
                         <HeroConfig
@@ -105,14 +107,15 @@ const PreviewPage = () => {
                             themeMode={themeMode}
                             dataHero={hero}
                             setThemeMode={setThemeMode}
+                            deleteImage={deleteImage}
                         />
                     }
                 </div>
             </div>
-            <div onClick={() => router.replace('/panel/catalog')} className={`hidden sm:grid ${themeMode === "Dark" ? "bg-gray-100" : "bg-gray-900"} absolute cursor-pointer top-4 left-6 p-1 rounded-full`}>
+            <div onClick={() => router.replace('/panel/catalog')} className={`hidden sm:grid ${themeMode === "Dark" ? "bg-gray-100 text-gray-900" : "bg-gray-900 text-gray-100"} absolute cursor-pointer top-4 left-6 p-1 rounded-full z-21`}>
                 <ChevronLeftCircle size={36} />
             </div>
-            <div onClick={() => router.replace('/panel/catalog')} className={`sm:hidden ${themeMode === "Dark" ? "bg-gray-100" : "bg-gray-900"} absolute cursor-pointer bottom-12 right-6 p-1 rounded-full`}>
+            <div onClick={() => router.replace('/panel/catalog')} className={`sm:hidden ${themeMode === "Dark" ? "bg-gray-100 text-gray-900" : "bg-gray-900 text-gray-100"} absolute cursor-pointer bottom-12 right-6 p-1 rounded-full z-21`}>
                 <ChevronLeftCircle size={36} />
             </div>
         </main>

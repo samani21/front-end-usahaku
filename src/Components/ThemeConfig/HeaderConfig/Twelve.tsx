@@ -30,8 +30,8 @@ const Twelve = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
         [history]
     );
     return (
-        <div className='relative'>
-            <header className="sticky top-0 z-30 bg-white shadow-md">
+        <div className=''>
+            <header className="absolute w-full top-0 z-10 bg-white shadow-md">
                 <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
 
                     <div className='flex items-center gap-2'>
@@ -103,7 +103,7 @@ const Twelve = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                             setOpenDrawer('favorite')
                             setTitle('Daftar Favorit')
                         }}
-                            className="flex items-center justify-start p-3 text-gray-700 rounded-lg hover:bg-orange-50 transition-colors"
+                            className={`flex items-center justify-start p-3 text-gray-700 rounded-lg ${color?.hoverBg50} transition-colors`}
                         >
                             <Heart size={20} className="mr-3" />
                             Favorit
@@ -113,7 +113,7 @@ const Twelve = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                             setOpenDrawer('cart')
                             setTitle('Keranjang Belanja')
                         }}
-                            className="flex items-center justify-start p-3 text-gray-700 rounded-lg hover:bg-orange-50 transition-colors"
+                            className={`flex items-center justify-start p-3 text-gray-700 rounded-lg ${color?.hoverBg50} transition-colors`}
                         >
                             <ShoppingCart size={20} className="mr-3" />
                             Pesananku
@@ -123,7 +123,7 @@ const Twelve = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                             setOpenDrawer('history')
                             setTitle('Keranjang Belanja')
                         }}
-                            className="flex items-center justify-start p-3 text-gray-700 rounded-lg hover:bg-orange-50 transition-colors"
+                            className={`flex items-center justify-start p-3 text-gray-700 rounded-lg ${color?.hoverBg50} transition-colors`}
                         >
                             <Clock size={20} className="mr-3" />
                             Riwayat
@@ -132,14 +132,10 @@ const Twelve = ({ color, bg, text, logo, span1, span2, frameLogo }: Props) => {
                     </div>
                 </div>
             </header>
-            <div className="w-full shadow-2xl overflow-hidden">
-                <div className={`p-20 text-center ${bg} ${text} italic h-[561px] sm:h-[700px]`}>
-                    Konten Website...
-                </div>
-            </div>
+
             {
                 openDrawer &&
-                <div className='absolute inset-0 z-40  backdrop-blur-[0px] h-[670px]'>
+                <div className='absolute inset-0 z-40  backdrop-blur-[0px]'>
                     <DrawerNine
                         isOpen={openDrawer ? true : false}
                         onClose={() => setOpenDrawer(null)}
