@@ -1,0 +1,40 @@
+import { ThemeColorSet } from '@/lib/Theme/ThemeColor';
+import { Heart } from 'lucide-react';
+import React from 'react'
+
+type Props = {
+    color: ThemeColorSet;
+    isBuild?: boolean;
+    isDarkMode: boolean;
+    headline: string;
+    subHeadline: string;
+    ctaText: string;
+    imageHero: string | null
+}
+
+
+const Elevent = ({ color, isDarkMode, headline, subHeadline, ctaText, imageHero }: Props) => {
+    return (
+        <section>
+            <div className={`p-8 rounded-[3rem] transition-all flex flex-col md:flex-row items-center gap-8 ${isDarkMode ? 'bg-slate-900 shadow-inner' : `shadow-sm ${color?.bg50}`}`}>
+
+                {
+                    imageHero &&
+                    <div className={`w-full md:w-1/3 aspect-square rounded-[2rem] overflow-hidden border-8 ${isDarkMode ? "border-slate-800" : "border-white"} rotate-[-4deg]`}>
+                        <img src={imageHero} alt="Hero" className="w-full h-full object-cover" />
+                    </div>
+                }
+                <div className="flex-1 text-center md:text-left">
+                    <h2 className={`text-4xl md:text-5xl font-black ${isDarkMode ? color?.text100 : color?.text900} mb-4`}> {headline}</h2>
+                    <p className={` ${isDarkMode ? color?.text100 : color?.text900} text-lg mb-8`}>{subHeadline}</p>
+                    <div className="flex gap-4 justify-center md:justify-start">
+                        <button className={`px-8 py-4 ${color?.bg600} text-white rounded-full font-bold shadow-lg`}>{ctaText}</button>
+                        {/* <button className="p-4 bg-white dark:bg-slate-800 rounded-full text-orange-600 shadow-sm"><Heart /></button> */}
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+export default Elevent

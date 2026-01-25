@@ -1,0 +1,49 @@
+import { ThemeColorSet } from '@/lib/Theme/ThemeColor';
+import { ShoppingBag, Star } from 'lucide-react';
+import React from 'react'
+
+type Props = {
+    color: ThemeColorSet;
+    isBuild?: boolean;
+    isDarkMode: boolean;
+    headline: string;
+    subHeadline: string;
+    ctaText: string;
+    imageHero: string | null
+    title: string;
+}
+
+
+const One = ({ color, isDarkMode, headline, subHeadline, ctaText, imageHero, title }: Props) => {
+    const Badge = () => (
+        <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${isDarkMode ? `${color?.bg900} ${color?.text400}` : `${color?.bg100} ${color?.text700}`} mb-4`}>
+            <Star className="w-3 h-3 fill-current" /> {title}
+        </div>
+    );
+    return (
+        <section className="group">
+            <div className={`flex flex-col md:flex-row items-center gap-8 rounded-3xl overflow-hidden ${isDarkMode ? 'bg-slate-900' : 'bg-white shadow-xl'}`}>
+                <div className="flex-1 p-8 md:p-12">
+                    <Badge />
+                    <h2 className="text-3xl md:text-5xl font-black mb-4 leading-tight">
+                        {headline}
+                    </h2>
+                    <p className={`${isDarkMode ? 'text-slate-400' : 'text-slate-500'} mb-8 max-w-md`}>
+                        {subHeadline}
+                    </p>
+                    <button className={`px-8 py-4 rounded-xl text-white font-bold flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 ${color?.bg600} `} >
+                        <ShoppingBag className="w-5 h-5" /> {ctaText}
+                    </button>
+                </div>
+                {
+                    imageHero &&
+                    <div className="flex-1 h-80 md:h-[500px] w-full">
+                        <img src={imageHero} alt="Hero" className="w-full h-full object-cover" />
+                    </div>
+                }
+            </div>
+        </section>
+    )
+}
+
+export default One

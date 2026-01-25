@@ -10,38 +10,34 @@ import Sevent from './Sevent';
 import Eight from './Eight';
 import Nine from './Nine';
 import Ten from './Ten';
-import Elevent from './Elevent';
 import Twelve from './Twelve';
+import Elevent from './Elevent';
 import Thirteen from './Thirteen';
 import Fourteen from './Fourteen';
-import Fiveteen from './Fiveteen';
+import Fifteen from './Fifteen';
 type Props = {
     theme: number;
     color: ThemeColorSet;
-    themeMode: string;
-    spanOne?: string;
-    spanTwo?: string;
-    setSidebarOpen: (val: boolean) => void;
-    toggleTheme: () => void;
-    frameType: "circle" | "square" | "none";
-    frameTheme: "dark" | "light";
-    logoImage: string | null
     isBuild?: boolean;
+    isDarkMode: boolean;
+    headline: string;
+    subHeadline: string;
+    ctaText: string;
+    imageHero: string | null
+    title: string;
 }
 
-const HeaderConfig = ({ theme, color, themeMode, spanOne, spanTwo, setSidebarOpen, toggleTheme, frameType, frameTheme, logoImage, isBuild }: Props) => {
+const HeroConfig = ({ theme, color, isBuild, isDarkMode, headline, subHeadline, ctaText, imageHero, title }: Props) => {
 
     const commonProps = {
         color,
-        themeMode,
-        spanOne,
-        spanTwo,
-        setSidebarOpen,
-        toggleTheme,
-        frameType,
-        frameTheme,
-        logoImage,
-        isBuild
+        isBuild,
+        isDarkMode,
+        headline,
+        subHeadline,
+        ctaText,
+        imageHero,
+        title
     };
 
     /* ===================== Numeric Theme ===================== */
@@ -75,10 +71,10 @@ const HeaderConfig = ({ theme, color, themeMode, spanOne, spanTwo, setSidebarOpe
         case 14:
             return <Fourteen {...commonProps} />
         case 15:
-            return <Fiveteen {...commonProps} />
+            return <Fifteen {...commonProps} />
         default:
             return null;
     }
 }
 
-export default HeaderConfig
+export default HeroConfig
