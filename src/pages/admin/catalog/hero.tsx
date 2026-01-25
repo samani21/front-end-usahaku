@@ -9,25 +9,25 @@ import HeroConfig from '@/Components/ThemeConfig/Hero';
 
 
 const listHeader = [
-    { id: 1, name: "Header Satu" },
-    { id: 2, name: "Header Dua" },
-    { id: 3, name: "Header Tiga" },
-    { id: 4, name: "Header Empat" },
-    { id: 5, name: "Header Lima" },
-    { id: 6, name: "Header Enam" },
-    { id: 7, name: "Header Tujuh" },
-    { id: 8, name: "Header Delapan" },
-    { id: 9, name: "Header Sembilan" },
-    { id: 10, name: "Header Sepuluh" },
-    { id: 11, name: "Header Sebelas" },
-    { id: 12, name: "Header Dua belas" },
-    { id: 13, name: "Header Tiga Belas" },
-    { id: 14, name: "Header Empat Belas" },
-    { id: 15, name: "Header Lima Belas" },
+    { id: 1, name: "Classic Split" },
+    { id: 2, name: "Modern Floating Card" },
+    { id: 3, name: "Modern Floating Card" },
+    { id: 4, name: "Rustic Coffee" },
+    { id: 5, name: "Cyber Tech" },
+    { id: 6, name: "Vibrant Foodie" },
+    { id: 7, name: "Elegant Property" },
+    { id: 8, name: "Classic Barber" },
+    { id: 9, name: "Industrial Service" },
+    { id: 10, name: "Soft Laundry" },
+    { id: 11, name: "Playful Pet" },
+    { id: 12, name: "Music Dynamic" },
+    { id: 13, name: "Fine Tailor" },
+    { id: 14, name: "Typo Hero" },
+    { id: 15, name: "Library Grid" },
 ]
 
 export default function HeroPage() {
-    const [headerLayout, setHeaderLayout] = useState<number>();
+    const [heroLayout, setHeroLayout] = useState<number>();
 
     const [title, setTitle] = useState("Rekomendasi Hari Ini");
     const [headline, setHeadline] = useState("PRODUK TERBAIK KAMI");
@@ -177,12 +177,12 @@ export default function HeroPage() {
                         listHeader?.map((lh, i) => (
                             <div className='relative space-y-4'>
                                 {
-                                    headerLayout === lh?.id ?
+                                    heroLayout === lh?.id ?
                                         <div className='flex items-center gap-2 cursor-pointer'>
                                             <CircleCheckBigIcon />
                                             <label className="text-[12px] font-bold uppercase tracking-[0.3em] text-slate-500 block">{lh?.id}. {lh?.name}</label>
                                         </div> :
-                                        <div className='flex items-center gap-2 cursor-pointer' onClick={() => setHeaderLayout(lh?.id)}>
+                                        <div className='flex items-center gap-2 cursor-pointer' onClick={() => setHeroLayout(lh?.id)}>
                                             <Circle />
                                             <label className="text-[12px] font-bold uppercase tracking-[0.3em] text-slate-500 block">{lh?.id}. {lh?.name}</label>
                                         </div>

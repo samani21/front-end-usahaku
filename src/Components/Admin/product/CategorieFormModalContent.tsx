@@ -46,7 +46,7 @@ const CategorieFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Pr
             setCategorieData({
                 name: dataUpdate?.name,
                 image: null,
-                imagePreviewUrl: dataUpdate?.icon,
+                imagePreviewUrl: dataUpdate?.icon ?? '',
             })
         }
     }, [dataUpdate])

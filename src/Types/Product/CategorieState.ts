@@ -23,6 +23,8 @@ export const initialErrors: Errors = {
 
 export interface ResCategorie {
     name: string,
-    icon: string,
+    icon?: string,
     id: number,
+    count?: string;
+    image?: string;
 }
