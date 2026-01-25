@@ -1,5 +1,5 @@
 import { Category, OrderItem, Product } from "./useProductCatalog";
-import { Header, Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Theme/theme";
 import { Armchair, Bed, Lamp, Sofa } from "lucide-react";
 
 export const DUMMY_PRODUCTS_SIX: Product[] = [

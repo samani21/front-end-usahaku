@@ -1,5 +1,5 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
-import { Header, Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Theme/theme";
 
 export const DUMMY_PRODUCTS_TWO: Product[] = [
     {
@@ -93,7 +93,7 @@ export const DUMMY_HERO_TWO: Hero = {
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_lyoTTWPt-5OvkGn5xTKTpJ2EWDWTMwJxA&s',
     isFrame: false,
     frame: "Dark",
-    color:"zinc"
+    color: "zinc"
 }
 
 export const DUMMY_HEADER_TWO: Header = {

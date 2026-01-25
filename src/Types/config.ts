@@ -1,3 +1,5 @@
+import { ResProduct } from "./Product/ProductState";
+
 export interface ResHeader {
     theme: number;
     color: string;
@@ -42,4 +44,5 @@ export interface Catalog {
     queue: queue;
     categorie: categorie;
     product: product;
+    products: ResProduct[];
 }

@@ -1,5 +1,5 @@
 import { Category, OrderItem, Product } from "./useProductCatalog";
-import { Header, Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Theme/theme";
 
 export const DUMMY_PRODUCTS_SEVENT: Product[] = [
     {

@@ -1,5 +1,5 @@
 import { Category, OrderItem, Product } from "./useProductCatalog";
-import { Header, Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Theme/theme";
 import { Scissors, WashingMachine, Zap } from "lucide-react";
 
 export const DUMMY_PRODUCTS_TEN: Product[] = [
@@ -43,7 +43,7 @@ export const DUMMY_PRODUCTS_TEN: Product[] = [
         id: 5, category: 'Laundry',
         isPackage: true,
         name: 'Paket Hemat Bulanan',
-        isFavorite:true,
+        isFavorite: true,
         price: 250000,
         description: 'Gratis 5KG untuk total 50KG.',
         imageUrl: 'https://plus.unsplash.com/premium_photo-1663036970563-99624abc950e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGF1bmRyeXxlbnwwfHwwfHx8MA%3D%3D',

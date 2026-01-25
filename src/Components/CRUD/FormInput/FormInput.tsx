@@ -1,4 +1,4 @@
-import { SelectOption } from '@/lib/Types/Public';
+import { SelectOption } from '@/Types/Public';
 import { AlertTriangle } from 'lucide-react';
 import React, { ChangeEvent } from 'react'
 

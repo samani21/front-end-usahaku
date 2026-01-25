@@ -1,4 +1,3 @@
-import { ResProduct } from '@/lib/Types/Product/ProductState';
 import { Check, Trash2, XCircle } from 'lucide-react'
 import React from 'react'
 

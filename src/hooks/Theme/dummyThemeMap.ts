@@ -10,7 +10,7 @@ import { DUMMY_CATEGORIES_NINE, DUMMY_HEADER_NINE, DUMMY_HERO_NINE, DUMMY_HISTOR
 import { DUMMY_CATEGORIES_TEN, DUMMY_HEADER_TEN, DUMMY_HERO_TEN, DUMMY_HISTORY_TEN, DUMMY_PRODUCTS_TEN } from './ProductTen';
 import { DUMMY_CATEGORIES_ELEVEN, DUMMY_HEADER_ELEVEN, DUMMY_HEADER_TWELVE, DUMMY_HERO_ELEVEN, DUMMY_HISTORY_ELEVEN, DUMMY_PRODUCTS_ELEVEN } from './ProductEleven';
 import { Product, OrderItem, Category } from './useProductCatalog';
-import { Header, Hero } from '@/lib/Types/Theme/theme';
+import { Header, Hero } from '@/lib/Theme/theme';
 import { DUMMY_CATEGORIES_SIX, DUMMY_HEADER_SIX, DUMMY_HERO_SIX, DUMMY_HISTORY_SIX, DUMMY_PRODUCTS_SIX } from './ProductSix';
 
 type DummyThemeData = {

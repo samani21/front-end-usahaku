@@ -1,5 +1,5 @@
 import { Category, OrderItem, Product } from "./useProductCatalog";
-import { Header, Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Theme/theme";
 import { Armchair, Bed, Lamp, Sofa } from "lucide-react";
 
 export const DUMMY_PRODUCTS_FIVE: Product[] = [
@@ -97,7 +97,7 @@ export const DUMMY_HERO_FIVE: Hero = {
     image: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNvZmF8ZW58MHx8MHx8fDA%3D',
     // isFrame: true,
     frame: "Light",
-    color:'slate'
+    color: 'slate'
 }
 
 export const DUMMY_HEADER_FIVE: Header = {

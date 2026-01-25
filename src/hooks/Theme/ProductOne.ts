@@ -1,6 +1,6 @@
 import { ChevronDown, Laptop, Smartphone, Tablet } from "lucide-react";
 import { Category, OrderItem, Product } from "./useProductCatalog";
-import { Header, Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Theme/theme";
 
 export const DUMMY_PRODUCTS_ONE: Product[] = [
     {
@@ -37,7 +37,7 @@ export const DUMMY_PRODUCTS_ONE: Product[] = [
         imageUrl: 'https://media.tatacroma.com/Croma%20Assets/Communication/Wearable%20Devices/Images/276060_0_e4dbrp.png',
         category: 'Aksesoris',
         isService: true,
-        isFavorite:true,
+        isFavorite: true,
         variants: [
             { id: 5, name: 'Tali Karet', priceAdjustment: 0 },
             { id: 6, name: 'Tali Logam', priceAdjustment: 350000 },
@@ -51,7 +51,7 @@ export const DUMMY_PRODUCTS_ONE: Product[] = [
         imageUrl: 'https://www.lg.com/content/dam/channel/wcms/id/monitor/ultrawide/34wr50qk/gallery/gallery/ultrawide-34wr50qk-gallery-04-2010.jpg',
         category: 'Monitor',
         isService: true,
-        isFavorite:true,
+        isFavorite: true,
         variants: [
 
         ],

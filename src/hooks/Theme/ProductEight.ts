@@ -1,5 +1,5 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
-import { Header, Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Theme/theme";
 
 export const DUMMY_PRODUCTS_EIGHT: Product[] = [
     {
@@ -7,7 +7,7 @@ export const DUMMY_PRODUCTS_EIGHT: Product[] = [
         name: "Kopi Arabika Premium",
         price: 125000,
         category: "Makanan & Minuman",
-        isFavorite:true,
+        isFavorite: true,
         description: "Biji kopi Arabika pilihan dari dataran tinggi. Rasa kaya dengan aroma floral dan sedikit sentuhan cokelat. Sangat cocok untuk metode seduh manual seperti V60 atau Chemex. Diproses dengan metode semi-washed untuk mendapatkan keasaman yang seimbang. Kemasan 250g.",
         imageUrl: "https://images.unsplash.com/photo-1668923570518-9eb1f838f19b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a29waSUyMGFyYWJpa2F8ZW58MHx8MHx8fDA%3D",
         variants: [

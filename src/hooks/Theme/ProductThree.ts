@@ -1,5 +1,5 @@
 import { Category, DrawerType, OrderItem, Product } from "./useProductCatalog";
-import { Header, Hero } from "@/lib/Types/Theme/theme";
+import { Header, Hero } from "@/lib/Theme/theme";
 import { Box, CookingPot, Tag, Zap } from "lucide-react";
 
 export const DUMMY_PRODUCTS_THREE: Product[] = [

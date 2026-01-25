@@ -1,6 +1,6 @@
 import { Category, DrawerType, OrderItem, Product } from './useProductCatalog';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Header, Hero } from '@/lib/Types/Theme/theme';
+import { Header, Hero } from '@/lib/Theme/theme';
 import { DEFAULT_DUMMY_THEME, DUMMY_THEME_MAP } from './dummyThemeMap';
 
 /* ===================== Helpers ===================== */

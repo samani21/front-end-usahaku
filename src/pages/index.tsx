@@ -18,7 +18,7 @@ const Pages = () => {
   useEffect(() => {
     setLoading(true)
     if (token) {
-      route?.push('/panel/dashboard')
+      route?.push('/admin/dashboard')
     } else {
       setIsLandingPage(true)
     }
