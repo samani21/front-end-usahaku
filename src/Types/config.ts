@@ -2,9 +2,11 @@ import { ResProduct } from "./Product/ProductState";
 
 export interface ResHeader {
     theme: number;
+    id: number;
     color: string;
     logo?: string;
-    frame?: string;
+    frame?: 'light' | 'dark';
+    type_frame?: "circle" | "square" | "none";
     span_one?: string;
     span_two?: string;
 }
