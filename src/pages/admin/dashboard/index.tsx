@@ -1,12 +1,17 @@
+"use client";
 import React from 'react'
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts'
 import { DollarSign, ShoppingBag, Users, Package, PlusCircle, Tag, Printer } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
 import MainLayout from '../Layout/MainLayout'
 import { Button } from '@/Components/ui/button'
 import StatCard from '@/Components/Admin/Dashboard/StatCard'
 import InfoRow from '@/Components/Admin/Dashboard/InfoRow'
+import dynamic from 'next/dynamic'
 
+const LineChartClient = dynamic(
+    () => import("./Chart/LineChartClient"),
+    { ssr: false }
+);
 export default function Dashboard() {
     const chartData = [
         { name: 'Mon', income: 4000 },
@@ -63,16 +68,7 @@ export default function Dashboard() {
                         <CardTitle>Grafik Pendapatan Mingguan</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="h-64">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <LineChart data={chartData}>
-                                    <XAxis dataKey="name" stroke="#888" />
-                                    <YAxis stroke="#888" />
-                                    <Tooltip />
-                                    <Line type="monotone" dataKey="income" stroke="#4f46e5" strokeWidth={3} dot={{ r: 4 }} />
-                                </LineChart>
-                            </ResponsiveContainer>
-                        </div>
+                        <LineChartClient chartData={chartData} />
                     </CardContent>
                 </Card>
 

@@ -58,14 +58,6 @@ export const menuSidebar: menuSide[] = [
                 href: '/hero'
             },
             {
-                label: 'Antrian',
-                href: '/queue'
-            },
-            {
-                label: 'Produk Rekomendasi',
-                href: '/recomended'
-            },
-            {
                 label: 'Kategori',
                 href: '/categorie'
             },

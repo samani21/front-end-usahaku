@@ -56,30 +56,43 @@ export const initialErrors: Errors = {
 };
 
 export interface Variants {
-    image: string,
+    image?: string,
     name: string,
     id: number,
     product_id: number,
     stock: number,
     price: number,
+    discount_price?: number,
+    percent_discount?: number,
+    final_price: number,
+}
+
+export interface Services {
+    id: number,
+    product_id: number,
+    title: string,
 }
 
 export interface ResProduct {
+    id: number,
     name: string,
     description: string,
     slug: string,
     image: string,
     qrcode: string,
-    has_variant: boolean;
+    has_variant: boolean,
     is_active: boolean
     price: number,
     stock: number,
-    id: number,
     variants: Variants[]
     price_discount?: number,
+    percent_discount?: number,
     final_price?: number,
     is_recomended?: boolean
     title_recomended?: string,
     color_recomended?: string,
-    percent_discount?: number,
+    categori?: string,
+    is_quantity?: boolean,
+    is_service?: boolean,
+    service?: Services[]
 }
