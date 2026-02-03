@@ -33,7 +33,6 @@ export interface ResHero {
     id: number;
     color: string;
     image?: string;
-    frame?: string;
     title?: string;
     subtitle?: string;
     desc?: string;

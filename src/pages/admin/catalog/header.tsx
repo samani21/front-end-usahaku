@@ -147,7 +147,7 @@ export default function HeaderPage() {
 
     return (
         loading ? <Loading /> :
-            <div className='relative'>
+            <div className='relative z-1'>
                 <div className={`sm:sticky z-100 top-0 border-b border-gray-300 p-4 ${themeDark ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
                     <div className="w-full mx-auto">
                         <div className={`border-b border-gray-300`}>

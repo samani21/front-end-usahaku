@@ -37,7 +37,7 @@ const One = ({ color, isDarkMode, headline, subHeadline, ctaText, imageHero, tit
                 </div>
                 {
                     imageHero &&
-                    <div className="flex-1 h-80 md:h-[500px] w-full">
+                    <div className="flex-1 h-80 md:h-[350px] w-full">
                         <img src={imageHero} alt="Hero" className="w-full h-full object-cover" />
                     </div>
                 }

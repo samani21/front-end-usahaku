@@ -16,7 +16,6 @@ type Props = {
 const Thirteen = ({ color, isDarkMode, headline, subHeadline, ctaText, imageHero }: Props) => {
     return (
         <section>
-            <label className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-6 block">13. Fine Tailor</label>
             <div className="grid md:grid-cols-3 gap-8 items-stretch">
                 <div className={`p-8 rounded-2xl ${!imageHero && 'col-span-3'} flex flex-col justify-center ${isDarkMode ? 'bg-slate-900' : color?.bg50}`}>
                     <h2 className="text-3xl font-serif font-bold mb-4">{headline}</h2>
@@ -25,7 +24,7 @@ const Thirteen = ({ color, isDarkMode, headline, subHeadline, ctaText, imageHero
                 </div>
                 {
                     imageHero &&
-                    <div className="md:col-span-2 h-80 md:h-auto rounded-2xl overflow-hidden">
+                    <div className="md:col-span-2 h-80 md:h-[350px] rounded-2xl overflow-hidden">
                         <img src={imageHero} alt="Hero" className="w-full h-full object-cover" />
                     </div>
                 }

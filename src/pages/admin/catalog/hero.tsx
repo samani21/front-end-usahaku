@@ -3,9 +3,12 @@ import MainLayout from '../Layout/MainLayout';
 import { Get } from '@/utils/Get';
 import { color } from '@/lib/Theme/theme';
 import { ThemeColor, ThemeColorSet } from '@/lib/Theme/ThemeColor';
-import { Circle, CircleCheckBigIcon, Moon, Sun, Upload } from 'lucide-react';
+import { Check, Circle, CircleCheckBigIcon, Moon, Sun, Upload } from 'lucide-react';
 import Loading from '@/Components/component/Loading';
 import HeroConfig from '@/Components/ThemeConfig/Hero';
+import { useAlert } from '@/Context/AlertContext';
+import { Post } from '@/utils/Post';
+import { Catalog } from '@/Types/config';
 
 
 const listHeader = [
@@ -27,13 +30,14 @@ const listHeader = [
 ]
 
 export default function HeroPage() {
+    const { showFinalAlert, simulateProcess } = useAlert();
     const [heroLayout, setHeroLayout] = useState<number>();
 
     const [title, setTitle] = useState("Rekomendasi Hari Ini");
     const [headline, setHeadline] = useState("PRODUK TERBAIK KAMI");
     const [subHeadline, setSubHeadline] = useState("Kualitas premium dengan harga yang sangat terjangkau khusus untuk Anda.");
     const [ctaText, setCtaText] = useState("Pesan Sekarang");
-    const [accentColor, setAccentColor] = useState("indigo");
+    const [accentColor, setAccentColor] = useState("zinc");
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -45,6 +49,7 @@ export default function HeroPage() {
 
     useEffect(() => {
         getColorTheme();
+        getCalog();
     }, []);
     const getColorTheme = async () => {
         try {
@@ -84,11 +89,65 @@ export default function HeroPage() {
         return ThemeColor.orange
     }, [accentColor]);
 
+    const handleSubmit = async () => {
+        try {
+            simulateProcess();
+            const formData = new FormData();
+            formData.append('theme', String(heroLayout));
+            formData.append('color', accentColor);
+            formData.append('title', title);
+            formData.append('subtitle', headline);
+            formData.append('desc', subHeadline);
+            formData.append('cta', ctaText);
+            if (heroFile) {
+                formData.append('image', heroFile);
+            }
+            const res = await Post(`/catalog/hero`, formData);
+            if (res) {
+                showFinalAlert('success', 'Berhasil', 'Tambah produk berhasil')
+            }
+        } catch (err: any) {
+            showFinalAlert(
+                'error',
+                'Gagal Koneksi!',
+                err.message
+            );
+            console.log(err.message || "Gagal mengambil data");
+        }
+    };
 
+    const getCalog = async () => {
+        try {
+            setLoading(true);
+            const res = await Get<{ success: boolean; data: Catalog }>('/catalog');
 
+            if (res?.success) {
+                if (res?.data?.hero?.image) {
+                    setImageHero(res?.data?.hero?.image);
+                }
+                if (res?.data?.hero?.title) {
+                    setTitle(res?.data?.hero?.title);
+                }
+                if (res?.data?.hero?.subtitle) {
+                    setHeadline(res?.data?.hero?.subtitle);
+                }
+                if (res?.data?.hero?.desc) {
+                    setSubHeadline(res?.data?.hero?.desc);
+                }
+                if (res?.data?.hero?.cta) {
+                    setCtaText(res?.data?.hero?.cta);
+                }
+
+                setHeroLayout(res?.data?.hero?.theme);
+                setAccentColor(res?.data?.hero?.color);
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
     return (
         loading ? <Loading /> :
-            <div className='relative'>
+            <div className='relative z-1'>
                 <div className={`sm:sticky z-100 top-0 border-b border-gray-300 p-4 ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
                     <div className="w-full mx-auto">
                         <div className="sm:flex items-start gap-4">
@@ -140,6 +199,12 @@ export default function HeroPage() {
                                             className={`p-2 ${isDarkMode ? "bg-slate-800" : "bg-slate-200"} rounded-lg transition-colors`}
                                         >
                                             {isDarkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-slate-600" />}
+                                        </button>
+                                        <button
+                                            onClick={handleSubmit}
+                                            className="flex mb-1 items-center gap-2 p-2 text-sm bg-blue-600 text-white font-semibold hover:bg-blue-800 rounded-md transition-colors"
+                                        >
+                                            <Check className="w-4 h-4" /> Simpan Perubahan
                                         </button>
                                     </div>
 

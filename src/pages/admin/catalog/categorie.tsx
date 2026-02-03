@@ -46,9 +46,10 @@ export default function CategoriePage() {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [listColor, setListColor] = useState<color[]>();
-
+    const [categorie, setCategorie] = useState<ResCategorie[]>();
     useEffect(() => {
         getColorTheme();
+        getCategorie();
     }, []);
     const getColorTheme = async () => {
         try {
@@ -69,8 +70,21 @@ export default function CategoriePage() {
         return ThemeColor.orange
     }, [accentColor]);
 
+    const getCategorie = async () => {
+        try {
+            setLoading(true)
+            const res = await Get<{ success: boolean; data: ResCategorie[]; }>(
+                `/categorie`
+            );
 
-
+            if (res?.success) {
+                setCategorie(res?.data)
+                setLoading(false)
+            }
+        } catch (err: any) {
+            setLoading(false)
+        }
+    }
     return (
         loading ? <Loading /> :
             <div className='relative'>
@@ -114,11 +128,15 @@ export default function CategoriePage() {
                                             <label className="text-[12px] font-bold uppercase tracking-[0.3em] text-slate-500 block">{lh?.id}. {lh?.name}</label>
                                         </div>
                                 }
-                                <CategorieConfig
-                                    theme={lh?.id}
-                                    color={colors}
-                                    categories={categories}
-                                    isDarkMode={isDarkMode} />
+
+                                {
+                                    categorie &&
+                                    <CategorieConfig
+                                        theme={lh?.id}
+                                        color={colors}
+                                        categories={categorie}
+                                        isDarkMode={isDarkMode} />
+                                }
                             </div>
                         ))
                     }

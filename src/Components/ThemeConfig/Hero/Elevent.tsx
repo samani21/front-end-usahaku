@@ -20,7 +20,7 @@ const Elevent = ({ color, isDarkMode, headline, subHeadline, ctaText, imageHero 
 
                 {
                     imageHero &&
-                    <div className={`w-full md:w-1/3 aspect-square rounded-[2rem] overflow-hidden border-8 ${isDarkMode ? "border-slate-800" : "border-white"} rotate-[-4deg]`}>
+                    <div className={`w-full md:w-1/4 aspect-square rounded-[2rem] overflow-hidden border-8 ${isDarkMode ? "border-slate-800" : "border-white"} rotate-[-4deg]`}>
                         <img src={imageHero} alt="Hero" className="w-full h-full object-cover" />
                     </div>
                 }

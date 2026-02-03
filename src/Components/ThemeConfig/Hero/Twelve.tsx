@@ -30,7 +30,7 @@ const Twelve = ({ color, isDarkMode, headline, subHeadline, ctaText, imageHero }
                         <div className="w-full h-full bg-white/20 rounded-full flex items-center justify-center animate-pulse">
                             {
                                 imageHero &&
-                                <img src={imageHero} />
+                                <img src={imageHero}  className='rounded-full'/>
                             }
                         </div>
                     </div>

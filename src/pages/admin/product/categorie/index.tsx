@@ -165,10 +165,10 @@ export default function CategoriePage() {
     const columns: Column<ResCategorie>[] = useMemo(
         () => [
             {
-                key: "icon",
-                label: "Icon",
+                key: "image",
+                label: "Image",
                 width: "200",
-                render: (row) => row?.icon && <img src={row.icon} className="w-32 rounded-md" />,
+                render: (row) => row?.image && <img src={row.image} className="w-32 rounded-md" />,
             },
             { key: "name", label: "Nama Kategori" },
         ],

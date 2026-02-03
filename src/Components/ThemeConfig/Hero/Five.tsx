@@ -33,8 +33,8 @@ const Five = ({ color, headline, subHeadline, ctaText, imageHero }: Props) => {
                     </div>
                     {
                         imageHero &&
-                        <div className="order-1 md:order-2">
-                            <img src={imageHero} alt="Hero" className="w-full h-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]" />
+                        <div className="order-1 md:order-2 ">
+                            <img src={imageHero} alt="Hero" className="w-full h-80 md:h-[350px] object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]" />
                         </div>
                     }
                 </div>
