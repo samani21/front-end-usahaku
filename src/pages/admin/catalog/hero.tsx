@@ -104,7 +104,7 @@ export default function HeroPage() {
             }
             const res = await Post(`/catalog/hero`, formData);
             if (res) {
-                showFinalAlert('success', 'Berhasil', 'Tambah produk berhasil')
+                showFinalAlert('success', 'Berhasil', 'Berhasil atur hero atau banner')
             }
         } catch (err: any) {
             showFinalAlert(

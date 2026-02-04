@@ -18,10 +18,9 @@ export interface queue {
     span_two?: string;
 }
 
-interface categorie {
+export interface categorie {
     theme: number;
     color: string;
-    frame?: "Light" | "Dark" | null;
 }
 interface product {
     theme: number;

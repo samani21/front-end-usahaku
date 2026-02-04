@@ -3,11 +3,14 @@ import MainLayout from '../Layout/MainLayout';
 import { Get } from '@/utils/Get';
 import { color } from '@/lib/Theme/theme';
 import { ThemeColor, ThemeColorSet } from '@/lib/Theme/ThemeColor';
-import { Circle, CircleCheckBigIcon, Coffee, Moon, ShoppingBag, Smartphone, Sun, Upload, Utensils } from 'lucide-react';
+import { Check, Circle, CircleCheckBigIcon, Coffee, Moon, ShoppingBag, Smartphone, Sun, Upload, Utensils } from 'lucide-react';
 import Loading from '@/Components/component/Loading';
 import HeroConfig from '@/Components/ThemeConfig/Hero';
 import CategorieConfig from '@/Components/ThemeConfig/Categorie';
 import { ResCategorie } from '@/Types/Product/CategorieState';
+import { useAlert } from '@/Context/AlertContext';
+import { Post } from '@/utils/Post';
+import { Catalog } from '@/Types/config';
 
 
 const listHeader = [
@@ -29,17 +32,18 @@ const listHeader = [
 ]
 
 
-const categories: ResCategorie[] = [
-    { id: 1, name: "Kopi & Teh", count: "120 Item", image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=400&auto=format&fit=crop" },
-    { id: 2, name: "Fashion", count: "85 Item", image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-    { id: 3, name: "Elektronik", count: "45 Item", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=400&auto=format&fit=crop" },
-    { id: 4, name: "Kuliner", count: "210 Item", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=400&auto=format&fit=crop" },
-    { id: 5, name: "Snack", count: "310 Item", image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c25hY2t8ZW58MHx8MHx8fDA%3D" },
-];
+// const categories: ResCategorie[] = [
+//     { id: 1, name: "Kopi & Teh", count: 120, image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=400&auto=format&fit=crop" },
+//     { id: 2, name: "Fashion", count: 85, image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+//     { id: 3, name: "Elektronik", count: 45, image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=400&auto=format&fit=crop" },
+//     { id: 4, name: "Kuliner", count: 210, image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=400&auto=format&fit=crop" },
+//     { id: 5, name: "Snack", count: 310, image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c25hY2t8ZW58MHx8MHx8fDA%3D" },
+// ];
 
 
 export default function CategoriePage() {
-    const [headerLayout, setHeaderLayout] = useState<number>();
+    const { showFinalAlert, simulateProcess } = useAlert();
+    const [categorieLayout, setCategorieLayout] = useState<number>();
 
     const [accentColor, setAccentColor] = useState("indigo");
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -50,6 +54,7 @@ export default function CategoriePage() {
     useEffect(() => {
         getColorTheme();
         getCategorie();
+        getCalog()
     }, []);
     const getColorTheme = async () => {
         try {
@@ -85,9 +90,47 @@ export default function CategoriePage() {
             setLoading(false)
         }
     }
+
+    const getCalog = async () => {
+        try {
+            setLoading(true);
+            const res = await Get<{ success: boolean; data: Catalog }>('/catalog');
+
+            if (res?.success) {
+
+                setCategorieLayout(res?.data?.categorie?.theme);
+                setAccentColor(res?.data?.categorie?.color);
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    const handleSubmit = async () => {
+        try {
+            simulateProcess();
+            const formData = new FormData();
+            formData.append('theme', String(categorieLayout));
+            formData.append('color', accentColor);
+
+            const res = await Post(`/catalog/categorie`, formData);
+            if (res) {
+                showFinalAlert('success', 'Berhasil', 'Berhasil atur kategori')
+            }
+        } catch (err: any) {
+            showFinalAlert(
+                'error',
+                'Gagal Koneksi!',
+                err.message
+            );
+            console.log(err.message || "Gagal mengambil data");
+        }
+    };
+
     return (
         loading ? <Loading /> :
-            <div className='relative'>
+            <div className='relative z-1'>
                 <div className={`sm:sticky z-100 top-0 ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'} p-2`}>
                     <div className="space-y-1">
                         <label className="text-[10px] font-bold uppercase text-gray-500">Warna Aksen</label>
@@ -105,12 +148,20 @@ export default function CategoriePage() {
                                 )
                             })}
                         </div>
-                        <button
-                            onClick={() => setIsDarkMode(!isDarkMode)}
-                            className={`p-2 ${isDarkMode ? "bg-slate-800" : "bg-slate-200"} rounded-lg transition-colors`}
-                        >
-                            {isDarkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-slate-600" />}
-                        </button>
+                        <div className='flex items-center gap-4'>
+                            <button
+                                onClick={() => setIsDarkMode(!isDarkMode)}
+                                className={`p-2 ${isDarkMode ? "bg-slate-800" : "bg-slate-200"} rounded-lg transition-colors`}
+                            >
+                                {isDarkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-slate-600" />}
+                            </button>
+                            <button
+                                onClick={handleSubmit}
+                                className="flex mb-1 items-center gap-2 p-2 text-sm bg-blue-600 text-white font-semibold hover:bg-blue-800 rounded-md transition-colors"
+                            >
+                                <Check className="w-4 h-4" /> Simpan Perubahan
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className={`py-12 space-y-24 px-2 ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
@@ -118,12 +169,12 @@ export default function CategoriePage() {
                         listHeader?.map((lh, i) => (
                             <div className='relative space-y-4'>
                                 {
-                                    headerLayout === lh?.id ?
+                                    categorieLayout === lh?.id ?
                                         <div className='flex items-center gap-2 cursor-pointer'>
                                             <CircleCheckBigIcon />
                                             <label className="text-[12px] font-bold uppercase tracking-[0.3em] text-slate-500 block">{lh?.id}. {lh?.name}</label>
                                         </div> :
-                                        <div className='flex items-center gap-2 cursor-pointer' onClick={() => setHeaderLayout(lh?.id)}>
+                                        <div className='flex items-center gap-2 cursor-pointer' onClick={() => setCategorieLayout(lh?.id)}>
                                             <Circle />
                                             <label className="text-[12px] font-bold uppercase tracking-[0.3em] text-slate-500 block">{lh?.id}. {lh?.name}</label>
                                         </div>

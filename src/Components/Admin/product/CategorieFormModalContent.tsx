@@ -2,8 +2,10 @@ import FormInput from '@/Components/CRUD/FormInput/FormInput';
 import ImagePreview from '@/Components/CRUD/FormInput/ImagePreview';
 import { validateForm } from '@/Components/CRUD/FormInput/validateForm';
 import { CategorieForm, Errors, initialCategorieState, initialErrors, ResCategorie } from '@/Types/Product/CategorieState';
-import { ImageIcon, NotebookPen, Plus, Save, XCircle } from 'lucide-react';
+import { getCroppedImg } from '@/utils/cropImage';
+import { AlertTriangle, Check, ImageIcon, NotebookPen, Plus, Save, Scissors, XCircle } from 'lucide-react';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import Cropper from 'react-easy-crop';
 
 type Props = {
     isOpen: boolean;
@@ -15,23 +17,43 @@ type Props = {
 const CategorieFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Props) => {
     const [CategorieData, setCategorieData] = useState<CategorieForm>(initialCategorieState);
     const [errors, setErrors] = useState<Errors>(initialErrors);
+
+    const [imageToCrop, setImageToCrop] = useState<string | null>(null);
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+    const [isCropping, setIsCropping] = useState(false);
+
     const resetForm = useCallback(() => {
-        // Membersihkan URL pratinjau utama
         if (CategorieData.imagePreviewUrl) URL.revokeObjectURL(CategorieData.imagePreviewUrl);
-        // Membersihkan URL pratinjau varian
         setCategorieData(initialCategorieState);
         setErrors(initialErrors);
+        setImageToCrop(null);
+        setIsCropping(false);
     }, [CategorieData.imagePreviewUrl]);
 
     const validationError = useMemo(() => {
+        const errors = {
+            name: "",
+            imagePreviewUrl: "",
+        };
+
         if (!CategorieData?.name?.trim()) {
-            return {
-                name: "Masukkan nama kategori",
-            };
+            errors.name = "Masukkan nama kategori";
         }
 
-        return null;
+        if (!CategorieData?.imagePreviewUrl?.trim()) {
+            errors.imagePreviewUrl = "Masukkan gambar kategori";
+        }
+
+        // kalau tidak ada error, return null
+        if (!errors.name && !errors.imagePreviewUrl) {
+            return null;
+        }
+
+        return errors;
     }, [CategorieData]);
+
 
     // Efek untuk membersihkan URL saat modal ditutup
     useEffect(() => {
@@ -51,7 +73,7 @@ const CategorieFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Pr
         }
     }, [dataUpdate])
 
-    if (!isOpen) return null;
+
 
     // Penanganan Input Dasar (text/number/textarea)
     const handleCategorieChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -77,26 +99,42 @@ const CategorieFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Pr
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
-        let newPreviewUrl: string | null = null;
-
-        setCategorieData(prev => {
-            // Hapus URL pratinjau lama jika ada
-            if (prev.imagePreviewUrl) URL.revokeObjectURL(prev.imagePreviewUrl);
-
-            if (file) {
-                newPreviewUrl = URL.createObjectURL(file);
-            }
-
-            const newState: CategorieForm = {
-                ...prev,
-                image: file,
-                imagePreviewUrl: newPreviewUrl,
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setImageToCrop(reader.result as string);
+                setIsCropping(true); // Buka UI cropper
             };
-            return newState;
-        });
+            reader.readAsDataURL(file);
+        }
     };
 
+    const onCropComplete = useCallback((_area: any, areaPixels: any) => {
+        setCroppedAreaPixels(areaPixels);
+    }, []);
 
+    const handleApplyCrop = async () => {
+        try {
+            if (imageToCrop && croppedAreaPixels) {
+                const croppedBlob = await getCroppedImg(imageToCrop, croppedAreaPixels);
+                const croppedFile = new File([croppedBlob], "category_image.jpg", { type: 'image/jpeg' });
+                const newPreviewUrl = URL.createObjectURL(croppedBlob);
+
+                setCategorieData(prev => {
+                    if (prev.imagePreviewUrl) URL.revokeObjectURL(prev.imagePreviewUrl);
+                    return {
+                        ...prev,
+                        image: croppedFile,
+                        imagePreviewUrl: newPreviewUrl,
+                    };
+                });
+                setIsCropping(false);
+                setImageToCrop(null);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -119,14 +157,50 @@ const CategorieFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Pr
 
         onSubmit(formData, dataUpdate?.id ?? null);
     };
-    // const isSaveDisabled = CategorieData?.name ? true : false;
-
+    if (!isOpen) return null;
     return (
         // Struktur Modal Backdrop
         <div className="fixed inset-0 z-70 overflow-y-auto bg-gray-900/70 backdrop-blur-xs flex items-center justify-center p-4 transition-opacity duration-300">
             <div
                 className="bg-white rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] w-full max-w-xl max-h-[95vh] overflow-y-auto transform transition-transform duration-300 scale-100 opacity-100 modal-no-scrollbar">
-                {/* Header Modal - Menggunakan warna Zinc tua */}
+
+                {isCropping && imageToCrop && (
+                    <div className="absolute inset-0 z-[100] bg-zinc-900 flex flex-col">
+                        <div className="p-4 bg-zinc-800 text-white flex justify-between items-center">
+                            <span className="flex items-center gap-2"><Scissors size={18} /> Potong Gambar</span>
+                            <div className="flex gap-2">
+                                <button onClick={() => setIsCropping(false)} className="px-3 py-1 bg-gray-600 rounded">Batal</button>
+                                <button onClick={handleApplyCrop} className="px-3 py-1 bg-blue-600 rounded flex items-center gap-1">
+                                    <Check size={16} /> Gunakan
+                                </button>
+                            </div>
+                        </div>
+                        <div className="relative flex-1 bg-zinc-900">
+                            <Cropper
+                                image={imageToCrop}
+                                crop={crop}
+                                zoom={zoom}
+                                aspect={1 / 1} // Atur aspek ratio (1:1 untuk kotak)
+                                onCropChange={setCrop}
+                                onCropComplete={onCropComplete}
+                                onZoomChange={setZoom}
+                            />
+                        </div>
+                        <div className="p-6 bg-zinc-800">
+                            <input
+                                type="range"
+                                value={zoom}
+                                min={1}
+                                max={3}
+                                step={0.1}
+                                aria-labelledby="Zoom"
+                                onChange={(e) => setZoom(Number(e.target.value))}
+                                className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                            />
+                            <p className="text-center text-white text-xs mt-2">Geser untuk Zoom</p>
+                        </div>
+                    </div>
+                )}
                 {
                     dataUpdate ?
                         <div className="sticky top-0 bg-yellow-700 p-5 rounded-t-xl shadow-lg flex justify-between items-center z-10">
@@ -164,9 +238,8 @@ const CategorieFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Pr
                             Informasi Utama
                         </h3>
                         <div className="grid grid-cols-1 gap-6 p-4 bg-gray-50 rounded-xl shadow-inner">
-
                             <FormInput
-                                label="Nama Produk"
+                                label="Nama Kategori"
                                 type="text"
                                 name="name"
                                 value={CategorieData.name}
@@ -174,21 +247,24 @@ const CategorieFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Pr
                                 error={errors.name}
                                 required
                             />
-                            {/* Input Gambar Utama + Pratinjau */}
                             <div className="flex flex-col space-y-1">
-                                <label htmlFor="image" className="text-sm font-medium text-gray-800 flex items-center">
-                                    <ImageIcon size={16} className="mr-1 text-zinc-500" /> Gambar Utama (Opsional)
+                                <label className="text-sm font-medium text-gray-800 flex items-center">
+                                    <ImageIcon size={16} className="mr-1 text-zinc-500" /> Gambar Kategori
                                 </label>
                                 <input
                                     id="image"
                                     type="file"
                                     onChange={handleFileChange}
-                                    className="w-full p-3 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-zinc-200 file:text-zinc-800 hover:file:bg-zinc-300 transition duration-150"
+                                    className="w-full p-3 border border-gray-300 rounded-lg file:mr-4 file:bg-zinc-200"
                                     accept="image/*"
                                 />
                                 <ImagePreview imageUrl={CategorieData.imagePreviewUrl} fileName={CategorieData.image?.name} />
+                                {errors.imagePreviewUrl && (
+                                    <p className="text-xs text-red-500 flex items-center mt-1">
+                                        <AlertTriangle size={14} className="mr-1" /> {errors.imagePreviewUrl}
+                                    </p>
+                                )}
                             </div>
-
                         </div>
                     </section>
 

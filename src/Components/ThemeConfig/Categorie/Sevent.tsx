@@ -16,7 +16,7 @@ const Sevent = ({ color, categories, isDarkMode }: Props) => {
                         <span className="text-4xl font-light opacity-20 group-hover:opacity-100 transition-opacity">0{i + 1}</span>
                         <div>
                             <h3 className="text-2xl font-bold mb-2 group-hover:translate-x-2 transition-transform">{cat.name}</h3>
-                            <p className="text-slate-500 mb-4">{cat.count} Produk premium tersedia.</p>
+                            <p className="text-slate-500 mb-4">{cat.count} tersedia.</p>
                             <span className={`text-xs font-bold tracking-widest uppercase ${color?.text600}`} >Jelajahi Sekarang</span>
                         </div>
                     </div>

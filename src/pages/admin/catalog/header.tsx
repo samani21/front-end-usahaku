@@ -133,7 +133,7 @@ export default function HeaderPage() {
             }
             const res = await Post(`/catalog/header`, formData);
             if (res) {
-                showFinalAlert('success', 'Berhasil', 'Tambah produk berhasil')
+                showFinalAlert('success', 'Berhasil', 'Berhasil atur header')
             }
         } catch (err: any) {
             showFinalAlert(

@@ -16,9 +16,9 @@ const Teen = ({ color, categories, isDarkMode }: Props) => {
                         <div className="flex items-center justify-between relative z-10">
                             <h2 className={`text-4xl md:text-7xl font-bold ${isDarkMode ? "text-gray-100" : "text-gray-700"} uppercase tracking-tighter group-hover:italic transition-all`}>{cat.name}</h2>
                             <div className="hidden md:block w-32 h-20 rounded-xl overflow-hidden scale-0 group-hover:scale-100 transition-transform duration-500">
-                                <img src={cat.image} className="w-full h-full object-cover" alt="" />
+                                <img src={cat.image} className={`w-full h-full object-cover ${isDarkMode && "bg-white"}`} alt="" />
                             </div>
-                            <span className="text-xl font-mono">{cat.count}</span>
+                            <span className="text-xl font-mono">{cat.count} Item</span>
                         </div>
                         <div className={`absolute inset-0 bg-current opacity-0 group-hover:opacity-5 transition-opacity ${color?.text600}`} />
                     </div>

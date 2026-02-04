@@ -14,7 +14,7 @@ const Eight = ({ categories, isDarkMode }: Props) => {
                 {categories.map((cat, i) => (
                     <div key={i} className={`relative aspect-square rounded-[2.5rem] flex flex-col items-center justify-center p-6 text-center shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] ${isDarkMode ? `bg-slate-900` : ""}`}>
                         {/* <div className={`mb-4 p-4 rounded-full ${isDarkMode ? color?.bg800 : color?.bg50} ${color?.text600}`} >{cat.icon}</div> */}
-                        <img src={cat?.image} className="absolute inset-0 w-full h-full rounded-[2.5rem] object-cover grayscale-50" />
+                        <img src={cat?.image} className={`absolute inset-0 w-full h-full rounded-[2.5rem] object-cover grayscale-50 ${isDarkMode && "bg-white"}`} />
                         <div className='w-full bg-black/30 absolute z-10 p-3'>
                             <h3 className="font-bold text-white">{cat.name}</h3>
                         </div>
