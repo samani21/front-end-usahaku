@@ -74,7 +74,7 @@ const Eleven = ({ products, isDarkMode, color }: Props) => {
                 }}
                 isDarkMode={isDarkMode}>
                 <div className="md:w-3/5 h-[400px] md:h-auto">
-                    <img src={product?.image} className="w-full h-full object-cover" alt="" />
+                    <img src={selectedVariant?.image ?? product?.image} className="w-full h-full object-cover" alt="" />
                 </div>
                 <div className="md:w-2/5 p-8 flex flex-col">
                     {/* <div className="flex items-center gap-2 mb-4">
@@ -82,7 +82,11 @@ const Eleven = ({ products, isDarkMode, color }: Props) => {
                         <span className="text-xs font-bold opacity-40">(128 Ulasan)</span>
                     </div> */}
                     <h2 className="text-2xl font-black mb-2">{product?.name}</h2>
-                    <div className={`text-xl font-bold ${color?.text500} mb-6`}>{formatIDR(product?.final_price ?? 0)}</div>
+                    {
+                        product?.price_discount ?
+                            <div className={`text-xl font-bold ${color?.text500} mb-6 line-through`}>{formatIDR(product?.price ?? 0)}</div> :
+                            <div className={`text-xl font-bold ${color?.text500} mb-6 `}>{formatIDR(product?.price ?? 0)}</div>
+                    }
                     <div className="flex-1 overflow-y-auto pr-2 mb-6 space-y-4">
                         <p className="text-sm opacity-60 leading-relaxed">{product?.description}</p>
                         {/* <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 text-xs italic opacity-80">
@@ -91,13 +95,13 @@ const Eleven = ({ products, isDarkMode, color }: Props) => {
                     </div>
                     <div className={`pt-6 border-t ${isDarkMode ? "border-slate-800" : "border-slate-200"} space-y-4`}>
                         <div>
-                            {product?.variants && product?.variants?.length > 0 &&
-                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
+                            {product?.variants && product?.variants?.length > 0 ?
+                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} /> : ""
                             }
                             <div className='flex items-end justify-between gap-2'>
                                 {
-                                    product && product?.is_quantity &&
-                                    <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                    product && product?.is_quantity ?
+                                        <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                                 }
                                 <div className='mt-2'>
                                     <p className={`font-semibold ${isDarkMode ? "text-gray-100" : "text-gray-700"}`}>Total</p>

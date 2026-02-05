@@ -117,29 +117,35 @@ const Twelve = ({ products, isDarkMode, color }: Props) => {
                 <div className="w-full p-5 sm:p-10 flex flex-col gap-10">
                     <div className={`sm:flex justify-between items-center pb-6 border-b ${isDarkMode ? "border-slate-800" : "border-slate-300"}`}>
                         <h2 className="text-3xl font-black tracking-tighter">{product?.name}</h2>
-                        <div className={`text-2xl font-black ${color?.text500}`}>{formatIDR(product?.final_price ?? 0)}</div>
+                        {product?.price ?
+                            <div className={`text-2xl font-black ${color?.text500} line-through`}>{formatIDR(product?.price ?? 0)}</div> :
+                            <div className={`text-2xl font-black ${color?.text500}`}>{formatIDR(product?.price ?? 0)}</div>
+                        }
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="md:col-span-1 rounded-3xl overflow-hidden h-full min-h-[200px] shadow-xl">
-                            <img src={product?.image} className="w-full h-full object-cover" alt="" />
+                    <div className="grid grid-cols-1 md:flex gap-6 items-center justify-center">
+                        <div className="md:col-span-1 rounded-3xl overflow-hidden w-full h-full min-h-[200px] shadow-xl">
+                            <img src={selectedVariant?.image ?? product?.image} className="sm:w-full sm:h-72 object-cover" alt="" />
                         </div>
-                        <div className="md:col-span-1 grid grid-cols-1  gap-6">
-                            <div className={`p-6 rounded-3xl ${isDarkMode ? "bg-slate-800" : "bg-slate-50"} space-y-3`}>
-                                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500"><Tag size={20} /></div>
-                                <h4 className="font-black text-xs uppercase opacity-40">Deskripsi</h4>
-                                <p className="text-xs leading-relaxed opacity-60">{product?.description}</p>
+                        {
+                            product?.description &&
+                            <div className="grid grid-cols-1 sm:w-full gap-6">
+                                <div className={`p-6 rounded-3xl ${isDarkMode ? "bg-slate-800" : "bg-slate-50"} space-y-3`}>
+                                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500"><Tag size={20} /></div>
+                                    <h4 className="font-black text-xs uppercase opacity-40">Deskripsi</h4>
+                                    <p className="text-xs leading-relaxed opacity-60">{product?.description}</p>
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                     <div className={`flex flex-col md:flex-row sm:items-end justify-between gap-6 pt-6 border-t ${isDarkMode ? "border-slate-800" : "border-slate-300"}`}>
                         <div>
-                            {product?.variants && product?.variants?.length > 0 &&
-                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
+                            {product?.variants && product?.variants?.length > 0 ?
+                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} /> : ""
                             }
                             <div className='flex items-end justify-between gap-2'>
                                 {
-                                    product && product?.is_quantity &&
-                                    <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                    product && product?.is_quantity ?
+                                        <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                                 }
                                 <div className='mt-2'>
                                     <p className={`font-semibold ${isDarkMode ? "text-gray-100" : "text-gray-700"}`}>Total</p>

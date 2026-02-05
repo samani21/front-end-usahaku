@@ -68,14 +68,20 @@ const One = ({ products, isDarkMode, color }: Props) => {
                 }}
                 isDarkMode={isDarkMode}>
                 <div className="md:w-1/2 h-64 md:h-auto overflow-hidden">
-                    <img src={product?.image} className="w-full h-full object-cover" alt={product?.name} />
+                    <img src={selectedVariant?.image ?? product?.image} className="w-full h-full object-cover" alt={product?.name} />
                 </div>
                 <div className="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
-                    <span className={`px-3 py-1 ${color?.text600} ${color?.bg100} text-[10px] font-black rounded-full w-fit uppercase tracking-widest`}>{product?.categori}</span>
+                    {
+                        product?.categori ?
+                            <span className={`px-3 py-1 ${color?.text600} ${color?.bg100} text-[10px] font-black rounded-full w-fit uppercase tracking-widest`}>{product?.categori}</span> : ""
+                    }
                     <h2 className="text-4xl font-black tracking-tight">{product?.name}</h2>
                     <div className="flex items-baseline gap-3">
                         <span className={`text-3xl font-black text-blue-600`}>{formatIDR(product?.final_price ?? 0)}</span>
-                        <span className="text-lg opacity-30 line-through">{formatIDR(product?.price ?? 0)}</span>
+                        {
+                            product?.price_discount &&
+                            <span className="text-lg opacity-30 line-through">{formatIDR(product?.price ?? 0)}</span>
+                        }
                     </div>
                     {product?.variants && product?.variants?.length > 0 &&
                         <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
@@ -84,15 +90,19 @@ const One = ({ products, isDarkMode, color }: Props) => {
                     <div className={`space-y-4 pt-4 border-t ${isDarkMode ? 'border-slate-800' : 'border-slate-400'}`}>
                         <div className='md:flex justify-between'>
                             {
-                                product && product.is_quantity &&
-                                <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                product && product.is_quantity ?
+                                    <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                             }
                             {
                                 selectedVariant && product && product.is_quantity ?
                                     <p className={`text-3xl font-black text-right text-blue-600`}>{formatIDR((selectedVariant?.final_price ?? 0) * quantity)}</p> :
-                                    product && product.is_quantity &&
-                                    <p className={`text-3xl font-black text-right text-blue-600`}>{formatIDR((product?.final_price ?? 0) * quantity)}</p>
+                                    product && product.is_quantity ?
+                                        <p className={`text-3xl font-black text-right text-blue-600`}>{formatIDR((product?.final_price ?? 0) * quantity)}</p> : ""
                             }
+                        </div>
+                        <div>
+                            <p>Total</p>
+                            <p className='font-semibold'>{formatIDR((selectedVariant?.final_price ?? product?.final_price ?? 0) * quantity)}</p>
                         </div>
                         <button disabled={disableButton} onClick={() => setActiveAlert(true)} className={`w-full disabled:bg-gray-600 py-4 ${color?.bg600} text-white rounded-2xl font-black shadow-lg shadow-blue-500/30`}>BELI SEKARANG</button>
                     </div>

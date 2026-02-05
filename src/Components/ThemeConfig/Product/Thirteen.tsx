@@ -75,7 +75,7 @@ const Thirteen = ({ products, isDarkMode, color }: Props) => {
                 isDarkMode={isDarkMode}>
                 <div className="w-full flex flex-col md:flex-row">
                     <div className="md:w-1/2 p-6 md:p-12 space-y-12 overflow-auto no-scrollbar">
-                        <img src={product?.image} className="sm:hidden rounded-[24px] w-full h-full object-cover" alt="" />
+                        <img src={selectedVariant?.image ?? product?.image} className="sm:hidden rounded-[24px] w-full h-full object-cover" alt="" />
                         <div className="space-y-4">
                             {
                                 product?.categori &&
@@ -85,7 +85,7 @@ const Thirteen = ({ products, isDarkMode, color }: Props) => {
                         </div>
                         <div className="space-y-2">
                             {/* <p className="text-2xl font-serif italic leading-relaxed opacity-80">"Kualitas bukan sekadar janji, tapi sebuah warisan yang kami tuangkan dalam setiap produk."</p> */}
-                            <p className="text-md opacity-50 leading-relaxed max-w-sm">{product?.description}</p>
+                            <p className="text-sm opacity-50 leading-relaxed max-w-sm">{product?.description}</p>
                         </div>
                         <div className="space-y-8">
                             <div className="flex items-baseline gap-4">
@@ -96,13 +96,13 @@ const Thirteen = ({ products, isDarkMode, color }: Props) => {
                                 }
                             </div>
                             <div>
-                                {product?.variants && product?.variants?.length > 0 &&
-                                    <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
+                                {product?.variants && product?.variants?.length > 0 ?
+                                    <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} /> : ""
                                 }
                                 <div className='flex items-end justify-between gap-2'>
                                     {
-                                        product && product?.is_quantity &&
-                                        <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                        product && product?.is_quantity ?
+                                            <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                                     }
                                     <div className='mt-2'>
                                         <p className={`font-semibold ${isDarkMode ? "text-gray-100" : "text-gray-700"}`}>Total</p>
@@ -114,7 +114,7 @@ const Thirteen = ({ products, isDarkMode, color }: Props) => {
                         </div>
                     </div>
                     <div className="hidden sm:grid md:w-1/2 relative min-h-[400px]">
-                        <img src={product?.image} className="absolute inset-0 w-full h-full object-cover" alt="" />
+                        <img src={selectedVariant?.image ?? product?.image} className="absolute inset-0 w-full h-full object-cover" alt="" />
                         {product?.categori &&
                             <div className={`absolute top-12 left-0 -ml-8 px-8 py-4 ${isDarkMode ? "bg-slate-900" : 'bg-white'} shadow-2xl rounded-2xl font-black italic text-xl transform -rotate-6`}>{product?.categori}</div>
                         }

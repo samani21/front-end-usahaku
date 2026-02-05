@@ -75,7 +75,7 @@ const Six = ({ products, isDarkMode, color }: Props) => {
                 isDarkMode={isDarkMode}>
                 <div className={`w-full p-4 md:p-8 flex flex-col md:flex-row gap-8 ${color?.bg400} text-black`}>
                     <div className="md:w-1/2 border-[8px] border-black shadow-[12px_12px_0px_rgba(0,0,0,1)] bg-white overflow-hidden">
-                        <img src={product?.image} className="w-full h-full aspect-square object-cover" alt="" />
+                        <img src={selectedVariant?.image ?? product?.image} className="w-full h-full aspect-square object-cover" alt="" />
                     </div>
                     <div className="md:w-1/2 flex flex-col justify-center space-y-8">
                         <h2 className="text-4xl font-black uppercase italic tracking-tighter leading-none">{product?.name}</h2>
@@ -87,15 +87,15 @@ const Six = ({ products, isDarkMode, color }: Props) => {
                             <p>{formatIDR(product?.final_price ?? 0)}</p>
                         </div>
                         <p className="font-bold text-lg leading-tight border-l-8 border-black pl-6">{product?.description}</p>
-                        {product?.variants && product?.variants?.length > 0 &&
+                        {product?.variants && product?.variants?.length > 0 ?
                             <div className='bg-black/30  px-4 py-2 rounded-xl'>
                                 <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={true} />
-                            </div>
+                            </div> : ""
                         }
                         <div className='flex items-end justify-between gap-2'>
                             {
-                                product && product?.is_quantity &&
-                                <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                product && product?.is_quantity ?
+                                    <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                             }
                             <div>
                                 <p className='font-semibold text-gray-700'>Total</p>

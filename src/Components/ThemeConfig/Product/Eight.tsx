@@ -86,22 +86,26 @@ const Eight = ({ products, isDarkMode, color }: Props) => {
                 isDarkMode={isDarkMode}>
                 <div className={`w-full p-6 sm:p-12 flex flex-col md:flex-row gap-12 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
                     <div className={`md:w-1/2 aspect-square rounded-[3rem] p-4 ${isDarkMode ? 'shadow-[10px_10px_20px_#0b111e,-10px_-10px_20px_#1e293b]' : 'shadow-[10px_10px_20px_#d1d5db,-10px_-10px_20px_#ffffff]'}`}>
-                        <img src={product?.image} className="w-full h-full object-cover rounded-[2.5rem]" alt="" />
+                        <img src={selectedVariant?.image ?? product?.image} className="w-full h-full object-cover rounded-[2.5rem]" alt="" />
                     </div>
                     <div className="md:w-1/2 flex flex-col justify-center space-y-8">
                         <h2 className="text-4xl font-black opacity-80">{product?.name}</h2>
                         <div className={`p-6 rounded-3xl w-fit ${isDarkMode ? 'shadow-inner bg-slate-950' : 'shadow-inner bg-slate-100'}`}>
-                            <span className="text-3xl font-black opacity-60 italic">{formatIDR(product?.final_price ?? 0)}</span>
+                            {
+                                product?.price_discount ?
+                                    <span className="text-3xl font-black opacity-60 italic line-through">{formatIDR(product?.price ?? 0)}</span> :
+                                    <span className="text-3xl font-black opacity-60 italic">{formatIDR(product?.price ?? 0)}</span>
+                            }
                         </div>
                         <p className="opacity-40 text-sm leading-relaxed">{product?.description}</p>
                         <div>
-                            {product?.variants && product?.variants?.length > 0 &&
-                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
+                            {product?.variants && product?.variants?.length > 0 ?
+                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} /> : ""
                             }
                             <div className='flex items-end justify-between gap-2'>
                                 {
-                                    product && product?.is_quantity &&
-                                    <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                    product && product?.is_quantity ?
+                                        <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                                 }
                                 <div className='mt-2'>
                                     <p className='font-semibold text-gray-700'>Total</p>

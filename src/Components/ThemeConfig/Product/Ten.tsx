@@ -72,7 +72,7 @@ const Ten = ({ products, isDarkMode, color }: Props) => {
                 }}
                 isDarkMode={isDarkMode}>
                 <div className="md:w-3/5 p-6 sm:p-12 space-y-8 flex flex-col justify-center">
-                    <img src={product?.image} className="md:hidden w-full h-full object-cover rounded-[24px]" alt="" />
+                    <img src={selectedVariant?.image ?? product?.image} className="md:hidden w-full h-full object-cover rounded-[24px]" alt="" />
                     <div className="space-y-4">
                         <div className="flex gap-2">
                             <span className={`px-4 py-1 rounded-full ${isDarkMode ? "bg-slate-800" : "bg-slate-100"} text-[10px] font-black uppercase tracking-widest`}>{product?.categori}</span>
@@ -83,26 +83,30 @@ const Ten = ({ products, isDarkMode, color }: Props) => {
                         </div>
                         <h2 className="text-5xl font-black tracking-tight leading-none">{product?.name}</h2>
                     </div>
-                    <p className="text-lg opacity-60 font-medium">{product?.description}</p>
+                    <p className="text-sm opacity-60 font-medium">{product?.description}</p>
                     <div className={`grid grid-cols-2 gap-8 border-y ${isDarkMode ? "border-slate-800" : "border-slate-300"} py-8`}>
                         <div className="space-y-1">
-                            <span className="text-[10px] font-black opacity-30 uppercase tracking-widest">Harga Per Item</span>
-                            <div className="text-2xl font-black">{formatIDR(product?.final_price ?? 0)}</div>
+                            <span className="text-[10px] font-black opacity-70 uppercase tracking-widest">Harga Per Item</span>
+                            {
+                                product?.price_discount ?
+                                    <div className="text-2xl font-black line-through">{formatIDR(product?.price ?? 0)}</div> :
+                                    <div className="text-2xl font-black ">{formatIDR(product?.price ?? 0)}</div>
+                            }
                         </div>
                         <div className="space-y-1">
-                            <span className="text-[10px] font-black opacity-30 uppercase tracking-widest">Ketersediaan</span>
+                            <span className="text-[10px] font-black opacity-70 uppercase tracking-widest">Ketersediaan</span>
                             <div className="text-2xl font-black flex items-center gap-2"><Check size={20} className="text-emerald-500" /> {product?.stock} Unit</div>
                         </div>
                     </div>
                     <div className="grid gap-4">
                         <div>
-                            {product?.variants && product?.variants?.length > 0 &&
-                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
+                            {product?.variants && product?.variants?.length > 0 ?
+                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} /> : ""
                             }
                             <div className='flex items-end justify-between gap-2'>
                                 {
-                                    product && product?.is_quantity &&
-                                    <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                    product && product?.is_quantity ?
+                                        <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                                 }
                                 <div className='mt-2'>
                                     <p className={`font-semibold ${isDarkMode ? "text-gray-100" : "text-gray-700"}`}>Total</p>
@@ -114,7 +118,7 @@ const Ten = ({ products, isDarkMode, color }: Props) => {
                     </div>
                 </div>
                 <div className="hidden md:grid md:w-2/5 h-80 md:h-auto">
-                    <img src={product?.image} className="w-full h-full object-cover" alt="" />
+                    <img src={selectedVariant?.image ?? product?.image} className="w-full h-full object-cover" alt="" />
                 </div>
             </ModalWrapper>
             <AlertWrapper activeAlert={activeAlert} position="top-center">

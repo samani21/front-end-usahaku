@@ -70,11 +70,11 @@ const Two = ({ products, isDarkMode, color }: Props) => {
                 }}
                 isDarkMode={isDarkMode}>
                 <div className="absolute inset-0 grayscale opacity-20 pointer-events-none">
-                    <img src={product?.image} className="w-full h-full object-cover" alt="" />
+                    <img src={selectedVariant?.image ?? product?.image} className="w-full h-full object-cover" alt="" />
                 </div>
                 <div className="relative w-full p-12 flex flex-col items-center text-center max-w-2xl mx-auto space-y-8 overflow-auto">
                     <div className={`sm:w-40 sm:h-40 rounded-[3rem] shadow-2xl border-8 ${isDarkMode ? "border-slate-800" : "border-white"}`}>
-                        <img src={product?.image} className="w-full rounded-[3rem] h-full object-cover" alt="" />
+                        <img src={selectedVariant?.image ?? product?.image} className="w-full rounded-[3rem] h-full object-cover" alt="" />
                     </div>
                     <div className="space-y-2">
                         <h2 className="text-2xl sm:text-5xl font-black tracking-tighter italic uppercase">{product?.name}</h2>
@@ -94,14 +94,14 @@ const Two = ({ products, isDarkMode, color }: Props) => {
                             <div className="text-3xl md:text-4xl font-black">{formatIDR(product?.final_price ?? 0)}</div>
                         </div>
                         {
-                            product && product.is_quantity &&
-                            <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                            product && product.is_quantity ?
+                                <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                         }
                         {
                             selectedVariant && product && product.is_quantity ?
                                 <div className="text-4xl font-black">{formatIDR((selectedVariant?.final_price ?? 0) * quantity)}</div> :
-                                product && product.is_quantity &&
-                                <div className="text-4xl font-black">{formatIDR((product?.final_price ?? 0) * quantity)}</div>
+                                product && product.is_quantity ?
+                                    <div className="text-4xl font-black">{formatIDR((product?.final_price ?? 0) * quantity)}</div> : ""
                         }
                         <button disabled={disableButton} onClick={() => setActiveAlert(true)} className={`w-full py-5 disabled:bg-gray-600  ${isDarkMode ? "bg-white text-black" : "bg-black text-white"} rounded-full font-black uppercase tracking-widest text-sm`}>Masukkan Keranjang</button>
                     </div>

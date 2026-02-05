@@ -69,7 +69,7 @@ const Five = ({ products, isDarkMode, color }: Props) => {
                 isDarkMode={isDarkMode}>
                 <div className="flex flex-col w-full">
                     <div className="relative h-96">
-                        <img src={product?.image} className="w-full h-full object-cover" alt="" />
+                        <img src={selectedVariant?.image ?? product?.image} className="w-full h-full object-cover" alt="" />
                         <div className={`absolute inset-0 bg-gradient-to-t ${isDarkMode ? "from-slate-900" : "from-white"} to-transparent`} />
                     </div>
                     <div className="px-8 pb-12 -mt-20 relative space-y-6 text-center">
@@ -89,12 +89,12 @@ const Five = ({ products, isDarkMode, color }: Props) => {
                             <div className="text-3xl font-black" style={{ color: isDarkMode ? '#60a5fa' : '#2563eb' }}>{formatIDR(product?.final_price ?? 0)}</div>
                         </div>
                         <div className="flex flex-col items-center gap-6">
-                            {product?.variants && product?.variants?.length > 0 &&
-                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
+                            {product?.variants && product?.variants?.length > 0 ?
+                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} /> : ""
                             }
                             {
-                                product && product.is_quantity &&
-                                <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                product && product.is_quantity ?
+                                    <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                             }
                             <button disabled={disableButton} onClick={() => setActiveAlert(true)} className={`w-full disabled:bg-gray-600 max-w-md py-4 rounded-2xl text-white ${isDarkMode ? color?.bg500 : color?.bg900} font-bold uppercase tracking-widest flex items-center justify-center gap-3`}>
                                 <ShoppingCart size={18} /> Tambah Ke Tas

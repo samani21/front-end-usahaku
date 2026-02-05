@@ -1,9 +1,11 @@
 import CategorieConfig from '@/Components/ThemeConfig/Categorie';
 import HeaderConfig from '@/Components/ThemeConfig/Header';
 import HeroConfig from '@/Components/ThemeConfig/Hero';
+import ProductConfig from '@/Components/ThemeConfig/Product';
 import { ThemeColor } from '@/lib/Theme/ThemeColor';
-import { Catalog, categorie, ResHeader, ResHero } from '@/Types/config';
+import { Catalog, categorie, product, ResHeader, ResHero } from '@/Types/config';
 import { ResCategorie } from '@/Types/Product/CategorieState';
+import { ResProduct } from '@/Types/Product/ProductState';
 import { Get } from '@/utils/Get';
 import React, { useEffect, useMemo, useState } from 'react'
 
@@ -17,15 +19,16 @@ const getThemeColor = (color?: string) => {
 const previewPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [header, setHeader] = useState<ResHeader>();
-    const [categorie, setCategorie] = useState<categorie>();
-    const [categories, setCategories] = useState<ResCategorie[]>([]);
     const [hero, setHero] = useState<ResHero>();
+    const [categorie, setCategorie] = useState<categorie>();
+    const [product, setProduct] = useState<product>();
+    const [categories, setCategories] = useState<ResCategorie[]>([]);
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+    const [products, setProducts] = useState<ResProduct[]>([]);
     const [themeDark, setThemeDark] = useState<boolean>(false);
 
     useEffect(() => {
         getCalog();
-        getCategorie()
     }, []);
 
     const getCalog = async () => {
@@ -37,26 +40,15 @@ const previewPage = () => {
                 setHeader(res?.data?.header)
                 setHero(res?.data?.hero)
                 setCategorie(res?.data?.categorie)
+                setCategories(res?.data?.categories);
+                setProduct(res?.data?.product)
+                setProducts(res?.data?.products);
             }
         } finally {
             setLoading(false);
         }
     };
-    const getCategorie = async () => {
-        try {
-            setLoading(true)
-            const res = await Get<{ success: boolean; data: ResCategorie[]; }>(
-                `/categorie`
-            );
 
-            if (res?.success) {
-                setCategories(res?.data)
-                setLoading(false)
-            }
-        } catch (err: any) {
-            setLoading(false)
-        }
-    }
 
     const colorsHeader = useMemo(
         () => getThemeColor(header?.color),
@@ -71,6 +63,10 @@ const previewPage = () => {
     const colorsCategorie = useMemo(
         () => getThemeColor(categorie?.color),
         [categorie?.color]
+    )
+    const colorsProduct = useMemo(
+        () => getThemeColor(product?.color),
+        [product?.color]
     )
 
     return (
@@ -113,6 +109,25 @@ const previewPage = () => {
                                 color={colorsCategorie}
                                 categories={categories ?? []}
                                 isDarkMode={themeDark} />
+                        }
+                        {
+                            product &&
+                            <>
+                                <div className='hidden md:grid'>
+                                    <ProductConfig
+                                        theme={product?.theme}
+                                        color={colorsProduct}
+                                        products={products ?? []}
+                                        isDarkMode={themeDark} />
+                                </div>
+                                <div className='md:hidden'>
+                                    <ProductConfig
+                                        theme={product?.theme}
+                                        color={colorsProduct}
+                                        products={products ?? []}
+                                        isDarkMode={themeDark} />
+                                </div>
+                            </>
                         }
                     </div>
                 </div>

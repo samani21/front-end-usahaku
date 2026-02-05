@@ -53,7 +53,7 @@ const Four = ({ products, isDarkMode, color }: Props) => {
                 <div onClick={() => setProduct(p)} key={i} className="relative h-80 rounded-[2.5rem] overflow-hidden group cursor-pointer">
                     <img src={p?.image} className="absolute inset-0 w-full h-full object-cover grayscale-70" alt="" />
                     <div className={`absolute inset-4 ${isDarkMode ? "bg-black/20" : "bg-black/20"} backdrop-blur-xl border border-white/30 rounded-[2rem] flex flex-col justify-end text-white mt-4`}>
-                        <img src={p?.image} className='rounded-t-[2rem] w-full h-46.5' />
+                        <img src={p?.image} className='rounded-t-[2rem] w-full h-46.5 object-cover ' />
                         <div className='px-6 py-4'>
                             <h3 className="text-xl font-bold">{p?.name}</h3>
                             <p className="font-black">{formatIDR(p?.final_price ?? 0)}</p>
@@ -72,37 +72,37 @@ const Four = ({ products, isDarkMode, color }: Props) => {
                 isDarkMode={isDarkMode}>
                 <div className="w-full p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="md:col-span-2 space-y-6">
-                        <div className="h-80 rounded-[2rem] overflow-hidden">
-                            <img src={product?.image} className="w-full h-full object-cover" alt="" />
+                        <div className="rounded-[2rem] overflow-hidden">
+                            <img src={selectedVariant?.image ?? product?.image} className="w-full h-full object-cover" alt="" />
                         </div>
-                        <div className="grid sm:grid-cols-2 gap-6">
+
+                    </div>
+                    <div className={`${isDarkMode ? "bg-slate-800" : "bg-slate-100"}rounded-[2.5rem]  flex flex-col justify-between`}>
+                        <div className="space-y-4">
+
                             <div className={`p-8 ${isDarkMode ? "bg-slate-800" : "bg-slate-50"} rounded-[2rem]`}>
+                                {
+                                    product?.categori &&
+                                    <div>
+                                        <span className="text-[10px] font-black opacity-60 tracking-widest uppercase">{product?.categori}</span>
+                                        <div className={`h-1 w-10 ${color?.bg600} mt-2`} />
+                                    </div>
+                                }
                                 <h3 className="text-xl font-black mb-2">{product?.name}</h3>
                                 <p className="text-xs opacity-50 line-clamp-3">{product?.description}</p>
                             </div>
                             {product?.percent_discount &&
-                                <div className="p-4 sm:p-8 bg-blue-500 text-white rounded-[2rem] flex flex-col justify-between">
+                                <div className="p-4 bg-blue-500 text-white rounded-[2rem] flex flex-row justify-start gap-2">
                                     <Zap size={32} />
                                     <div className="text-2xl font-black italic">{product?.percent_discount}% OFF</div>
                                 </div>
                             }
-                        </div>
-                    </div>
-                    <div className={`${isDarkMode ? "bg-slate-800" : "bg-slate-100"}rounded-[2.5rem] sm:p-10 flex flex-col justify-between`}>
-                        <div className="space-y-8">
-                            {
-                                product?.categori &&
-                                <div>
-                                    <span className="text-[10px] font-black opacity-60 tracking-widest uppercase">{product?.categori}</span>
-                                    <div className={`h-1 w-10 ${color?.bg600} mt-2`} />
-                                </div>
-                            }
-                            {product?.variants && product?.variants?.length > 0 &&
-                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
+                            {product?.variants && product?.variants?.length > 0 ?
+                                <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} /> : ""
                             }
                             {
-                                product && product.is_quantity &&
-                                <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                product && product.is_quantity ?
+                                    <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                             }
                         </div>
                         <div className="space-y-4 mt-2">

@@ -3,13 +3,16 @@ import MainLayout from '../Layout/MainLayout';
 import { Get } from '@/utils/Get';
 import { color } from '@/lib/Theme/theme';
 import { ThemeColor, ThemeColorSet } from '@/lib/Theme/ThemeColor';
-import { Circle, CircleCheckBigIcon, Moon, Sun } from 'lucide-react';
+import { Check, Circle, CircleCheckBigIcon, Moon, Sun } from 'lucide-react';
 import Loading from '@/Components/component/Loading';
 import ProductConfig from '@/Components/ThemeConfig/Product';
 import { ResProduct } from '@/Types/Product/ProductState';
+import { useAlert } from '@/Context/AlertContext';
+import { Post } from '@/utils/Post';
+import { Catalog } from '@/Types/config';
 
 
-const listHeader = [
+const listProduct = [
     { id: 1, name: "Classic" },
     { id: 2, name: "Minimalist" },
     { id: 3, name: "Floating Bubble" },
@@ -28,7 +31,7 @@ const listHeader = [
 ]
 
 
-const products: ResProduct[] = [
+const productsDefault: ResProduct[] = [
     {
         id: 1,
         name: "Kopi Gayo Premium",
@@ -195,15 +198,18 @@ const products: ResProduct[] = [
 
 
 export default function CategoriePage() {
-    const [headerLayout, setHeaderLayout] = useState<number>();
+    const { showFinalAlert, simulateProcess } = useAlert();
+
+    const [productLayout, setProductLayout] = useState<number>();
     const [accentColor, setAccentColor] = useState("cyan");
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     const [loading, setLoading] = useState<boolean>(false);
     const [listColor, setListColor] = useState<color[]>();
-
+    const [products, setProducts] = useState<ResProduct[]>()
     useEffect(() => {
         getColorTheme();
+        getCalog()
     }, []);
     const getColorTheme = async () => {
         try {
@@ -224,7 +230,41 @@ export default function CategoriePage() {
         return ThemeColor.orange
     }, [accentColor]);
 
+    const getCalog = async () => {
+        try {
+            setLoading(true);
+            const res = await Get<{ success: boolean; data: Catalog }>('/catalog');
 
+            if (res?.success) {
+
+                setProductLayout(res?.data?.product?.theme);
+                setAccentColor(res?.data?.categorie?.color);
+                setProducts(res?.data?.products ?? productsDefault)
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+    const handleSubmit = async () => {
+        try {
+            simulateProcess();
+            const formData = new FormData();
+            formData.append('theme', String(productLayout));
+            formData.append('color', accentColor);
+
+            const res = await Post(`/catalog/product`, formData);
+            if (res) {
+                showFinalAlert('success', 'Berhasil', 'Berhasil atur kategori')
+            }
+        } catch (err: any) {
+            showFinalAlert(
+                'error',
+                'Gagal Koneksi!',
+                err.message
+            );
+            console.log(err.message || "Gagal mengambil data");
+        }
+    };
 
     return (
         loading ? <Loading /> :
@@ -252,19 +292,25 @@ export default function CategoriePage() {
                         >
                             {isDarkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-slate-600" />}
                         </button>
+                        <button
+                            onClick={handleSubmit}
+                            className="flex mb-1 items-center gap-2 p-2 text-sm bg-blue-600 text-white font-semibold hover:bg-blue-800 rounded-md transition-colors"
+                        >
+                            <Check className="w-4 h-4" /> Simpan Perubahan
+                        </button>
                     </div>
                 </div>
                 <div className={`py-12 space-y-24 px-2 ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
                     {
-                        listHeader?.map((lh, i) => (
+                        listProduct?.map((lh, i) => (
                             <div className='relative space-y-4'>
                                 {
-                                    headerLayout === lh?.id ?
+                                    productLayout === lh?.id ?
                                         <div className='flex items-center gap-2 cursor-pointer'>
                                             <CircleCheckBigIcon />
                                             <label className="text-[12px] font-bold uppercase tracking-[0.3em] text-slate-500 block">{lh?.id}. {lh?.name}</label>
                                         </div> :
-                                        <div className='flex items-center gap-2 cursor-pointer' onClick={() => setHeaderLayout(lh?.id)}>
+                                        <div className='flex items-center gap-2 cursor-pointer' onClick={() => setProductLayout(lh?.id)}>
                                             <Circle />
                                             <label className="text-[12px] font-bold uppercase tracking-[0.3em] text-slate-500 block">{lh?.id}. {lh?.name}</label>
                                         </div>
@@ -273,14 +319,14 @@ export default function CategoriePage() {
                                     <ProductConfig
                                         theme={lh?.id}
                                         color={colors}
-                                        products={products}
+                                        products={products ?? []}
                                         isDarkMode={isDarkMode} />
                                 </div>
                                 <div className='md:hidden'>
                                     <ProductConfig
                                         theme={lh?.id}
                                         color={colors}
-                                        products={products?.slice(0, 2)}
+                                        products={products?.slice(0, 2) ?? []}
                                         isDarkMode={isDarkMode} />
                                 </div>
                             </div>

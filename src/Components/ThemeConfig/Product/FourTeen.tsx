@@ -118,7 +118,7 @@ const Fourteen = ({ products, isDarkMode, color }: Props) => {
                     </div>
                 </div> */}
                 <div className="md:w-1/3  text-white flex flex-col justify-between relative sm:border-r-4 border-dashed border-white/20" >
-                    <img src={product?.image} className='h-full w-full object-cover' />
+                    <img src={selectedVariant?.image ?? product?.image} className='h-full w-full object-cover' />
                 </div>
                 <div className="md:w-2/3 p-6 sm:p-12 flex flex-col justify-center gap-8 relative">
                     <div className="absolute top-1/2 -left-4 w-8 h-8 rounded-full bg-slate-900 -translate-y-1/2" />
@@ -131,7 +131,10 @@ const Fourteen = ({ products, isDarkMode, color }: Props) => {
                         <h2 className="text-3xl sm:text-4xl font-black mt-2">{product?.name}</h2>
                     </div>
                     <div className="grid sm:flex items-center gap-4">
-                        <span className={`text-5xl font-black ${color?.text600}`}>{formatIDR(product?.final_price ?? 0)}</span>
+                        {product?.price_discount ?
+                            <span className={`text-5xl font-black ${color?.text600} line-through`}>{formatIDR(product?.price ?? 0)}</span> :
+                            <span className={`text-5xl font-black ${color?.text600}`}>{formatIDR(product?.price ?? 0)}</span>
+                        }
                         {
                             product?.price_discount &&
                             <div className="px-4 py-2 bg-red-100 text-red-600 rounded-xl font-bold text-sm italic">Hemat {formatIDR((product?.price ?? 0) - (product?.final_price ?? 0))}</div>
@@ -139,13 +142,13 @@ const Fourteen = ({ products, isDarkMode, color }: Props) => {
                     </div>
                     <p className="opacity-70 text-sm max-w-md">{product?.description}</p>
                     <div>
-                        {product?.variants && product?.variants?.length > 0 &&
-                            <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
+                        {product?.variants && product?.variants?.length > 0 ?
+                            <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} /> : ""
                         }
                         <div className='flex items-end justify-between gap-2'>
                             {
-                                product && product?.is_quantity &&
-                                <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                                product && product?.is_quantity ?
+                                    <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                             }
                             <div className='mt-2'>
                                 <p className={`font-semibold ${isDarkMode ? "text-gray-100" : "text-gray-700"}`}>Total</p>

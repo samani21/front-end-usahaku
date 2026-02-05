@@ -53,7 +53,6 @@ export default function CategoriePage() {
     const [categorie, setCategorie] = useState<ResCategorie[]>();
     useEffect(() => {
         getColorTheme();
-        getCategorie();
         getCalog()
     }, []);
     const getColorTheme = async () => {
@@ -75,21 +74,6 @@ export default function CategoriePage() {
         return ThemeColor.orange
     }, [accentColor]);
 
-    const getCategorie = async () => {
-        try {
-            setLoading(true)
-            const res = await Get<{ success: boolean; data: ResCategorie[]; }>(
-                `/categorie`
-            );
-
-            if (res?.success) {
-                setCategorie(res?.data)
-                setLoading(false)
-            }
-        } catch (err: any) {
-            setLoading(false)
-        }
-    }
 
     const getCalog = async () => {
         try {
@@ -100,6 +84,7 @@ export default function CategoriePage() {
 
                 setCategorieLayout(res?.data?.categorie?.theme);
                 setAccentColor(res?.data?.categorie?.color);
+                setCategorie(res?.data?.categories);
             }
         } finally {
             setLoading(false);

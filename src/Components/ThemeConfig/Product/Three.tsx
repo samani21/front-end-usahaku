@@ -60,7 +60,7 @@ const Three = ({ products, isDarkMode, color }: Props) => {
                 }}
                 isDarkMode={isDarkMode}>
                 <div className={`md:w-2/5 p-6 sm:p-12 ${isDarkMode ? "bg-slate-800" : "bg-slate-50"} flex flex-col gap-8`}>
-                    <img src={product?.image} className="w-full aspect-square rounded-3xl object-cover shadow-xl" alt="" />
+                    <img src={selectedVariant?.image ?? product?.image} className="w-full aspect-square rounded-3xl object-cover shadow-xl" alt="" />
                     <div className="space-y-4">
                         {
                             product?.service && product?.service?.length > 0 && product?.service?.map((s, i) => (
@@ -81,7 +81,10 @@ const Three = ({ products, isDarkMode, color }: Props) => {
                                         <p className={`${color?.text600} font-bold mt-1`}>Layanan Jasa Tersedia</p> :
                                         <p className={`${color?.text600} font-bold mt-1`}>{product?.categori}</p>
                                 }
-                                <span className="text-1xl font-black mr-4 line-through">{formatIDR(product?.final_price ?? 0)}</span>
+                                {
+                                    product?.price_discount &&
+                                    <span className="text-1xl font-black mr-4 line-through">{formatIDR(product?.price ?? 0)}</span>
+                                }
                                 <span className="text-3xl font-black">{formatIDR(product?.final_price ?? 0)}</span>
                             </div>
                             {
@@ -94,12 +97,12 @@ const Three = ({ products, isDarkMode, color }: Props) => {
                             <span className="text-[10px] font-black uppercase opacity-30 tracking-widest">Pilih Paket Layanan</span>
                             <VariantButtons items={product?.variants} />
                         </div> */}
-                        {product?.variants && product?.variants?.length > 0 &&
-                            <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} />
+                        {product?.variants && product?.variants?.length > 0 ?
+                            <VariantPicker variants={product?.variants} color={color} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} isDarkMode={isDarkMode} /> : ""
                         }
                         {
-                            product && product.is_quantity &&
-                            <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} />
+                            product && product.is_quantity ?
+                                <QtySelector quantity={quantity} setQuantity={setQuantity} isDarkMode={isDarkMode} /> : ""
                         }
                     </div>
                     <div className="sm:flex items-center gap-6 pt-4 " >
