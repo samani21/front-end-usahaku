@@ -255,7 +255,7 @@ const CategorieFormModalContent = ({ isOpen, onClose, onSubmit, dataUpdate }: Pr
                                     id="image"
                                     type="file"
                                     onChange={handleFileChange}
-                                    className="w-full p-3 border border-gray-300 rounded-lg file:mr-4 file:bg-zinc-200"
+                                    className={`w-full p-3 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-zinc-200 file:text-zinc-800 hover:file:bg-zinc-300 transition duration-150`}
                                     accept="image/*"
                                 />
                                 <ImagePreview imageUrl={CategorieData.imagePreviewUrl} fileName={CategorieData.image?.name} />
